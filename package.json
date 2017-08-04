@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "immutable": "^3.8.1",
+    "deep-equal": "^1.0.1",
+    "immu": "^3.0.0",
     "intl": "^1.2.5",
     "invariant": "^2.2.2",
     "material-ui": "^1.0.0-beta.3",
