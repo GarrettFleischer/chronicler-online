@@ -18,6 +18,9 @@
           <option name="BLANK_LINES_AROUND_FUNCTION" value="2" />
           <option name="IMPORT_SORT_MODULE_NAME" value="true" />
         </JSCodeStyleSettings>
+        <MarkdownNavigatorCodeStyleSettings>
+          <option name="RIGHT_MARGIN" value="72" />
+        </MarkdownNavigatorCodeStyleSettings>
         <codeStyleSettings language="JavaScript">
           <option name="BLANK_LINES_AFTER_IMPORTS" value="2" />
           <option name="BLANK_LINES_AROUND_CLASS" value="2" />

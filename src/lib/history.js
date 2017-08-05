@@ -1,5 +1,6 @@
-import immu from 'immu';
 import deepEqual from 'deep-equal';
+import immu from 'immu';
+
 
 export const UNDO = 'lib/history/UNDO';
 export const REDO = 'lib/history/REDO';
@@ -9,7 +10,7 @@ export const REDO = 'lib/history/REDO';
  * @summary             provides a higher order reducer for managing state history
  * @param reducer       the reducer to enhance
  * @param initialState  an optional initial state for the reducer to use
- * @returns {func}      a new reducer that can handle undo and redo actions
+ * @returns {function}  a new reducer that can handle undo and redo actions
  */
 export default function history(reducer, initialState) {
   const historyInitialState = { past: [], present: reducer(initialState), future: [], canUndo: false, canRedo: false };
