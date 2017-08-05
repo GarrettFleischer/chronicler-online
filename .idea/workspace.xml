@@ -6,18 +6,13 @@
     <option name="CUSTOM_SCOPE_NAME" value="My Code" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99f4984b-2769-468e-9b7a-ae552c0bb6eb" name="Default" comment="Added immutable stack with tests.&#10;Added unid with tests.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lib/__tests__/history.test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lib/__tests__/stack.tests.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lib/__tests__/unid.test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/lib/stack.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/backend/reducers/__tests__/mainReducer.test.js" afterPath="$PROJECT_DIR$/src/reducers/__tests__/mainReducer.test.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/backend/reducers/mainReducer.js" afterPath="$PROJECT_DIR$/src/reducers/mainReducer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+    <list default="true" id="99f4984b-2769-468e-9b7a-ae552c0bb6eb" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data/__tests__/core.test.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data/core.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data/initialState.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/data/nodes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/history.js" afterPath="$PROJECT_DIR$/src/lib/history.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lib/unid.js" afterPath="$PROJECT_DIR$/src/lib/unid.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/reducers/mainReducer.js" afterPath="$PROJECT_DIR$/src/reducers/mainReducer.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,8 +29,50 @@
       <file leaf-file-name="mainReducer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="35" lean-forward="false" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+            <state relative-caret-position="119">
+              <caret line="7" column="31" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="initialState.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data/initialState.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="core.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data/core.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="core.test.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/data/__tests__/core.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="663">
+              <caret line="39" column="36" lean-forward="true" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nodes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data/nodes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1666">
+              <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -51,11 +88,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="mainReducer.test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/reducers/__tests__/mainReducer.test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="unid.test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lib/__tests__/unid.test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+            <state relative-caret-position="731">
+              <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -71,7 +118,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="history.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="history.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/lib/history.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
@@ -92,18 +139,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'Type'</find>
-      <find>'Scenes'</find>
-      <find>'Nodes'</find>
-      <find>'Actions'</find>
       <find>++i</find>
       <find>i += 1</find>
       <find>Make</find>
-      <find>Type:</find>
       <find>Id:</find>
       <find>Name:</find>
       <find>Nodes:</find>
-      <find>actions</find>
       <find>LinkId:</find>
       <find>linkId</find>
       <find>Sceneid:</find>
@@ -122,20 +163,23 @@
       <find>Expr:</find>
       <find>'Id'</find>
       <find>'node'</find>
+      <find>Type:</find>
+      <find>:</find>
+      <find>actions</find>
+      <find>});</find>
+      <find>initState</find>
+      <find>const initState = complexState();</find>
     </findStrings>
     <replaceStrings>
-      <replace>Type</replace>
       <replace>Scenes</replace>
       <replace>Nodes</replace>
       <replace>Components</replace>
       <replace>i += 1</replace>
       <replace>++i</replace>
       <replace>make</replace>
-      <replace>type:</replace>
       <replace>id:</replace>
       <replace>name:</replace>
       <replace>nodes:</replace>
-      <replace>components</replace>
       <replace>linkId:</replace>
       <replace>linkId</replace>
       <replace>sceneId:</replace>
@@ -153,6 +197,10 @@
       <replace>scenes:</replace>
       <replace>expr:</replace>
       <replace>Id</replace>
+      <replace>type:</replace>
+      <replace>components</replace>
+      <replace>};</replace>
+      <replace>complexState()</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -188,12 +236,17 @@
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/registerServiceWorker.js" />
         <option value="$PROJECT_DIR$/src/backend/mainReducer.js" />
-        <option value="$PROJECT_DIR$/src/lib/history.js" />
         <option value="$PROJECT_DIR$/src/lib/stack.js" />
         <option value="$PROJECT_DIR$/src/lib/__tests__/stack.tests.js" />
         <option value="$PROJECT_DIR$/src/lib/unid.js" />
         <option value="$PROJECT_DIR$/src/lib/__tests__/history.test.js" />
         <option value="$PROJECT_DIR$/src/lib/__tests__/unid.test.js" />
+        <option value="$PROJECT_DIR$/src/lib/history.js" />
+        <option value="$PROJECT_DIR$/src/data/initialState.js" />
+        <option value="$PROJECT_DIR$/src/data/nodes.js" />
+        <option value="$PROJECT_DIR$/src/reducers/mainReducer.js" />
+        <option value="$PROJECT_DIR$/src/data/core.js" />
+        <option value="$PROJECT_DIR$/src/data/__tests__/core.test.js" />
       </list>
     </option>
   </component>
@@ -223,7 +276,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1352" />
+    <option name="width" value="1468" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -285,26 +338,20 @@
               <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
               <item name="__tests__" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
               <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="__tests__" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
@@ -361,8 +408,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Jest.unid.normal action.handles empty actions">
+  <component name="RunManager" selected="Jest.core">
     <configuration name="Unnamed" type="JavascriptDebugType" factoryName="JavaScript Debug" uri="http://localhost:3000" />
+    <configuration name="core" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/data/__tests__/core.test.js" />
+      <test-names>
+        <test-name value="core" />
+      </test-names>
+    </configuration>
     <configuration name="push" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <working-dir value="$PROJECT_DIR$" />
@@ -383,15 +440,6 @@
         <test-name value="push" />
         <test-name value="is immutable" />
       </test-names>
-    </configuration>
-    <configuration name="test" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="test" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
     </configuration>
     <configuration name="unid" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
@@ -421,15 +469,15 @@
       <item index="2" class="java.lang.String" itemvalue="Jest.push.is immutable" />
       <item index="3" class="java.lang.String" itemvalue="Jest.unid.normal action.handles empty actions" />
       <item index="4" class="java.lang.String" itemvalue="Jest.unid" />
-      <item index="5" class="java.lang.String" itemvalue="npm.test" />
+      <item index="5" class="java.lang.String" itemvalue="Jest.core" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Jest.unid.normal action.handles empty actions" />
-        <item index="1" class="java.lang.String" itemvalue="Jest.unid" />
-        <item index="2" class="java.lang.String" itemvalue="Jest.push.is immutable" />
-        <item index="3" class="java.lang.String" itemvalue="Jest.push" />
-        <item index="4" class="java.lang.String" itemvalue="npm.test" />
+        <item index="0" class="java.lang.String" itemvalue="Jest.core" />
+        <item index="1" class="java.lang.String" itemvalue="Jest.unid.normal action.handles empty actions" />
+        <item index="2" class="java.lang.String" itemvalue="Jest.unid" />
+        <item index="3" class="java.lang.String" itemvalue="Jest.push.is immutable" />
+        <item index="4" class="java.lang.String" itemvalue="Jest.push" />
       </list>
     </recent_temporary>
   </component>
@@ -456,7 +504,7 @@
       <workItem from="1501877996993" duration="4180000" />
       <workItem from="1501903452515" duration="12000" />
       <workItem from="1501903498419" duration="2010000" />
-      <workItem from="1501905616027" duration="3943000" />
+      <workItem from="1501905616027" duration="14573000" />
     </task>
     <task id="LOCAL-00001" summary="Added react-mousetrap for keyboard shortcuts.&#10;Improved layout.">
       <created>1501549778576</created>
@@ -486,10 +534,20 @@
       <option name="project" value="LOCAL" />
       <updated>1501789533233</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added immutable stack with tests.&#10;Added unid with tests.">
+      <created>1501909569390</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1501909569390</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
+    <history-entry file="core - 2017.08.05 at 03h 23m 34s.xml">
+      <configuration name="core" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
     <history-entry file="unid - 2017.08.04 at 21h 30m 43s.xml">
       <configuration name="unid" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
@@ -508,17 +566,20 @@
     <history-entry file="unid_normal_action_handles_empty_actions - 2017.08.04 at 21h 32m 35s.xml">
       <configuration name="unid.normal action.handles empty actions" configurationId="JavaScriptTestRunnerJest" />
     </history-entry>
+    <history-entry file="unid_normal_action_handles_empty_actions - 2017.08.05 at 00h 47m 54s.xml">
+      <configuration name="unid.normal action.handles empty actions" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58218000" />
+    <option name="totallyTimeSpent" value="68848000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1352" height="1047" extended-state="0" />
+    <frame x="-7" y="0" width="1468" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3127854" sideWeight="0.49628845" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22517483" sideWeight="0.49628845" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33150384" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33150384" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16197917" sideWeight="0.5037116" order="2" side_tool="true" content_ui="tabs" />
@@ -584,27 +645,11 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/containers/App/index.js" />
-    <entry file="file://$PROJECT_DIR$/app/components/Component/index.js" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/containers/App/index.js" />
     <entry file="file://$PROJECT_DIR$/app/tests/uniqueId.test.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/react-redux/lib/index.js" />
@@ -634,20 +679,6 @@
     <entry file="file://$PROJECT_DIR$/internals/webpack/webpack.base.babel.js" />
     <entry file="file://$PROJECT_DIR$/internals/webpack/webpack.dll.babel.js" />
     <entry file="file://$PROJECT_DIR$/internals/webpack/webpack.dev.babel.js" />
-    <entry file="file://$PROJECT_DIR$/.eslintignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/__tests__/App.test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -705,14 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducers/__tests__/mainReducer.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
@@ -737,14 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="35" lean-forward="false" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/unid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="608">
@@ -761,19 +776,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/__tests__/unid.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/lib/history.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/__tests__/unid.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="14" lean-forward="false" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/nodes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1666">
+          <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/__tests__/mainReducer.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers/mainReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="31" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/initialState.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/__tests__/core.test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="36" lean-forward="true" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
