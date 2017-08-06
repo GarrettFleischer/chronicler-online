@@ -1,6 +1,3 @@
-import { Enum } from './core';
-
-
 export const DataType = {
   BASE: 'NodeType/BASE',
   SCENE: 'NodeType/SCENE',
