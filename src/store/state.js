@@ -1,7 +1,12 @@
-import { base, cChoice, cIf, cLink, cNext, cText, LinkType, node, scene } from './nodes';
+import { base, cChoice, cIf, cLink, cNext, cText, LinkType, node, scene } from '../data/nodes';
 
 
-const initialState = {
+export function getBase(state) {
+  return state.chronicler.present.unid.data;
+}
+
+
+export const initialState = {
   chronicler: {
     past: [],
     present: {
@@ -99,6 +104,3 @@ function initData() {
   //   ]),
   // ]);
 }
-
-
-export default initialState;

@@ -9,8 +9,6 @@ import rootReducer from '../reducers/reducers';
 const configureStore = (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware();
 
-  console.log(initialState);
-
   return {
     ...createStore(
       rootReducer,
