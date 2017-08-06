@@ -8,8 +8,7 @@ import makeSelectNode from './selectors';
 class Node extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { id } = this.props.match.params;
-    const { node } = this.props.state;
+    const { node } = this.props;
 
     if (node === null)
       return <Redirect to="/404" />;
@@ -26,12 +25,12 @@ class Node extends PureComponent { // eslint-disable-line react/prefer-stateless
 
 Node.propTypes = {
   match: PropTypes.object.isRequired,
-  state: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
 };
 
 const makeMapStateToProps = () => {
   const selectNode = makeSelectNode();
-  return (state, props) => ({ state: selectNode(state, parseInt(props.match.params.id, 10)) });
+  return (state, props) => ({ node: selectNode(state, parseInt(props.match.params.id, 10)) });
 };
 
 

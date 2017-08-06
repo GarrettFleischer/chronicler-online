@@ -18,7 +18,7 @@ export const selectNodeDomain = (state, id) => findById(getBase(state), id, Data
 const makeSelectNode = () => {
   return createSelector(
     selectNodeDomain,
-    (node) => ({ node }),
+    (node) => ({ ...node }),
   );
 };
 export default makeSelectNode;
