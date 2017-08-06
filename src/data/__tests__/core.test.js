@@ -1,5 +1,5 @@
 import { findById } from '../core';
-import { base, cChoice, cIf, cLink, cNext, cText, LinkType, node, scene } from '../nodes';
+import { base, cChoice, cIf, cLink, cNext, cText, DataType, LinkType, node, scene } from '../nodes';
 
 
 describe('core', () => {
@@ -9,6 +9,16 @@ describe('core', () => {
     it('returns null when id not found', () => {
       const result = findById(complexState(), 999);
       expect(result).toEqual(null);
+    });
+
+    it('returns null if id exists but does not match type', () => {
+      const result = findById(complexState(), 18, DataType.NODE);
+      expect(result).toEqual(null);
+    });
+
+    it('can match by type', () => {
+      const result = findById(complexState(), 10, DataType.NODE);
+      expect(result.id).toEqual(10);
     });
 
     it('can find a scene at any index', () => {

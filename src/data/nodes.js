@@ -1,4 +1,5 @@
 export const DataType = {
+  ANY: 'NodeType/ANY',
   BASE: 'NodeType/BASE',
   SCENE: 'NodeType/SCENE',
   NODE: 'NodeType/NODE',
