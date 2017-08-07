@@ -17,19 +17,16 @@ export function listSorted(nodeId, oldIndex, newIndex) {
 
 
 export function nodeReducer(state, action) {
-  let item;
-
-
-  console.log(action);
-
   switch (action.type) {
-    case LIST_SORTED:
-      item = findById(state, action.nodeId, DataType.NODE);
+    case LIST_SORTED: {
+      const item = findById(state, action.nodeId, DataType.NODE);
+      if (item === null) return state;
       return setById(
         state,
         action.nodeId,
         { components: arrayMove(item.components, action.oldIndex, action.newIndex) },
         DataType.NODE);
+    }
 
     default:
       return state;

@@ -24,9 +24,7 @@ const initTestState = { key: 'foo', value: 23 };
 
 
 describe('unid', () => {
-
   describe('normal action', () => {
-
     it('handles empty actions', () => {
       const unidReducer = unid(testReducer, initTestState);
       const expected = { ...initUnidState, data: { ...initTestState, uid: 0 } };
@@ -42,11 +40,9 @@ describe('unid', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
 
   describe('acquire action', () => {
-
     it('handles empty actions', () => {
       const unidReducer = unid(testReducer, initTestState);
       const expected = { ...initUnidState, guid: 1, uid: 1, data: { ...initTestState, uid: 1 } };
@@ -84,11 +80,9 @@ describe('unid', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
 
   describe('release action', () => {
-
     it('handles empty actions', () => {
       const unidReducer = unid(testReducer, initTestState);
       const testState = {
@@ -132,7 +126,5 @@ describe('unid', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
-
 });

@@ -2,9 +2,7 @@ import { empty, peek, pop, push } from '../stack';
 
 
 describe('stack', () => {
-
   describe('push', () => {
-
     it('is immutable', () => {
       const stack = [1, 2, 3];
       const expected = [1, 2, 3];
@@ -20,12 +18,10 @@ describe('stack', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
 
 
   describe('pop', () => {
-
     it('is immutable', () => {
       const stack = [1, 2, 3];
       const expected = [1, 2, 3];
@@ -41,11 +37,9 @@ describe('stack', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
 
   describe('peek', () => {
-
     it('is immutable', () => {
       const stack = [1, 2, 3];
       const expected = [1, 2, 3];
@@ -61,11 +55,9 @@ describe('stack', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
 
   describe('empty', () => {
-
     it('is immutable', () => {
       const stack = [1, 2, 3];
       const expected = [1, 2, 3];
@@ -89,8 +81,6 @@ describe('stack', () => {
 
       expect(result).toEqual(expected);
     });
-
   });
-
 });
 

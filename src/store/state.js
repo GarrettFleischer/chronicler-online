@@ -17,14 +17,15 @@ export const initialState = {
     },
     future: [],
     canUndo: false,
-    canRedo: true,
+    canRedo: false,
   },
 };
 
 
 function initData() {
-  return (
-    base([
+  return {
+    uid: 0,
+    ...base([
 
       scene(1, 'scene 1', [
 
@@ -64,7 +65,9 @@ function initData() {
 
       ]),
 
-    ]));
+    ]),
+  };
+
   // return base([
   //   // SCENE 1
   //   scene(1, 'startup', [
