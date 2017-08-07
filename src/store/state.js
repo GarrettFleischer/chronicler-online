@@ -2,7 +2,7 @@ import { base, cChoice, cIf, cLink, cNext, cText, LinkType, node, scene } from '
 
 
 export function getBase(state) {
-  return state.chronicler.present.unid.data;
+  return state.chronicler.present.data;
 }
 
 
@@ -10,12 +10,10 @@ export const initialState = {
   chronicler: {
     past: [],
     present: {
-      unid: {
-        guid: 0,
-        uid: 0,
-        avail: [],
-        data: initData(),
-      },
+      guid: 0,
+      uid: 0,
+      avail: [],
+      data: initData(),
     },
     future: [],
     canUndo: false,

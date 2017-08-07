@@ -6,9 +6,7 @@
 
 // import styled from 'styled-components';
 
-import DragHandle from 'material-ui-icons/DragHandle';
 import Card, { CardContent } from 'material-ui/Card';
-import Grid from 'material-ui/Grid';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -36,19 +34,11 @@ export default class Component extends React.PureComponent { // eslint-disable-l
 
 
   render() {
-    const { dragHandle, item } = this.props;
+    const { item } = this.props;
     return (
       <Card>
         <CardContent>
-          <Grid container gutter={8}>
-            <Grid item xs={1}>
-              <DragHandle />
-              {/*{dragHandle(<DragHandle />)}*/}
-            </Grid>
-            <Grid item xl>
-              {content(item)}
-            </Grid>
-          </Grid>
+          {content(item)}
         </CardContent>
       </Card>
     );
@@ -57,6 +47,5 @@ export default class Component extends React.PureComponent { // eslint-disable-l
 
 
 Component.propTypes = {
-  dragHandle: PropTypes.func,
   item: PropTypes.object.isRequired,
 };

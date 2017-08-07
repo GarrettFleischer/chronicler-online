@@ -1,5 +1,9 @@
+import MenuIcon from 'material-ui-icons/Menu';
 import AppBar from 'material-ui/AppBar';
+import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
+import IconButton from 'material-ui/IconButton';
+import { createStyleSheet, withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
@@ -7,27 +11,51 @@ import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 
 
+const styleSheet = createStyleSheet({
+  root: {
+    width: '100%',
+  },
+  fullWidth: {
+    flex: 1,
+  },
+  sidebar: {
+    flex: 1,
+    width: '10%',
+  },
+  body: {
+    flexGrow: 1,
+    marginTop: 30,
+  },
+});
+
+
 class App extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { children } = this.props;
+    const { classes, children } = this.props;
 
     return (
-      <div>
+      <div className={classes.root}>
         <AppBar position="static" color="primary">
           <Toolbar>
-            <Typography type="title" color="inherit">
+            <IconButton color="contrast" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography type="title" color="inherit" className={classes.fullWidth}>
               Chronicler
             </Typography>
+            <Button color="contrast">Login</Button>
           </Toolbar>
         </AppBar>
-        <Grid container gutter={8}>
-          <Grid item xs={2} />
-          <Grid item xs={8}>
-            {children}
+        <div className={classes.body}>
+          <Grid container>
+            <Grid item xs />
+            <Grid item xs={10}>
+              {children}
+            </Grid>
+            <Grid item xs />
           </Grid>
-          <Grid item xs={2} />
-        </Grid>
+        </div>
       </div>
     );
   }
@@ -37,7 +65,8 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
 App.propTypes = {
   children: PropTypes.node,
+  classes: PropTypes.object.isRequired,
 };
 
 
-export default withRouter(App);
+export default withStyles(styleSheet)(withRouter(App));

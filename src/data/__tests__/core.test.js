@@ -1,4 +1,4 @@
-import { findById } from '../core';
+import { findById, setById } from '../core';
 import { base, cChoice, cIf, cLink, cNext, cText, DataType, LinkType, node, scene } from '../nodes';
 
 
@@ -48,6 +48,17 @@ describe('core', () => {
     it('can find a link', () => {
       const result = findById(complexState(), 18);
       expect(result.id).toEqual(18);
+    });
+
+  });
+
+  describe('setById', () => {
+
+    it('can set in a node', () => {
+      const result = setById(complexState(), 13, { id: 999 }, DataType.NODE);
+      const updatedNode = findById(result, 999, DataType.NODE);
+
+      expect(updatedNode.id).toEqual(999);
     });
 
   });
