@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomePage from '../components/HomePage';
+import HomePage from '../components/home/index';
 import NotFound from '../components/NotFound';
-import Node from '../containers/Node/Node';
+import Node from '../containers/Node';
 
 
 const Main = () => (

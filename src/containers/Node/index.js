@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Component from '../../components/component';
 import makeSelectNode from './selectors';
 
 
@@ -15,7 +16,8 @@ class Node extends PureComponent { // eslint-disable-line react/prefer-stateless
 
     return (
       <h1>
-        {JSON.stringify(node)}
+        {node.components.map((item) => <Component item={item} />)}
+        {/*{JSON.stringify(node)}*/}
       </h1>
     );
   }

@@ -6,15 +6,6 @@ import { getBase } from '../../store/state';
 
 export const selectNodeDomain = (state, id) => findById(getBase(state), id, DataType.NODE);
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by Node
- */
-
 const makeSelectNode = () => {
   return createSelector(
     selectNodeDomain,

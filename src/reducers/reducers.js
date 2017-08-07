@@ -1,6 +1,9 @@
+import { intlReducer } from 'react-intl-redux';
+
+
 export default function rootReducer(state, action) {
-  switch (action) {
-    default:
-      return state;
-  }
+  return {
+    ...state,
+    intl: intlReducer(state.intl, action),
+  };
 }
