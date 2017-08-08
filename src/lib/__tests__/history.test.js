@@ -24,6 +24,42 @@ const initTestState = { key: 'foo', value: 23 };
 
 
 describe('history', () => {
+  describe('undo', () => {
+    it('does nothing if the given number of changes is less than 1', () => {
+
+    });
+
+    it('does nothing if the given number of changes exceed the size of the past states', () => {
+
+    });
+
+    it('undoes 1 action', () => {
+
+    });
+
+    it('undoes multiple actions', () => {
+
+    });
+  });
+
+  describe('redo', () => {
+    it('does nothing if the given number of changes is less than 1', () => {
+
+    });
+
+    it('does nothing if the given number of changes exceed the size of the future states', () => {
+
+    });
+
+    it('undoes 1 action', () => {
+
+    });
+
+    it('undoes multiple actions', () => {
+
+    });
+  });
+
   describe('merge', () => {
     it('can merge into present state if the previous action was of the same type', () => {
       const historyReducer = history(testReducer, initTestState);
@@ -40,6 +76,14 @@ describe('history', () => {
       result = historyReducer(result, merge(setValue(7)));
 
       expect(result).toEqual(expected);
+    });
+
+    it('ignores undo and redo actions', () => {
+
+    });
+
+    it('will not merge actions of different types', () => {
+
     });
   });
 });
