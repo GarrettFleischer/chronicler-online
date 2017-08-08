@@ -33,7 +33,7 @@ describe('history', () => {
         past: [initTestState],
         present,
         canUndo: true,
-        lastActionType: SET_VALUE
+        lastActionType: SET_VALUE,
       };
 
       let result = historyReducer({ ...initHistoryState, present: initTestState }, setValue(15));

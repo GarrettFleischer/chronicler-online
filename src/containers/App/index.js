@@ -64,7 +64,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
 
 App.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
