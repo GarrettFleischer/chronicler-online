@@ -4,31 +4,30 @@ import { peek, pop, push } from './stack';
 
 export const UNDO = 'history/UNDO';
 export const REDO = 'history/REDO';
+export const MERGE = 'history/MERGE';
 
 
 /**
- * @summary             provides a higher order reducer for managing state history
- * @param reducer       the reducer to enhance
- * @param initialState  an optional initial state for the reducer to use
- * @returns {function}  a new reducer that can handle undo and redo actions
+ * @summary                 provides a higher order reducer for managing state history
+ * @param reducer           the reducer to enhance
+ * @param initReducerState  an optional initial state for the reducer to use
+ * @returns {function}      a new reducer that can handle undo and redo actions
  */
-export default function history(reducer, initialState) {
+export default function history(reducer, initReducerState) {
   const historyInitialState = {
-    past: [],
-    present: reducer(initialState, {}),
-    future: [],
-    canUndo: false,
-    canRedo: false,
+    ...initState,
+    present: reducer(initReducerState, {}),
   };
 
   return function historyReducer(state = historyInitialState, action) {
-    const { past, present, future, canUndo, canRedo } = state;
+    const { past, present, future, canUndo, canRedo, lastActionType } = state;
 
     let newPast = past;
     let newPresent = present;
     let newFuture = future;
     let newCanUndo = canUndo;
     let newCanRedo = canRedo;
+    let newLastActionType = lastActionType;
 
     switch (action.type) {
       case UNDO:
@@ -42,6 +41,7 @@ export default function history(reducer, initialState) {
           newCanUndo = newPast.length > 0;
           newCanRedo = true;
         }
+        newLastActionType = action.type;
         break;
 
       case REDO:
@@ -55,6 +55,15 @@ export default function history(reducer, initialState) {
           newCanUndo = true;
           newCanRedo = newFuture.length > 0;
         }
+        newLastActionType = action.type;
+        break;
+
+      case MERGE:
+        newPresent = reducer(present, action.action);
+        if (deepEqual(newPresent, present)) return state;
+        newFuture = [];
+        newCanRedo = false;
+        newLastActionType = action.action.type;
         break;
 
       default:
@@ -65,6 +74,7 @@ export default function history(reducer, initialState) {
         newFuture = [];
         newCanUndo = true;
         newCanRedo = false;
+        newLastActionType = action.type;
         break;
     }
 
@@ -75,6 +85,7 @@ export default function history(reducer, initialState) {
       future: newFuture,
       canUndo: newCanUndo,
       canRedo: newCanRedo,
+      lastActionType: newLastActionType,
     };
   };
 }
@@ -94,3 +105,14 @@ export function redo(changes = 1) {
     changes,
   };
 }
+
+
+export function merge(action) {
+  return {
+    type: MERGE,
+    action,
+  };
+}
+
+
+export const initState = { past: [], present: {}, future: [], canUndo: false, canRedo: false, lastActionType: null };
