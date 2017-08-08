@@ -1,15 +1,13 @@
 import { arrayMove } from 'react-sortable-hoc';
-import { findById, setById } from '../../data/core';
-import { DataType } from '../../data/nodes';
 
 
-export const LIST_SORTED = 'Node/LIST_SORTED';
+export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
 
 
-export function listSorted(nodeId, oldIndex, newIndex) {
+export function nodeComponentsSorted(id, oldIndex, newIndex) {
   return {
-    type: LIST_SORTED,
-    nodeId,
+    type: NODE_COMPONENTS_SORTED,
+    id,
     oldIndex,
     newIndex,
   };
@@ -18,15 +16,13 @@ export function listSorted(nodeId, oldIndex, newIndex) {
 
 export function nodeReducer(state, action) {
   switch (action.type) {
-    case LIST_SORTED: {
-      const item = findById(state, action.nodeId, DataType.NODE);
-      if (item === null) return state;
-      return setById(
-        state,
-        action.nodeId,
-        { components: arrayMove(item.components, action.oldIndex, action.newIndex) },
-        DataType.NODE);
-    }
+    case NODE_COMPONENTS_SORTED:
+      // ignore action if it is not meant for this node
+      if (state.id !== action.id) return state;
+      return {
+        ...state,
+        components: arrayMove(state.components, action.oldIndex, action.newIndex),
+      };
 
     default:
       return state;
