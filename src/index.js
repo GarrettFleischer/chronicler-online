@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -16,15 +17,15 @@ const store = configureStore(initialState);
 
 
 ReactDOM.render((
-  <MuiThemeProvider theme={chroniclerTheme}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App>
-          <MainRoute />
-        </App>
-      </BrowserRouter>
-    </Provider>
-  </MuiThemeProvider>
+    <MuiThemeProvider theme={chroniclerTheme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App>
+            <MainRoute />
+          </App>
+        </BrowserRouter>
+      </Provider>
+    </MuiThemeProvider>
   ),
   document.getElementById('root'),
 );
