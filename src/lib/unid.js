@@ -38,7 +38,7 @@ export default function unid(reducer, initReducerState) {
         break;
     }
 
-    return { ...state, guid: nguid, uid: nuid, avail: navail, data: ndata };
+    return { ...state, guid: nguid, uid: nuid, avail: navail, data: excludeUnidData(ndata) };
   };
 }
 
@@ -58,4 +58,11 @@ export const initState = { guid: 0, uid: 0, avail: [], data: {} };
 
 function updateData(reducer, data, uid, action) {
   return reducer({ ...data, uid }, action);
+}
+
+
+export function excludeUnidData(state) {
+  // noinspection JSUnusedLocalSymbols
+  const { uid, ...data } = state;
+  return data;
 }

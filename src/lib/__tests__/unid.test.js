@@ -27,7 +27,7 @@ describe('unid', () => {
   describe('normal action', () => {
     it('handles empty actions', () => {
       const unidReducer = unid(testReducer, initTestState);
-      const expected = { ...initUnidState, data: { ...initTestState, uid: 0 } };
+      const expected = { ...initUnidState, data: { ...initTestState } };
       const result = unidReducer({ ...initUnidState, data: initTestState }, {});
 
       expect(result).toEqual(expected);
@@ -35,7 +35,7 @@ describe('unid', () => {
 
     it('handles actions with payloads', () => {
       const unidReducer = unid(testReducer, initTestState);
-      const expected = { ...initUnidState, data: { ...initTestState, value: 7, uid: 0 } };
+      const expected = { ...initUnidState, data: { ...initTestState, value: 7 } };
       const result = unidReducer({ ...initUnidState, data: initTestState }, setValue(7));
 
       expect(result).toEqual(expected);
@@ -45,7 +45,7 @@ describe('unid', () => {
   describe('acquire action', () => {
     it('handles empty actions', () => {
       const unidReducer = unid(testReducer, initTestState);
-      const expected = { ...initUnidState, guid: 1, uid: 1, data: { ...initTestState, uid: 1 } };
+      const expected = { ...initUnidState, guid: 1, uid: 1, data: { ...initTestState } };
       const result = unidReducer({ ...initUnidState, data: initTestState }, acquireUid({}));
 
       expect(result).toEqual(expected);
@@ -53,7 +53,7 @@ describe('unid', () => {
 
     it('handles actions with payloads', () => {
       const unidReducer = unid(testReducer, initTestState);
-      const expected = { ...initUnidState, guid: 1, uid: 1, data: { ...initTestState, value: 7, uid: 1 } };
+      const expected = { ...initUnidState, guid: 1, uid: 1, data: { ...initTestState, value: 7 } };
       const result = unidReducer({ ...initUnidState, data: initTestState }, acquireUid(setValue(7)));
 
       expect(result).toEqual(expected);
@@ -66,14 +66,14 @@ describe('unid', () => {
         guid: 25,
         uid: 13,
         avail: [23, 5, 9],
-        data: { ...initTestState, value: 7, uid: 23 },
+        data: { ...initTestState, value: 7 },
       };
       const expected = {
         ...initUnidState,
         guid: 25,
         uid: 23,
         avail: [5, 9],
-        data: { ...initTestState, value: 7, uid: 23 },
+        data: { ...initTestState, value: 7 },
       };
 
       const result = unidReducer(testState, acquireUid(setValue(7)));
@@ -90,14 +90,14 @@ describe('unid', () => {
         guid: 25,
         uid: 13,
         avail: [5, 9],
-        data: { ...initTestState, value: 7, uid: 23 },
+        data: { ...initTestState, value: 7 },
       };
       const expected = {
         ...initUnidState,
         guid: 25,
         uid: 13,
         avail: [23, 5, 9],
-        data: { ...initTestState, value: 7, uid: 13 },
+        data: { ...initTestState, value: 7 },
       };
 
       const result = unidReducer(testState, releaseUid({}, 23));
@@ -112,14 +112,14 @@ describe('unid', () => {
         guid: 25,
         uid: 13,
         avail: [5, 9],
-        data: { ...initTestState, value: 7, uid: 13 },
+        data: { ...initTestState, value: 7 },
       };
       const expected = {
         ...initUnidState,
         guid: 25,
         uid: 13,
         avail: [23, 5, 9],
-        data: { ...initTestState, value: 7, uid: 13 },
+        data: { ...initTestState, value: 7 },
       };
 
       const result = unidReducer(testState, releaseUid(setValue(7), 23));

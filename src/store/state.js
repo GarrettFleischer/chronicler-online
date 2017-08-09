@@ -24,7 +24,6 @@ export const initialState = {
 
 function initData() {
   return {
-    uid: 0,
     ...base([
 
       scene(1, 'scene 1', [
