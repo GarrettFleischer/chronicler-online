@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Home page component. This serves as the welcome page with link to the library
+// Home page Component. This serves as the welcome page with link to the library
 const NotFound = () => (
   <div className="not-found">
     <h1>The specified resource could not be found</h1>

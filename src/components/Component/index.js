@@ -12,18 +12,13 @@ import { DataType } from '../../data/nodes';
 import messages from './messages';
 
 
-export default class Component extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    const { item } = this.props;
-    return (
-      <Card>
-        <CardContent>
-          {content(item)}
-        </CardContent>
-      </Card>
-    );
-  }
-}
+const Component = ({ item }) => (
+  <Card>
+    <CardContent>
+      {content(item)}
+    </CardContent>
+  </Card>
+);
 
 
 Component.propTypes = {
@@ -41,3 +36,6 @@ function content(item) {
       return <div><FormattedMessage {...messages.unknown} /></div>;
   }
 }
+
+
+export default Component;

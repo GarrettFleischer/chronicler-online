@@ -1,11 +1,14 @@
+import AddIcon from 'material-ui-icons/Add';
+import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
 import { createStyleSheet, withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Component from '../../components/component';
-import SortableList from '../../components/draggableList';
+import Align from '../../components/Align';
+import Component from '../../components/Component';
+import SortableList from '../../components/DraggableList';
 import { nodeComponentsSorted } from './reducers';
 import makeSelectNode from './selectors';
 
@@ -19,9 +22,9 @@ const styleSheet = createStyleSheet({
 
 class Node extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  onSortEnd(oldIndex, newIndex) {
+  onSortEnd = ({ oldIndex, newIndex }) => {
     this.props.onSortEnd(this.props.node.id, oldIndex, newIndex);
-  }
+  };
 
 
   render() {
@@ -34,17 +37,17 @@ class Node extends PureComponent { // eslint-disable-line react/prefer-stateless
 
     return (
       <Paper className={classes.root}>
-        <SortableList
-          items={components}
-          onSortEnd={({ oldIndex, newIndex }) => {
-            this.onSortEnd(oldIndex, newIndex);
-          }}
-        />
+        <Align container>
+          <Align right>
+            <IconButton style={{ marginLeft: 'auto' }}><AddIcon /></IconButton>
+          </Align>
+        </Align>
+        <div>
+          <SortableList items={components} onSortEnd={this.onSortEnd} />
+        </div>
       </Paper>
     );
   }
-
-
 }
 
 

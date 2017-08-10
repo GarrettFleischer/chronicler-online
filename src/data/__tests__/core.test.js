@@ -3,9 +3,7 @@ import { base, cChoice, cIf, cLink, cNext, cText, DataType, LinkType, node, scen
 
 
 describe('core', () => {
-
   describe('findById', () => {
-
     it('returns null when id not found', () => {
       const result = findById(complexState(), 999);
       expect(result).toEqual(null);
@@ -49,20 +47,16 @@ describe('core', () => {
       const result = findById(complexState(), 18);
       expect(result.id).toEqual(18);
     });
-
   });
 
   describe('setById', () => {
-
     it('can set in a node', () => {
       const result = setById(complexState(), 13, { id: 999 }, DataType.NODE);
       const updatedNode = findById(result, 999, DataType.NODE);
 
       expect(updatedNode.id).toEqual(999);
     });
-
   });
-
 });
 
 
