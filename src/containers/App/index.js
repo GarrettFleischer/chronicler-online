@@ -50,7 +50,7 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
         <div className={classes.body}>
           <Grid container>
             <Grid item xs />
-            <Grid item xs={10}>
+            <Grid item xs={8}>
               {children}
             </Grid>
             <Grid item xs />

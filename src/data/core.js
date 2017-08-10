@@ -94,5 +94,4 @@ const mapBy = (func) => (curr) => {
     default:
       return updated;
   }
-
 };

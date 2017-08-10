@@ -1,3 +1,5 @@
+import Paper from 'material-ui/Paper';
+import { createStyleSheet, withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
@@ -8,6 +10,13 @@ import { nodeComponentsSorted } from './reducers';
 import makeSelectNode from './selectors';
 
 
+const styleSheet = createStyleSheet({
+  root: {
+    padding: '10px',
+  },
+});
+
+
 class Node extends PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   onSortEnd(oldIndex, newIndex) {
@@ -16,21 +25,22 @@ class Node extends PureComponent { // eslint-disable-line react/prefer-stateless
 
 
   render() {
-    const { node } = this.props;
+    const { classes, node } = this.props;
 
-    if (node === null) {
+    if (node === null)
       return <Redirect to="/404" />;
-    }
 
     const components = node.components.map((item) => <Component item={item} />);
 
     return (
-      <SortableList
-        items={components}
-        onSortEnd={({ oldIndex, newIndex }) => {
-          this.onSortEnd(oldIndex, newIndex);
-        }}
-      />
+      <Paper className={classes.root}>
+        <SortableList
+          items={components}
+          onSortEnd={({ oldIndex, newIndex }) => {
+            this.onSortEnd(oldIndex, newIndex);
+          }}
+        />
+      </Paper>
     );
   }
 
@@ -44,12 +54,15 @@ Node.propTypes = {
   match: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   onSortEnd: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
 
 const makeMapStateToProps = () => {
   const selectNode = makeSelectNode();
   return (state, props) => ({ node: selectNode(state, parseInt(props.match.params.id, 10)) });
 };
+
 
 const mapDispatchToProps = (dispatch) => ({
   onSortEnd: (id, oldIndex, newIndex) => {
@@ -58,4 +71,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export default connect(makeMapStateToProps, mapDispatchToProps)(Node);
+export default connect(makeMapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Node));

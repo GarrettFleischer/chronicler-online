@@ -20,6 +20,10 @@
     }
   },
   "rules": {
+    "curly": [
+      "error",
+      "multi-or-nest"
+    ],
     "arrow-parens": [
       "error",
       "always"

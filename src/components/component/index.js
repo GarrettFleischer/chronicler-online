@@ -4,8 +4,6 @@
  *
  */
 
-// import styled from 'styled-components';
-
 import Card, { CardContent } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -14,25 +12,7 @@ import { DataType } from '../../data/nodes';
 import messages from './messages';
 
 
-function content(item) {
-  switch (item.type) {
-    case DataType.TEXT:
-      return <div style={{ paddingTop: '10px' }}>{`text ${item.id.toString()}: ${item.text}`}</div>;
-    case DataType.NEXT:
-      return <div style={{ paddingTop: '10px' }}>{`next ${item.id.toString()}: ${item.text}`}</div>;
-    default:
-      return <div><FormattedMessage {...messages.unknown} /></div>;
-  }
-}
-
-
 export default class Component extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  // noinspection JSUnusedGlobalSymbols
-  getDragHeight() {
-    return 48;
-  }
-
-
   render() {
     const { item } = this.props;
     return (
@@ -49,3 +29,15 @@ export default class Component extends React.PureComponent { // eslint-disable-l
 Component.propTypes = {
   item: PropTypes.object.isRequired,
 };
+
+
+function content(item) {
+  switch (item.type) {
+    case DataType.TEXT:
+      return <div className="component">{`text ${item.id.toString()}: ${item.text}`}</div>;
+    case DataType.NEXT:
+      return <div className="component">{`next ${item.id.toString()}: ${item.text}`}</div>;
+    default:
+      return <div><FormattedMessage {...messages.unknown} /></div>;
+  }
+}
