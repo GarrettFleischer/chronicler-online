@@ -23,10 +23,11 @@ export const nodeComponentAdd = (id) => (
 
 
 export function nodeReducer(state, action) {
+  // ignore action if it is not meant for this node
+  if (state.id !== action.id) return state;
+
   switch (action.type) {
     case NODE_COMPONENTS_SORTED:
-      // ignore action if it is not meant for this node
-      if (state.id !== action.id) return state;
       return {
         ...state,
         components: arrayMove(state.components, action.oldIndex, action.newIndex),
