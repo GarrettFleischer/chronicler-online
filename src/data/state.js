@@ -28,12 +28,12 @@ function initData() {
 
       scene(1, 'scene 1', [
 
-        node(2, null, [
+        node(2, 'startup page', [
           cText(3, 'text 3'),
           cNext(4, 'next 4', 5),
         ]),
 
-        node(5, null, [
+        node(5, 'startup page', [
           cText(6, 'text 6'),
           cChoice(7, [
             cLink(8, LinkType.NORMAL, 'choice 8', 2, []),

@@ -6,9 +6,11 @@ import { getBase } from '../../data/state';
 
 
 export const selectNodeDomain = (state, id) => findById(getBase(state), id, DataType.NODE);
+export const selectStateDomain = (state) => getBase(state);
 
 const makeSelectNode = () => createSelector(
   selectNodeDomain,
-  (node) => ({ ...node }),
+  selectStateDomain,
+  (node, state) => ({ node, state }),
 );
 export default makeSelectNode;

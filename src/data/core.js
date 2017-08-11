@@ -5,7 +5,7 @@ export const NO_FILTER = 'core/NO_FILTER';
 
 
 export function findById(state, id, type = NO_FILTER) {
-  return matchBy(matchIdAndType(id, type))(null, state);
+  return reduceBy(matchIdAndType(id, type))(null, state);
 }
 
 
@@ -13,6 +13,18 @@ export function setById(state, id, data, type = NO_FILTER) {
   return mapBy(setIdAndType(id, type, data))(state);
 }
 
+
+export function validateLabel(state, label) {
+  if (label && label.length)
+    return (findNumLabels(state, label) <= 1);
+
+  return false;
+}
+
+
+export function findNumLabels(state, label) {
+  return reduceBy(numLabels(label))(0, state);
+}
 
 const setIdAndType = (id, type, data) => (curr) => {
   if (curr.id === id && (type === NO_FILTER || curr.type === type))
@@ -32,32 +44,38 @@ const matchIdAndType = (id, type) => (acc, curr) => {
   return null;
 };
 
+const numLabels = (label) => (acc, curr) => {
+  if (curr.label && (curr.label.toLocaleLowerCase() && label.toLocaleLowerCase()))
+    return acc + 1;
 
-const matchBy = (filter) => (acc, curr) => {
+  return acc;
+};
+
+const reduceBy = (filter) => (acc, curr) => {
   let found = filter(acc, curr);
   if (found !== null) return found;
 
   switch (curr.type) {
     case DataType.BASE:
-      return curr.scenes.reduce(matchBy(filter), null);
+      return curr.scenes.reduce(reduceBy(filter), null);
 
     case DataType.SCENE:
-      return curr.nodes.reduce(matchBy(filter), null);
+      return curr.nodes.reduce(reduceBy(filter), null);
 
     case DataType.NODE:
-      return curr.components.reduce(matchBy(filter), null);
+      return curr.components.reduce(reduceBy(filter), null);
 
     case DataType.CHOICE:
-      return curr.links.reduce(matchBy(filter), null);
+      return curr.links.reduce(reduceBy(filter), null);
 
     case DataType.LINK:
     case DataType.IF_LINK:
-      return curr.components.reduce(matchBy(filter), null);
+      return curr.components.reduce(reduceBy(filter), null);
 
     case DataType.IF:
-      found = curr.components.reduce(matchBy(filter), null);
+      found = curr.components.reduce(reduceBy(filter), null);
       if (found !== null) return found;
-      return curr.elseComponents.reduce(matchBy(filter), null);
+      return curr.elseComponents.reduce(reduceBy(filter), null);
 
     default:
       return null;
