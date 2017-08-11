@@ -1,17 +1,25 @@
 import { arrayMove } from 'react-sortable-hoc';
+import { cText } from '../../data/nodes';
+import { acquireUid } from '../../lib/unid';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
+export const NODE_COMPONENT_ADD = 'Node/NODE_COMPONENT_ADD';
 
 
-export function nodeComponentsSorted(id, oldIndex, newIndex) {
-  return {
-    type: NODE_COMPONENTS_SORTED,
+export const nodeComponentsSorted = (id, oldIndex, newIndex) => ({
+  type: NODE_COMPONENTS_SORTED,
+  id,
+  oldIndex,
+  newIndex,
+});
+
+export const nodeComponentAdd = (id) => (
+  acquireUid({
+    type: NODE_COMPONENT_ADD,
     id,
-    oldIndex,
-    newIndex,
-  };
-}
+    component: cText(-1, 'new component'),
+  }));
 
 
 export function nodeReducer(state, action) {
@@ -22,6 +30,12 @@ export function nodeReducer(state, action) {
       return {
         ...state,
         components: arrayMove(state.components, action.oldIndex, action.newIndex),
+      };
+
+    case NODE_COMPONENT_ADD:
+      return {
+        ...state,
+        components: [...state.components, { ...action.component, id: state.uid }],
       };
 
     default:

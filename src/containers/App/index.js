@@ -36,9 +36,9 @@ class App extends PureComponent { // eslint-disable-line react/prefer-stateless-
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="primary">
+        <AppBar position="static">
           <Toolbar>
-            <IconButton color="contrast" aria-label="Menu">
+            <IconButton color="inherit">
               <MenuIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.fullWidth}>

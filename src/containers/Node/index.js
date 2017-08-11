@@ -7,9 +7,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Align from '../../components/Align';
-import Component from '../../components/Component';
-import SortableList from '../../components/DraggableList';
-import { nodeComponentsSorted } from './reducers';
+import ComponentList from '../../components/ComponentList';
+import { nodeComponentAdd, nodeComponentsSorted } from './reducers';
 import makeSelectNode from './selectors';
 
 
@@ -26,6 +25,9 @@ class Node extends PureComponent { // eslint-disable-line react/prefer-stateless
     this.props.onSortEnd(this.props.node.id, oldIndex, newIndex);
   };
 
+  onAddClick = () => {
+    this.props.onAddClick(this.props.node.id);
+  };
 
   render() {
     const { classes, node } = this.props;
@@ -33,17 +35,13 @@ class Node extends PureComponent { // eslint-disable-line react/prefer-stateless
     if (node === null)
       return <Redirect to="/404" />;
 
-    const components = node.components.map((item) => <Component item={item} />);
-
     return (
       <Paper className={classes.root}>
         <Align container>
-          <Align right>
-            <IconButton style={{ marginLeft: 'auto' }}><AddIcon /></IconButton>
-          </Align>
+          <Align right><IconButton onClick={this.onAddClick}><AddIcon /></IconButton></Align>
         </Align>
         <div>
-          <SortableList items={components} onSortEnd={this.onSortEnd} />
+          <ComponentList components={node.components} onSortEnd={this.onSortEnd} />
         </div>
       </Paper>
     );
@@ -57,6 +55,7 @@ Node.propTypes = {
   match: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   onSortEnd: PropTypes.func.isRequired,
+  onAddClick: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -69,7 +68,11 @@ const makeMapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => ({
   onSortEnd: (id, oldIndex, newIndex) => {
-    dispatch(nodeComponentsSorted(id, oldIndex, newIndex));
+    if (oldIndex !== newIndex)
+      dispatch(nodeComponentsSorted(id, oldIndex, newIndex));
+  },
+  onAddClick: (id) => {
+    dispatch(nodeComponentAdd(id));
   },
 });
 

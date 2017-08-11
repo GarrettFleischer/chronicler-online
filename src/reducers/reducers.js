@@ -23,22 +23,22 @@ function chroniclerReducer(state, action) {
 function baseReducer(state, action) {
   return {
     ...state,
-    scenes: state.scenes.map(sceneMapper(action)),
+    scenes: state.scenes.map(sceneMapper(action, state.uid)),
   };
 }
 
 
-const sceneMapper = (action) => (state) => ({
+const sceneMapper = (action, uid) => (state) => ({
   ...state,
-  nodes: state.nodes.map(nodeMapper(action)),
+  nodes: state.nodes.map(nodeMapper(action, uid)),
 });
 
 
-const nodeMapper = (action) => (state) => {
-  const updated = nodeReducer(state, action);
+const nodeMapper = (action, uid) => (state) => {
+  const updated = nodeReducer({ ...state, uid }, action);
   return {
     ...updated,
-    components: updated.components.map(componentMapper(action)),
+    components: updated.components.map(componentMapper(action, uid)),
   };
 };
 

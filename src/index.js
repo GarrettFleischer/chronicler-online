@@ -5,11 +5,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-intl-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './containers/App';
+import configureStore from './data/configureStore';
+import { initialState } from './data/state';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import MainRoute from './routes/Main';
-import configureStore from './store/configureStore';
-import { initialState } from './store/state';
 import { chroniclerTheme } from './theme';
 
 

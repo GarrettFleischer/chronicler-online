@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 // Home page Component. This serves as the welcome page with link to the library
 const HomePage = () => (
   <div className="jumbotron center">
-    <h1 className="lead">Welcome to Media Library built with React, Redux, and Redux-saga </h1>
+    <h1 className="lead">Welcome to Chronicler </h1>
     <div>
-      <Link to="library">
-        <button className="btn btn-lg btn-primary"> Visit Library</button>
+      <Link to="node/2">
+        <button className="btn btn-lg btn-primary">View Node</button>
       </Link>
     </div>
   </div>

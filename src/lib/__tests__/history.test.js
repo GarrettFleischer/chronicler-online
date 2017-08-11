@@ -1,4 +1,4 @@
-import history, { initState as initHistoryState, merge } from '../history';
+import history, { initState as initHistoryState, merge, MERGE } from '../history';
 
 
 const SET_VALUE = 'history.test/SET_VALUE';
@@ -61,19 +61,21 @@ describe('history', () => {
   });
 
   describe('merge', () => {
-    it('can merge into present state if the previous action was of the same type', () => {
+    it('can merge into present state if the previous action was of the same type and marked mergeable', () => {
       const historyReducer = history(testReducer, initTestState);
-      const present = { key: 'foo', value: 7 };
+      const past = [{ ...initTestState, value: 15 }, initTestState];
+      const present = { ...initTestState, value: 723 };
       const expected = {
         ...initHistoryState,
-        past: [initTestState],
+        past,
         present,
         canUndo: true,
-        lastActionType: SET_VALUE,
+        lastActionType: `${MERGE}/${SET_VALUE}`,
       };
 
       let result = historyReducer({ ...initHistoryState, present: initTestState }, setValue(15));
       result = historyReducer(result, merge(setValue(7)));
+      result = historyReducer(result, merge(setValue(723)));
 
       expect(result).toEqual(expected);
     });

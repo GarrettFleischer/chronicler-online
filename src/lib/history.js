@@ -58,13 +58,19 @@ export default function history(reducer, initReducerState) {
         newLastActionType = action.type;
         break;
 
-      case MERGE:
+      case MERGE: {
+        const mergeAction = `${MERGE}/${action.action.type}`;
         newPresent = reducer(present, action.action);
         if (deepEqual(newPresent, present)) return state;
+        if (lastActionType !== mergeAction) {
+          newPast = push(past, present);
+          newCanUndo = true;
+        }
         newFuture = [];
         newCanRedo = false;
-        newLastActionType = action.action.type;
+        newLastActionType = mergeAction;
         break;
+      }
 
       default:
         // reduce the state and only create an undo if the state changed
