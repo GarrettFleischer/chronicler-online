@@ -1,4 +1,4 @@
-import { base, cChoice, cIf, cLink, cNext, cText, LinkType, node, scene } from './nodes';
+import { base, cChoice, cIf, cLink, cNext, cText, DataType, LinkType, node, scene } from './nodes';
 
 
 export function getBase(state) {
@@ -19,6 +19,95 @@ export const initialState = {
     canUndo: false,
     canRedo: false,
   },
+};
+
+
+const pouchApiState = {
+  users: [pouchUser],
+  projects: [pouchProject],
+  serverAddress: 'https://gamesmith.ddns.net:5000',
+};
+
+const pouchUser = {
+  _id: 0,
+  userName: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  projects: {
+    created: [0, 1, 2], // project ids
+    collaborating: [0, 1, 2], // project ids
+  },
+};
+
+const pouchProject = {
+  _id: 0,
+  dbName: '', // unique name for separate db
+};
+
+export const pouchInitialState = {
+  version: '0.1.0',
+  creator: 0,
+  collaborators: [0, 1, 2],
+  ui: {},
+  history: {
+    past: [],
+    present: {
+      guid: 0,
+      uid: 0,
+      avail: [],
+      data: {
+        projectName: '',
+        authorName: '',
+        variables: [pouchVariable],
+        scenes: [pouchScene],
+        nodes: [pouchNode],
+        components: [pouchComponent],
+        changesets: [pouchChangeset],
+      },
+    },
+    future: [],
+    canUndo: false,
+    canRedo: false,
+  },
+};
+
+const pouchVariable = {
+  _id: 0,
+  name: '',
+  value: '',
+  scene: -1, // -1 or scene id if local var
+};
+
+const pouchScene = {
+  _id: 0,
+  label: '',
+  nodes: [0, 1, 2], // ids of related nodes
+  variables: [0, 1, 2], // ids of local variables
+};
+
+const pouchNode = {
+  _id: 0,
+  scene: 0, // id of related scene
+  label: '',
+  components: [0, 1, 2], // ids of related components
+};
+
+const pouchComponent = {
+  _id: 0,
+  node: 0, // id
+  type: DataType.TEXT,
+  changesets: [0, 1, 2], // ids of related changesets
+  // type specific data
+};
+
+const pouchChangeset = {
+  _id: 0,
+  component: 0, // id of related component
+  owner: 0, // id of user
+  parent: 0, // id of parent changeset
+  children: [0, 1, 2], // ids of child changesets
+  // type specific data
 };
 
 
