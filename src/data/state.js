@@ -110,6 +110,8 @@ const pouchChangeset = {
   // type specific data
 };
 
+const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: 'NODE' });
+
 
 function initData() {
   return {
