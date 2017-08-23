@@ -1,8 +1,11 @@
 export const DataType = {
   ANY: 'DataType/ANY',
   BASE: 'DataType/BASE',
+  VARIABLE: 'DataType/VARIABLE',
   SCENE: 'DataType/SCENE',
   NODE: 'DataType/NODE',
+  COMPONENT: 'DataType/COMPONENT',
+  CHANGESET: 'DataType/CHANGESET',
   LINK: 'DataType/LINK',
   IF_LINK: 'DataType/IF_LINK',
   NEXT: 'DataType/NEXT',

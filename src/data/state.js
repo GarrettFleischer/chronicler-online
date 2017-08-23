@@ -25,6 +25,7 @@ export const initialState = {
 const pouchApiState = {
   users: [pouchUser],
   projects: [pouchProject],
+  version: '0.1.0',
   serverAddress: 'https://gamesmith.ddns.net:5000',
 };
 
@@ -42,13 +43,15 @@ const pouchUser = {
 
 const pouchProject = {
   _id: 0,
+  version: '0.1.0', // version based on last saved update
+  creator: 0,
+  collaborators: [0, 1, 2],
   dbName: '', // unique name for separate db
 };
 
 export const pouchInitialState = {
-  version: '0.1.0',
-  creator: 0,
-  collaborators: [0, 1, 2],
+  user: pouchUser,          // current logged in user
+  projects: [pouchProject], // api - only projects the user has access to
   ui: {},
   history: {
     past: [],
@@ -74,13 +77,15 @@ export const pouchInitialState = {
 
 const pouchVariable = {
   _id: 0,
+  type: DataType.VARIABLE,
   name: '',
   value: '',
-  scene: -1, // -1 or scene id if local var
+  scene: null, // null or scene id if local var
 };
 
 const pouchScene = {
   _id: 0,
+  type: DataType.SCENE,
   label: '',
   nodes: [0, 1, 2], // ids of related nodes
   variables: [0, 1, 2], // ids of local variables
@@ -88,6 +93,7 @@ const pouchScene = {
 
 const pouchNode = {
   _id: 0,
+  type: DataType.NODE,
   scene: 0, // id of related scene
   label: '',
   components: [0, 1, 2], // ids of related components
@@ -95,22 +101,25 @@ const pouchNode = {
 
 const pouchComponent = {
   _id: 0,
+  type: DataType.COMPONENT,
   node: 0, // id
-  type: DataType.TEXT,
   changesets: [0, 1, 2], // ids of related changesets
+  componentType: DataType.TEXT, // specific component type
   // type specific data
 };
 
 const pouchChangeset = {
   _id: 0,
+  type: DataType.CHANGESET,
   component: 0, // id of related component
   owner: 0, // id of user
   parent: 0, // id of parent changeset
   children: [0, 1, 2], // ids of child changesets
+  changesetType: DataType.CHANGESET, // specific changeset type
   // type specific data
 };
 
-const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: 'NODE' });
+const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
 
 
 function initData() {
