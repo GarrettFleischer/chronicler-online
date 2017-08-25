@@ -51,8 +51,10 @@ const pouchProject = {
 
 export const pouchInitialState = {
   user: pouchUser,          // current logged in user
-  projects: [pouchProject], // api - only projects the user has access to
-  ui: {},
+  projects: [pouchProject], // projects belonging to user filtered by path function
+  ui: {
+    project: 0, // id of active project
+  },
   history: {
     past: [],
     present: {
@@ -60,6 +62,7 @@ export const pouchInitialState = {
       uid: 0,
       avail: [],
       data: {
+        // all data in specific project database
         projectName: '',
         authorName: '',
         variables: [pouchVariable],
