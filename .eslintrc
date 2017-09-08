@@ -20,6 +20,14 @@
     }
   },
   "rules": {
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id"
+        ]
+      }
+    ],
     "curly": [
       "error",
       "multi-or-nest"

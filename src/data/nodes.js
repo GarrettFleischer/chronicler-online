@@ -1,26 +1,30 @@
 export const DataType = {
   ANY: 'DataType/ANY',
-  BASE: 'DataType/BASE',
   VARIABLE: 'DataType/VARIABLE',
   SCENE: 'DataType/SCENE',
   NODE: 'DataType/NODE',
   COMPONENT: 'DataType/COMPONENT',
   CHANGESET: 'DataType/CHANGESET',
-  LINK: 'DataType/LINK',
-  IF_LINK: 'DataType/IF_LINK',
-  NEXT: 'DataType/NEXT',
-  TEXT: 'DataType/TEXT',
-  CHOICE: 'DataType/CHOICE',
-  FAKE_CHOICE: 'DataType/FAKE_CHOICE',
-  CREATE: 'DataType/CREATE',
-  TEMP: 'DataType/TEMP',
-  SET: 'DataType/SET',
-  IF: 'DataType/IF',
-  LABEL: 'DataType/LABEL',
-  GOTO: 'DataType/GOTO',
-  GOTO_SCENE: 'DataType/GOTO_SCENE',
-  GOSUB: 'DataType/GOSUB',
-  GOSUB_SCENE: 'DataType/GOSUB_SCENE',
+};
+
+export const VariableType = {
+  GLOBAL: 'VariableType/GLOBAL',
+  LOCAL: 'VariableType/LOCAL',
+};
+
+export const NodeType = {
+  NEXT: 'NodeType/GOTO',
+  CHOICE: 'NodeType/CHOICE',
+  FAKE_CHOICE: 'NodeType/FAKE_CHOICE',
+  // GOTO: 'NodeType/GOTO',
+  // GOTO_SCENE: 'NodeType/GOTO_SCENE',
+  // GOSUB: 'NodeType/GOSUB',
+  // GOSUB_SCENE: 'NodeType/GOSUB_SCENE',
+};
+
+export const ChoiceType = {
+  LINK: 'ChoiceType/LINK',
+  IF_LINK: 'ChoiceType/IF_LINK',
 };
 
 export const LinkType = {
@@ -30,19 +34,20 @@ export const LinkType = {
   ALLOW: 'LinkType/ALLOW',
 };
 
+export const ComponentType = {
+  TEXT: 'ComponentType/TEXT',
+  SET: 'ComponentType/SET',
+  IF: 'NodeType/IF',
+};
 
-export function base(scenes) {
-  return { type: DataType.BASE, scenes };
+
+export function scene(id, name, children) {
+  return { type: DataType.SCENE, id, name, children };
 }
 
 
-export function scene(id, name, nodes) {
-  return { type: DataType.SCENE, id, name, nodes };
-}
-
-
-export function node(id, label, components, x = 0, y = 0) {
-  return { type: DataType.NODE, id, label, components, x, y };
+export function node(id, linkData, label, parent, children, x = 0, y = 0) {
+  return { type: DataType.NODE, linkData, id, label, parent, children, x, y };
 }
 
 
@@ -57,7 +62,7 @@ export function cIfLink(id, expr, text, linkId, components) {
 
 
 export function cNext(id, text, linkId) {
-  return { type: DataType.NEXT, id, text, linkId };
+  return { type: NodeType.NEXT, id, text, linkId };
 }
 
 
@@ -67,22 +72,22 @@ export function cText(id, text) {
 
 
 export function cChoice(id, links) {
-  return { type: DataType.CHOICE, id, links };
+  return { type: NodeType.CHOICE, id, links };
 }
 
 
 export function cFakeChoice(id, linkId, choices) {
-  return { type: DataType.FAKE_CHOICE, id, linkId, choices };
+  return { type: NodeType.FAKE_CHOICE, id, linkId, choices };
 }
 
 
-export function cCreate(id, name) {
-  return { type: DataType.CREATE, id, name };
+export function varGlobal(id, name) {
+  return { type: VariableType.GLOBAL, id, name };
 }
 
 
-export function cTemp(id, name) {
-  return { type: DataType.TEMP, id, name };
+export function varLocal(id, name) {
+  return { type: VariableType.LOCAL, id, name };
 }
 
 
@@ -93,29 +98,4 @@ export function cSet(id, name, op, expr) {
 
 export function cIf(id, expr, components, elseComponents) {
   return { type: DataType.IF, id, expr, components, elseComponents };
-}
-
-
-export function cLabel(id, label) {
-  return { type: DataType.LABEL, id, label };
-}
-
-
-export function cGoto(id, linkId) {
-  return { type: DataType.GOTO, id, linkId };
-}
-
-
-export function cGotoScene(id, sceneId, linkId) {
-  return { type: DataType.GOTO_SCENE, id, sceneId, linkId };
-}
-
-
-export function cGosub(id, linkId) {
-  return { type: DataType.GOSUB, id, linkId };
-}
-
-
-export function cGosubScene(id, sceneId, linkId) {
-  return { type: DataType.GOSUB_SCENE, id, sceneId, linkId };
 }

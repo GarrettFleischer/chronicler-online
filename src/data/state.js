@@ -21,6 +21,50 @@ export const initialState = {
   },
 };
 
+const projectDB = [
+  {
+    _id: 'project::info',
+    owner: '',
+    collaborators: [{ _id: '', pending: true }],
+    name: '',
+    author: '',
+    description: '',
+    image: 'url',
+  },
+  {},
+];
+
+// TODO implement an "offline sync" action queue.
+const newInitialState = {
+  chronicler: {
+    current_user: 0,
+    users: [
+      {
+        _id: '',
+        api_session: '',
+        current_project: 0,
+        projects: [
+          {
+            owner: '', // can only be set on project creation, not updated
+            collaborators: [{ user: '', pending: false }, { user: '', pending: true }], // can only be updated if user is owner of project
+            data: {
+              past: [],
+              present: {
+                guid: 18,
+                uid: 18,
+                avail: [],
+                data: initData(),
+              },
+              future: [],
+              canUndo: false,
+              canRedo: false,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
 
 const pouchApiState = {
   users: [pouchUser],
@@ -124,6 +168,25 @@ const pouchChangeset = {
 
 const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
 
+
+function newInitData() {
+  return {
+    projectName: '',
+    authorName: '',
+    variables: [],
+    scenes: [
+      scene(1, 'startup', []),
+      scene(2, 'chapter 2', []),
+    ],
+    nodes: [
+      node(3, 'intro', 1, []),
+      node(4, 'carry on', 1, []),
+      node(5, 'chapter 2', 2, []),
+      node(6, 'fin', 2, []),
+    ],
+    components: [cText(7, 'welcome')],
+  };
+}
 
 function initData() {
   return {
