@@ -1,7 +1,5 @@
 import { intlReducer } from 'react-intl-redux';
-import { nodeReducer } from '../containers/Node/reducers';
-import history from '../lib/history';
-import unid from '../lib/unid';
+import pouchReducer from './pouchReducer';
 
 
 export default function rootReducer(state, action) {
@@ -14,35 +12,34 @@ export default function rootReducer(state, action) {
 
 
 function chroniclerReducer(state, action) {
-  const unidReducer = unid(baseReducer, state.present.data);
-  const historyReducer = history(unidReducer, state.present);
-  return historyReducer(state, action);
+  return pouchReducer(state, action);
+  // const unidReducer = unid(baseReducer, state.present.data);
+  // const historyReducer = history(unidReducer, state.present);
+  // return historyReducer(state, action);
 }
 
 
-function baseReducer(state, action) {
-  return {
-    ...state,
-    scenes: state.scenes.map(sceneMapper(action, state.uid)),
-  };
-}
-
-
-const sceneMapper = (action, uid) => (state) => ({
-  ...state,
-  nodes: state.nodes.map(nodeMapper(action, uid)),
-});
-
-
-const nodeMapper = (action, uid) => (state) => {
-  const updated = nodeReducer({ ...state, uid }, action);
-  return {
-    ...updated,
-    components: updated.components.map(componentMapper(action, uid)),
-  };
-};
-
-// TODO map if and choice links
-const componentMapper = () => (state) => ({
-  ...state,
-});
+// function baseReducer(state, action) {
+//   return {
+//     ...state,
+//     variables: state.variables.map(varMapper(action)),
+//     scenes: state.scenes.map(sceneMapper(action)),
+//     nodes: state.nodes.map(nodeMapper(action)),
+//     components: state.components.map(componentMapper(action)),
+//   };
+// }
+//
+// // TODO write var reducer
+// // eslint-disable-next-line no-unused-vars
+// const varMapper = (action) => (state) => (state);
+//
+// // TODO write scene reducer
+// // eslint-disable-next-line no-unused-vars
+// const sceneMapper = (action) => (state) => (state);
+//
+// const nodeMapper = (action) => (state) => nodeReducer(state, action);
+//
+// // TODO map if and choice links
+// // TODO write component reducer
+// // eslint-disable-next-line no-unused-vars
+// const componentMapper = (action) => (state) => (state);

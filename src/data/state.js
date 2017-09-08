@@ -1,4 +1,4 @@
-import { base, cChoice, cIf, cLink, cNext, cText, DataType, LinkType, node, scene } from './nodes';
+import { base, cText, DataType, node, scene } from './nodes';
 
 
 export function getBase(state) {
@@ -8,18 +8,32 @@ export function getBase(state) {
 
 export const initialState = {
   chronicler: {
-    past: [],
-    present: {
-      guid: 18,
-      uid: 18,
-      avail: [],
-      data: initData(),
-    },
-    future: [],
-    canUndo: false,
-    canRedo: false,
+    currentProject: 0, // index
+    docs: [
+      // TODO add variables
+      scene(1, 'startup', [3, 4]),
+      scene(2, 'chapter 2', [5, 6]),
+
+      node(3, 'intro', 1, [7]),
+      node(4, 'carry on', 1, []),
+      node(5, 'chapter 2', 2, []),
+      node(6, 'fin', 2, []),
+
+      // TODO add more components
+      cText(7, 'welcome'),
+    ],
   },
 };
+
+// export const initialState = {
+//   chronicler: {
+//     past: [],
+//     present: initData(),
+//     future: [],
+//     canUndo: false,
+//     canRedo: false,
+//   },
+// };
 
 const projectDB = [
   {
@@ -166,107 +180,99 @@ const pouchChangeset = {
   // type specific data
 };
 
-const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
 
+// const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
 
-function newInitData() {
-  return {
-    projectName: '',
-    authorName: '',
-    variables: [],
-    scenes: [
-      scene(1, 'startup', []),
-      scene(2, 'chapter 2', []),
-    ],
-    nodes: [
-      node(3, 'intro', 1, []),
-      node(4, 'carry on', 1, []),
-      node(5, 'chapter 2', 2, []),
-      node(6, 'fin', 2, []),
-    ],
-    components: [cText(7, 'welcome')],
-  };
-}
 
 function initData() {
   return {
-    ...base([
-
-      scene(1, 'scene 1', [
-
-        node(2, 'startup page', [
-          cText(3, 'text 3'),
-          cNext(4, 'next 4', 5),
-        ]),
-
-        node(5, 'startup page', [
-          cText(6, 'text 6'),
-          cChoice(7, [
-            cLink(8, LinkType.NORMAL, 'choice 8', 2, []),
-          ]),
-        ]),
-
-      ]),
-
-      scene(9, 'scene 9', [
-
-        node(10, null, [
-          cText(11, 'text 3'),
-          cNext(12, 'next 4', 13),
-        ]),
-
-        node(13, null, [
-          cText(14, 'text 6'),
-
-          cIf(15, '',
-            [cText(16, '')],
-            [cChoice(17, [
-              cLink(18, LinkType.NORMAL, 'choice 18', 10, []),
-            ]),
-            ]),
-
-
-        ]),
-
-      ]),
-
-    ]),
+    _id: '',
+    projectName: '',
+    authorName: '',
+    children: [],
   };
-
-  // return base([
-  //   // SCENE 1
-  //   scene(1, 'startup', [
-  //     // NodeType 2
-  //     node(2, 'Start', [
-  //       cText(3, 'A knight...'),
-  //       cChoice(4, [
-  //         cLink(5, LinkType.NORMAL, 'Fly...', 3, [
-  //           cSet(6, 'disdain', '%+', '10'),
-  //         ]),
-  //         cLink(7, LinkType.NORMAL, 'Charge...', 4, null),
-  //       ]),
-  //     ]),
-  //     // NodeType 3
-  //     node(8, null, [
-  //       cNext('End Act 1', 5),
-  //     ]),
-  //     // NodeType 4
-  //     node(9, null, [
-  //       cNext(10, null, 3),
-  //     ]),
-  //     // NodeType 5
-  //     node(11, null, [
-  //       cGotoScene(12, 6, 8),
-  //     ]),
-  //   ]),
-  //   // SCENE 6
-  //   scene(13, 'scene_2', [
-  //     // NodeType 7
-  //     node(14, null, [
-  //       cText(15, '...'),
-  //       // LABEL 8
-  //       cLabel(16, 'middle'),
-  //     ]),
-  //   ]),
-  // ]);
 }
+
+
+// function initData() {
+//   return {
+//     ...base([
+//
+//       scene(1, 'scene 1', [
+//
+//         node(2, 'startup page', [
+//           cText(3, 'text 3'),
+//           cNext(4, 'next 4', 5),
+//         ]),
+//
+//         node(5, 'startup page', [
+//           cText(6, 'text 6'),
+//           cChoice(7, [
+//             cLink(8, LinkType.NORMAL, 'choice 8', 2, []),
+//           ]),
+//         ]),
+//
+//       ]),
+//
+//       scene(9, 'scene 9', [
+//
+//         node(10, null, [
+//           cText(11, 'text 3'),
+//           cNext(12, 'next 4', 13),
+//         ]),
+//
+//         node(13, null, [
+//           cText(14, 'text 6'),
+//
+//           cIf(15, '',
+//             [cText(16, '')],
+//             [cChoice(17, [
+//               cLink(18, LinkType.NORMAL, 'choice 18', 10, []),
+//             ]),
+//             ]),
+//
+//
+//         ]),
+//
+//       ]),
+//
+//     ]),
+//   };
+//
+//   // return base([
+//   //   // SCENE 1
+//   //   scene(1, 'startup', [
+//   //     // NodeType 2
+//   //     node(2, 'Start', [
+//   //       cText(3, 'A knight...'),
+//   //       cChoice(4, [
+//   //         cLink(5, LinkType.NORMAL, 'Fly...', 3, [
+//   //           cSet(6, 'disdain', '%+', '10'),
+//   //         ]),
+//   //         cLink(7, LinkType.NORMAL, 'Charge...', 4, null),
+//   //       ]),
+//   //     ]),
+//   //     // NodeType 3
+//   //     node(8, null, [
+//   //       cNext('End Act 1', 5),
+//   //     ]),
+//   //     // NodeType 4
+//   //     node(9, null, [
+//   //       cNext(10, null, 3),
+//   //     ]),
+//   //     // NodeType 5
+//   //     node(11, null, [
+//   //       cGotoScene(12, 6, 8),
+//   //     ]),
+//   //   ]),
+//   //   // SCENE 6
+//   //   scene(13, 'scene_2', [
+//   //     // NodeType 7
+//   //     node(14, null, [
+//   //       cText(15, '...'),
+//   //       // LABEL 8
+//   //       cLabel(16, 'middle'),
+//   //     ]),
+//   //   ]),
+//   // ]);
+// }

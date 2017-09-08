@@ -1,5 +1,6 @@
 export const DataType = {
   ANY: 'DataType/ANY',
+  PROJECT: 'DataType/PROJECT',
   VARIABLE: 'DataType/VARIABLE',
   SCENE: 'DataType/SCENE',
   NODE: 'DataType/NODE',
@@ -41,8 +42,13 @@ export const ComponentType = {
 };
 
 
-export function scene(id, name, children) {
-  return { type: DataType.SCENE, id, name, children };
+export function project(id, title, author, children) {
+  return { type: DataType.PROJECT, title, author, children };
+}
+
+
+export function scene(id, name, parent, children) {
+  return { type: DataType.SCENE, id, name, parent, children };
 }
 
 
@@ -56,8 +62,8 @@ export function cLink(id, linkType, text, linkId, components) {
 }
 
 
-export function cIfLink(id, expr, text, linkId, components) {
-  return { type: DataType.IF_LINK, id, expr, text, linkId, components };
+export function cIfLink(id, expr, text, linkId, children) {
+  return { type: DataType.IF_LINK, id, expr, text, linkId, children };
 }
 
 
@@ -76,8 +82,8 @@ export function cChoice(id, links) {
 }
 
 
-export function cFakeChoice(id, linkId, choices) {
-  return { type: NodeType.FAKE_CHOICE, id, linkId, choices };
+export function cFakeChoice(id, linkId, children) {
+  return { type: NodeType.FAKE_CHOICE, id, linkId, children };
 }
 
 
