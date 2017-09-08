@@ -4,16 +4,27 @@ import { DataType } from './nodes';
 
 
 export function findById(state, id, type = DataType.ANY) {
-  return findFirst(state, filterIdAndType(id, type));
+  const item = findFirst(state, filterIdAndType(id, type));
+  const children = findChildren(state, item);
+  return { item, children };
 }
 
 
 export function findChildren(state, item) {
   let children = [];
 
-  for (let i = 0; i < item.children.length; ++i) {
-    const child = findFirst(state, filterIdAndType(item.children[i]));
-    children = push(children, child);
+  if (item) {
+    for (let i = 0; i < item.children.length; ++i) {
+      const child = findFirst(state, filterIdAndType(item.children[i]));
+      if (!children.indexOf(child)) {
+        const grandChildren = findChildren(state, child);
+        for (let j = 0; j < grandChildren.length; ++j) {
+          if (!children.indexOf(grandChildren[j]))
+            children = push(children, grandChildren[j]);
+        }
+        children = push(children, child);
+      }
+    }
   }
 
   return children;
@@ -26,19 +37,19 @@ const filterIdAndType = (id, type = DataType.ANY) => (item) =>
 
 
 function findFirst(state, filter) {
-  const results = filterBy(state, filter);
+  const results = state.filter(filter);
   return empty(results) ? null : results[0];
 }
 
 
-function filterBy(state, filter) {
-  return [
-    ...state.variables.filter(filter),
-    ...state.scenes.filter(filter),
-    ...state.nodes.filter(filter),
-    ...state.components.filter(filter),
-  ];
-}
+// function filterBy(state, filter) {
+//   return [
+//     ...state.variables.filter(filter),
+//     ...state.scenes.filter(filter),
+//     ...state.nodes.filter(filter),
+//     ...state.components.filter(filter),
+//   ];
+// }
 
 
 // import { empty, peek, push } from '../lib/stack';

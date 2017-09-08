@@ -1,107 +1,107 @@
 export const DataType = {
-  ANY: 'DataType/ANY',
-  PROJECT: 'DataType/PROJECT',
-  VARIABLE: 'DataType/VARIABLE',
-  SCENE: 'DataType/SCENE',
-  NODE: 'DataType/NODE',
-  COMPONENT: 'DataType/COMPONENT',
-  CHANGESET: 'DataType/CHANGESET',
+  ANY: 'ANY',
+  PROJECT: 'PROJECT',
+  VARIABLE: 'VARIABLE',
+  SCENE: 'SCENE',
+  NODE: 'NODE',
+  COMPONENT: 'COMPONENT',
+  CHANGESET: 'CHANGESET',
 };
 
 export const VariableType = {
-  GLOBAL: 'VariableType/GLOBAL',
-  LOCAL: 'VariableType/LOCAL',
+  GLOBAL: 'GLOBAL',
+  LOCAL: 'LOCAL',
 };
 
 export const NodeType = {
-  NEXT: 'NodeType/GOTO',
-  CHOICE: 'NodeType/CHOICE',
-  FAKE_CHOICE: 'NodeType/FAKE_CHOICE',
-  // GOTO: 'NodeType/GOTO',
-  // GOTO_SCENE: 'NodeType/GOTO_SCENE',
-  // GOSUB: 'NodeType/GOSUB',
-  // GOSUB_SCENE: 'NodeType/GOSUB_SCENE',
+  NEXT: 'GOTO',
+  CHOICE: 'CHOICE',
+  FAKE_CHOICE: 'FAKE_CHOICE',
+  // GOTO: 'GOTO',
+  // GOTO_SCENE: 'GOTO_SCENE',
+  // GOSUB: 'GOSUB',
+  // GOSUB_SCENE: 'GOSUB_SCENE',
 };
 
 export const ChoiceType = {
-  LINK: 'ChoiceType/LINK',
-  IF_LINK: 'ChoiceType/IF_LINK',
+  LINK: 'LINK',
+  IF_LINK: 'IF_LINK',
 };
 
 export const LinkType = {
-  NORMAL: 'LinkType/NORMAL',
-  DISABLE: 'LinkType/DISABLE',
-  HIDE: 'LinkType/HIDE',
-  ALLOW: 'LinkType/ALLOW',
+  NORMAL: 'NORMAL',
+  DISABLE: 'DISABLE',
+  HIDE: 'HIDE',
+  ALLOW: 'ALLOW',
 };
 
 export const ComponentType = {
-  TEXT: 'ComponentType/TEXT',
-  SET: 'ComponentType/SET',
-  IF: 'NodeType/IF',
+  TEXT: 'TEXT',
+  SET: 'SET',
+  IF: 'IF',
 };
 
 
-export function project(id, title, author, children) {
-  return { type: DataType.PROJECT, title, author, children };
+export function project(_id, title, author, children) {
+  return { type: DataType.PROJECT, _id, title, author, children };
 }
 
 
-export function scene(id, name, parent, children) {
-  return { type: DataType.SCENE, id, name, parent, children };
+export function scene(_id, name, parent, children) {
+  return { type: DataType.SCENE, _id, name, parent, children };
 }
 
 
-export function node(id, linkData, label, parent, children, x = 0, y = 0) {
-  return { type: DataType.NODE, linkData, id, label, parent, children, x, y };
+export function node(_id, label, parent, children, link, x = 0, y = 0) {
+  return { type: DataType.NODE, _id, label, parent, children, link, x, y };
 }
 
 
-export function cLink(id, linkType, text, linkId, components) {
-  return { type: DataType.LINK, id, linkType, text, linkId, components };
+export function cLink(_id, linkType, text, linkId, components) {
+  return { type: DataType.LINK, _id, linkType, text, linkId, components };
 }
 
 
-export function cIfLink(id, expr, text, linkId, children) {
-  return { type: DataType.IF_LINK, id, expr, text, linkId, children };
+export function cIfLink(_id, expr, text, linkId, children) {
+  return { type: DataType.IF_LINK, _id, expr, text, linkId, children };
 }
 
 
-export function cNext(id, text, linkId) {
-  return { type: NodeType.NEXT, id, text, linkId };
+export function cNext(_id, text, linkId) {
+  return { type: NodeType.NEXT, _id, text, linkId };
 }
 
 
-export function cText(id, text) {
-  return { type: DataType.TEXT, id, text };
+export function cText(_id, text) {
+  return { type: DataType.TEXT, _id, text };
 }
 
 
-export function cChoice(id, links) {
-  return { type: NodeType.CHOICE, id, links };
+export function cChoice(_id, links) {
+  return { type: NodeType.CHOICE, _id, links };
 }
 
 
-export function cFakeChoice(id, linkId, children) {
-  return { type: NodeType.FAKE_CHOICE, id, linkId, children };
+export function cFakeChoice(_id, linkId, children) {
+  return { type: NodeType.FAKE_CHOICE, _id, linkId, children };
 }
 
 
-export function varGlobal(id, name) {
-  return { type: VariableType.GLOBAL, id, name };
+export function varGlobal(_id, name) {
+  return { type: VariableType.GLOBAL, _id, name };
 }
 
 
-export function varLocal(id, name) {
-  return { type: VariableType.LOCAL, id, name };
+export function varLocal(_id, name) {
+  return { type: VariableType.LOCAL, _id, name };
 }
 
 
-export function cSet(id, name, op, expr) {
-  return { type: DataType.SET, id, name, op, expr };
+export function cSet(_id, name, op, expr) {
+  return { type: DataType.SET, _id, name, op, expr };
 }
 
 
-export function cIf(id, expr, components, elseComponents) {
-  return { type: DataType.IF, id, expr, components, elseComponents };
+export function cIf(_id, expr, components, elseComponents) {
+  return { type: DataType.IF, _id, expr, components, elseComponents };
 }

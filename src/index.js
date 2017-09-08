@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-intl-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './containers/App';
-import { initialState } from './data/state';
+// import { initialState } from './data/state';
 import configureStore from './data/store';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -13,19 +13,19 @@ import MainRoute from './routes/Main';
 import { chroniclerTheme } from './theme';
 
 
-const store = configureStore(initialState);
+const store = configureStore();
 
 
 ReactDOM.render((
-    <MuiThemeProvider theme={chroniclerTheme}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <MuiThemeProvider theme={chroniclerTheme}>
         <BrowserRouter>
           <App>
             <MainRoute />
           </App>
         </BrowserRouter>
-      </Provider>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </Provider>
   ),
   document.getElementById('root'),
 );

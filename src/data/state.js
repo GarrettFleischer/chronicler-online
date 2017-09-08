@@ -1,23 +1,28 @@
-import { base, cText, DataType, node, scene } from './nodes';
+import { base, cText, DataType, node, project, scene } from './nodes';
 
 
 export function getBase(state) {
-  return state.chronicler.present.data;
+  return state.chronicler;
 }
 
 
 export const initialState = {
   chronicler: {
-    currentProject: 0, // index
-    docs: [
-      // TODO add variables
-      scene(1, 'startup', [3, 4]),
-      scene(2, 'chapter 2', [5, 6]),
+    past: [],
+    future: [],
+    canUndo: false,
+    canRedo: false,
+    present: [
+      project(1, 'Dragon', 'CoG', [2, 3, 4, 5, 6, 7]),
 
-      node(3, 'intro', 1, [7]),
-      node(4, 'carry on', 1, []),
-      node(5, 'chapter 2', 2, []),
-      node(6, 'fin', 2, []),
+      // TODO add variables
+      scene(2, 'startup', [3, 4]),
+      scene(3, 'chapter 2', [5, 6]),
+
+      node(4, 'intro', 1, [7]),
+      node(5, 'carry on', 1, []),
+      node(6, 'chapter 2', 2, []),
+      node(7, 'fin', 2, []),
 
       // TODO add more components
       cText(7, 'welcome'),
