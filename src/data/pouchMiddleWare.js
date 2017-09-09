@@ -3,7 +3,7 @@ import PouchDB from 'pouchdb';
 // import { batchInsert, insert, remove, update } from '../reducers/pouchReducer';
 
 export const localDB = new PouchDB('chronicler');
-export const remoteDB = new PouchDB('http://127.0.0.1:5984/chronicler');
+// export const remoteDB = new PouchDB('http://127.0.0.1:5984/chronicler');
 
 export const INSERT = 'INSERT';
 export const BATCH_INSERT = 'BATCH_INSERT';

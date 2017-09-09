@@ -1,8 +1,8 @@
-import { base, cText, DataType, node, project, scene } from './nodes';
+import { base, cText, node, project, scene } from './nodes';
 
 
 export function getBase(state) {
-  return state.chronicler;
+  return state.chronicler.present;
 }
 
 
@@ -40,163 +40,163 @@ export const initialState = {
 //   },
 // };
 
-const projectDB = [
-  {
-    _id: 'project::info',
-    owner: '',
-    collaborators: [{ _id: '', pending: true }],
-    name: '',
-    author: '',
-    description: '',
-    image: 'url',
-  },
-  {},
-];
-
-// TODO implement an "offline sync" action queue.
-const newInitialState = {
-  chronicler: {
-    current_user: 0,
-    users: [
-      {
-        _id: '',
-        api_session: '',
-        current_project: 0,
-        projects: [
-          {
-            owner: '', // can only be set on project creation, not updated
-            collaborators: [{ user: '', pending: false }, { user: '', pending: true }], // can only be updated if user is owner of project
-            data: {
-              past: [],
-              present: {
-                guid: 18,
-                uid: 18,
-                avail: [],
-                data: initData(),
-              },
-              future: [],
-              canUndo: false,
-              canRedo: false,
-            },
-          },
-        ],
-      },
-    ],
-  },
-};
-
-const pouchApiState = {
-  users: [pouchUser],
-  projects: [pouchProject],
-  version: '0.1.0',
-  serverAddress: 'https://gamesmith.ddns.net:5000',
-};
-
-const pouchUser = {
-  _id: 0,
-  userName: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-  projects: {
-    created: [0, 1, 2], // project ids
-    collaborating: [0, 1, 2], // project ids
-  },
-};
-
-const pouchProject = {
-  _id: 0,
-  version: '0.1.0', // version based on last saved update
-  creator: 0,
-  collaborators: [0, 1, 2],
-  dbName: '', // unique name for separate db
-};
-
-export const pouchInitialState = {
-  user: pouchUser,          // current logged in user
-  projects: [pouchProject], // projects belonging to user filtered by path function
-  ui: {
-    project: 0, // id of active project
-  },
-  history: {
-    past: [],
-    present: {
-      guid: 0,
-      uid: 0,
-      avail: [],
-      data: {
-        // all data in specific project database
-        projectName: '',
-        authorName: '',
-        variables: [pouchVariable],
-        scenes: [pouchScene],
-        nodes: [pouchNode],
-        components: [pouchComponent],
-        changesets: [pouchChangeset],
-      },
-    },
-    future: [],
-    canUndo: false,
-    canRedo: false,
-  },
-};
-
-const pouchVariable = {
-  _id: 0,
-  type: DataType.VARIABLE,
-  name: '',
-  value: '',
-  scene: null, // null or scene id if local var
-};
-
-const pouchScene = {
-  _id: 0,
-  type: DataType.SCENE,
-  label: '',
-  nodes: [0, 1, 2], // ids of related nodes
-  variables: [0, 1, 2], // ids of local variables
-};
-
-const pouchNode = {
-  _id: 0,
-  type: DataType.NODE,
-  scene: 0, // id of related scene
-  label: '',
-  components: [0, 1, 2], // ids of related components
-};
-
-const pouchComponent = {
-  _id: 0,
-  type: DataType.COMPONENT,
-  node: 0, // id
-  changesets: [0, 1, 2], // ids of related changesets
-  componentType: DataType.TEXT, // specific component type
-  // type specific data
-};
-
-const pouchChangeset = {
-  _id: 0,
-  type: DataType.CHANGESET,
-  component: 0, // id of related component
-  owner: 0, // id of user
-  parent: 0, // id of parent changeset
-  children: [0, 1, 2], // ids of child changesets
-  changesetType: DataType.CHANGESET, // specific changeset type
-  // type specific data
-};
-
-
-// const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
-
-
-function initData() {
-  return {
-    _id: '',
-    projectName: '',
-    authorName: '',
-    children: [],
-  };
-}
+// const projectDB = [
+//   {
+//     _id: 'project::info',
+//     owner: '',
+//     collaborators: [{ _id: '', pending: true }],
+//     name: '',
+//     author: '',
+//     description: '',
+//     image: 'url',
+//   },
+//   {},
+// ];
+//
+// // TODO implement an "offline sync" action queue.
+// const newInitialState = {
+//   chronicler: {
+//     current_user: 0,
+//     users: [
+//       {
+//         _id: '',
+//         api_session: '',
+//         current_project: 0,
+//         projects: [
+//           {
+//             owner: '', // can only be set on project creation, not updated
+//             collaborators: [{ user: '', pending: false }, { user: '', pending: true }], // can only be updated if user is owner of project
+//             data: {
+//               past: [],
+//               present: {
+//                 guid: 18,
+//                 uid: 18,
+//                 avail: [],
+//                 data: initData(),
+//               },
+//               future: [],
+//               canUndo: false,
+//               canRedo: false,
+//             },
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// };
+//
+// const pouchApiState = {
+//   users: [pouchUser],
+//   projects: [pouchProject],
+//   version: '0.1.0',
+//   serverAddress: 'https://gamesmith.ddns.net:5000',
+// };
+//
+// const pouchUser = {
+//   _id: 0,
+//   userName: '',
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   projects: {
+//     created: [0, 1, 2], // project ids
+//     collaborating: [0, 1, 2], // project ids
+//   },
+// };
+//
+// const pouchProject = {
+//   _id: 0,
+//   version: '0.1.0', // version based on last saved update
+//   creator: 0,
+//   collaborators: [0, 1, 2],
+//   dbName: '', // unique name for separate db
+// };
+//
+// export const pouchInitialState = {
+//   user: pouchUser,          // current logged in user
+//   projects: [pouchProject], // projects belonging to user filtered by path function
+//   ui: {
+//     project: 0, // id of active project
+//   },
+//   history: {
+//     past: [],
+//     present: {
+//       guid: 0,
+//       uid: 0,
+//       avail: [],
+//       data: {
+//         // all data in specific project database
+//         projectName: '',
+//         authorName: '',
+//         variables: [pouchVariable],
+//         scenes: [pouchScene],
+//         nodes: [pouchNode],
+//         components: [pouchComponent],
+//         changesets: [pouchChangeset],
+//       },
+//     },
+//     future: [],
+//     canUndo: false,
+//     canRedo: false,
+//   },
+// };
+//
+// const pouchVariable = {
+//   _id: 0,
+//   type: DataType.VARIABLE,
+//   name: '',
+//   value: '',
+//   scene: null, // null or scene id if local var
+// };
+//
+// const pouchScene = {
+//   _id: 0,
+//   type: DataType.SCENE,
+//   label: '',
+//   nodes: [0, 1, 2], // ids of related nodes
+//   variables: [0, 1, 2], // ids of local variables
+// };
+//
+// const pouchNode = {
+//   _id: 0,
+//   type: DataType.NODE,
+//   scene: 0, // id of related scene
+//   label: '',
+//   components: [0, 1, 2], // ids of related components
+// };
+//
+// const pouchComponent = {
+//   _id: 0,
+//   type: DataType.COMPONENT,
+//   node: 0, // id
+//   changesets: [0, 1, 2], // ids of related changesets
+//   componentType: DataType.TEXT, // specific component type
+//   // type specific data
+// };
+//
+// const pouchChangeset = {
+//   _id: 0,
+//   type: DataType.CHANGESET,
+//   component: 0, // id of related component
+//   owner: 0, // id of user
+//   parent: 0, // id of parent changeset
+//   children: [0, 1, 2], // ids of child changesets
+//   changesetType: DataType.CHANGESET, // specific changeset type
+//   // type specific data
+// };
+//
+//
+// // const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
+//
+//
+// function initData() {
+//   return {
+//     _id: '',
+//     projectName: '',
+//     authorName: '',
+//     children: [],
+//   };
+// }
 
 
 // function initData() {
