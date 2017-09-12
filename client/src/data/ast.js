@@ -1,5 +1,5 @@
 import { generate as getID } from 'shortid';
-import { ACHIEVEMENT, CREATE, LABEL, parse, TEMP, TEXT } from './parser';
+import { ACHIEVEMENT, CREATE, LABEL, parse, TEMP } from './parser';
 
 
 export const BASE = 'BASE';
@@ -45,17 +45,4 @@ export function generateAST(cs) {
 
   return ast;
 }
-
-
-const handleText = (id, line, lines, index) => {
-  let text = line.text;
-  let i = index + 1;
-  while (lines[i].type === TEXT) {
-    text += `\n${lines[i].text}`;
-    i += 1;
-  }
-
-
-  return { symbol: makeASTNode(TEXT, { text }), i };
-};
 
