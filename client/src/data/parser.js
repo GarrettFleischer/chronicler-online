@@ -55,6 +55,7 @@ export function makeLine(type, number, raw, indent, text) {
 export function parse(cs) {
   const result = [];
   const lines = cs.match(/[^\r\n]+/g);
+  let lastLine = null;
   lines.forEach((raw, i) => {
     const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);
     const indent = leadingWS ? leadingWS.length : 0;
@@ -72,13 +73,15 @@ export function parse(cs) {
     });
 
     if (type === TEXT) {
+      // choice item
       if (text.match(/^#\S+/)) {
         type = CHOICE_ITEM;
         parsed = text.replace(/^#/, '');
       }
     }
 
-    result.push(makeLine(type, i, raw, indent, parsed));
+    lastLine = makeLine(type, i, raw, indent, parsed);
+    result.push(lastLine);
   });
 
   return result;

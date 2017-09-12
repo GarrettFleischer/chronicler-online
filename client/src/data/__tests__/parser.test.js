@@ -1,7 +1,6 @@
 import {
   ACHIEVE,
   ACHIEVEMENT,
-  ACTION,
   ALLOW_REUSE,
   AUTHOR,
   BUG,

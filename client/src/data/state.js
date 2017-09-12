@@ -27,7 +27,7 @@ export const initialState = {
       // TODO add more components
       cText(8, 'welcome'),
       cText(9, 'end of chapter 1'),
-      cText(10, 'start of chapter 2'),
+      cText(10, 'number of chapter 2'),
       cText(11, 'end of chapter 2'),
     ],
   },
