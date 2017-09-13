@@ -1,24 +1,13 @@
 import { generate as getID } from 'shortid';
-import { ACHIEVEMENT, CREATE, LABEL, parse, TEMP } from './parser';
+import { ACHIEVEMENT, CHOICE, CREATE, IMAGE, LABEL, parse, SOUND, TEMP, TEXT } from './parser';
 
 
 export const BASE = 'BASE';
 
-export const makeSymbol = (line) => ({ id: getID(), ...line });
-
-export const makeASTNode = () => ({ type: null, id: getID(), children: [] });
-
-
-export function generateSymbolTable(lines) {
-  const filtered = lines.filter((line) =>
-    line.type === CREATE || line.type === TEMP || line.type === ACHIEVEMENT || line.type === LABEL);
-  return filtered.map((line) => makeSymbol(line));
-}
-
 
 export function generateAST(cs) {
   const ast = [];
-  const lines = parse(cs);
+  const lines = combineTextLines(parse(cs));
   const symbolTable = generateSymbolTable(lines);
 
   let node = makeASTNode();
@@ -26,6 +15,7 @@ export function generateAST(cs) {
     const line = lines[i];
 
     switch (line.type) {
+      // ignore things in symbol table
       case CREATE:
       case TEMP:
       case ACHIEVEMENT:
@@ -46,3 +36,170 @@ export function generateAST(cs) {
   return ast;
 }
 
+
+const buildASTNode = (lines, index) => {
+  const node = makeASTNode();
+  let i;
+  for (i = index; i < lines.length; ++i) {
+    const line = lines[i];
+
+    switch (line.type) {
+      // ignore things in symbol table
+      case CREATE:
+      case TEMP:
+      case ACHIEVEMENT:
+        break;
+
+      case LABEL:
+        return { index: i, node };
+
+      default:
+        node.children.append(line);
+        break;
+    }
+  }
+};
+
+
+const makeSymbol = (line) => ({ id: getID(), ...line });
+const makeASTNode = () => ({ type: null, id: getID(), children: [] });
+const makeBlock = (indent, lines = []) => ({ indent, lines, child: null });
+const makeComponent = (type, indent, lines) => ({ id: getID(), type, indent, lines, child: null });
+
+const isDeclaration = (type) => type === CREATE || type === TEMP || type === ACHIEVEMENT || type === LABEL;
+const isResource = (type) => type === IMAGE || type === SOUND;
+
+
+function generateSymbolTable(lines) {
+  const filtered = lines.filter((line) => isDeclaration(line.type) || isResource(line.type));
+  const reduced = filtered.reduce((acc, curr) => {
+    if (isResource(curr.type) && indexOf(acc, (item) => item.text === curr.text) > -1)
+      return acc; // remove duplicate resources from symbol table
+
+    return [...acc, curr];
+  }, []);
+
+  return reduced.map((line) => makeSymbol(line));
+}
+
+
+function indexOf(array, filter) {
+// eslint-disable-next-line no-nested-ternary
+  return array.reduce((acc, curr, i) => (acc > -1) ? acc : (filter(curr) ? i : -1), -1);
+}
+
+
+function last(array) {
+  return array[array.length - 1];
+}
+
+
+function combineTextLines(lines) {
+  return lines.reduce((acc, curr) => {
+    if (acc.length > 0 && last(acc).type === TEXT && curr.type === TEXT) {
+      acc[acc.length - 1] = {
+        ...last(acc),
+        raw: `${last(acc).raw}\n${curr.raw}`,
+        text: `${last(acc).text}\n${curr.text}`,
+        stop: curr.number,
+      };
+      return acc;
+    }
+    return [...acc, curr];
+  }, []);
+
+  // let lastLine = lines[0];
+  // const newLines = [];
+  // for (let i = 1; i < lines.length; i++) {
+  //   const line = lines[i];
+  //
+  //   if (lastLine.type === TEXT && line.type === TEXT) {
+  //     lastLine = {
+  //       ...lastLine,
+  //       raw: `${lastLine.raw}\n${line.raw}`,
+  //       text: `${lastLine.text}\n${line.text}`,
+  //       stop: line.number,
+  //     };
+  //     if (i === lines.length - 1) newLines.push(lastLine);
+  //   } else newLines.push(lastLine);
+  // }
+  //
+  // return newLines;
+}
+
+
+const isBlank = (line) => line.type === TEXT && !line.text.length;
+
+
+function procComponent(lines, index) {
+  const line = lines[index];
+
+  switch (line.type) {
+
+    case CHOICE: {
+      const component = makeComponent(CHOICE, line.indent, [line]);
+      let i;
+      for (i = index + 1; i < lines.length; ++i) {
+        if (line.indent <= component.indent && !isBlank(line))
+          break;
+        component.lines.push(line);
+      }
+      return { index: i, component };
+    }
+
+    case TEXT: {
+      const component = makeComponent(TEXT, line.indent, [line]);
+      let i;
+      for (i = index + 1; i < lines.length && line.type === TEXT; ++i)
+        component.lines.push(line);
+
+      return { index: i, component };
+    }
+
+    default:
+      return { index: index + 1, component: makeComponent(line.type, line.indent, [line]) };
+  }
+}
+
+
+// function generateBlock(lines, indent) {
+//   const block = makeBlock();
+//   for (let i = 0; i < lines.length; i++) {
+//     let line = lines[i];
+//     if (line.indent === block.indent)
+//       }
+//   return block;
+// }
+
+function procBlock(lines, index) {
+  const block = makeBlock(lines[index].indent);
+  let i;
+  for (i = index; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.indent === block.indent)
+      block.lines.push(line);
+    else if (line.indent > block.indent) {
+      const result = procBlock(lines, i);
+      block.child = result.block;
+      return { index: result.index, block };
+    } else
+      return { index: i, block };
+  }
+
+  return { index: i, block };
+}
+
+
+function generateBlocks(lines) {
+  if (lines.length === 0) return [];
+
+  const blocks = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const result = procBlock(lines, i);
+    i = result.index;
+    blocks.push(result.block);
+  }
+
+  return blocks;
+}

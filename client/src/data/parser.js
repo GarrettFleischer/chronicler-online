@@ -1,3 +1,4 @@
+export const EMPTY = 'EMPTY';
 export const TEXT = 'TEXT';
 export const ACHIEVE = 'ACHIEVE';
 export const ACHIEVEMENT = 'ACHIEVEMENT';
