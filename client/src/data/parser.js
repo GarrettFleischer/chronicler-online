@@ -55,7 +55,7 @@ export function makeLine(type, number, raw, indent, text) {
 
 export function parse(cs) {
   const result = [];
-  const lines = cs.match(/[^\r\n]+/g);
+  const lines = cs.replace(/\r+/g, '').split('\n');
   let lastLine = null;
   lines.forEach((raw, i) => {
     const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);

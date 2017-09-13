@@ -35,44 +35,54 @@ export function generateAST(cs) {
   //       break;
   //   }
   // }
-
-  return ast;
+  //
+  // return ast;
 }
 
 
-const buildASTNode = (lines, index) => {
-  const node = makeASTNode();
+export function procBlocks(lines) {
+  return procBlock(removeEmptyLines(lines), 0, makeBlock(0)).block;
+}
+
+
+export const makeSymbol = (line) => ({ id: getID(), ...line });
+export const makeNode = (type, components) => ({ id: getID(), type, components });
+export const makeASTNode = () => ({ id: getID(), type: null, children: [] });
+export const makeBlock = (indent, children = []) => ({ indent, children });
+export const makeComponent = (type, indent, lines) => ({ id: getID(), type, indent, lines, child: null });
+
+export const isDeclaration = (type) => type === CREATE || type === TEMP || type === ACHIEVEMENT || type === LABEL;
+export const isResource = (type) => type === IMAGE || type === SOUND;
+
+
+function removeEmptyLines(lines) {
+  let lastLineText = false;
+  return lines.filter((line) => {
+    if (line.type !== TEXT) {
+      lastLineText = false;
+      return true;
+    }
+    if (line.text.length > 0) lastLineText = true;
+    return lastLineText;
+  });
+}
+
+
+function procBlock(lines, index, block) {
   let i;
   for (i = index; i < lines.length; ++i) {
     const line = lines[i];
-
-    switch (line.type) {
-      // ignore things in symbol table
-      case CREATE:
-      case TEMP:
-      case ACHIEVEMENT:
-        break;
-
-      case LABEL:
-        return { index: i, node };
-
-      default:
-        node.children.append(line);
-        break;
-    }
+    if (line.indent === block.indent || isBlank(line))
+      block.children.push(line);
+    else if (line.indent > block.indent) {
+      const result = procBlock(lines, i, makeBlock(line.indent));
+      i = result.index;
+      block.children.push(result.block);
+    } else
+      break;
   }
-};
-
-
-const makeSymbol = (line) => ({ id: getID(), ...line });
-const makeNode = (type, components) => ({ id: getID(), type, components });
-const makeASTNode = () => ({ id: getID(), type: null, children: [] });
-const makeBlock = (indent) => ({ indent, lines: [], components: [], child: null });
-const makeComponent = (type, indent, lines) => ({ id: getID(), type, indent, lines, child: null });
-
-const isDeclaration = (type) => type === CREATE || type === TEMP || type === ACHIEVEMENT || type === LABEL;
-const isResource = (type) => type === IMAGE || type === SOUND;
-
+  return { index: i - 1, block };
+}
 
 function generateSymbolTable(lines) {
   const filtered = lines.filter((line) => isDeclaration(line.type) || isResource(line.type));
@@ -215,28 +225,28 @@ function procComponent(lines, index) {
 // }
 
 
-function procBlock(lines, index) {
-  const block = makeBlock(lines[index].indent);
-  let i;
-  for (i = index; i < lines.length; i++) {
-    const line = lines[i];
-    if (line.indent === block.indent)
-      block.lines.push(line);
-    else if (line.indent > block.indent) {
-      const result = procBlock(lines, i);
-      block.child = result.block;
-      return { index: result.index, block };
-    } else
-      return { index: i, block };
-  }
-
-  return { index: i, block };
-}
-
-
-function procBlocks(lines) {
-  return combine(lines, procBlock);
-}
+// function procBlock(lines, index) {
+//   const block = makeBlock(lines[index].indent);
+//   let i;
+//   for (i = index; i < lines.length; i++) {
+//     const line = lines[i];
+//     if (line.indent === block.indent)
+//       block.lines.push(line);
+//     else if (line.indent > block.indent) {
+//       const result = procBlock(lines, i);
+//       block.child = result.block;
+//       return { index: result.index, block };
+//     } else
+//       return { index: i, block };
+//   }
+//
+//   return { index: i, block };
+// }
+//
+//
+// function procBlocks(lines) {
+//   return combine(lines, procBlock);
+// }
 
 
 function combine(lines, func) {

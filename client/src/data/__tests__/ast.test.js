@@ -1,32 +1,11 @@
-import { generateAST, generateSymbolTable } from '../ast';
+import { generateSymbolTable, makeBlock, procBlocks } from '../ast';
 import { CHOICE, CHOICE_ITEM, CREATE, FINISH, LABEL, makeLine, parse, TEMP, TEXT } from '../parser';
 
 
-const makeBlock = (indent, children) => ({ type: 'BLOCK', indent, children });
-
-const cs = 'Hello World!\n' +
-  '\n' +
-  '*choice\n' +
-  '  #And all who inhabit it!\n' +
-  '\n' +
-  '    My, you\'re cheerful.\n' +
-  '\n' +
-  '    *choice\n' +
-  '      #YES\n' +
-  '        *finish\n' +
-  '      #NO\n' +
-  '        *finish\n' +
-  '    *finish\n' +
-  '\n' +
-  '  #I hate Mondays...\n' +
-  '    Indeed.\n' +
-  '    *finish\n' +
-  '*finish';
-
 describe('ast', () => {
   it('generates a symbol table', () => {
-    const cs2 = '*create name\n*temp color\n*label node_23';
-    const lines = parse(cs2);
+    const cs = '*create name\n*temp color\n*label node_23';
+    const lines = parse(cs);
     const expected = [
       makeLine(CREATE, 0, '*create name', 0, 'name'),
       makeLine(TEMP, 1, '*temp color', 0, 'color'),
@@ -37,10 +16,11 @@ describe('ast', () => {
     expect(result).toEqual(expected);
   });
 
-  it('works', () => {
+  it('processes blocks', () => {
+    const cs = 'Hello World!\n\n*choice\n  #And all who inhabit it!\n\n    My, you\'re cheerful.\n\n    *choice\n      #YES\n        *finish\n      #NO\n        *finish\n    *finish\n\n  #I hate Mondays...\n    Indeed.\n    *finish\n*finish';
     const expected =
       makeBlock(0, [
-        makeLine(TEXT, 0, 'Hello World!', 0, 'Hello World'),
+        makeLine(TEXT, 0, 'Hello World!', 0, 'Hello World!'),
         makeLine(TEXT, 1, '', 0, ''),
         makeLine(CHOICE, 2, '*choice', 0, ''),
         makeBlock(2, [
@@ -69,10 +49,10 @@ describe('ast', () => {
         ]),
         makeLine(FINISH, 17, '*finish', 0, ''),
       ]);
+    const lines = parse(cs);
+    const result = procBlocks(lines);
 
-    const result = generateAST(cs);
-
-    expect(result.blocks).toEqual(expected);
+    expect(result).toEqual(expected);
   });
 });
 
