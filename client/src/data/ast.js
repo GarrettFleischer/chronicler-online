@@ -7,31 +7,34 @@ export const BASE = 'BASE';
 
 export function generateAST(cs) {
   const ast = [];
-  const lines = combineTextLines(parse(cs));
+  const lines = parse(cs);
   const symbolTable = generateSymbolTable(lines);
+  const blocks = procBlocks(lines);
 
-  let node = makeASTNode();
-  for (let i = 0; i < lines.length; ++i) {
-    const line = lines[i];
+  return { symbolTable, blocks };
 
-    switch (line.type) {
-      // ignore things in symbol table
-      case CREATE:
-      case TEMP:
-      case ACHIEVEMENT:
-        break;
-
-      case LABEL: {
-        ast.push(node);
-        node = makeASTNode();
-        break;
-      }
-
-      default:
-        node.children.append(line);
-        break;
-    }
-  }
+  // let node = makeASTNode();
+  // for (let i = 0; i < lines.length; ++i) {
+  //   const line = lines[i];
+  //
+  //   switch (line.type) {
+  //     // ignore things in symbol table
+  //     case CREATE:
+  //     case TEMP:
+  //     case ACHIEVEMENT:
+  //       break;
+  //
+  //     case LABEL: {
+  //       ast.push(node);
+  //       node = makeASTNode();
+  //       break;
+  //     }
+  //
+  //     default:
+  //       node.children.append(line);
+  //       break;
+  //   }
+  // }
 
   return ast;
 }
@@ -62,8 +65,9 @@ const buildASTNode = (lines, index) => {
 
 
 const makeSymbol = (line) => ({ id: getID(), ...line });
-const makeASTNode = () => ({ type: null, id: getID(), children: [] });
-const makeBlock = (indent, lines = []) => ({ indent, lines, child: null });
+const makeNode = (type, components) => ({ id: getID(), type, components });
+const makeASTNode = () => ({ id: getID(), type: null, children: [] });
+const makeBlock = (indent) => ({ indent, lines: [], components: [], child: null });
 const makeComponent = (type, indent, lines) => ({ id: getID(), type, indent, lines, child: null });
 
 const isDeclaration = (type) => type === CREATE || type === TEMP || type === ACHIEVEMENT || type === LABEL;
@@ -94,38 +98,58 @@ function last(array) {
 }
 
 
-function combineTextLines(lines) {
-  return lines.reduce((acc, curr) => {
-    if (acc.length > 0 && last(acc).type === TEXT && curr.type === TEXT) {
-      acc[acc.length - 1] = {
-        ...last(acc),
-        raw: `${last(acc).raw}\n${curr.raw}`,
-        text: `${last(acc).text}\n${curr.text}`,
-        stop: curr.number,
-      };
-      return acc;
-    }
-    return [...acc, curr];
-  }, []);
+function procNodes(lines) {
 
-  // let lastLine = lines[0];
-  // const newLines = [];
-  // for (let i = 1; i < lines.length; i++) {
-  //   const line = lines[i];
-  //
-  //   if (lastLine.type === TEXT && line.type === TEXT) {
-  //     lastLine = {
-  //       ...lastLine,
-  //       raw: `${lastLine.raw}\n${line.raw}`,
-  //       text: `${lastLine.text}\n${line.text}`,
-  //       stop: line.number,
-  //     };
-  //     if (i === lines.length - 1) newLines.push(lastLine);
-  //   } else newLines.push(lastLine);
-  // }
-  //
-  // return newLines;
 }
+
+
+function procNode(block) {
+  if (block === null) return null;
+  const childNode = procNode(block.child);
+  // for (let i = 0; i < block.components.length; i++) {
+  //   let component = block.components[i];
+  //   if(component.type === )
+  // }
+}
+
+
+function flatten(blocks) {
+  const chunks = [];
+}
+
+
+// function combineTextLines(lines) {
+//   return lines.reduce((acc, curr) => {
+//     if (acc.length > 0 && last(acc).type === TEXT && curr.type === TEXT) {
+//       acc[acc.length - 1] = {
+//         ...last(acc),
+//         raw: `${last(acc).raw}\n${curr.raw}`,
+//         text: `${last(acc).text}\n${curr.text}`,
+//         stop: curr.number,
+//       };
+//       return acc;
+//     }
+//     return [...acc, curr];
+//   }, []);
+//
+//   // let lastLine = lines[0];
+//   // const newLines = [];
+//   // for (let i = 1; i < lines.length; i++) {
+//   //   const line = lines[i];
+//   //
+//   //   if (lastLine.type === TEXT && line.type === TEXT) {
+//   //     lastLine = {
+//   //       ...lastLine,
+//   //       raw: `${lastLine.raw}\n${line.raw}`,
+//   //       text: `${lastLine.text}\n${line.text}`,
+//   //       stop: line.number,
+//   //     };
+//   //     if (i === lines.length - 1) newLines.push(lastLine);
+//   //   } else newLines.push(lastLine);
+//   // }
+//   //
+//   // return newLines;
+// }
 
 
 const isBlank = (line) => line.type === TEXT && !line.text.length;
@@ -155,6 +179,7 @@ function procComponent(lines, index) {
 
       return { index: i, component };
     }
+    // TODO handle if statements
 
     default:
       return { index: index + 1, component: makeComponent(line.type, line.indent, [line]) };
@@ -162,14 +187,33 @@ function procComponent(lines, index) {
 }
 
 
-// function generateBlock(lines, indent) {
-//   const block = makeBlock();
-//   for (let i = 0; i < lines.length; i++) {
-//     let line = lines[i];
-//     if (line.indent === block.indent)
+// function procComponents(block) {
+//   const components = [];
+//
+//   for (let i = 0; i < block.lines.length - 1; i++) {
+//     const line = block.lines[i];
+//     switch (line.type) {
+//       case TEXT: {
+//         const component = makeComponent(TEXT, block.indent, [line]);
+//         for (i += 1; i < block.lines.length && line.type === TEXT; ++i)
+//           component.lines.push(line);
+//         components.push(component);
+//         break;
 //       }
-//   return block;
+//
+//       default:
+//         components.push(makeComponent(line.type, block.indent, [line]));
+//     }
+//   }
+//
+//   const lastComponent = last(block.components);
+//   if (lastComponent.type === CHOICE) {
+//
+//   }
+//
+//   return components;
 // }
+
 
 function procBlock(lines, index) {
   const block = makeBlock(lines[index].indent);
@@ -190,16 +234,19 @@ function procBlock(lines, index) {
 }
 
 
-function generateBlocks(lines) {
-  if (lines.length === 0) return [];
+function procBlocks(lines) {
+  return combine(lines, procBlock);
+}
 
-  const blocks = [];
+
+function combine(lines, func) {
+  const results = [];
 
   for (let i = 0; i < lines.length; i++) {
-    const result = procBlock(lines, i);
+    const result = func(lines, i);
     i = result.index;
-    blocks.push(result.block);
+    results.push(result.block);
   }
 
-  return blocks;
+  return results;
 }
