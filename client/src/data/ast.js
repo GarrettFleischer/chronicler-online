@@ -1,8 +1,18 @@
 import { generate as getID } from 'shortid';
-import { ACHIEVEMENT, CHOICE, CREATE, IMAGE, LABEL, parse, SOUND, TEMP, TEXT } from './parser';
+import { ACHIEVEMENT, CHOICE, CHOICE_ITEM, CREATE, IMAGE, LABEL, parse, SOUND, TEMP, TEXT } from './parser';
 
 
 export const BASE = 'BASE';
+export const BLOCK = 'BLOCK';
+
+export const makeSymbol = (line) => ({ id: getID(), ...line });
+export const makeNode = (type, components) => ({ id: getID(), type, components });
+export const makeASTNode = () => ({ id: getID(), type: null, children: [] });
+export const makeBlock = (indent, children = []) => ({ type: BLOCK, indent, children });
+export const makeComponent = (type, indent, lines, children = []) => ({ id: getID(), type, indent, lines, children });
+
+export const isDeclaration = (type) => type === CREATE || type === TEMP || type === ACHIEVEMENT || type === LABEL;
+export const isResource = (type) => type === IMAGE || type === SOUND;
 
 
 export function generateAST(cs) {
@@ -45,14 +55,58 @@ export function procBlocks(lines) {
 }
 
 
-export const makeSymbol = (line) => ({ id: getID(), ...line });
-export const makeNode = (type, components) => ({ id: getID(), type, components });
-export const makeASTNode = () => ({ id: getID(), type: null, children: [] });
-export const makeBlock = (indent, children = []) => ({ indent, children });
-export const makeComponent = (type, indent, lines) => ({ id: getID(), type, indent, lines, child: null });
+export function procComponents(block) {
+  const components = [];
 
-export const isDeclaration = (type) => type === CREATE || type === TEMP || type === ACHIEVEMENT || type === LABEL;
-export const isResource = (type) => type === IMAGE || type === SOUND;
+  for (let i = 0; i < block.children.length; ++i) {
+    const child = block.children[i];
+    switch (child.type) {
+      case TEXT: {
+        const component = makeComponent(TEXT, child.indent, [child]);
+        while (block.children[i + 1].type === TEXT) {
+          i += 1;
+          component.lines.push(block.children[i]);
+        }
+        components.push(component);
+      }
+        break;
+
+      case CHOICE: {
+        const component = makeComponent(CHOICE, child.indent, [child]);
+        i += 1;
+        const block = block.children[i];
+        const choices = block.children.filter((item, index) => index % 2 === 0);
+        const blocks = block.children.filter((item, index) => index % 2 === 1);
+        for (let j = 0; j < choices.length; ++j) {
+          const choice = makeComponent(CHOICE_ITEM, choices[i].indent, [choices[i]]);
+
+        }
+
+        component.lines.push(...getLines(block));
+      }
+        break;
+
+      // TODO handle if statements
+
+      default:
+        components.push(makeComponent(child.type, child.indent, [child]));
+        break;
+    }
+  }
+
+  return components;
+}
+
+
+function getLines(block) {
+  const lines = [];
+  block.children.forEach((child) => {
+    if (child.type === BLOCK) lines.push(...getLines(child));
+    else lines.push(child);
+  });
+
+  return lines;
+}
 
 
 function removeEmptyLines(lines) {
@@ -83,6 +137,7 @@ function procBlock(lines, index, block) {
   }
   return { index: i - 1, block };
 }
+
 
 function generateSymbolTable(lines) {
   const filtered = lines.filter((line) => isDeclaration(line.type) || isResource(line.type));
