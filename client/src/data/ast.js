@@ -77,10 +77,9 @@ export function procComponents(block) {
         const block = block.children[i];
         const choices = block.children.filter((item, index) => index % 2 === 0);
         const blocks = block.children.filter((item, index) => index % 2 === 1);
-        for (let j = 0; j < choices.length; ++j) {
-          const choice = makeComponent(CHOICE_ITEM, choices[i].indent, [choices[i]]);
+        for (let j = 0; j < choices.length; ++j)
+             const choice = makeComponent(CHOICE_ITEM, choices[i].indent, [choices[i]]);
 
-        }
 
         component.lines.push(...getLines(block));
       }
@@ -142,8 +141,8 @@ function procBlock(lines, index, block) {
 function generateSymbolTable(lines) {
   const filtered = lines.filter((line) => isDeclaration(line.type) || isResource(line.type));
   const reduced = filtered.reduce((acc, curr) => {
-    if (isResource(curr.type) && indexOf(acc, (item) => item.text === curr.text) > -1)
-      return acc; // remove duplicate resources from symbol table
+    if (isResource(curr.type) && indexOf(acc, (item) => item.type === curr.type && item.text === curr.text) > -1)
+      return acc; // don't add duplicate resources to symbol table
 
     return [...acc, curr];
   }, []);
@@ -215,9 +214,6 @@ function flatten(blocks) {
 //   //
 //   // return newLines;
 // }
-
-
-const isBlank = (line) => line.type === TEXT && !line.text.length;
 
 
 function procComponent(lines, index) {

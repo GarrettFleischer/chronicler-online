@@ -50,30 +50,15 @@ export const TITLE = 'TITLE';
 
 export const makeLine = (type, number, raw, indent, text) => ({ type, number, raw, indent, text });
 
+export const nextToken = (tokens) => ({ ...tokens, index: tokens.index + 1 });
 
-export function nextToken(tokens) {
-  return { ...tokens, index: tokens.index + 1 };
-}
+export const prevToken = (tokens) => ({ ...tokens, index: tokens.index - 1 });
 
+export const getToken = (tokens) => tokens.tokens[tokens.index];
 
-export function prevToken(tokens) {
-  return { ...tokens, index: tokens.index - 1 };
-}
+export const done = (tokens) => tokens.index === tokens.tokens.length;
 
-
-export function getToken(tokens) {
-  return tokens.tokens[tokens.index];
-}
-
-
-export function done(tokens) {
-  return tokens.index === tokens.tokens.length;
-}
-
-
-export function isBlank(line) {
-  return line.text.length === 0;
-}
+export const isBlank = (line) => line.type === TEXT && !line.text.length;
 
 
 export function tokenize(cs) {

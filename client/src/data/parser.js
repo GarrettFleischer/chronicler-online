@@ -51,55 +51,76 @@ const makeParseResult = (tokens, success = true, error = { expected: '', found: 
 
 export function parse(cs) {
   const tokens = tokenize(cs);
-  let result = makeParseResult(tokens);
-  result = anyNumberOf(result, Node);
-  const nodes = result.object;
-  if (!result.success)
-    result.object = `expected ${result.error.expected} but found ${result.error.found}`;
+  // const result = inOrder(atLeastOneOf(Node), matchType(EOF))(makeParseResult(tokens));
+  const result = endingIn(matchType(EOF), Node)(makeParseResult(tokens));
+  if (!result.success) return result;
+  return { ...result, object: result.object.objects };
 
-  result = match(result, EOF);
-  if (!result.success)
-    result.object = `expected ${result.error.expected} but found ${result.error.found}`;
-
-  return { ...result, object: nodes };
+  // result = anyNumberOf(result, Node);
+  // const nodes = result.object;
+  // if (!result.success)
+  //   result.object = `expected ${result.error.expected} but found ${result.error.found}`;
+  //
+  // result = match(result, EOF);
+  // if (!result.success)
+  //   result.object = `expected ${result.error.expected} but found ${result.error.found}`;
+  //
+  // return { ...result, object: nodes };
 }
 
 
 function Node(parseResult) {
-  let result = match(parseResult, LABEL);
-  const label = result.success ? result.object.text : null;
-  result = result.success ? result : parseResult;
-
-  result = anyNumberOf(result, Text, Action);
-  const components = result.object;
-
-  result = Link(result);
+  const result = inOrder(optional(matchType(LABEL)), anyNumberOf(Text, Action), Link)(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeNode(label, components, result.object) };
+  const label = result.object[0] === null ? null : result.object[0].text;
+  return { ...result, object: makeNode(label, result.object[1], result.object[2]) };
+
+  // let result = match(LABEL)(parseResult);
+  // const label = result.success ? result.object.text : null;
+  // result = result.success ? result : parseResult;
+  //
+  // result = anyNumberOf(Text, Action)(result);
+  // const components = result.object;
+  //
+  // result = Link(result);
+  // if (!result.success) return result;
+  //
+  // return { ...result, object: makeNode(label, components, result.object) };
 }
 
 
 function Text(parseResult) {
-  let result = match(parseResult, TEXT);
+  // const result = inOrder(match(TEXT), anyNumberOf(match(TEXT)))(parseResult);
+  const result = atLeastOneOf(matchType(TEXT))(parseResult);
   if (!result.success) return result;
-  let text = result.object.text;
 
-  let temp = match(result, TEXT);
-  while (!done(temp.tokens) && temp.success) {
-    text += `\n${temp.object.text}`;
-    result = temp;
-    temp = match(result, TEXT);
-  }
+  let text = result.object[0].text;
+  result.object[1].forEach((token) => {
+    text += `\n${token.text}`;
+  });
 
   return { ...result, object: makeText(text) };
+
+  // let result = match(TEXT)(parseResult);
+  // if (!result.success) return result;
+  // let text = result.object.text;
+  //
+  // let temp = match(TEXT)(result);
+  // while (!done(temp.tokens) && temp.success) {
+  //   text += `\n${temp.object.text}`;
+  //   result = temp;
+  //   temp = match(TEXT)(result);
+  // }
+  //
+  // return { ...result, object: makeText(text) };
 }
 
 
 function Action(parseResult) {
-  const result = oneOf(parseResult, ACHIEVE, BUG, CHECK_ACHIEVEMENTS, COMMENT, IMAGE,
+  const result = oneOfType(ACHIEVE, BUG, CHECK_ACHIEVEMENTS, COMMENT, IMAGE,
     INPUT_NUMBER, INPUT_TEXT, LINE_BREAK, LINK, MORE_GAMES, PRINT, RAND, SET_REF, SCENE_LIST,
-    SCRIPT, SELECTABLE_IF, SET, SHARE, SHOW_PASSWORD, SOUND);
+    SCRIPT, SELECTABLE_IF, SET, SHARE, SHOW_PASSWORD, SOUND)(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeAction(result.object) };
@@ -107,7 +128,7 @@ function Action(parseResult) {
 
 
 function Link(parseResult) {
-  const result = oneOf(parseResult, FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE);
+  const result = oneOfType(FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE)(parseResult);
   // TODO handle if and choices
   if (!result.success) return result;
 
@@ -115,66 +136,112 @@ function Link(parseResult) {
 }
 
 
-function match(parseResult, type) {
-  const token = getToken(parseResult.tokens);
-  if (token.type === type)
-    return { ...parseResult, object: token, tokens: nextToken(parseResult.tokens) };
-
-  return { ...parseResult, success: false, error: { expected: type, found: token.type } };
+function Nothing(parseResult) {
+  return { ...parseResult, object: null };
 }
 
 
-function oneOf(parseResult, ...types) {
-  const token = getToken(parseResult.tokens);
-  for (let i = 0; i < types.length; ++i) {
-    const type = types[i];
+function matchType(type) {
+  return (parseResult) => {
+    const token = getToken(parseResult.tokens);
     if (token.type === type)
       return { ...parseResult, object: token, tokens: nextToken(parseResult.tokens) };
-  }
 
-  return { ...parseResult, success: false, error: { expected: types.join(', '), found: token.type } };
+    return { ...parseResult, success: false, error: { expected: type, found: token.type } };
+  };
 }
 
 
-function choose(...parseResults) {
-  let result = parseResults[0];
-  if (result.success) return result;
+function oneOfType(...types) {
+  return (parseResult) => {
+    const token = getToken(parseResult.tokens);
+    for (let i = 0; i < types.length; ++i) {
+      const type = types[i];
+      if (token.type === type)
+        return { ...parseResult, object: token, tokens: nextToken(parseResult.tokens) };
+    }
 
-  let expected = result.error.expected;
-  for (let i = 1; i < parseResults.length; ++i) {
-    result = parseResults[i];
-    if (result.success) return result;
-    expected += `, ${result.error.expected}`;
-  }
-
-  return { ...result, error: { ...result.error, expected } };
+    return { ...parseResult, success: false, error: { expected: types.join(', '), found: token.type } };
+  };
 }
 
 
-function anyNumberOf(parseResult, ...parsers) {
-  const objects = [];
+function choose(...parsers) {
+  return (parseResult) => {
+    let expected = '';
+    let result = parseResult;
+    for (let i = 0; i < parsers.length; ++i) {
+      result = parsers[i](parseResult);
+      if (result.success) return result;
+      expected += `${i > 0 ? ', ' : ''}${result.error.expected}`;
+    }
 
-  let result = parseResult;
-  let temp = choose(...parsers.map(mapParser(result)));
-  while (temp.success) {
-    result = temp;
-    objects.push(result.object);
-    if (done(result.tokens)) break;
-    temp = choose(...parsers.map(mapParser(result)));
-  }
-
-  return { ...result, object: objects };
+    return { ...result, error: { ...result.error, expected } };
+  };
 }
 
 
-// function atLeastOneOf(parseResult, ...parsers) {
-//   const result = anyNumberOf(parseResult, parsers);
-//   if(result.object.length === 0) return parseResult;
-//   return result;
-// }
+function anyNumberOf(...parsers) {
+  return (parseResult) => {
+    const objects = [];
+
+    let result = parseResult;
+    let temp = choose(...parsers)(result);
+    while (temp.success) {
+      result = temp;
+      objects.push(result.object);
+      if (done(result.tokens)) break;
+      temp = choose(...parsers)(result);
+    }
+
+    return { ...result, object: objects };
+  };
+}
 
 
-const mapParser = (parseResult) => (parser) => parser(parseResult);
+function atLeastOneOf(...parsers) {
+  return inOrder(choose(...parsers), anyNumberOf(choose(...parsers)));
+}
+
+
+function optional(parser) {
+  return (parseResult) => choose(parser, Nothing)(parseResult);
+}
+
+
+function inOrder(...parsers) {
+  return (parseResult) => {
+    const objects = [];
+    let result = parseResult;
+    for (let i = 0; i < parsers.length; ++i) {
+      result = parsers[i](result);
+      if (!result.success) return result;
+      objects.push(result.object);
+    }
+    return { ...result, object: objects };
+  };
+}
+
+
+function endingIn(endParser, ...parsers) {
+  return (parseResult) => {
+    const objects = [];
+    let result = choose(...parsers)(parseResult);
+    let temp = result;
+    while (result.success) {
+      objects.push(result.object);
+      temp = choose(...parsers)(result);
+      if (!temp.success) break;
+      result = temp;
+    }
+    const endResult = endParser(result);
+    if (!temp.success && !endResult.success) return temp;
+    return { ...endResult, object: { end: endResult.object, objects } };
+  };
+}
+
+
+// const mapParser = (parseResult) => (parser) => parser(parseResult);
 
 
 // const failure = undefined;
