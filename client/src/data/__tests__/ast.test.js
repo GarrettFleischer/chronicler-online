@@ -1,5 +1,5 @@
 import { generateSymbolTable, makeBlock, makeComponent, makeNode, procBlocks } from '../ast';
-import { CHOICE, CHOICE_ITEM, CREATE, FINISH, GOTO, LABEL, makeLine, parse, TEMP, TEXT } from '../parser';
+import { CHOICE, CHOICE_ITEM, CREATE, FINISH, GOTO, LABEL, makeLine, TEMP, TEXT, tokenize } from '../tokenizer';
 
 
 const makeChoiceNode = (id, );
@@ -8,7 +8,7 @@ const makeChoiceNode = (id, );
 describe('ast', () => {
   it('generates a symbol table', () => {
     const cs = '*create name\n*temp color\n*label node_23';
-    const lines = parse(cs);
+    const lines = tokenize(cs);
     const expected = [
       makeLine(CREATE, 0, '*create name', 0, 'name'),
       makeLine(TEMP, 1, '*temp color', 0, 'color'),
@@ -52,7 +52,7 @@ describe('ast', () => {
         ]),
         makeLine(FINISH, 17, '*finish', 0, ''),
       ]);
-    const lines = parse(cs);
+    const lines = tokenize(cs);
     const result = procBlocks(lines);
 
     expect(result).toEqual(expected);

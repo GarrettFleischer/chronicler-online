@@ -1,140 +1,208 @@
-export const EMPTY = 'EMPTY';
-export const TEXT = 'TEXT';
-export const ACHIEVE = 'ACHIEVE';
-export const ACHIEVEMENT = 'ACHIEVEMENT';
-export const ALLOW_REUSE = 'ALLOW_REUSE';
-export const AUTHOR = 'AUTHOR';
-export const BUG = 'BUG';
-export const CHECK_ACHIEVEMENTS = 'CHECK_ACHIEVEMENTS';
-export const CHOICE = 'CHOICE';
-export const CHOICE_ITEM = 'CHOICE_ITEM';
-export const COMMENT = 'COMMENT';
-export const CREATE = 'CREATE';
-export const DELETE = 'DELETE';
-export const DISABLE_REUSE = 'DISABLE_REUSE';
-export const ELSE = 'ELSE';
-export const ELSEIF = 'ELSEIF';
-export const ENDING = 'ENDING';
-export const FAKE_CHOICE = 'FAKE_CHOICE';
-export const FINISH = 'FINISH';
-export const GOSUB = 'GOSUB';
-export const GOSUB_SCENE = 'GOSUB_SCENE';
-export const GOTO = 'GOTO';
-export const GOTO_RANDOM_SCENE = 'GOTO_RANDOM_SCENE';
-export const GOTO_SCENE = 'GOTO_SCENE';
-export const HIDE_REUSE = 'HIDE_REUSE';
-export const IF = 'IF';
-export const IMAGE = 'IMAGE';
-export const INPUT_NUMBER = 'INPUT_NUMBER';
-export const INPUT_TEXT = 'INPUT_TEXT';
-export const LABEL = 'LABEL';
-export const LINE_BREAK = 'LINE_BREAK';
-export const LINK = 'LINK';
-export const MORE_GAMES = 'MORE_GAMES';
-export const PAGE_BREAK = 'PAGE_BREAK';
-export const PRINT = 'PRINT';
-export const RAND = 'RAND';
-export const GOTO_REF = 'GOTO_REF';
-export const SET_REF = 'SET_REF';
-export const SCENE_LIST = 'SCENE_LIST';
-export const SCRIPT = 'SCRIPT';
-export const SELECTABLE_IF = 'SELECTABLE_IF';
-export const SET = 'SET';
-export const SHARE = 'SHARE';
-export const SHOW_PASSWORD = 'SHOW_PASSWORD';
-export const SOUND = 'SOUND';
-export const STAT_CHART = 'STAT_CHART';
-export const TEMP = 'TEMP';
-export const TITLE = 'TITLE';
+import { generate as getID } from 'shortid';
+import {
+  ACHIEVE,
+  BUG,
+  CHECK_ACHIEVEMENTS,
+  COMMENT,
+  done,
+  EOF,
+  FINISH,
+  getToken,
+  GOSUB,
+  GOSUB_SCENE,
+  GOTO,
+  GOTO_RANDOM_SCENE,
+  GOTO_REF,
+  GOTO_SCENE,
+  IMAGE,
+  INPUT_NUMBER,
+  INPUT_TEXT,
+  LABEL,
+  LINE_BREAK,
+  LINK,
+  MORE_GAMES,
+  nextToken,
+  PRINT,
+  RAND,
+  SCENE_LIST,
+  SCRIPT,
+  SELECTABLE_IF,
+  SET,
+  SET_REF,
+  SHARE,
+  SHOW_PASSWORD,
+  SOUND,
+  TEXT,
+  tokenize,
+} from './tokenizer';
 
 
-export function makeLine(type, number, raw, indent, text) {
-  return { type, number, raw, indent, text };
-}
+export const NODE = 'NODE';
+
+const makeText = (text) => ({ type: TEXT, id: getID(), text });
+const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
+const makeLink = (line) => ({ type: line.type, text: line.text });
+// const makeLabel = (label, id) => (label === null) ? `node_${id}` : label;
+const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
+
+const makeParseResult = (tokens, success = true, error = { expected: '', found: '' }, object = null) =>
+  ({ tokens, success, error, object });
 
 
 export function parse(cs) {
-  const result = [];
-  const lines = cs.replace(/\r+/g, '').split('\n');
-  let lastLine = null;
-  lines.forEach((raw, i) => {
-    const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);
-    const indent = leadingWS ? leadingWS.length : 0;
-    const text = raw.replace(/^\s+/, '');
+  const tokens = tokenize(cs);
+  let result = makeParseResult(tokens);
+  result = anyNumberOf(result, Node);
+  const nodes = result.object;
+  if (!result.success)
+    result.object = `expected ${result.error.expected} but found ${result.error.found}`;
 
-    let type = TEXT;
-    let parsed = text;
-    ACTIONS.some((action) => {
-      const regex = new RegExp(`^\\*${action.text}(\\s+|$)`);
-      if (text.match(regex)) {
-        type = action.type;
-        parsed = text.replace(/^\*\w+(\s+|$)/, '');
-      }
-      return type !== TEXT;
-    });
+  result = match(result, EOF);
+  if (!result.success)
+    result.object = `expected ${result.error.expected} but found ${result.error.found}`;
 
-    if (type === TEXT) {
-      // choice item
-      if (text.match(/^#\S+/)) {
-        type = CHOICE_ITEM;
-        parsed = text.replace(/^#/, '');
-      }
-    }
-
-    lastLine = makeLine(type, i, raw, indent, parsed);
-    result.push(lastLine);
-  });
-
-  return result;
+  return { ...result, object: nodes };
 }
 
 
-const makeAction = (type, text) => ({ type, text });
-const ACTIONS = [
-  makeAction(ACHIEVE, 'achieve'),
-  makeAction(ACHIEVEMENT, 'achievement'),
-  makeAction(ALLOW_REUSE, 'allow_reuse'),
-  makeAction(AUTHOR, 'author'),
-  makeAction(BUG, 'bug'),
-  makeAction(CHECK_ACHIEVEMENTS, 'check_achievements'),
-  makeAction(CHOICE, 'choice'),
-  makeAction(COMMENT, 'comment'),
-  makeAction(CREATE, 'create'),
-  makeAction(DELETE, 'delete'),
-  makeAction(DISABLE_REUSE, 'disable_reuse'),
-  makeAction(ELSE, 'else'),
-  makeAction(ELSEIF, 'elseif'),
-  makeAction(ELSEIF, 'elsif'),
-  makeAction(ENDING, 'ending'),
-  makeAction(FAKE_CHOICE, 'fake_choice'),
-  makeAction(FINISH, 'finish'),
-  makeAction(GOSUB, 'gosub'),
-  makeAction(GOSUB_SCENE, 'gosub_scene'),
-  makeAction(GOTO, 'goto'),
-  makeAction(GOTO_RANDOM_SCENE, 'goto_random_scene'),
-  makeAction(GOTO_SCENE, 'goto_scene'),
-  makeAction(HIDE_REUSE, 'hide_reuse'),
-  makeAction(IF, 'if'),
-  makeAction(IMAGE, 'image'),
-  makeAction(INPUT_NUMBER, 'input_number'),
-  makeAction(INPUT_TEXT, 'input_text'),
-  makeAction(LABEL, 'label'),
-  makeAction(LINE_BREAK, 'line_break'),
-  makeAction(LINK, 'link'),
-  makeAction(MORE_GAMES, 'more_games'),
-  makeAction(PAGE_BREAK, 'page_break'),
-  makeAction(PRINT, 'print'),
-  makeAction(RAND, 'rand'),
-  makeAction(GOTO_REF, 'gotoref'),
-  makeAction(SET_REF, 'setref'),
-  makeAction(SCENE_LIST, 'scene_list'),
-  makeAction(SCRIPT, 'script'),
-  makeAction(SELECTABLE_IF, 'selectable_if'),
-  makeAction(SET, 'set'),
-  makeAction(SHARE, 'share_this_game'),
-  makeAction(SHOW_PASSWORD, 'show_password'),
-  makeAction(SOUND, 'sound'),
-  makeAction(STAT_CHART, 'stat_chart'),
-  makeAction(TEMP, 'temp'),
-  makeAction(TITLE, 'title'),
-];
+function Node(parseResult) {
+  let result = match(parseResult, LABEL);
+  const label = result.success ? result.object.text : null;
+  result = result.success ? result : parseResult;
+
+  result = anyNumberOf(result, Text, Action);
+  const components = result.object;
+
+  result = Link(result);
+  if (!result.success) return result;
+
+  return { ...result, object: makeNode(label, components, result.object) };
+}
+
+
+function Text(parseResult) {
+  let result = match(parseResult, TEXT);
+  if (!result.success) return result;
+  let text = result.object.text;
+
+  let temp = match(result, TEXT);
+  while (!done(temp.tokens) && temp.success) {
+    text += `\n${temp.object.text}`;
+    result = temp;
+    temp = match(result, TEXT);
+  }
+
+  return { ...result, object: makeText(text) };
+}
+
+
+function Action(parseResult) {
+  const result = oneOf(parseResult, ACHIEVE, BUG, CHECK_ACHIEVEMENTS, COMMENT, IMAGE,
+    INPUT_NUMBER, INPUT_TEXT, LINE_BREAK, LINK, MORE_GAMES, PRINT, RAND, SET_REF, SCENE_LIST,
+    SCRIPT, SELECTABLE_IF, SET, SHARE, SHOW_PASSWORD, SOUND);
+  if (!result.success) return result;
+
+  return { ...result, object: makeAction(result.object) };
+}
+
+
+function Link(parseResult) {
+  const result = oneOf(parseResult, FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE);
+  // TODO handle if and choices
+  if (!result.success) return result;
+
+  return { ...result, object: makeLink(result.object) };
+}
+
+
+function match(parseResult, type) {
+  const token = getToken(parseResult.tokens);
+  if (token.type === type)
+    return { ...parseResult, object: token, tokens: nextToken(parseResult.tokens) };
+
+  return { ...parseResult, success: false, error: { expected: type, found: token.type } };
+}
+
+
+function oneOf(parseResult, ...types) {
+  const token = getToken(parseResult.tokens);
+  for (let i = 0; i < types.length; ++i) {
+    const type = types[i];
+    if (token.type === type)
+      return { ...parseResult, object: token, tokens: nextToken(parseResult.tokens) };
+  }
+
+  return { ...parseResult, success: false, error: { expected: types.join(', '), found: token.type } };
+}
+
+
+function choose(...parseResults) {
+  let result = parseResults[0];
+  if (result.success) return result;
+
+  let expected = result.error.expected;
+  for (let i = 1; i < parseResults.length; ++i) {
+    result = parseResults[i];
+    if (result.success) return result;
+    expected += `, ${result.error.expected}`;
+  }
+
+  return { ...result, error: { ...result.error, expected } };
+}
+
+
+function anyNumberOf(parseResult, ...parsers) {
+  const objects = [];
+
+  let result = parseResult;
+  let temp = choose(...parsers.map(mapParser(result)));
+  while (temp.success) {
+    result = temp;
+    objects.push(result.object);
+    if (done(result.tokens)) break;
+    temp = choose(...parsers.map(mapParser(result)));
+  }
+
+  return { ...result, object: objects };
+}
+
+
+// function atLeastOneOf(parseResult, ...parsers) {
+//   const result = anyNumberOf(parseResult, parsers);
+//   if(result.object.length === 0) return parseResult;
+//   return result;
+// }
+
+
+const mapParser = (parseResult) => (parser) => parser(parseResult);
+
+
+// const failure = undefined;
+//
+// function lit(type) {
+//   return ((tokens) => {
+//     const token = getToken(tokens);
+//     return ((token.type === type) ? token : failure);
+//   });
+// }
+//
+// function or(...parsers) {
+//   return ((tokens) => {
+//     let result = failure;
+//     for (let i = 0; i < parsers.length && result === failure; ++i) {
+//       const parser = parsers[i];
+//       result = parser(tokens);
+//     }
+//     return result;
+//   });
+// }
+//
+// function and(...parsers) {
+//   return ((tokens) => {
+//
+//   });
+// }
+//
+// function advanceToken(tokens) {
+//   tokens.index += 1;
+// }

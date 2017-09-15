@@ -1,5 +1,5 @@
 import { generate as getID } from 'shortid';
-import { ACHIEVEMENT, CHOICE, CHOICE_ITEM, CREATE, IMAGE, LABEL, parse, SOUND, TEMP, TEXT } from './parser';
+import { ACHIEVEMENT, CHOICE, CHOICE_ITEM, CREATE, IMAGE, LABEL, SOUND, TEMP, TEXT, tokenize } from './tokenizer';
 
 
 export const BASE = 'BASE';
@@ -17,7 +17,7 @@ export const isResource = (type) => type === IMAGE || type === SOUND;
 
 export function generateAST(cs) {
   const ast = [];
-  const lines = parse(cs);
+  const lines = tokenize(cs);
   const symbolTable = generateSymbolTable(lines);
   const blocks = procBlocks(lines);
 
