@@ -1,8 +1,8 @@
-import { parse } from '../parser';
+import { parse } from '../choiceScript';
 
 
-describe('parser', () => {
-  it('works', () => {
+describe('ChoiceScript parser', () => {
+  it('handles non-nested code', () => {
     const cs = 'Hello world\n\nAnd all who inhabit it!\n\n*set joy 23\n*goto fun\n\n*label fun\n*set fun %+ 10\n*finish';
     const expected = {
       object: [
@@ -42,10 +42,9 @@ describe('parser', () => {
       success: true,
     };
 
-    const result = parse(cs);
-    const filtered = removeKeys(true, 'id', 'error', 'tokens')(result);
+    const result = removeKeys(true, 'id', 'error', 'tokens')(parse(cs));
 
-    expect(filtered).toEqual(expected);
+    expect(result).toEqual(expected);
   });
 })
 ;
