@@ -17,7 +17,7 @@ describe('ChoiceScript parser', () => {
               type: 'SET',
             },
           ],
-          label: null,
+          label: '',
           link: {
             text: 'fun',
             type: 'GOTO',
@@ -42,7 +42,8 @@ describe('ChoiceScript parser', () => {
       success: true,
     };
 
-    const result = removeKeys(true, 'id', 'error', 'tokens')(parse(cs));
+    // remove id from nested objects, then error and tokens from top object
+    const result = removeKeys(false, 'error', 'tokens')(removeKeys(true, 'id')(parse(cs)));
 
     expect(result).toEqual(expected);
   });

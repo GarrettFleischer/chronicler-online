@@ -47,7 +47,9 @@ const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label,
 export function parse(cs) {
   const tokens = tokenize(cs);
   const result = endingIn(Node, match(EOF))(makeParseResult(tokens));
-  if (!result.success) return result;
+  if (!result.success)
+    return { ...result, object: `expected ${result.error.expected}, but found ${result.error.found}` };
+
 
   return { ...result, object: result.object.objects };
 }
@@ -57,7 +59,7 @@ function Node(parseResult) {
   const result = inOrder(optional(match(LABEL)), anyNumberOf(Text, Action), Link)(parseResult);
   if (!result.success) return result;
 
-  const label = result.object[0] === null ? null : result.object[0].text;
+  const label = result.object[0] === null ? '' : result.object[0].text;
   return { ...result, object: makeNode(label, result.object[1], result.object[2]) };
 }
 
