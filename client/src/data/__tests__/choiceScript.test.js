@@ -43,12 +43,108 @@ describe('ChoiceScript parser', () => {
     };
 
     // remove id from nested objects, then error and tokens from top object
-    const result = removeKeys(false, 'error', 'tokens')(removeKeys(true, 'id')(parse(cs)));
+    const result = parse(cs);
+    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
-    expect(result).toEqual(expected);
+    expect(filtered).toEqual(expected);
   });
-})
-;
+
+  it('handles nested choices', () => {
+    const cs = "Hello World!\n\n*choice\n  #And all who inhabit it!\n    My, you're cheerful\n    *goto cheerful\n\n  #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish";
+    const expected = {
+      object: [
+        {
+          components: [
+            {
+              text: 'Hello World!\n',
+              type: 'TEXT',
+            },
+          ],
+          label: '',
+          link: {
+            choices: [
+              {
+                choice: 'And all who inhabit it!',
+                nodes: [
+                  {
+                    components: [
+                      {
+                        text: "My, you're cheerful",
+                        type: 'TEXT',
+                      },
+                    ],
+                    label: '',
+                    link: {
+                      text: 'cheerful',
+                      type: 'GOTO',
+                    },
+                    type: 'NODE',
+                  },
+                ],
+                type: 'CHOICE_ITEM',
+              },
+              {
+                choice: 'I hate Mondays...',
+                nodes: [
+                  {
+                    components: [
+                      {
+                        text: 'Indeed',
+                        type: 'TEXT',
+                      },
+                    ],
+                    label: '',
+                    link: {
+                      node: {
+                        components: [
+                          {
+                            text: 'happy false',
+                            type: 'SET',
+                          },
+                        ],
+                        label: 'hate',
+                        link: {
+                          text: '',
+                          type: 'FINISH',
+                        },
+                        type: 'NODE',
+                      },
+                      type: 'GOTO',
+                    },
+                    type: 'NODE',
+                  },
+                ],
+                type: 'CHOICE_ITEM',
+              },
+            ],
+            type: 'CHOICE',
+          },
+          type: 'NODE',
+        },
+        {
+          components: [
+            {
+              text: 'happy true',
+              type: 'SET',
+            },
+          ],
+          label: 'cheerful',
+          link: {
+            text: '',
+            type: 'FINISH',
+          },
+          type: 'NODE',
+        },
+      ],
+      success: true,
+    };
+
+    const result = parse(cs);
+    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+
+    expect(filtered).toEqual(expected);
+  });
+});
 
 
 function removeKeys(deep, ...keys) {

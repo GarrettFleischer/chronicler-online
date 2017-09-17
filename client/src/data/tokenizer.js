@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 export const EOF = 'EOF';
 export const TEXT = 'TEXT';
 export const ACHIEVE = 'ACHIEVE';
@@ -67,8 +68,9 @@ export function tokenize(cs) {
   let lastLine = null;
   lines.forEach((raw, i) => {
     const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);
-    const indent = leadingWS ? leadingWS.length : 0;
+    let indent = leadingWS ? leadingWS.length : 0;
     const text = raw.replace(/^\s+/, '');
+    if (text.length === 0) indent = lastLine.indent;
 
     let type = TEXT;
     let parsed = text;
