@@ -4,39 +4,25 @@ import { anyNumberOf, atLeastOne, choose, dedent, endingIn, indent, inOrder, mak
 import {
   ACHIEVE,
   BUG,
-  CHECK_ACHIEVEMENTS, CHOICE, CHOICE_ITEM,
-  COMMENT,
-  EOF,
+  CHECK_ACHIEVEMENTS, CHOICE, CHOICE_ITEM, COMMENT,
+  DISABLE_REUSE,
+  ELSE, ELSEIF, ENDING, EOF,
   FINISH,
-  GOSUB,
-  GOSUB_SCENE,
-  GOTO,
-  GOTO_RANDOM_SCENE,
-  GOTO_REF,
-  GOTO_SCENE,
-  IMAGE,
-  INPUT_NUMBER,
-  INPUT_TEXT,
-  LABEL,
-  LINE_BREAK,
-  LINK,
+  GOSUB, GOSUB_SCENE, GOTO, GOTO_RANDOM_SCENE, GOTO_REF, GOTO_SCENE,
+  HIDE_REUSE,
+  IF, IMAGE, INPUT_NUMBER, INPUT_TEXT,
+  LABEL, LINE_BREAK, LINK,
   MORE_GAMES,
   PRINT,
   RAND,
-  SCENE_LIST,
-  SCRIPT,
-  SELECTABLE_IF,
-  SET,
-  SET_REF,
-  SHARE,
-  SHOW_PASSWORD,
-  SOUND,
+  SCENE_LIST, SCRIPT, SELECTABLE_IF, SET, SET_REF, SHARE, SHOW_PASSWORD, SOUND,
   TEXT,
   tokenize,
 } from './tokenizer';
 
 
 export const NODE = 'NODE';
+export const ENDIF = 'ENDIF';
 
 const makeText = (text) => ({ type: TEXT, id: getID(), text });
 const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
@@ -44,8 +30,11 @@ const makeLink = (line) => ({ type: line.type, text: line.text });
 const makeNodeLink = (node) => ({ type: GOTO, node });
 const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
 const makeChoice = (choices) => ({ type: CHOICE, id: getID(), choices });
-const makeChoiceItem = (choice, nodes) => ({ type: CHOICE_ITEM, id: getID(), choice, nodes });
-
+const makeChoiceItem = (reuse, condition, choice, nodes) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, choice, nodes });
+const makeIf = (condition, block, link) => ({ type: IF, id: getID(), condition, block, link });
+const makeElseIf = (condition, block, link) => ({ type: ELSEIF, id: getID(), condition, block, link });
+const makeElse = (block) => ({ type: ELSE, id: getID(), block });
+const makeEndIf = (nodes) => ({ type: ENDIF, id: getID(), nodes });
 
 export function parse(cs) {
   const tokens = tokenize(cs);
@@ -59,7 +48,7 @@ export function parse(cs) {
 
 
 function Node(parseResult) {
-  const result = inOrder(optional(sameDent(match(LABEL))), anyNumberOf(Text, Action), Link)(parseResult);
+  const result = sameDent(inOrder(optional(match(LABEL)), anyNumberOf(Text, Action), Link))(parseResult);
   if (!result.success) return result;
 
   const label = result.object[0] === null ? '' : result.object[0].text;
@@ -91,29 +80,90 @@ function Action(parseResult) {
 
 
 function Link(parseResult) {
-  // TODO handle if
-  const result = sameDent(choose(match(FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE), Choice, maybe(match(LABEL), Node)))(parseResult);
+  return choose(SingleLink, Choice, NodeLink, If)(parseResult);
+}
+
+function SingleLink(parseResult) {
+  const result = sameDent(match(ENDING, FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE))(parseResult);
   if (!result.success) return result;
-
-  if (result.object.type === CHOICE)
-    return result;
-
-  if (result.object.type === NODE)
-    return { ...result, object: makeNodeLink(result.object) };
 
   return { ...result, object: makeLink(result.object) };
 }
 
-function Choice(parseResult) {
-  const result = inOrder(sameDent(match(CHOICE)), indent, atLeastOne(ChoiceItem), dedent)(parseResult);
+function NodeLink(parseResult) {
+  const result = sameDent(maybe(match(LABEL), Node))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeChoice(result.object[2]) };
+  return { ...result, object: makeNodeLink(result.object) };
 }
 
-function ChoiceItem(parseResult) {
-  const result = inOrder(sameDent(match(CHOICE_ITEM)), indent, atLeastOne(Node), dedent)(parseResult);
+
+function Choice(parseResult) {
+  const result = sameDent(inOrder(match(CHOICE), Block(atLeastOne(ChoiceItem))))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeChoiceItem(result.object[0].text, result.object[2]) };
+  return { ...result, object: makeChoice(result.object[1]) };
+}
+
+
+function ChoiceItem(parseResult) {
+  const result = sameDent(inOrder(Reuse, ChoiceItemCondition, match(CHOICE_ITEM), Block(atLeastOne(Node))))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
+}
+
+function Reuse(parseResult) {
+  const result = optional(match(HIDE_REUSE, DISABLE_REUSE))(parseResult);
+
+  return { ...result, object: result.object === null ? null : result.object.type };
+}
+
+function ChoiceItemCondition(parseResult) {
+  const result = optional(match(SELECTABLE_IF, IF))(parseResult);
+
+  return { ...result, object: result.object === null ? null : { type: result.object.type, condition: result.object.text } };
+}
+
+
+function If(parseResult) {
+  const result = sameDent(inOrder(match(IF), Block(atLeastOne(Node)), choose(ElseIf, Else, EndIf)))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeIf(result.object[0].text, result.object[1], result.object[2]) };
+}
+
+
+function ElseIf(parseResult) {
+  const result = inOrder(sameDent(match(ELSEIF)), Block(atLeastOne(Node)), choose(ElseIf, Else, EndIf))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeElseIf(result.object[0].text, result.object[1], result.object) };
+}
+
+
+function Else(parseResult) {
+  const result = inOrder(sameDent(match(ELSE)), Block(atLeastOne(Node)))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeElse(result.object[1]) };
+}
+
+
+function EndIf(parseResult) {
+  // reset indent back to zero and continue parsing nodes
+  const result = inOrder(atLeastOne(dedent), atLeastOne(Node))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeEndIf(result.object[1]) };
+}
+
+
+function Block(parser) {
+  return (parseResult) => {
+    const result = inOrder(indent, parser, dedent)(parseResult);
+    if (!result.success) return result;
+
+    return { ...result, object: result.object[1] };
+  };
 }

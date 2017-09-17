@@ -6,7 +6,7 @@ import {
   BUG,
   CHECK_ACHIEVEMENTS,
   CHOICE,
-  CHOICE_ITEM,
+  CHOICE_ITEM, EOF,
   FINISH,
   makeLine,
   TEXT,
@@ -21,6 +21,7 @@ describe('tokenizer', () => {
       makeLine(TEXT, 0, 'text', 0, 'text'),
       makeLine(TEXT, 1, '    text', 4, 'text'),
       makeLine(TEXT, 2, '\t\ttext', 2, 'text'),
+      makeLine(EOF, 3, '', 0, ''),
     ];
     const result = tokenize(cs);
 
@@ -31,10 +32,11 @@ describe('tokenizer', () => {
     const cs = 'hello world';
     const expected = [
       makeLine(TEXT, 0, 'hello world', 0, 'hello world'),
+      makeLine(EOF, 1, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *achieve', () => {
@@ -42,10 +44,11 @@ describe('tokenizer', () => {
     const expected = [
       makeLine(ACHIEVE, 0, '*achieve mystery1', 0, 'mystery1'),
       makeLine(ACHIEVE, 1, '*achieve\t\tmystery1', 0, 'mystery1'),
+      makeLine(EOF, 2, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *achievement', () => {
@@ -57,50 +60,55 @@ describe('tokenizer', () => {
       makeLine(ACHIEVEMENT, 0, '*achievement mystery1 visible 10 Lost Souls', 0, 'mystery1 visible 10 Lost Souls'),
       makeLine(TEXT, 1, '\tInvestigate what became of the missing villagers.', 1, 'Investigate what became of the missing villagers.'),
       makeLine(TEXT, 2, '\tDiscovered the fate of the hapless villagers.', 1, 'Discovered the fate of the hapless villagers.'),
+      makeLine(EOF, 3, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *allow_reuse', () => {
     const cs = '    *allow_reuse #Eat some food.';
     const expected = [
       makeLine(ALLOW_REUSE, 0, '    *allow_reuse #Eat some food.', 4, '#Eat some food.'),
+      makeLine(EOF, 1, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *author', () => {
     const cs = '*author CoG';
     const expected = [
       makeLine(AUTHOR, 0, '*author CoG', 0, 'CoG'),
+      makeLine(EOF, 1, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *bug', () => {
     const cs = '*bug error';
     const expected = [
       makeLine(BUG, 0, '*bug error', 0, 'error'),
+      makeLine(EOF, 1, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *check_achievements', () => {
     const cs = '*check_achievements';
     const expected = [
       makeLine(CHECK_ACHIEVEMENTS, 0, '*check_achievements', 0, ''),
+      makeLine(EOF, 1, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 
   it('handles *choice', () => {
@@ -114,10 +122,11 @@ describe('tokenizer', () => {
       makeLine(CHOICE_ITEM, 1, '\t#horse', 1, 'horse'),
       makeLine(TEXT, 2, '\t\tYou have chosen a horse!', 2, 'You have chosen a horse!'),
       makeLine(FINISH, 3, '\t\t*finish', 2, ''),
+      makeLine(EOF, 4, '', 0, ''),
     ];
     const result = tokenize(cs);
 
-    expect(result).toEqual(expected);
+    expect(result.tokens).toEqual(expected);
   });
 });
 

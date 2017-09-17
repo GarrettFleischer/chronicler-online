@@ -25,6 +25,7 @@ export const GOTO_RANDOM_SCENE = 'GOTO_RANDOM_SCENE';
 export const GOTO_SCENE = 'GOTO_SCENE';
 export const HIDE_REUSE = 'HIDE_REUSE';
 export const IF = 'IF';
+export const IF_CHOICE_ITEM = 'IF_CHOICE_ITEM';
 export const IMAGE = 'IMAGE';
 export const INPUT_NUMBER = 'INPUT_NUMBER';
 export const INPUT_TEXT = 'INPUT_TEXT';
@@ -66,7 +67,11 @@ export function tokenize(cs) {
   const tokens = [];
   const lines = cs.replace(/\r+/g, '').split('\n');
   let lastLine = null;
-  lines.forEach((raw, i) => {
+  let incrementLine = 1;
+  for (let i = 0; i < lines.length; i += incrementLine) {
+    const raw = lines[i];
+    incrementLine = 1;
+
     const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);
     let indent = leadingWS ? leadingWS.length : 0;
     const text = raw.replace(/^\s+/, '');
@@ -85,15 +90,24 @@ export function tokenize(cs) {
 
     if (type === TEXT) {
       // choice item
-      if (text.match(/^#\S+/)) {
+      if (text.match(/^#/)) {
         type = CHOICE_ITEM;
         parsed = text.replace(/^#/, '');
       }
+    } else if (type === HIDE_REUSE || type === DISABLE_REUSE) {
+      incrementLine = 0;
+      lines[i] = parsed;
+      parsed = '';
+    } else if (type === IF || type === SELECTABLE_IF) {
+      const index = parsed.indexOf(/#/);
+      incrementLine = 0;
+      lines[i] = parsed.slice(index);
+      parsed = parsed.slice(0, index);
     }
 
     lastLine = makeLine(type, i, raw, indent, parsed);
     tokens.push(lastLine);
-  });
+  }
 
   tokens.push(makeLine(EOF, tokens.length, '', 0, ''));
 

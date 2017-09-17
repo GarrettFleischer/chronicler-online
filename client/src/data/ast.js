@@ -71,19 +71,19 @@ export function procComponents(block) {
       }
         break;
 
-      case CHOICE: {
-        const component = makeComponent(CHOICE, child.indent, [child]);
-        i += 1;
-        const block = block.children[i];
-        const choices = block.children.filter((item, index) => index % 2 === 0);
-        const blocks = block.children.filter((item, index) => index % 2 === 1);
-        for (let j = 0; j < choices.length; ++j)
-             const choice = makeComponent(CHOICE_ITEM, choices[i].indent, [choices[i]]);
-
-
-        component.lines.push(...getLines(block));
-      }
-        break;
+      // case CHOICE: {
+      //   const component = makeComponent(CHOICE, child.indent, [child]);
+      //   i += 1;
+      //   const block = block.children[i];
+      //   const choices = block.children.filter((item, index) => index % 2 === 0);
+      //   const blocks = block.children.filter((item, index) => index % 2 === 1);
+      //   for (let j = 0; j < choices.length; ++j)
+      //        const choice = makeComponent(CHOICE_ITEM, choices[i].indent, [choices[i]]);
+      //
+      //
+      //   component.lines.push(...getLines(block));
+      // }
+      //   break;
 
       // TODO handle if statements
 
@@ -138,7 +138,7 @@ function procBlock(lines, index, block) {
 }
 
 
-function generateSymbolTable(lines) {
+export function generateSymbolTable(lines) {
   const filtered = lines.filter((line) => isDeclaration(line.type) || isResource(line.type));
   const reduced = filtered.reduce((acc, curr) => {
     if (isResource(curr.type) && indexOf(acc, (item) => item.type === curr.type && item.text === curr.text) > -1)
