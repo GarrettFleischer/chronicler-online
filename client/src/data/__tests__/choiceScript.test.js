@@ -50,7 +50,7 @@ describe('ChoiceScript parser', () => {
   });
 
   it('handles nested choices', () => {
-    const cs = "Hello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you're cheerful\n    *goto cheerful\n\n  *disable_reuse #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish";
+    const cs = "Hello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you're cheerful\n    *goto cheerful\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish";
     const expected = {
       object: [
         {
@@ -87,7 +87,10 @@ describe('ChoiceScript parser', () => {
               },
               {
                 choice: 'I hate Mondays...',
-                condition: null,
+                condition: {
+                  condition: '(true) ',
+                  type: 'IF',
+                },
                 nodes: [
                   {
                     components: [
@@ -147,6 +150,15 @@ describe('ChoiceScript parser', () => {
     const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
+  });
+
+  it('handles if statements', () => {
+    const cs = 'Hello world\n\n*if (happy)\n  do something\n  *goto blarg\n*elseif (cool)\n  do something else\n  *goto blarg\n*elseif (other)\n  its another\n  *finish\n*else\n  a thing\n  *finish\n\n*label blarg\n\n*if not (happy)\n  *if (ugly)\n    you are ugly\n    *finish\n*elseif not (cool)\n  do other things\n  *goto foo\n\n*label foo\nbar\n*ending';
+    const expected = {};
+
+    const result = parse(cs);
+
+    expect(result).toEqual(expected);
   });
 });
 

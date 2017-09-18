@@ -22,7 +22,6 @@ import {
 
 
 export const NODE = 'NODE';
-export const ENDIF = 'ENDIF';
 
 const makeText = (text) => ({ type: TEXT, id: getID(), text });
 const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
@@ -34,13 +33,12 @@ const makeChoiceItem = (reuse, condition, choice, nodes) => ({ type: CHOICE_ITEM
 const makeIf = (condition, block, link) => ({ type: IF, id: getID(), condition, block, link });
 const makeElseIf = (condition, block, link) => ({ type: ELSEIF, id: getID(), condition, block, link });
 const makeElse = (block) => ({ type: ELSE, id: getID(), block });
-const makeEndIf = (nodes) => ({ type: ENDIF, id: getID(), nodes });
 
 export function parse(cs) {
   const tokens = tokenize(cs);
   const result = endingIn(Node, match(EOF))(makeParseResult(tokens));
   if (!result.success)
-    return { ...result, object: `expected ${result.error.expected}, but found ${result.error.found}` };
+    return { ...result, object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}` };
 
 
   return { ...result, object: result.object.objects };
@@ -127,7 +125,7 @@ function ChoiceItemCondition(parseResult) {
 
 
 function If(parseResult) {
-  const result = sameDent(inOrder(match(IF), Block(atLeastOne(Node)), choose(ElseIf, Else, EndIf)))(parseResult);
+  const result = sameDent(inOrder(match(IF), Block(atLeastOne(Node)), optional(choose(ElseIf, Else))))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeIf(result.object[0].text, result.object[1], result.object[2]) };
@@ -135,27 +133,18 @@ function If(parseResult) {
 
 
 function ElseIf(parseResult) {
-  const result = inOrder(sameDent(match(ELSEIF)), Block(atLeastOne(Node)), choose(ElseIf, Else, EndIf))(parseResult);
+  const result = sameDent(inOrder(match(ELSEIF), Block(atLeastOne(Node)), optional(choose(ElseIf, Else))))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeElseIf(result.object[0].text, result.object[1], result.object) };
+  return { ...result, object: makeElseIf(result.object[0].text, result.object[1], result.object[2]) };
 }
 
 
 function Else(parseResult) {
-  const result = inOrder(sameDent(match(ELSE)), Block(atLeastOne(Node)))(parseResult);
+  const result = sameDent(inOrder(match(ELSE), Block(atLeastOne(Node))))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeElse(result.object[1]) };
-}
-
-
-function EndIf(parseResult) {
-  // reset indent back to zero and continue parsing nodes
-  const result = inOrder(atLeastOne(dedent), atLeastOne(Node))(parseResult);
-  if (!result.success) return result;
-
-  return { ...result, object: makeEndIf(result.object[1]) };
 }
 
 

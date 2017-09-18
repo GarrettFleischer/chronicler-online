@@ -1,9 +1,10 @@
 import { done, getToken, nextToken } from './tokenizer';
-import { peek, pop, push } from '../lib/stack';
+import { empty, peek, pop, push } from '../lib/stack';
 
 export const makeParseResult = (tokens, success = true, error = { expected: '', found: '' }, indentStack = [0], object = null) =>
   ({ tokens, success, error, object, indent: indentStack }); // { level: indentLevel, check: isSameIndent } });
 
+export const makeError = (expected, found, line) => ({ expected, found, line });
 
 export function Nothing(parseResult) {
   return { ...parseResult, object: null };
@@ -27,15 +28,16 @@ export function Nothing(parseResult) {
 export function indent(parseResult) {
   const token = getToken(parseResult.tokens);
   const indentLevel = peek(parseResult.indent);
-  if (token.indent <= indentLevel) return { ...parseResult, success: false, error: { expected: `indent > ${indentLevel}`, found: `indent: ${token.indent}` } };
+  if (token.indent <= indentLevel) return { ...parseResult, success: false, error: makeError(`indent > ${indentLevel}`, `indent: ${token.indent}`, token.number) };
   return { ...parseResult, indent: push(parseResult.indent, token.indent) };
 }
 
 export function dedent(parseResult) {
   const token = getToken(parseResult.tokens);
+  if (parseResult.indent.length <= 1) return { ...parseResult, success: false, error: makeError('indent: 0', 'indent < 0', token.number) };
   const result = { ...parseResult, indent: pop(parseResult.indent) };
   const indentLevel = peek(result.indent);
-  if (token.indent > indentLevel) return { ...parseResult, success: false, error: { expected: `indent: ${indentLevel}`, found: `indent: ${token.indent}` } };
+  if (token.indent > indentLevel) return { ...parseResult, success: false, error: makeError(`indent: ${indentLevel}`, `indent: ${token.indent}`, token.number) };
   return result;
 }
 
@@ -43,7 +45,7 @@ export function sameDent(parser) {
   return (parseResult) => {
     const token = getToken(parseResult.tokens);
     const indentLevel = peek(parseResult.indent);
-    if (token.indent !== indentLevel) return { ...parseResult, success: false, error: { expected: `indent: ${indentLevel}`, found: `indent: ${token.indent}` } };
+    if (token.indent !== indentLevel) return { ...parseResult, success: false, error: makeError(`indent: ${indentLevel}`, `indent: ${token.indent}`, token.number) };
     return parser(parseResult);
   };
 }
@@ -57,7 +59,7 @@ export function match(...types) {
         return { ...parseResult, object: token, tokens: nextToken(parseResult.tokens) };
     }
 
-    return { ...parseResult, success: false, error: { expected: types.join(', '), found: token.type } };
+    return { ...parseResult, success: false, error: makeError(types.join(', '), token.type, token.number) };
   };
 }
 
@@ -75,14 +77,6 @@ export function maybe(testParser, parser) {
     return { ...result, object: result.object[1] };
   };
 }
-
-// export function block(parser) {
-//   return (parseResult) => {
-//     const result = inOrder(indent, parser, dedent)(parseResult);
-//     if (!result.success) return result;
-//     return result.object[2];
-//   };
-// }
 
 export function choose(...parsers) {
   return (parseResult) => {

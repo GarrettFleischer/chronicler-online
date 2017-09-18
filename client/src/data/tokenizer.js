@@ -99,10 +99,12 @@ export function tokenize(cs) {
       lines[i] = parsed;
       parsed = '';
     } else if (type === IF || type === SELECTABLE_IF) {
-      const index = parsed.indexOf(/#/);
-      incrementLine = 0;
-      lines[i] = parsed.slice(index);
-      parsed = parsed.slice(0, index);
+      const index = parsed.indexOf('#');
+      if (index >= 0) {
+        incrementLine = 0;
+        lines[i] = parsed.slice(index);
+        parsed = parsed.slice(0, index);
+      }
     }
 
     lastLine = makeLine(type, i, raw, indent, parsed);
