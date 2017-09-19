@@ -1,14 +1,17 @@
+import { peek, pop, push } from '../lib/stack';
 import { done, getToken, nextToken } from './tokenizer';
-import { empty, peek, pop, push } from '../lib/stack';
+
 
 export const makeParseResult = (tokens, success = true, error = { expected: '', found: '' }, indentStack = [0], object = null) =>
   ({ tokens, success, error, object, indent: indentStack }); // { level: indentLevel, check: isSameIndent } });
 
 export const makeError = (expected, found, line) => ({ expected, found, line });
 
+
 export function Nothing(parseResult) {
   return { ...parseResult, object: null };
 }
+
 
 // function isIndented(parseResult) {
 //   const token = getToken(parseResult.tokens);
@@ -29,8 +32,9 @@ export function indent(parseResult) {
   const token = getToken(parseResult.tokens);
   const indentLevel = peek(parseResult.indent);
   if (token.indent <= indentLevel) return { ...parseResult, success: false, error: makeError(`indent > ${indentLevel}`, `indent: ${token.indent}`, token.number) };
-  return { ...parseResult, indent: push(parseResult.indent, token.indent) };
+  return { ...parseResult, object: null, indent: push(parseResult.indent, token.indent) };
 }
+
 
 export function dedent(parseResult) {
   const token = getToken(parseResult.tokens);
@@ -38,8 +42,9 @@ export function dedent(parseResult) {
   const result = { ...parseResult, indent: pop(parseResult.indent) };
   const indentLevel = peek(result.indent);
   if (token.indent > indentLevel) return { ...parseResult, success: false, error: makeError(`indent: ${indentLevel}`, `indent: ${token.indent}`, token.number) };
-  return result;
+  return { ...result, object: null };
 }
+
 
 export function sameDent(parser) {
   return (parseResult) => {
@@ -49,6 +54,7 @@ export function sameDent(parser) {
     return parser(parseResult);
   };
 }
+
 
 export function match(...types) {
   return (parseResult) => {
@@ -63,12 +69,14 @@ export function match(...types) {
   };
 }
 
+
 export function test(parser) {
   return (parseResult) => {
     const result = parser(parseResult);
     return { ...parseResult, success: result.success, error: result.error };
   };
 }
+
 
 export function maybe(testParser, parser) {
   return (parseResult) => {
@@ -77,6 +85,7 @@ export function maybe(testParser, parser) {
     return { ...result, object: result.object[1] };
   };
 }
+
 
 export function choose(...parsers) {
   return (parseResult) => {

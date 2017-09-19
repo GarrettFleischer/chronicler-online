@@ -1,6 +1,40 @@
 import { empty, push } from '../lib/stack';
 // PUBLIC FUNCTIONS
 import { DataType } from './nodes';
+import { CHOICE } from './tokenizer';
+
+
+export const makeFlattenResult = (nodes, object) => ({ nodes, object });
+
+
+export function flattenNodes(nodes) {
+
+  return makeFlattenResult(nodes, nodes);
+}
+
+
+function flattenNode(node) {
+  const nodes = [node];
+
+
+  return nodes;
+}
+
+
+function flattenLink(flattenResult) {
+  const nodes = [];
+
+  switch (link.type) {
+    case CHOICE:
+      nodes.push(flattenBlock(link));
+      break;
+
+    default:
+      break;
+  }
+
+  return { link, nodes };
+}
 
 
 export function findById(state, id, type = DataType.ANY) {
