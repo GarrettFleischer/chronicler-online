@@ -1,6 +1,6 @@
 import { generate as getID } from 'shortid';
 
-import { anyNumberOf, atLeastOne, choose, dedent, endingIn, indent, inOrder, makeParseResult, match, maybe, optional, sameDent } from './parser';
+import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, makeParseResult, match, maybe, optional, sameDent } from './parser';
 import {
   ACHIEVE,
   ACHIEVEMENT,
@@ -33,6 +33,7 @@ import {
   LINE_BREAK,
   LINK,
   MORE_GAMES,
+  PAGE_BREAK,
   PRINT,
   RAND,
   SCENE_LIST,
@@ -53,6 +54,17 @@ import {
 export const NODE = 'NODE';
 export const FAKE_CHOICE_ITEM = 'FAKE_CHOICE_ITEM';
 
+// symbols
+const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
+const makeAuthor = (text) => ({ type: AUTHOR, id: getID(), text });
+const makeCreate = (text) => ({ type: CREATE, id: getID(), text });
+const makeTemp = (text, scene) => ({ type: TEMP, id: getID(), text, scene });
+const makeAchievement = (text, pre, post) => ({ type: ACHIEVEMENT, id: getID(), text, pre, post });
+const makeSceneList = (scenes) => ({ type: SCENE_LIST, id: getID(), scenes });
+const makeImage = (path, options) => ({ type: IMAGE, id: getID(), path, options });
+const makeSound = (path) => ({ type: SOUND, id: getID(), path });
+
+// nodes and components
 const makeText = (text) => ({ type: TEXT, id: getID(), text });
 const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
 const makeLink = (type, text) => ({ type, text });
@@ -69,17 +81,110 @@ const makeFakeChoiceItem = (reuse, condition, choice, block) => ({ type: FAKE_CH
 
 export function parse(cs) {
   const tokens = tokenize(cs);
-  const result = endingIn(Node, match(EOF))(makeParseResult(tokens));
+  const parseResult = makeParseResult(tokens);
+  const result = inOrder(anyNumberOf(Symbol), endingIn(Node, match(EOF)))(parseResult);
   if (!result.success)
     return { ...result, object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}` };
 
+  return { ...result, object: result.object[1].objects };
+}
 
-  return { ...result, object: result.object.objects };
+
+function addSymbol(parseResult, symbol) {
+  // ignore duplicate images and sounds
+  if (symbol.type === IMAGE && parseResult.symbols.filter((other) => other.type === IMAGE && other.path === symbol.path).length > 0)
+    return parseResult;
+
+  if (symbol.type === SOUND && parseResult.symbols.filter((other) => other.type === SOUND && other.path === symbol.path).length > 0)
+    return parseResult;
+
+  return { ...parseResult, symbols: [...parseResult.symbols, symbol], object: symbol };
+}
+
+
+function Symbol(parseResult) {
+  return sameDent(choose(Comment, Title, Author, Create, Temp, Achievement, SceneList))(parseResult);
+}
+
+
+function Title(parseResult) {
+  const result = sameDent(match(TITLE))(parseResult);
+  if (!result.success) return result;
+
+  return addSymbol(result, makeTitle(result.object.text));
+}
+
+
+function Author(parseResult) {
+  const result = sameDent(match(AUTHOR))(parseResult);
+  if (!result.success) return result;
+
+  return addSymbol(result, makeAuthor(result.object.text));
+}
+
+
+function Create(parseResult) {
+  const result = sameDent(match(CREATE))(parseResult);
+  if (!result.success) return result;
+
+  return addSymbol(result, makeCreate(result.object.text));
+}
+
+
+function Temp(parseResult) {
+  const result = sameDent(match(TEMP))(parseResult);
+  if (!result.success) return result;
+
+  return addSymbol(result, makeTemp(result.object.text));
+}
+
+
+function Image(parseResult) {
+  const result = sameDent(match(IMAGE))(parseResult);
+  if (!result.success) return result;
+
+  const name = result.object.text.split(' ')[0];
+  const options = result.object.text.split(' ').slice(1).join(' ');
+  const symbol = makeImage(name, options);
+  return { ...addSymbol(result, symbol), object: symbol };
+}
+
+
+function Comment(parseResult) {
+  const result = sameDent(match(COMMENT))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeAction(result.object) };
+}
+
+
+function Sound(parseResult) {
+  const result = sameDent(match(SOUND))(parseResult);
+  if (!result.success) return result;
+
+  const symbol = makeSound(result.object.text);
+  return { ...addSymbol(result, symbol), object: symbol };
+}
+
+
+function Achievement(parseResult) {
+  const result = sameDent(inOrder(match(ACHIEVEMENT), Block(inOrder(match(TEXT), match(TEXT)))))(parseResult);
+  if (!result.success) return result;
+
+  return addSymbol(result, makeAchievement(result.object[0].text, result.object[1][0].text, result.object[1][1].text));
+}
+
+
+function SceneList(parseResult) {
+  const result = sameDent(inOrder(match(SCENE_LIST), Block(atLeastOne(match(TEXT)))))(parseResult);
+  if (!result.success) return result;
+
+  return addSymbol(result, makeSceneList(result.object[1].map((token) => token.text)));
 }
 
 
 function Node(parseResult) {
-  const result = sameDent(inOrder(optional(match(LABEL)), anyNumberOf(Text, Action), Link))(parseResult);
+  const result = sameDent(inOrder(ignore(atLeastOne(Temp), optional(match(LABEL))), anyNumberOf(ignore(Temp, choose(Text, Action))), ignore(atLeastOne(Temp), Link)))(parseResult);
   if (!result.success) return result;
 
   const label = result.object[0] === null ? '' : result.object[0].text;
@@ -101,13 +206,23 @@ function Text(parseResult) {
 
 
 function Action(parseResult) {
+  return choose(ActionItem, Comment, Image, Sound)(parseResult);
+}
+
+
+function ActionItem(parseResult) {
   const result = sameDent(match(ACHIEVE, BUG, CHECK_ACHIEVEMENTS, COMMENT, IMAGE,
-    INPUT_NUMBER, INPUT_TEXT, LINE_BREAK, LINK, MORE_GAMES, PRINT, RAND, SET_REF, SCENE_LIST,
-    SCRIPT, SELECTABLE_IF, SET, SHARE, SHOW_PASSWORD, SOUND,
-    TITLE, AUTHOR, CREATE, TEMP, ACHIEVEMENT))(parseResult); // TODO remove the ones on this line as they are not actions
+    INPUT_NUMBER, INPUT_TEXT, LINE_BREAK, LINK, MORE_GAMES, PAGE_BREAK, PRINT, RAND, SET_REF, SCENE_LIST,
+    SCRIPT, SELECTABLE_IF, SET, SHARE, SHOW_PASSWORD, SOUND))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeAction(result.object) };
+}
+
+
+// TODO handle stat chart
+function StatChart(parseResult) {
+
 }
 
 
@@ -141,7 +256,7 @@ function FakeChoice(parseResult) {
 
 
 function FakeChoiceItem(parseResult) {
-  const result = sameDent(inOrder(Reuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(choose(Text, Action))))))(parseResult);
+  const result = sameDent(inOrder(Reuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(ignore(Temp, choose(Text, Action)))))))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeFakeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };

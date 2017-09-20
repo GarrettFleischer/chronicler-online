@@ -2,10 +2,10 @@ import { peek, pop, push } from '../lib/stack';
 import { done, getToken, nextToken } from './tokenizer';
 
 
-export const makeParseResult = (tokens, success = true, error = { expected: '', found: '' }, indentStack = [0], object = null) =>
-  ({ tokens, success, error, object, indent: indentStack }); // { level: indentLevel, check: isSameIndent } });
+export const makeError = (expected = '', found = '', line = -1) => ({ expected, found, line });
 
-export const makeError = (expected, found, line) => ({ expected, found, line });
+export const makeParseResult = (tokens, symbols = [], success = true, error = makeError(), indentStack = [0], object = null) =>
+  ({ tokens, symbols, success, error, object, indent: indentStack }); // { level: indentLevel, check: isSameIndent } });
 
 
 export function Nothing(parseResult) {
@@ -73,7 +73,7 @@ export function match(...types) {
 export function test(parser) {
   return (parseResult) => {
     const result = parser(parseResult);
-    return { ...parseResult, success: result.success, error: result.error };
+    return { ...parseResult, object: result.object, success: result.success, error: result.error };
   };
 }
 
@@ -87,17 +87,25 @@ export function maybe(testParser, parser) {
 }
 
 
+export function ignore(ignoreParser, parser) {
+  return (parseResult) => {
+    const result = ignoreParser(parseResult);
+    return parser(result.success ? result : parseResult);
+  };
+}
+
+
 export function choose(...parsers) {
   return (parseResult) => {
-    let expected = '';
+    let expected = [];
     let result = parseResult;
     for (let i = 0; i < parsers.length; ++i) {
       result = parsers[i](parseResult);
       if (result.success) return result;
-      expected += `${i > 0 ? ', ' : ''}${result.error.expected}`;
+      expected = [...expected, ...result.error.expected.split(', ').filter((text) => expected.indexOf(text) < 0)];
     }
 
-    return { ...result, error: { ...result.error, expected } };
+    return { ...result, error: { ...result.error, expected: expected.join(', ') } };
   };
 }
 
