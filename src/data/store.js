@@ -2,7 +2,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers/reducers';
-import { pouchMiddleWare } from './pouchdb';
+// import { pouchMiddleWare } from './pouchdb';
 // import rootSaga from '../sagas/sagas'; // TODO: IMPLEMENT SAGA
 
 //  Returns the store instance
@@ -17,7 +17,7 @@ export default function configureStore(initialState) {
     ...createStore(
       rootReducer,
       initialState,
-      composeWithDevTools(applyMiddleware(sagaMiddleware, pouchMiddleWare)),
+      composeWithDevTools(applyMiddleware(sagaMiddleware)),
     ),
     // runSaga: sagaMiddleware.run(rootSaga),
   };

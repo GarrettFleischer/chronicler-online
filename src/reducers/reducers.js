@@ -1,5 +1,6 @@
 import { intlReducer } from 'react-intl-redux';
 import { nodeReducer } from '../containers/Node/reducers';
+import history from '../lib/history';
 
 
 export default function rootReducer(state, action) {

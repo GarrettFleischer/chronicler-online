@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Align from '../../components/Align';
 import ComponentList from '../../components/ComponentList';
-import { validateLabel } from '../../data/core';
+// import { validateLabel } from '../../data/core';
 import { nodeComponentAdd, nodeComponentsSorted } from './reducers';
 import makeSelectNode from './selectors';
 
@@ -50,7 +50,7 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
               placeholder={`Page ${node.id}`}
               value={node.label}
               className={classes.input}
-              error={!validateLabel(state, node.label)}
+              // error={!validateLabel(state, node.label)}
               inputProps={{
                 'aria-label': 'Description',
               }}
