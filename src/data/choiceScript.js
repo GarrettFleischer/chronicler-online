@@ -1,6 +1,6 @@
 import { generate as getID } from 'shortid';
 
-import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, makeParseResult, match, maybe, optional, sameDent } from './parser';
+import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, makeError, makeParseResult, match, maybe, optional, sameDent } from './parser';
 import {
   ACHIEVE,
   ACHIEVEMENT,
@@ -44,6 +44,10 @@ import {
   SHARE,
   SHOW_PASSWORD,
   SOUND,
+  STAT_CHART,
+  STAT_OPPOSED,
+  STAT_PERCENT,
+  STAT_TEXT,
   TEMP,
   TEXT,
   TITLE,
@@ -77,6 +81,11 @@ const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition
 const makeElse = (block) => ({ type: ELSE, id: getID(), block });
 const makeFakeChoice = (choices, nodes) => ({ type: FAKE_CHOICE, id: getID(), choices, nodes });
 const makeFakeChoiceItem = (reuse, condition, choice, block) => ({ type: FAKE_CHOICE_ITEM, id: getID(), reuse, condition, choice, block });
+
+const makeStatChart = (stats) => ({ type: STAT_CHART, id: getID(), stats });
+const makeTextStat = (text) => ({ type: STAT_TEXT, id: getID(), text });
+const makePercentStat = (text) => ({ type: STAT_PERCENT, id: getID(), text });
+const makeOpposedStat = (stat, name, opposed) => ({ type: STAT_OPPOSED, id: getID(), stat, name, opposed });
 
 
 export function parse(cs) {
@@ -206,7 +215,7 @@ function Text(parseResult) {
 
 
 function Action(parseResult) {
-  return choose(ActionItem, Comment, Image, Sound)(parseResult);
+  return choose(ActionItem, Comment, StatChart, Image, Sound)(parseResult);
 }
 
 
@@ -222,7 +231,44 @@ function ActionItem(parseResult) {
 
 // TODO handle stat chart
 function StatChart(parseResult) {
+  // let result = sameDent(match(STAT_CHART))(parseResult);
+  // result = Block(OpposedStat)(result);
+  const result = sameDent(inOrder(match(STAT_CHART), Block(atLeastOne(TextStat, PercentStat, OpposedStat))))(parseResult);
+  if (!result.success) return result;
 
+  return makeStatChart(result.object[1]);
+}
+
+
+function TextStat(parseResult) {
+  const result = sameDent(match(TEXT))(parseResult);
+  if (!result.success) return result;
+
+  if (!result.object.text.match(/^text/)) return { ...parseResult, success: false, error: makeError('text stat', result.object.text, result.object.number) };
+  return { ...result, object: makeTextStat(result.object.text.replace(/^text/, '')) };
+}
+
+
+function PercentStat(parseResult) {
+  const result = sameDent(match(TEXT))(parseResult);
+  if (!result.success) return result;
+
+  if (!result.object.text.match(/^percent/)) return { ...parseResult, success: false, error: makeError('percent stat', result.object.text, result.object.number) };
+  return { ...result, object: makePercentStat(result.object.text.replace(/^percent/, '')) };
+}
+
+
+function OpposedStat(parseResult) {
+  // let result = sameDent(match(TEXT))(parseResult);
+  // result = Block(inOrder(match(TEXT), optional(match(TEXT))))(result);
+  const result = sameDent(inOrder(match(TEXT), Block(inOrder(match(TEXT), optional(match(TEXT))))))(parseResult);
+  if (!result.success) return result;
+
+  if (!result.object[0].text.match(/^opposed_pair/)) return { ...parseResult, success: false, error: makeError('opposed_pair', result.object.text, result.object.number) };
+  const stat = result.object[0].text.replace(/^opposed_pair/, '');
+  const name = result.object[1][1] ? result.object[1][0].text : null;
+  const opposed = result.object[1][1] ? result.object[1][0].text : result.object[1][1].text;
+  return { ...result, object: makeOpposedStat(stat, name, opposed) };
 }
 
 
@@ -294,7 +340,7 @@ function ChoiceItemCondition(parseResult) {
 
 
 function If(parseResult) {
-  const result = sameDent(inOrder(match(IF), Block(atLeastOne(Node)), anyNumberOf(choose(ElseIf, Else))))(parseResult);
+  const result = sameDent(inOrder(match(IF), Block(atLeastOne(Node)), anyNumberOf(ElseIf, Else)))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeIf(result.object[0].text, result.object[1], result.object[2]) };

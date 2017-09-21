@@ -25,7 +25,6 @@ export const GOTO_RANDOM_SCENE = 'GOTO_RANDOM_SCENE';
 export const GOTO_SCENE = 'GOTO_SCENE';
 export const HIDE_REUSE = 'HIDE_REUSE';
 export const IF = 'IF';
-export const IF_CHOICE_ITEM = 'IF_CHOICE_ITEM';
 export const IMAGE = 'IMAGE';
 export const INPUT_NUMBER = 'INPUT_NUMBER';
 export const INPUT_TEXT = 'INPUT_TEXT';
@@ -46,6 +45,9 @@ export const SHARE = 'SHARE';
 export const SHOW_PASSWORD = 'SHOW_PASSWORD';
 export const SOUND = 'SOUND';
 export const STAT_CHART = 'STAT_CHART';
+export const STAT_OPPOSED = 'STAT_OPPOSED';
+export const STAT_PERCENT = 'STAT_PERCENT';
+export const STAT_TEXT = 'STAT_TEXT';
 export const TEMP = 'TEMP';
 export const TITLE = 'TITLE';
 

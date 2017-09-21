@@ -510,4 +510,30 @@ export const dragonCS =
   '*label ResolveAxilmeus\n' +
   'Then he crushed the shield in his jaws, wasting the magical energies imbued within it, and spat it out at your feet.  He laughed with a great roar as he flew away.\n' +
   '\n' +
-  '*finish Begin the Adventure\n';
+  '*label Wrapup\n' +
+  '*comment [We need to generate a starting Wealth somehow.  My current thought is\n' +
+  '*comment that we use a random number increased up by low Brutality, low Disdain,\n' +
+  '*comment and high Cunning. \n' +
+  '*comment But we could also tie it more specifically to the choices, or just go\n' +
+  '*comment random, or whatever.]\n' +
+  '\n' +
+  '*page_break\n' +
+  '\n' +
+  'You have the following stats:\n' +
+  '\n' +
+  '*temp wealth_text "${wealth} gold coins"\n' +
+  '\n' +
+  '*stat_chart\n' +
+  '  opposed_pair Brutality\n' +
+  '    Brutality\n' +
+  '    Finesse\n' +
+  '  opposed_pair Cunning\n' +
+  '    Cunning\n' +
+  '    Honor\n' +
+  '  opposed_pair Disdain\n' +
+  '    Disdain\n' +
+  '    Vigilance\n' +
+  '  percent Infamy\n' +
+  '  text wealth_text Wealth\n' +
+  '\n' +
+  '*finish Begin the Adventure';
