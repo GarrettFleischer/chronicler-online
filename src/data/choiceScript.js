@@ -1,4 +1,5 @@
 import { generate as getID } from 'shortid';
+import { findIdForLabel } from './core';
 
 import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, inOrderIgnore, makeError, makeParseResult, match, maybe, optional, sameDent } from './parser';
 import {
@@ -59,6 +60,10 @@ import {
 export const NODE = 'NODE';
 export const NODE_LINK = 'NODE_LINK';
 export const FAKE_CHOICE_ITEM = 'FAKE_CHOICE_ITEM';
+export const SCENE = 'SCENE';
+
+// other
+export const makeScene = (name, nodes) => ({ type: SCENE, id: getID(), name, nodes });
 
 // symbols
 export const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
@@ -97,13 +102,88 @@ export const makeOpposedStat = (stat, name, opposed) => ({ type: STAT_OPPOSED, i
 
 
 export function parse(cs) {
-  const tokens = tokenize(cs);
+  const tokens = tokenize(cs); // TODO loop over every scene
   const parseResult = makeParseResult('startup', tokens);
   const result = inOrder(anyNumberOf(Symbol), endingIn(Node, match(EOF)))(parseResult);
   if (!result.success)
     return { ...result, object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}` };
 
   return { ...result, object: result.object[1].objects };
+}
+
+
+export function flattenScenes(scenes) {
+  return scenes.map((scene) => {
+    const result = flattenNodes(scene.nodes);
+    return result.map((node) => {
+      let link = node.link;
+      if (link.type === GOTO)
+        link = { type: NODE_LINK, node: findIdForLabel(link.text, scene.name)(scenes) };
+      return { ...node, link };
+    });
+  });
+}
+
+
+function flattenNodes(nodes) {
+  let result = [];
+  nodes.forEach((node) => {
+    result = [...result, ...flattenNode(node)];
+  });
+  return result;
+}
+
+
+function flattenNode(node) {
+  const result = flattenLink(node.link);
+  return [{ ...node, link: result.link }, ...result.nodes];
+}
+
+
+function flattenLink(item) {
+  let link = item;
+  let nodes = [];
+
+  switch (link.type) {
+    case CHOICE:
+      link.block = link.block.map((choiceItem) => {
+        const { block, ...data } = choiceItem;
+        nodes = [...nodes, ...flattenNodes(block)];
+        return { ...data, link: { type: NODE_LINK, node: block[0].id } };
+      });
+      break;
+
+    case FAKE_CHOICE:
+      nodes = [...nodes, ...flattenNodes(link.link)];
+      link.link = { type: NODE_LINK, node: link.link.id };
+      break;
+
+    case IF: {
+      const { block, ...data } = link;
+      nodes = [...nodes, ...flattenNodes(block)];
+      const elses = link.elses.map((elseItem) => flattenLink(elseItem));
+      link = { ...data, elses, link: { type: NODE_LINK, node: block[0].id } };
+    }
+      break;
+
+    case ELSEIF:
+    case ELSE: {
+      const { block, ...data } = link;
+      nodes = [...nodes, ...flattenNodes(block)];
+      link = { ...data, link: { type: NODE_LINK, node: block[0].id } };
+    }
+      break;
+
+    case NODE_LINK:
+      nodes = [...nodes, ...flattenNode(link.node)];
+      link.node = { type: NODE_LINK, node: link.node.id };
+      break;
+
+    default:
+      break;
+  }
+
+  return { link, nodes };
 }
 
 
@@ -223,6 +303,7 @@ function Label(parseResult) {
 
   return { ...result, object: result.object.text };
 }
+
 
 function Text(parseResult) {
   const result = atLeastOne(sameDent(match(TEXT)))(parseResult);

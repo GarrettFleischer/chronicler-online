@@ -1,8 +1,6 @@
 import { empty, peek, push } from '../lib/stack';
-import { NODE_LINK } from './choiceScript';
 // PUBLIC FUNCTIONS
 import { DataType } from './nodes';
-import { CHOICE, FAKE_CHOICE, GOTO, IF } from './tokenizer';
 
 
 // export const makeFlattenResult = (nodes, object) => ({ nodes, object });
@@ -90,73 +88,14 @@ export const NO_FILTER = 'core/NO_FILTER';
 
 
 // PUBLIC FUNCTIONS
-export function flattenScenes(scenes) {
-  return scenes.map((scene) => {
-    const result = flattenNodes(scene.nodes);
-    return result.map((node) => {
-      let link = node.link;
-      if (link.type === GOTO)
-        link = { type: NODE_LINK, node: findIdForLabel(link.text, scene.name)(scenes) };
-      return { ...node, link };
-    });
-  });
-}
 
-
-const findIdForLabel = (label, sceneName) => (scenes) => scenes.reduce((id, scene) => {
+export const findIdForLabel = (label, sceneName) => (scenes) => scenes.reduce((id, scene) => {
   if (id !== null || scene.name !== sceneName) return id;
   return scene.nodes.reduce((nid, node) => {
     if (nid !== null) return nid;
     return node.label === label ? node.id : null;
   }, id);
 }, null);
-
-
-function flattenNodes(nodes) {
-  let result = [];
-  nodes.forEach((node) => {
-    result = [...result, ...flattenNode(node)];
-  });
-  return result;
-}
-
-
-function flattenNode(node) {
-  const result = flattenLink(node.link);
-  return [{ ...node, link: result.link }, ...result.nodes];
-}
-
-
-function flattenLink(item) {
-  const link = item;
-  let nodes = [];
-
-  switch (link.type) {
-    case CHOICE:
-      link.block = link.block.map((choiceItem) => {
-        const { block, ...data } = choiceItem;
-        nodes = [...nodes, ...flattenNodes(block)];
-        return { ...data, link: block[0].id };
-      });
-      break;
-
-    case FAKE_CHOICE:
-      break;
-
-    case IF:
-      break;
-
-    case NODE_LINK:
-      nodes = [...nodes, ...flattenNode(link.node)];
-      link.node = link.node.id;
-      break;
-
-    default:
-      break;
-  }
-
-  return { link, nodes };
-}
 
 
 export function findById(state, id, type = NO_FILTER) {

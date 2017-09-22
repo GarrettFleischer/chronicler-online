@@ -1,4 +1,4 @@
-import { parse } from '../choiceScript';
+import { flattenScenes, makeScene, parse } from '../choiceScript';
 import { dragonCS } from './dragon';
 
 
@@ -2734,6 +2734,231 @@ describe('ChoiceScript parser', () => {
     const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
+  });
+
+  it('flattens nested nodes', () => {
+    const nodes = [
+      {
+        components: [
+          {
+            id: 'SJWZChZj-',
+            text: 'Hello World!\n',
+            type: 'TEXT',
+          },
+        ],
+        id: 'B1YWbC2bjZ',
+        label: '',
+        link: {
+          block: [
+            {
+              block: [
+                {
+                  components: [
+                    {
+                      id: 'SJeZZCnbo-',
+                      text: 'My, you\'re cheerful',
+                      type: 'TEXT',
+                    },
+                  ],
+                  id: 'H1WZWR3bs-',
+                  label: '',
+                  link: {
+                    text: 'cheerful',
+                    type: 'GOTO',
+                  },
+                  type: 'NODE',
+                },
+              ],
+              condition: null,
+              id: 'Syf-bA3-s-',
+              reuse: 'HIDE_REUSE',
+              text: 'And all who inhabit it!',
+              type: 'CHOICE_ITEM',
+            },
+            {
+              block: [
+                {
+                  components: [
+                    {
+                      id: 'BymZbRnbiW',
+                      text: 'Indeed',
+                      type: 'TEXT',
+                    },
+                  ],
+                  id: 'ryUb-R3bj-',
+                  label: '',
+                  link: {
+                    node: {
+                      components: [
+                        {
+                          id: 'S1EWZA2biZ',
+                          text: 'happy false',
+                          type: 'SET',
+                        },
+                      ],
+                      id: 'BySWW0nbiW',
+                      label: 'hate',
+                      link: {
+                        text: '',
+                        type: 'FINISH',
+                      },
+                      type: 'NODE',
+                    },
+                    type: 'NODE_LINK',
+                  },
+                  type: 'NODE',
+                },
+              ],
+              condition: {
+                condition: '(true)',
+                type: 'IF',
+              },
+              id: 'rywWWA2bjZ',
+              reuse: 'DISABLE_REUSE',
+              text: 'I hate Mondays...',
+              type: 'CHOICE_ITEM',
+            },
+          ],
+          id: 'HkuZb03WjZ',
+          type: 'CHOICE',
+        },
+        type: 'NODE',
+      },
+      {
+        components: [
+          {
+            id: 'rkcbZCnWoW',
+            text: 'happy true',
+            type: 'SET',
+          },
+        ],
+        id: 'B1sZ-ChWib',
+        label: 'cheerful',
+        link: {
+          text: '',
+          type: 'FINISH',
+        },
+        type: 'NODE',
+      },
+    ];
+    const scenes = [makeScene('startup', nodes)];
+    const expected = [[
+      {
+        components: [
+          {
+            id: 'SJWZChZj-',
+            text: 'Hello World!\n',
+            type: 'TEXT',
+          },
+        ],
+        id: 'B1YWbC2bjZ',
+        label: '',
+        link: {
+          block: [
+            {
+              link: 'H1WZWR3bs-',
+              condition: null,
+              id: 'Syf-bA3-s-',
+              reuse: 'HIDE_REUSE',
+              text: 'And all who inhabit it!',
+              type: 'CHOICE_ITEM',
+            },
+            {
+              link: 'ryUb-R3bj-',
+              condition: {
+                condition: '(true)',
+                type: 'IF',
+              },
+              id: 'rywWWA2bjZ',
+              reuse: 'DISABLE_REUSE',
+              text: 'I hate Mondays...',
+              type: 'CHOICE_ITEM',
+            },
+          ],
+          id: 'HkuZb03WjZ',
+          type: 'CHOICE',
+        },
+        type: 'NODE',
+      },
+      {
+        components: [
+          {
+            id: 'SJeZZCnbo-',
+            text: 'My, you\'re cheerful',
+            type: 'TEXT',
+          },
+        ],
+        id: 'H1WZWR3bs-',
+        label: '',
+        link: {
+          type: 'NODE_LINK',
+          node: 'B1sZ-ChWib',
+        },
+        type: 'NODE',
+      },
+      {
+        components: [
+          {
+            id: 'BymZbRnbiW',
+            text: 'Indeed',
+            type: 'TEXT',
+          },
+        ],
+        id: 'ryUb-R3bj-',
+        label: '',
+        link: {
+          node: 'BySWW0nbiW',
+          type: 'NODE_LINK',
+        },
+        type: 'NODE',
+      },
+      {
+        components: [
+          {
+            id: 'S1EWZA2biZ',
+            text: 'happy false',
+            type: 'SET',
+          },
+        ],
+        id: 'BySWW0nbiW',
+        label: 'hate',
+        link: {
+          text: '',
+          type: 'FINISH',
+        },
+        type: 'NODE',
+      },
+      {
+        components: [
+          {
+            id: 'rkcbZCnWoW',
+            text: 'happy true',
+            type: 'SET',
+          },
+        ],
+        id: 'B1sZ-ChWib',
+        label: 'cheerful',
+        link: {
+          text: '',
+          type: 'FINISH',
+        },
+        type: 'NODE',
+      },
+    ]];
+
+    const result = flattenScenes(scenes);
+    expect(result).toEqual(expected);
+  });
+
+  it('successfully flattens dragon', () => {
+    const parseResult = parse(dragonCS);
+    console.log(JSON.stringify(parseResult));
+    // const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...parseResult }));
+    const expected = [[]];
+
+    const result = flattenScenes([makeScene('startup', parseResult.object)]);
+
+    expect(result).toEqual(expected);
   });
 });
 

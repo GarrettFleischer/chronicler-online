@@ -51,6 +51,8 @@ export const STAT_TEXT = 'STAT_TEXT';
 export const TEMP = 'TEMP';
 export const TITLE = 'TITLE';
 
+// TODO add restore_game token as a Link
+
 
 export const makeLine = (type, number, raw, indent, text) => ({ type, number, raw, indent, text });
 
