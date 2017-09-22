@@ -46,13 +46,13 @@ describe('ChoiceScript parser', () => {
 
     // remove id from nested objects, then error and tokens from top object
     const result = parse(cs);
-    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });
 
   it('handles nested choices', () => {
-    const cs = "Hello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you're cheerful\n    *goto cheerful\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish";
+    const cs = 'Hello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you\'re cheerful\n    *goto cheerful\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish';
     const expected = {
       object: [
         {
@@ -64,11 +64,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: '',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'And all who inhabit it!',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -84,16 +82,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: 'HIDE_REUSE',
+                text: 'And all who inhabit it!',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'I hate Mondays...',
-                condition: {
-                  condition: '(true) ',
-                  type: 'IF',
-                },
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -117,12 +112,17 @@ describe('ChoiceScript parser', () => {
                         },
                         type: 'NODE',
                       },
-                      type: 'GOTO',
+                      type: 'NODE_LINK',
                     },
                     type: 'NODE',
                   },
                 ],
+                condition: {
+                  condition: '(true)',
+                  type: 'IF',
+                },
                 reuse: 'DISABLE_REUSE',
+                text: 'I hate Mondays...',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -150,7 +150,7 @@ describe('ChoiceScript parser', () => {
     };
 
     const result = parse(cs);
-    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });
@@ -329,7 +329,7 @@ describe('ChoiceScript parser', () => {
     };
 
     const result = parse(cs);
-    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });
@@ -355,9 +355,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                 ],
-                choice: 'Mike doesn\'t fool me. He has always been jealous of how much Jill loves me.',
                 condition: null,
                 reuse: null,
+                text: 'Mike doesn\'t fool me. He has always been jealous of how much Jill loves me.',
                 type: 'FAKE_CHOICE_ITEM',
               },
               {
@@ -367,9 +367,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                 ],
-                choice: 'Mike seems to say stuff like that a lot. He just likes to cause trouble.',
                 condition: null,
                 reuse: null,
+                text: 'Mike seems to say stuff like that a lot. He just likes to cause trouble.',
                 type: 'FAKE_CHOICE_ITEM',
               },
               {
@@ -379,13 +379,13 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                 ],
-                choice: 'I burst out laughing. The whole idea is ridiculous. I mean . . . Ben?!',
                 condition: null,
                 reuse: null,
+                text: 'I burst out laughing. The whole idea is ridiculous. I mean . . . Ben?!',
                 type: 'FAKE_CHOICE_ITEM',
               },
             ],
-            nodes: [
+            link: [
               {
                 components: [
                   {
@@ -411,7 +411,7 @@ describe('ChoiceScript parser', () => {
     };
 
     const result = parse(cs);
-    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });
@@ -429,11 +429,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: '',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'I take to the air with a quick beat of my wings.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -453,13 +451,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'I take to the air with a quick beat of my wings.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'I knock the knight from his horse with a slap of my tail.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -479,13 +477,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'I knock the knight from his horse with a slap of my tail.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'I rush into his charge and tear him to pieces with my claws.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -505,13 +503,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'I rush into his charge and tear him to pieces with my claws.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'A puff of my fiery breath should be enough for him.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -531,16 +529,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'A puff of my fiery breath should be enough for him.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Restore a saved game.',
-                condition: {
-                  condition: '(choice_save_allowed) ',
-                  type: 'IF',
-                },
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -556,7 +551,12 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: {
+                  condition: '(choice_save_allowed)',
+                  type: 'IF',
+                },
                 reuse: null,
+                text: 'Restore a saved game.',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -573,11 +573,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: 'Victory',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'Of course!  How dare he attack me?',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -597,13 +595,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Of course!  How dare he attack me?',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'I let him live to warn others of my immense power.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -623,13 +621,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'I let him live to warn others of my immense power.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Eh.  Now that the threat is ended, he is beneath my concern.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -653,7 +651,9 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Eh.  Now that the threat is ended, he is beneath my concern.',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -670,11 +670,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: 'Naming',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'Gorthalon.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -690,13 +688,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Gorthalon.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Sssetheliss.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -712,13 +710,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Sssetheliss.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Calemvir.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -734,13 +732,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Calemvir.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'These names are all terrible!',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -777,11 +775,9 @@ describe('ChoiceScript parser', () => {
                               ],
                               label: '',
                               link: {
-                                choices: [
+                                block: [
                                   {
-                                    choice: 'Yes.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -797,13 +793,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Yes.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'No, my name is ${name}, just as I said.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [],
                                         label: '',
@@ -814,13 +810,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'No, my name is ${name}, just as I said.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'Er, wait, let me try that again.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [],
                                         label: '',
@@ -831,7 +827,9 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Er, wait, let me try that again.',
                                     type: 'CHOICE_ITEM',
                                   },
                                 ],
@@ -846,12 +844,14 @@ describe('ChoiceScript parser', () => {
                         },
                         type: 'NODE',
                       },
-                      type: 'GOTO',
+                      type: 'NODE_LINK',
                     },
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'These names are all terrible!',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -868,11 +868,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: 'gender',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'Male.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -888,13 +886,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Male.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Female.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -910,13 +908,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Female.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Neither.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -932,13 +930,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Neither.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Unknown/undetermined.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -954,13 +952,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Unknown/undetermined.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Do not pester me with impudent questions!',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -974,11 +972,9 @@ describe('ChoiceScript parser', () => {
                     ],
                     label: '',
                     link: {
-                      choices: [
+                      block: [
                         {
-                          choice: 'Very well.',
-                          condition: null,
-                          nodes: [
+                          block: [
                             {
                               components: [
                                 {
@@ -988,11 +984,9 @@ describe('ChoiceScript parser', () => {
                               ],
                               label: '',
                               link: {
-                                choices: [
+                                block: [
                                   {
-                                    choice: 'Male.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1008,13 +1002,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Male.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'Female.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1030,13 +1024,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Female.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'Neither.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1052,13 +1046,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Neither.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'Unknown/undetermined.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1074,7 +1068,9 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Unknown/undetermined.',
                                     type: 'CHOICE_ITEM',
                                   },
                                 ],
@@ -1083,13 +1079,13 @@ describe('ChoiceScript parser', () => {
                               type: 'NODE',
                             },
                           ],
+                          condition: null,
                           reuse: null,
+                          text: 'Very well.',
                           type: 'CHOICE_ITEM',
                         },
                         {
-                          choice: 'I said no.',
-                          condition: null,
-                          nodes: [
+                          block: [
                             {
                               components: [
                                 {
@@ -1109,7 +1105,9 @@ describe('ChoiceScript parser', () => {
                               type: 'NODE',
                             },
                           ],
+                          condition: null,
                           reuse: null,
+                          text: 'I said no.',
                           type: 'CHOICE_ITEM',
                         },
                       ],
@@ -1118,7 +1116,9 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Do not pester me with impudent questions!',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -1135,11 +1135,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: 'Princess',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'Maybe, but tradition demands that dragons kidnap princesses, even if that is sexist.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1159,13 +1157,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Maybe, but tradition demands that dragons kidnap princesses, even if that is sexist.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'You dare question my actions?',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1185,13 +1183,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'You dare question my actions?',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'You know, I never thought about that before.  In fact, I think I kidnapped a prince, just to avoid being sexist.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1211,13 +1209,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'You know, I never thought about that before.  In fact, I think I kidnapped a prince, just to avoid being sexist.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'I\'ll have you know that I make a careful point of alternating between princes and princesses, but it happened to be time for a princess.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1237,7 +1235,9 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'I\'ll have you know that I make a careful point of alternating between princes and princesses, but it happened to be time for a princess.',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -1324,11 +1324,9 @@ describe('ChoiceScript parser', () => {
           ],
           label: 'A',
           link: {
-            choices: [
+            block: [
               {
-                choice: 'Can we just get on to the smashing?',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1352,13 +1350,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Can we just get on to the smashing?',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Black.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1374,13 +1372,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Black.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Blue.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1396,13 +1394,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Blue.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Brown.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1418,13 +1416,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Brown.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Gold.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1440,13 +1438,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Gold.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Green.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1462,13 +1460,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Green.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Iridescent.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1484,13 +1482,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Iridescent.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'Red.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1506,13 +1504,13 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'Red.',
                 type: 'CHOICE_ITEM',
               },
               {
-                choice: 'White.',
-                condition: null,
-                nodes: [
+                block: [
                   {
                     components: [
                       {
@@ -1528,7 +1526,9 @@ describe('ChoiceScript parser', () => {
                     type: 'NODE',
                   },
                 ],
+                condition: null,
                 reuse: null,
+                text: 'White.',
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -1548,34 +1548,34 @@ describe('ChoiceScript parser', () => {
             choices: [
               {
                 block: null,
-                choice: 'Four.',
                 condition: null,
                 reuse: null,
+                text: 'Four.',
                 type: 'FAKE_CHOICE_ITEM',
               },
               {
                 block: null,
-                choice: 'Five.',
                 condition: null,
                 reuse: null,
+                text: 'Five.',
                 type: 'FAKE_CHOICE_ITEM',
               },
               {
                 block: null,
-                choice: 'Six.',
                 condition: null,
                 reuse: null,
+                text: 'Six.',
                 type: 'FAKE_CHOICE_ITEM',
               },
               {
                 block: null,
-                choice: 'Eight.',
                 condition: null,
                 reuse: null,
+                text: 'Eight.',
                 type: 'FAKE_CHOICE_ITEM',
               },
             ],
-            nodes: [
+            link: [
               {
                 components: [
                   {
@@ -1585,11 +1585,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: '',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'Ridged.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -1605,13 +1603,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Ridged.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Smooth.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -1627,7 +1625,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Smooth.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -1644,11 +1644,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'wings',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'Feathery.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -1664,13 +1662,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Feathery.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Leathery.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -1686,13 +1684,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Leathery.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Scaly.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -1708,7 +1706,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Scaly.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -1734,11 +1734,9 @@ describe('ChoiceScript parser', () => {
                     ],
                     label: 'RoyalResolution',
                     link: {
-                      choices: [
+                      block: [
                         {
-                          choice: 'It\'s all about companionship and good conversation.',
-                          condition: null,
-                          nodes: [
+                          block: [
                             {
                               components: [
                                 {
@@ -1748,11 +1746,9 @@ describe('ChoiceScript parser', () => {
                               ],
                               label: '',
                               link: {
-                                choices: [
+                                block: [
                                   {
-                                    choice: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1780,13 +1776,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1814,7 +1810,9 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.',
                                     type: 'CHOICE_ITEM',
                                   },
                                 ],
@@ -1823,13 +1821,13 @@ describe('ChoiceScript parser', () => {
                               type: 'NODE',
                             },
                           ],
+                          condition: null,
                           reuse: null,
+                          text: 'It\'s all about companionship and good conversation.',
                           type: 'CHOICE_ITEM',
                         },
                         {
-                          choice: 'I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.',
-                          condition: null,
-                          nodes: [
+                          block: [
                             {
                               components: [],
                               label: '',
@@ -1840,13 +1838,13 @@ describe('ChoiceScript parser', () => {
                               type: 'NODE',
                             },
                           ],
+                          condition: null,
                           reuse: null,
+                          text: 'I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.',
                           type: 'CHOICE_ITEM',
                         },
                         {
-                          choice: 'It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.',
-                          condition: null,
-                          nodes: [
+                          block: [
                             {
                               components: [
                                 {
@@ -1864,11 +1862,9 @@ describe('ChoiceScript parser', () => {
                               ],
                               label: '',
                               link: {
-                                choices: [
+                                block: [
                                   {
-                                    choice: 'Honor demands that I carry out my end of the bargain.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1896,13 +1892,13 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Honor demands that I carry out my end of the bargain.',
                                     type: 'CHOICE_ITEM',
                                   },
                                   {
-                                    choice: 'Once I have the payment, I have no reason to delay my dinner.',
-                                    condition: null,
-                                    nodes: [
+                                    block: [
                                       {
                                         components: [
                                           {
@@ -1930,7 +1926,9 @@ describe('ChoiceScript parser', () => {
                                         type: 'NODE',
                                       },
                                     ],
+                                    condition: null,
                                     reuse: null,
+                                    text: 'Once I have the payment, I have no reason to delay my dinner.',
                                     type: 'CHOICE_ITEM',
                                   },
                                 ],
@@ -1939,7 +1937,9 @@ describe('ChoiceScript parser', () => {
                               type: 'NODE',
                             },
                           ],
+                          condition: null,
                           reuse: null,
+                          text: 'It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.',
                           type: 'CHOICE_ITEM',
                         },
                       ],
@@ -1947,7 +1947,7 @@ describe('ChoiceScript parser', () => {
                     },
                     type: 'NODE',
                   },
-                  type: 'GOTO',
+                  type: 'NODE_LINK',
                 },
                 type: 'NODE',
               },
@@ -1998,11 +1998,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'personality',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'Brutality: strength and cruelty.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2018,13 +2016,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Brutality: strength and cruelty.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Finesse: precision and aerial maneuverability.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2040,7 +2038,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Finesse: precision and aerial maneuverability.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2061,11 +2061,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'CunningQuestion',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'Cunning: intelligence and trickery.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2081,13 +2079,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Cunning: intelligence and trickery.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Honor: honesty and trustworthiness.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2103,7 +2101,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Honor: honesty and trustworthiness.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2124,11 +2124,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'DisdainQuestion',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'Disdain: patience and scorn.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2144,13 +2142,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Disdain: patience and scorn.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Vigilance: attention and impulsiveness.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2166,7 +2164,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Vigilance: attention and impulsiveness.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2191,11 +2191,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'FirstChoice',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'Reading.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2219,13 +2217,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Reading.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Hunting.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2249,7 +2247,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Hunting.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2270,11 +2270,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'SecondChoice',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'I sought revenge.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2298,13 +2296,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'I sought revenge.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'Revenge is beneath my dignity.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2328,7 +2326,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'Revenge is beneath my dignity.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2349,11 +2349,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'ThirdChoice',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: 'I waited for him to die.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2377,13 +2375,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'I waited for him to die.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: 'I killed him on the spot.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2407,7 +2405,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: 'I killed him on the spot.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2428,11 +2428,9 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'Axilmeus',
                 link: {
-                  choices: [
+                  block: [
                     {
-                      choice: ' I gave him the shield to avoid a fight.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2452,13 +2450,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: ' I gave him the shield to avoid a fight.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: ' I dueled him for the shield.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2482,13 +2480,13 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: ' I dueled him for the shield.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      choice: ' I evaded him and hid the shield.',
-                      condition: null,
-                      nodes: [
+                      block: [
                         {
                           components: [
                             {
@@ -2512,7 +2510,9 @@ describe('ChoiceScript parser', () => {
                           type: 'NODE',
                         },
                       ],
+                      condition: null,
                       reuse: null,
+                      text: ' I evaded him and hid the shield.',
                       type: 'CHOICE_ITEM',
                     },
                   ],
@@ -2529,8 +2529,80 @@ describe('ChoiceScript parser', () => {
                 ],
                 label: 'ResolveAxilmeus',
                 link: {
-                  text: 'Begin the Adventure',
-                  type: 'FINISH',
+                  node: {
+                    components: [
+                      {
+                        text: '[We need to generate a starting Wealth somehow.  My current thought is',
+                        type: 'COMMENT',
+                      },
+                      {
+                        text: 'that we use a random number increased up by low Brutality, low Disdain,',
+                        type: 'COMMENT',
+                      },
+                      {
+                        text: 'and high Cunning. ',
+                        type: 'COMMENT',
+                      },
+                      {
+                        text: 'But we could also tie it more specifically to the choices, or just go',
+                        type: 'COMMENT',
+                      },
+                      {
+                        text: 'random, or whatever.]',
+                        type: 'COMMENT',
+                      },
+                      {
+                        text: '',
+                        type: 'PAGE_BREAK',
+                      },
+                      {
+                        text: 'You have the following stats:\n',
+                        type: 'TEXT',
+                      },
+                      {
+                        stats: [
+                          {
+                            name: 'Brutality',
+                            opposed: 'Finesse',
+                            stat: 'Brutality',
+                            type: 'STAT_OPPOSED',
+                          },
+                          {
+                            name: 'Cunning',
+                            opposed: 'Honor',
+                            stat: 'Cunning',
+                            type: 'STAT_OPPOSED',
+                          },
+                          {
+                            name: 'Disdain',
+                            opposed: 'Vigilance',
+                            stat: 'Disdain',
+                            type: 'STAT_OPPOSED',
+                          },
+                          {
+                            text: 'Infamy',
+                            type: 'STAT_PERCENT',
+                          },
+                          {
+                            text: 'wealth_text Wealth',
+                            type: 'STAT_TEXT',
+                          },
+                        ],
+                        type: 'STAT_CHART',
+                      },
+                      {
+                        text: '',
+                        type: 'TEXT',
+                      },
+                    ],
+                    label: 'Wrapup',
+                    link: {
+                      text: 'Begin the Adventure',
+                      type: 'FINISH',
+                    },
+                    type: 'NODE',
+                  },
+                  type: 'NODE_LINK',
                 },
                 type: 'NODE',
               },
@@ -2611,42 +2683,55 @@ describe('ChoiceScript parser', () => {
           type: 'CREATE',
         },
         {
+          scene: 'startup',
           text: 'royal',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'royal_him',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'royal_his',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'royal_she',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'royals',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'color',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'head',
           type: 'TEMP',
         },
         {
+          scene: 'startup',
           text: 'wings',
+          type: 'TEMP',
+        },
+        {
+          scene: 'startup',
+          text: 'wealth_text "${wealth} gold coins"',
           type: 'TEMP',
         },
       ],
     };
 
     const result = parse(cs);
-    const filtered = removeKeys(false, 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });

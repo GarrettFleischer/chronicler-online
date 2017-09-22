@@ -1,9 +1,10 @@
 import { generate as getID } from 'shortid';
 
-import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, makeError, makeParseResult, match, maybe, optional, sameDent } from './parser';
+import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, inOrderIgnore, makeError, makeParseResult, match, maybe, optional, sameDent } from './parser';
 import {
   ACHIEVE,
   ACHIEVEMENT,
+  ALLOW_REUSE,
   AUTHOR,
   BUG,
   CHECK_ACHIEVEMENTS,
@@ -56,41 +57,48 @@ import {
 
 
 export const NODE = 'NODE';
+export const NODE_LINK = 'NODE_LINK';
 export const FAKE_CHOICE_ITEM = 'FAKE_CHOICE_ITEM';
 
 // symbols
-const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
-const makeAuthor = (text) => ({ type: AUTHOR, id: getID(), text });
-const makeCreate = (text) => ({ type: CREATE, id: getID(), text });
-const makeTemp = (text, scene) => ({ type: TEMP, id: getID(), text, scene });
-const makeAchievement = (text, pre, post) => ({ type: ACHIEVEMENT, id: getID(), text, pre, post });
-const makeSceneList = (scenes) => ({ type: SCENE_LIST, id: getID(), scenes });
-const makeImage = (path, options) => ({ type: IMAGE, id: getID(), path, options });
-const makeSound = (path) => ({ type: SOUND, id: getID(), path });
+export const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
+export const makeAuthor = (text) => ({ type: AUTHOR, id: getID(), text });
+export const makeCreate = (text) => ({ type: CREATE, id: getID(), text });
+export const makeTemp = (text, scene) => ({ type: TEMP, id: getID(), text, scene });
+export const makeAchievement = (text, pre, post) => ({ type: ACHIEVEMENT, id: getID(), text, pre, post });
+export const makeSceneList = (scenes) => ({ type: SCENE_LIST, id: getID(), scenes });
+export const makeImage = (path, options) => ({ type: IMAGE, id: getID(), path, options });
+export const makeSound = (path) => ({ type: SOUND, id: getID(), path });
+export const makeReuse = (type) => ({ type, id: getID() });
 
 // nodes and components
-const makeText = (text) => ({ type: TEXT, id: getID(), text });
-const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
-const makeLink = (type, text) => ({ type, text });
-const makeNodeLink = (node) => ({ type: GOTO, node });
-const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
-const makeChoice = (choices) => ({ type: CHOICE, id: getID(), choices });
-const makeChoiceItem = (reuse, condition, choice, nodes) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, choice, nodes });
-const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, block, elses });
-const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition, block });
-const makeElse = (block) => ({ type: ELSE, id: getID(), block });
-const makeFakeChoice = (choices, nodes) => ({ type: FAKE_CHOICE, id: getID(), choices, nodes });
-const makeFakeChoiceItem = (reuse, condition, choice, block) => ({ type: FAKE_CHOICE_ITEM, id: getID(), reuse, condition, choice, block });
+export const makeText = (text) => ({ type: TEXT, id: getID(), text });
+export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
 
-const makeStatChart = (stats) => ({ type: STAT_CHART, id: getID(), stats });
-const makeTextStat = (text) => ({ type: STAT_TEXT, id: getID(), text });
-const makePercentStat = (text) => ({ type: STAT_PERCENT, id: getID(), text });
-const makeOpposedStat = (stat, name, opposed) => ({ type: STAT_OPPOSED, id: getID(), stat, name, opposed });
+export const makeLink = (type, text) => ({ type, text });
+export const makeNodeLink = (node) => ({ type: NODE_LINK, node });
+
+export const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
+
+export const makeChoice = (block) => ({ type: CHOICE, id: getID(), block });
+export const makeChoiceItem = (reuse, condition, text, block) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, block });
+
+export const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, block, elses });
+export const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition, block });
+export const makeElse = (block) => ({ type: ELSE, id: getID(), block });
+
+export const makeFakeChoice = (choices, link) => ({ type: FAKE_CHOICE, id: getID(), choices, link });
+export const makeFakeChoiceItem = (reuse, condition, text, block) => ({ type: FAKE_CHOICE_ITEM, id: getID(), reuse, condition, text, block });
+
+export const makeStatChart = (stats) => ({ type: STAT_CHART, id: getID(), stats });
+export const makeTextStat = (text) => ({ type: STAT_TEXT, id: getID(), text });
+export const makePercentStat = (text) => ({ type: STAT_PERCENT, id: getID(), text });
+export const makeOpposedStat = (stat, name, opposed) => ({ type: STAT_OPPOSED, id: getID(), stat, name, opposed });
 
 
 export function parse(cs) {
   const tokens = tokenize(cs);
-  const parseResult = makeParseResult(tokens);
+  const parseResult = makeParseResult('startup', tokens);
   const result = inOrder(anyNumberOf(Symbol), endingIn(Node, match(EOF)))(parseResult);
   if (!result.success)
     return { ...result, object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}` };
@@ -144,7 +152,7 @@ function Temp(parseResult) {
   const result = sameDent(match(TEMP))(parseResult);
   if (!result.success) return result;
 
-  return addSymbol(result, makeTemp(result.object.text));
+  return addSymbol(result, makeTemp(result.object.text, result.scene));
 }
 
 
@@ -192,14 +200,29 @@ function SceneList(parseResult) {
 }
 
 
-function Node(parseResult) {
-  const result = sameDent(inOrder(ignore(atLeastOne(Temp), optional(match(LABEL))), anyNumberOf(ignore(Temp, choose(Text, Action))), ignore(atLeastOne(Temp), Link)))(parseResult);
+function Reuse(parseResult) {
+  const result = sameDent(match(HIDE_REUSE, DISABLE_REUSE, ALLOW_REUSE))(parseResult);
   if (!result.success) return result;
 
-  const label = result.object[0] === null ? '' : result.object[0].text;
+  return addSymbol(result, makeReuse(result.object.type));
+}
+
+
+function Node(parseResult) {
+  const result = sameDent(inOrderIgnore(atLeastOne(Temp, Reuse))(optional(Label), anyNumberOf(ignore(choose(Temp, Reuse), choose(Text, Action))), Link))(parseResult);
+  if (!result.success) return result;
+
+  const label = result.object[0] === null ? '' : result.object[0];
   return { ...result, object: makeNode(label, result.object[1], result.object[2]) };
 }
 
+
+function Label(parseResult) {
+  const result = match(LABEL)(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: result.object.text };
+}
 
 function Text(parseResult) {
   const result = atLeastOne(sameDent(match(TEXT)))(parseResult);
@@ -236,7 +259,7 @@ function StatChart(parseResult) {
   const result = sameDent(inOrder(match(STAT_CHART), Block(atLeastOne(TextStat, PercentStat, OpposedStat))))(parseResult);
   if (!result.success) return result;
 
-  return makeStatChart(result.object[1]);
+  return { ...result, object: makeStatChart(result.object[1]) };
 }
 
 
@@ -244,8 +267,8 @@ function TextStat(parseResult) {
   const result = sameDent(match(TEXT))(parseResult);
   if (!result.success) return result;
 
-  if (!result.object.text.match(/^text/)) return { ...parseResult, success: false, error: makeError('text stat', result.object.text, result.object.number) };
-  return { ...result, object: makeTextStat(result.object.text.replace(/^text/, '')) };
+  if (!result.object.text.match(/^text /)) return { ...result, success: false, error: makeError('text stat', result.object.text, result.object.number) };
+  return { ...result, object: makeTextStat(result.object.text.replace(/^text /, '')) };
 }
 
 
@@ -253,8 +276,8 @@ function PercentStat(parseResult) {
   const result = sameDent(match(TEXT))(parseResult);
   if (!result.success) return result;
 
-  if (!result.object.text.match(/^percent/)) return { ...parseResult, success: false, error: makeError('percent stat', result.object.text, result.object.number) };
-  return { ...result, object: makePercentStat(result.object.text.replace(/^percent/, '')) };
+  if (!result.object.text.match(/^percent /)) return { ...result, success: false, error: makeError('percent stat', result.object.text, result.object.number) };
+  return { ...result, object: makePercentStat(result.object.text.replace(/^percent /, '')) };
 }
 
 
@@ -264,10 +287,10 @@ function OpposedStat(parseResult) {
   const result = sameDent(inOrder(match(TEXT), Block(inOrder(match(TEXT), optional(match(TEXT))))))(parseResult);
   if (!result.success) return result;
 
-  if (!result.object[0].text.match(/^opposed_pair/)) return { ...parseResult, success: false, error: makeError('opposed_pair', result.object.text, result.object.number) };
-  const stat = result.object[0].text.replace(/^opposed_pair/, '');
-  const name = result.object[1][1] ? result.object[1][0].text : null;
-  const opposed = result.object[1][1] ? result.object[1][0].text : result.object[1][1].text;
+  if (!result.object[0].text.match(/^opposed_pair /)) return { ...result, success: false, error: makeError('opposed_pair', result.object.text, result.object.number) };
+  const stat = result.object[0].text.replace(/^opposed_pair /, '');
+  const name = result.object[1][1] === null ? null : result.object[1][0].text;
+  const opposed = result.object[1][1] === null ? result.object[1][0].text : result.object[1][1].text;
   return { ...result, object: makeOpposedStat(stat, name, opposed) };
 }
 
@@ -286,7 +309,7 @@ function SingleLink(parseResult) {
 
 
 function NodeLink(parseResult) {
-  const result = sameDent(maybe(match(LABEL), Node))(parseResult);
+  const result = sameDent(maybe(Label, Node))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeNodeLink(result.object) };
@@ -302,7 +325,7 @@ function FakeChoice(parseResult) {
 
 
 function FakeChoiceItem(parseResult) {
-  const result = sameDent(inOrder(Reuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(ignore(Temp, choose(Text, Action)))))))(parseResult);
+  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(ignore(choose(Temp, Reuse), choose(Text, Action)))))))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeFakeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
@@ -318,14 +341,14 @@ function Choice(parseResult) {
 
 
 function ChoiceItem(parseResult) {
-  const result = sameDent(inOrder(Reuse, ChoiceItemCondition, match(CHOICE_ITEM), Block(atLeastOne(Node))))(parseResult);
+  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), Block(atLeastOne(Node))))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
 }
 
 
-function Reuse(parseResult) {
+function ChoiceItemReuse(parseResult) {
   const result = optional(match(HIDE_REUSE, DISABLE_REUSE))(parseResult);
 
   return { ...result, object: result.object === null ? null : result.object.type };

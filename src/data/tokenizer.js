@@ -68,16 +68,14 @@ export const isBlank = (line) => line.type === TEXT && !line.text.length;
 export function tokenize(cs) {
   const tokens = [];
   const lines = cs.replace(/\r+/g, '').split('\n');
-  let lastLine = null;
   let incrementLine = 1;
   for (let i = 0; i < lines.length; i += incrementLine) {
     const raw = lines[i];
     incrementLine = 1;
 
     const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);
-    let indent = leadingWS ? leadingWS.length : 0;
+    const indent = leadingWS ? leadingWS.length : 0;
     const text = raw.replace(/^\s+/, '');
-    if (text.length === 0) indent = lastLine.indent;
 
     let type = TEXT;
     let parsed = text;
@@ -90,27 +88,29 @@ export function tokenize(cs) {
       return type !== TEXT;
     });
 
-    if (type === TEXT) {
-      // choice item
-      if (text.match(/^#/)) {
-        type = CHOICE_ITEM;
-        parsed = text.replace(/^#/, '');
+    // check for choice items as they are initially parsed as TEXT
+    if (type === TEXT && text.match(/^#/)) {
+      type = CHOICE_ITEM;
+      parsed = text.replace(/^#/, '');
+      // handle reusable choices as separate tokens on the same line
+    } else if (type === HIDE_REUSE || type === DISABLE_REUSE || type === ALLOW_REUSE) {
+      const index = parsed.indexOf('#');
+      if (index >= 0) {
+        incrementLine = 0;
+        lines[i] = parsed;
+        parsed = '';
       }
-    } else if (type === HIDE_REUSE || type === DISABLE_REUSE) {
-      incrementLine = 0;
-      lines[i] = parsed;
-      parsed = '';
+      // handle conditional choices as separate tokens on the same line
     } else if (type === IF || type === SELECTABLE_IF) {
       const index = parsed.indexOf('#');
       if (index >= 0) {
         incrementLine = 0;
         lines[i] = parsed.slice(index);
-        parsed = parsed.slice(0, index);
+        parsed = parsed.slice(0, index).trim();
       }
     }
 
-    lastLine = makeLine(type, i, raw, indent, parsed);
-    tokens.push(lastLine);
+    tokens.push(makeLine(type, i, raw, indent, parsed));
   }
 
   tokens.push(makeLine(EOF, tokens.length, '', 0, ''));

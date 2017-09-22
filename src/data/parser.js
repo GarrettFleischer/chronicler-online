@@ -1,32 +1,17 @@
 import { peek, pop, push } from '../lib/stack';
-import { done, getToken, nextToken } from './tokenizer';
+import { done, getToken, isBlank, nextToken } from './tokenizer';
 
 
 export const makeError = (expected = '', found = '', line = -1) => ({ expected, found, line });
 
-export const makeParseResult = (tokens, symbols = [], success = true, error = makeError(), indentStack = [0], object = null) =>
-  ({ tokens, symbols, success, error, object, indent: indentStack }); // { level: indentLevel, check: isSameIndent } });
+export const makeParseResult = (scene, tokens, symbols = [], success = true, error = makeError(), indentStack = [0], object = null) =>
+  ({ scene, tokens, symbols, success, error, object, indent: indentStack });
 
 
 export function Nothing(parseResult) {
   return { ...parseResult, object: null };
 }
 
-
-// function isIndented(parseResult) {
-//   const token = getToken(parseResult.tokens);
-//   return isBlank(token) || token.indent > parseResult.indent.level;
-// }
-//
-// function isSameIndent(parseResult) {
-//   const token = getToken(parseResult.tokens);
-//   return isBlank(token) || token.indent === parseResult.indent.level;
-// }
-//
-// function isDedented(parseResult) {
-//   const token = getToken(parseResult.tokens);
-//   return isBlank(token) || token.indent < parseResult.indent.level;
-// }
 
 export function indent(parseResult) {
   const token = getToken(parseResult.tokens);
@@ -50,7 +35,7 @@ export function sameDent(parser) {
   return (parseResult) => {
     const token = getToken(parseResult.tokens);
     const indentLevel = peek(parseResult.indent);
-    if (token.indent !== indentLevel) return { ...parseResult, success: false, error: makeError(`indent: ${indentLevel}`, `indent: ${token.indent}`, token.number) };
+    if (token.indent !== indentLevel && !isBlank(token)) return { ...parseResult, success: false, error: makeError(`indent: ${indentLevel}`, `indent: ${token.indent}`, token.number) };
     return parser(parseResult);
   };
 }
@@ -130,7 +115,7 @@ export function anyNumberOf(...parsers) {
 
 export function atLeastOne(...parsers) {
   return (parseResult) => {
-    const result = inOrder(choose(...parsers), anyNumberOf(choose(...parsers)))(parseResult);
+    const result = inOrder(choose(...parsers), anyNumberOf(...parsers))(parseResult);
     if (!result.success) return result;
     return { ...result, object: [result.object[0], ...result.object[1]] };
   };
@@ -148,6 +133,20 @@ export function inOrder(...parsers) {
     let result = parseResult;
     for (let i = 0; i < parsers.length; ++i) {
       result = parsers[i](result);
+      if (!result.success) return result;
+      objects.push(result.object);
+    }
+    return { ...result, object: objects };
+  };
+}
+
+
+export function inOrderIgnore(ignoreParser) {
+  return (...parsers) => (parseResult) => {
+    const objects = [];
+    let result = parseResult;
+    for (let i = 0; i < parsers.length; ++i) {
+      result = ignore(ignoreParser, parsers[i])(result);
       if (!result.success) return result;
       objects.push(result.object);
     }
