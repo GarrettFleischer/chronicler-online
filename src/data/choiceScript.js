@@ -61,6 +61,7 @@ export const NODE = 'NODE';
 export const NODE_LINK = 'NODE_LINK';
 export const FAKE_CHOICE_ITEM = 'FAKE_CHOICE_ITEM';
 export const SCENE = 'SCENE';
+export const CHOICE_ITEM_BLOCK = 'CHOICE_ITEM_BLOCK';
 
 // other
 export const makeScene = (name, nodes) => ({ type: SCENE, id: getID(), name, nodes });
@@ -87,6 +88,7 @@ export const makeNode = (label, components, link) => ({ type: NODE, id: getID(),
 
 export const makeChoice = (block) => ({ type: CHOICE, id: getID(), block });
 export const makeChoiceItem = (reuse, condition, text, block) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, block });
+export const makeChoiceItemBlock = (block, link) => ({ type: CHOICE_ITEM_BLOCK, id: getID(), block, link });
 
 export const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, block, elses });
 export const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition, block });
@@ -148,7 +150,8 @@ function flattenLink(item) {
     case CHOICE:
       link.block = link.block.map((choiceItem) => {
         const { block, ...data } = choiceItem;
-        nodes = [...nodes, ...flattenNodes(block)];
+        if (block.length === 1)
+          nodes = [...nodes, ...flattenNodes(block)];
         return { ...data, link: { type: NODE_LINK, node: block[0].id } };
       });
       break;
@@ -289,7 +292,7 @@ function Reuse(parseResult) {
 
 
 function Node(parseResult) {
-  const result = sameDent(inOrderIgnore(atLeastOne(Temp, Reuse))(optional(Label), anyNumberOf(ignore(choose(Temp, Reuse), choose(Text, Action))), Link))(parseResult);
+  const result = sameDent(inOrderIgnore(atLeastOne(Temp, Reuse))(optional(Label), anyNumberOf(TextOrAction), Link))(parseResult);
   if (!result.success) return result;
 
   const label = result.object[0] === null ? '' : result.object[0];
@@ -406,12 +409,16 @@ function FakeChoice(parseResult) {
 
 
 function FakeChoiceItem(parseResult) {
-  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(ignore(choose(Temp, Reuse), choose(Text, Action)))))))(parseResult);
+  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(TextOrAction)))))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeFakeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
 }
 
+
+function TextOrAction(parseResult) {
+  return ignore(choose(Temp, Reuse), choose(Text, Action))(parseResult);
+}
 
 function Choice(parseResult) {
   const result = sameDent(inOrder(match(CHOICE), Block(atLeastOne(ChoiceItem))))(parseResult);
@@ -426,6 +433,14 @@ function ChoiceItem(parseResult) {
   if (!result.success) return result;
 
   return { ...result, object: makeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
+}
+
+
+function ChoiceItemBlock(parseResult) {
+  const result = Block(inOrder(anyNumberOf(TextOrAction), choose(Link, maybe(Label, atLeastOne(Node)))))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result };
 }
 
 

@@ -1,4 +1,4 @@
-import { base, cText, node, project, scene } from './nodes';
+import { cText, node, project, scene } from './nodes';
 
 
 export function getBase(state) {
