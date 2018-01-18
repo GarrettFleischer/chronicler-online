@@ -1,9 +1,12 @@
 import { cText, node, project, scene } from './nodes';
 
 
-export function getBase(state) {
-  return state.chronicler.present;
+export function getActiveProject(state) {
+  return state.chronicler.present.projects[0];
 }
+
+export const USER = 'USER';
+export const user = (_id, name, email, projects) => ({ _id, name, email, projects, activeProject: 0 });
 
 
 export const initialState = {
@@ -12,30 +15,48 @@ export const initialState = {
     future: [],
     canUndo: false,
     canRedo: false,
-    present: [
-      project(1, 'Dragon', 'CoG', [
-        scene(2, 'startup', [
-          node(4, 'intro', 1, [
-            cText(8, 'welcome'),
+    present:
+      user(0, 'Garrett', 'garrett.fleischer@yahoo.com', [
+        project(1, 'Dragon', 'CoG', [
+          scene(2, 'startup', [
+            node(4, 'intro', 1, [
+              cText(8, 'welcome'),
+            ]),
+            node(5, 'carry on', 1, [
+              cText(9, 'end of chapter 1'),
+            ]),
           ]),
-          node(5, 'carry on', 1, [
-            cText(9, 'end of chapter 1'),
+          scene(3, 'chapter 2', [
+            node(6, 'chapter 2', 2, [
+              cText(10, 'number of chapter 2'),
+            ]),
+            node(7, 'fin', 2, [
+              cText(11, 'end of chapter 2'),
+            ]),
           ]),
-        ]),
-        scene(3, 'chapter 2', [
-          node(6, 'chapter 2', 2, [
-            cText(10, 'number of chapter 2'),
-          ]),
-          node(7, 'fin', 2, [
-            cText(11, 'end of chapter 2'),
-          ]),
-        ]),
-      ], [
+        ], [
         // variable(''), // TODO add variables
+        ]),
       ]),
-    ],
   },
 };
+
+// export const USER = 'USER';
+// export const PROJECT = 'PROJECT';
+// export const VARIABLE = 'VARIABLE';
+// export const SCENE = 'SCENE';
+// export const NODE = 'NODE';
+// export const COMPONENT = 'COMPONENT';
+// export const LINK = 'LINK';
+// export const LINK_NODE = 'LINK_NODE';
+// export const LINK_IF = 'LINK_IF';
+//
+// const user = (name, email, projects) => ({ name, email, projects });
+// const project = (name, author, variables, scenes) => ({ name, author, variables, scenes });
+// const variable = (name, value) => ({ name, value });
+// const scene = (name, variables, nodes) => ({ name, variables, nodes });
+// const node = (label, components, link) => ({ label, components, link });
+
 
 // export const initialState = {
 //   chronicler: {
@@ -237,7 +258,7 @@ export const initialState = {
 //           cText(14, 'text 6'),
 //
 //           cIf(15, '',
-//             [cText(16, '')],
+//               [cText(16, '')],
 //             [cChoice(17, [
 //               cLink(18, LinkType.NORMAL, 'choice 18', 10, []),
 //             ]),
@@ -250,41 +271,42 @@ export const initialState = {
 //
 //     ]),
 //   };
-//
-//   // return base([
-//   //   // SCENE 1
-//   //   scene(1, 'startup', [
-//   //     // NodeType 2
-//   //     node(2, 'Start', [
-//   //       cText(3, 'A knight...'),
-//   //       cChoice(4, [
-//   //         cLink(5, LinkType.NORMAL, 'Fly...', 3, [
-//   //           cSet(6, 'disdain', '%+', '10'),
-//   //         ]),
-//   //         cLink(7, LinkType.NORMAL, 'Charge...', 4, null),
-//   //       ]),
-//   //     ]),
-//   //     // NodeType 3
-//   //     node(8, null, [
-//   //       cNext('End Act 1', 5),
-//   //     ]),
-//   //     // NodeType 4
-//   //     node(9, null, [
-//   //       cNext(10, null, 3),
-//   //     ]),
-//   //     // NodeType 5
-//   //     node(11, null, [
-//   //       cGotoScene(12, 6, 8),
-//   //     ]),
-//   //   ]),
-//   //   // SCENE 6
-//   //   scene(13, 'scene_2', [
-//   //     // NodeType 7
-//   //     node(14, null, [
-//   //       cText(15, '...'),
-//   //       // LABEL 8
-//   //       cLabel(16, 'middle'),
-//   //     ]),
-//   //   ]),
-//   // ]);
+// }
+// function initData() {
+//   return base([
+//     // SCENE 1
+//     scene(1, 'startup', [
+//       // NodeType 2
+//       node(2, 'Start', [
+//         cText(3, 'A knight...'),
+//         cChoice(4, [
+//           cLink(5, LinkType.NORMAL, 'Fly...', 3, [
+//             cSet(6, 'disdain', '%+', '10'),
+//           ]),
+//           cLink(7, LinkType.NORMAL, 'Charge...', 4, null),
+//         ]),
+//       ]),
+//       // NodeType 3
+//       node(8, null, [
+//         cNext('End Act 1', 5),
+//       ]),
+//       // NodeType 4
+//       node(9, null, [
+//         cNext(10, null, 3),
+//       ]),
+//       // NodeType 5
+//       node(11, null, [
+//         cGotoScene(12, 6, 8),
+//       ]),
+//     ]),
+//     // SCENE 6
+//     scene(13, 'scene_2', [
+//       // NodeType 7
+//       node(14, null, [
+//         cText(15, '...'),
+//         // LABEL 8
+//         cLabel(16, 'middle'),
+//       ]),
+//     ]),
+//   ]);
 // }

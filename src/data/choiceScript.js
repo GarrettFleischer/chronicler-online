@@ -487,7 +487,7 @@ function ActionBlock(parseResult) {
   const result = Block(inOrder(anyNumberOf(TextOrAction), Link))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeActionBlock(result.object[0], result.object[1]) }; // TODO make action block creator
+  return { ...result, object: makeActionBlock(result.object[0], result.object[1]) };
 }
 
 function Block(parser) {

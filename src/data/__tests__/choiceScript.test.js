@@ -66,60 +66,48 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: "My, you're cheerful",
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'cheerful',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'My, you\'re cheerful',
+                    type: 'TEXT',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'cheerful',
+                  type: 'GOTO',
+                },
                 reuse: 'HIDE_REUSE',
                 text: 'And all who inhabit it!',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'Indeed',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      node: {
-                        components: [
-                          {
-                            text: 'happy false',
-                            type: 'SET',
-                          },
-                        ],
-                        label: 'hate',
-                        link: {
-                          text: '',
-                          type: 'FINISH',
-                        },
-                        type: 'NODE',
-                      },
-                      type: 'NODE_LINK',
-                    },
-                    type: 'NODE',
+                    text: 'Indeed',
+                    type: 'TEXT',
                   },
                 ],
                 condition: {
                   condition: '(true)',
                   type: 'IF',
+                },
+                link: {
+                  node: {
+                    components: [
+                      {
+                        text: 'happy false',
+                        type: 'SET',
+                      },
+                    ],
+                    label: 'hate',
+                    link: {
+                      text: '',
+                      type: 'FINISH',
+                    },
+                    type: 'NODE',
+                  },
+                  type: 'NODE_LINK',
                 },
                 reuse: 'DISABLE_REUSE',
                 text: 'I hate Mondays...',
@@ -168,84 +156,60 @@ describe('ChoiceScript parser', () => {
           ],
           label: '',
           link: {
-            block: [
+            components: [
               {
-                components: [
-                  {
-                    text: 'do something',
-                    type: 'TEXT',
-                  },
-                ],
-                label: '',
-                link: {
-                  text: 'blarg',
-                  type: 'GOTO',
-                },
-                type: 'NODE',
+                text: 'do something',
+                type: 'TEXT',
               },
             ],
             condition: '(happy)',
             elses: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'do something else',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'blarg',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'do something else',
+                    type: 'TEXT',
                   },
                 ],
                 condition: '(cool)',
+                link: {
+                  text: 'blarg',
+                  type: 'GOTO',
+                },
                 type: 'ELSEIF',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'its another',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: '',
-                      type: 'FINISH',
-                    },
-                    type: 'NODE',
+                    text: 'its another',
+                    type: 'TEXT',
                   },
                 ],
                 condition: '(other)',
+                link: {
+                  text: '',
+                  type: 'FINISH',
+                },
                 type: 'ELSEIF',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'a thing',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: '',
-                      type: 'FINISH',
-                    },
-                    type: 'NODE',
+                    text: 'a thing',
+                    type: 'TEXT',
                   },
                 ],
+                link: {
+                  text: '',
+                  type: 'FINISH',
+                },
                 type: 'ELSE',
               },
             ],
+            link: {
+              text: 'blarg',
+              type: 'GOTO',
+            },
             type: 'IF',
           },
           type: 'NODE',
@@ -254,57 +218,39 @@ describe('ChoiceScript parser', () => {
           components: [],
           label: 'blarg',
           link: {
-            block: [
-              {
-                components: [],
-                label: '',
-                link: {
-                  block: [
-                    {
-                      components: [
-                        {
-                          text: 'you are ugly',
-                          type: 'TEXT',
-                        },
-                      ],
-                      label: '',
-                      link: {
-                        text: '',
-                        type: 'FINISH',
-                      },
-                      type: 'NODE',
-                    },
-                  ],
-                  condition: '(ugly)',
-                  elses: [],
-                  type: 'IF',
-                },
-                type: 'NODE',
-              },
-            ],
+            components: [],
             condition: 'not (happy)',
             elses: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'do other things',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'foo',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'do other things',
+                    type: 'TEXT',
                   },
                 ],
                 condition: 'not (cool)',
+                link: {
+                  text: 'foo',
+                  type: 'GOTO',
+                },
                 type: 'ELSEIF',
               },
             ],
+            link: {
+              components: [
+                {
+                  text: 'you are ugly',
+                  type: 'TEXT',
+                },
+              ],
+              condition: '(ugly)',
+              elses: [],
+              link: {
+                text: '',
+                type: 'FINISH',
+              },
+              type: 'IF',
+            },
             type: 'IF',
           },
           type: 'NODE',
@@ -431,129 +377,99 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'You leap to the air, deftly avoiding the knight\'s thrust.  Now that you are in the air, he hardly poses any threat at allâ€”not that he ever posed much of one to you.  You circle back and knock him off his horse with a swipe of your claw.\n',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'brutality %-10',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Victory',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'You leap to the air, deftly avoiding the knight\'s thrust.  Now that you are in the air, he hardly poses any threat at allâ€”not that he ever posed much of one to you.  You circle back and knock him off his horse with a swipe of your claw.\n',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'brutality %-10',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Victory',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'I take to the air with a quick beat of my wings.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse\'s back and begin devouring it.\n',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'cunning %+10',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Victory',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse\'s back and begin devouring it.\n',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'cunning %+10',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Victory',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'I knock the knight from his horse with a slap of my tail.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'The knight\'s lance shatters against your nigh-impenetrable hide as you slam into him.  You yank him clean off his horse, slamming him to the ground and ripping his plate armor with your vicious claws.  The fight is over before it has begun. \n',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'brutality %+10',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Victory',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'The knight\'s lance shatters against your nigh-impenetrable hide as you slam into him.  You yank him clean off his horse, slamming him to the ground and ripping his plate armor with your vicious claws.  The fight is over before it has begun. \n',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'brutality %+10',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Victory',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'I rush into his charge and tear him to pieces with my claws.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'You let loose an inferno of fire.  The knight\'s horse is cooked nicely, and your stomach lets out a deafening rumble as the smell of roast destrier reaches your nostrils.  The knight himself staggers to his feet.  His armor managed to keep him alive, but only barely.\n',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'disdain %+10',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Victory',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'You let loose an inferno of fire.  The knight\'s horse is cooked nicely, and your stomach lets out a deafening rumble as the smell of roast destrier reaches your nostrils.  The knight himself staggers to his feet.  His armor managed to keep him alive, but only barely.\n',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'disdain %+10',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Victory',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'A puff of my fiery breath should be enough for him.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: '*restore_game',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'purchased',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: '*restore_game',
+                    type: 'TEXT',
                   },
                 ],
                 condition: {
                   condition: '(choice_save_allowed)',
                   type: 'IF',
+                },
+                link: {
+                  text: 'purchased',
+                  type: 'GOTO',
                 },
                 reuse: null,
                 text: 'Restore a saved game.',
@@ -575,83 +491,65 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'Your jaws crush him in a single bite.\n\nThat showed him.',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'brutality %+10',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Naming',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'Your jaws crush him in a single bite.\n\nThat showed him.',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'brutality %+10',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Naming',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Of course!  How dare he attack me?',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: '"Begone, petty human.  To attack me is to meet your doom," you growl.\n\nThe knight stumbles away as quickly as he can, not even daring to pretend that he could still fight you.',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'infamy %+15',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Naming',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: '"Begone, petty human.  To attack me is to meet your doom," you growl.\n\nThe knight stumbles away as quickly as he can, not even daring to pretend that he could still fight you.',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'infamy %+15',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Naming',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'I let him live to warn others of my immense power.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'You leisurely eat the knight\'s horse.  He slinks away as quietly as he can.  (His heavy armor makes a stealthy escape impossible.)  Still, you pay him no mind as he leaves.\n',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'infamy %+10',
-                        type: 'SET',
-                      },
-                      {
-                        text: 'disdain %+10',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Naming',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'You leisurely eat the knight\'s horse.  He slinks away as quietly as he can.  (His heavy armor makes a stealthy escape impossible.)  Still, you pay him no mind as he leaves.\n',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'infamy %+10',
+                    type: 'SET',
+                  },
+                  {
+                    text: 'disdain %+10',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Naming',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Eh.  Now that the threat is ended, he is beneath my concern.',
                 type: 'CHOICE_ITEM',
@@ -672,184 +570,136 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'name "Gorthalon"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'gender',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'name "Gorthalon"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'gender',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Gorthalon.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'name "Sssetheliss"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'gender',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'name "Sssetheliss"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'gender',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Sssetheliss.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'name "Calemvir"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'gender',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'name "Calemvir"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'gender',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Calemvir.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'Oh! Please forgive me.',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      node: {
-                        components: [
-                          {
-                            text: 'What name would you prefer?',
-                            type: 'TEXT',
-                          },
-                          {
-                            text: 'name',
-                            type: 'INPUT_TEXT',
-                          },
-                          {
-                            text: 'check capitalization',
-                            type: 'COMMENT',
-                          },
-                        ],
-                        label: 'input_name',
-                        link: {
-                          block: [
-                            {
-                              components: [
-                                {
-                                  text: 'Your name is $!{name}, is that right?\n',
-                                  type: 'TEXT',
-                                },
-                              ],
-                              label: '',
-                              link: {
-                                block: [
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'name "$!{name}"',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'gender',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Yes.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [],
-                                        label: '',
-                                        link: {
-                                          text: 'gender',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'No, my name is ${name}, just as I said.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [],
-                                        label: '',
-                                        link: {
-                                          text: 'input_name',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Er, wait, let me try that again.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                ],
-                                type: 'CHOICE',
-                              },
-                              type: 'NODE',
-                            },
-                          ],
-                          condition: '("${name}" != "$!{name}")',
-                          elses: [],
-                          type: 'IF',
-                        },
-                        type: 'NODE',
-                      },
-                      type: 'NODE_LINK',
-                    },
-                    type: 'NODE',
+                    text: 'Oh! Please forgive me.',
+                    type: 'TEXT',
                   },
                 ],
                 condition: null,
+                link: {
+                  node: {
+                    components: [
+                      {
+                        text: 'What name would you prefer?',
+                        type: 'TEXT',
+                      },
+                      {
+                        text: 'name',
+                        type: 'INPUT_TEXT',
+                      },
+                      {
+                        text: 'check capitalization',
+                        type: 'COMMENT',
+                      },
+                    ],
+                    label: 'input_name',
+                    link: {
+                      components: [
+                        {
+                          text: 'Your name is $!{name}, is that right?\n',
+                          type: 'TEXT',
+                        },
+                      ],
+                      condition: '("${name}" != "$!{name}")',
+                      elses: [],
+                      link: {
+                        block: [
+                          {
+                            components: [
+                              {
+                                text: 'name "$!{name}"',
+                                type: 'SET',
+                              },
+                            ],
+                            condition: null,
+                            link: {
+                              text: 'gender',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'Yes.',
+                            type: 'CHOICE_ITEM',
+                          },
+                          {
+                            components: [],
+                            condition: null,
+                            link: {
+                              text: 'gender',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'No, my name is ${name}, just as I said.',
+                            type: 'CHOICE_ITEM',
+                          },
+                          {
+                            components: [],
+                            condition: null,
+                            link: {
+                              text: 'input_name',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'Er, wait, let me try that again.',
+                            type: 'CHOICE_ITEM',
+                          },
+                        ],
+                        type: 'CHOICE',
+                      },
+                      type: 'IF',
+                    },
+                    type: 'NODE',
+                  },
+                  type: 'NODE_LINK',
+                },
                 reuse: null,
                 text: 'These names are all terrible!',
                 type: 'CHOICE_ITEM',
@@ -870,253 +720,187 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'gender "male"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Princess',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'gender "male"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Princess',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Male.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'gender "female"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Princess',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'gender "female"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Princess',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Female.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'gender "neither"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Princess',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'gender "neither"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Princess',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Neither.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'gender "unknown"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'Princess',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'gender "unknown"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'Princess',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Unknown/undetermined.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'brutality %+ 15',
-                        type: 'SET',
-                      },
-                      {
-                        text: 'I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don\'t enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n',
-                        type: 'TEXT',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      block: [
-                        {
-                          block: [
-                            {
-                              components: [
-                                {
-                                  text: 'Excellent choice!  What gender will you be?\n',
-                                  type: 'TEXT',
-                                },
-                              ],
-                              label: '',
-                              link: {
-                                block: [
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'gender "male"',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'Princess',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Male.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'gender "female"',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'Princess',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Female.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'gender "neither"',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'Princess',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Neither.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'gender "unknown"',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'Princess',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Unknown/undetermined.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                ],
-                                type: 'CHOICE',
-                              },
-                              type: 'NODE',
-                            },
-                          ],
-                          condition: null,
-                          reuse: null,
-                          text: 'Very well.',
-                          type: 'CHOICE_ITEM',
-                        },
-                        {
-                          block: [
-                            {
-                              components: [
-                                {
-                                  text: 'gender "unknown"',
-                                  type: 'SET',
-                                },
-                                {
-                                  text: 'Well, let\'s just leave it undetermined, then!',
-                                  type: 'TEXT',
-                                },
-                              ],
-                              label: '',
-                              link: {
-                                text: 'Princess',
-                                type: 'GOTO',
-                              },
-                              type: 'NODE',
-                            },
-                          ],
-                          condition: null,
-                          reuse: null,
-                          text: 'I said no.',
-                          type: 'CHOICE_ITEM',
-                        },
-                      ],
-                      type: 'CHOICE',
-                    },
-                    type: 'NODE',
+                    text: 'brutality %+ 15',
+                    type: 'SET',
+                  },
+                  {
+                    text: 'I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don\'t enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n',
+                    type: 'TEXT',
                   },
                 ],
                 condition: null,
+                link: {
+                  block: [
+                    {
+                      components: [
+                        {
+                          text: 'Excellent choice!  What gender will you be?\n',
+                          type: 'TEXT',
+                        },
+                      ],
+                      condition: null,
+                      link: {
+                        block: [
+                          {
+                            components: [
+                              {
+                                text: 'gender "male"',
+                                type: 'SET',
+                              },
+                            ],
+                            condition: null,
+                            link: {
+                              text: 'Princess',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'Male.',
+                            type: 'CHOICE_ITEM',
+                          },
+                          {
+                            components: [
+                              {
+                                text: 'gender "female"',
+                                type: 'SET',
+                              },
+                            ],
+                            condition: null,
+                            link: {
+                              text: 'Princess',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'Female.',
+                            type: 'CHOICE_ITEM',
+                          },
+                          {
+                            components: [
+                              {
+                                text: 'gender "neither"',
+                                type: 'SET',
+                              },
+                            ],
+                            condition: null,
+                            link: {
+                              text: 'Princess',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'Neither.',
+                            type: 'CHOICE_ITEM',
+                          },
+                          {
+                            components: [
+                              {
+                                text: 'gender "unknown"',
+                                type: 'SET',
+                              },
+                            ],
+                            condition: null,
+                            link: {
+                              text: 'Princess',
+                              type: 'GOTO',
+                            },
+                            reuse: null,
+                            text: 'Unknown/undetermined.',
+                            type: 'CHOICE_ITEM',
+                          },
+                        ],
+                        type: 'CHOICE',
+                      },
+                      reuse: null,
+                      text: 'Very well.',
+                      type: 'CHOICE_ITEM',
+                    },
+                    {
+                      components: [
+                        {
+                          text: 'gender "unknown"',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'Well, let\'s just leave it undetermined, then!',
+                          type: 'TEXT',
+                        },
+                      ],
+                      condition: null,
+                      link: {
+                        text: 'Princess',
+                        type: 'GOTO',
+                      },
+                      reuse: null,
+                      text: 'I said no.',
+                      type: 'CHOICE_ITEM',
+                    },
+                  ],
+                  type: 'CHOICE',
+                },
                 reuse: null,
                 text: 'Do not pester me with impudent questions!',
                 type: 'CHOICE_ITEM',
@@ -1137,105 +921,81 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'I guess you\'re right.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'royal "princess"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'color',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'I guess you\'re right.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'royal "princess"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'color',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Maybe, but tradition demands that dragons kidnap princesses, even if that is sexist.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'No, no!  Of course not.  I just wanted toâ€”I meanâ€”What I\'m trying to say isâ€¦\n\nLet\'s just move on.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'royal "princess"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'color',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'No, no!  Of course not.  I just wanted toâ€”I meanâ€”What I\'m trying to say isâ€¦\n\nLet\'s just move on.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'royal "princess"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'color',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'You dare question my actions?',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'Right you are.  As I was saying, the knight\'s attack was probably inevitable.  After all, you did just kidnap the prince \nfrom right out of his tower.  As you ripped the roof off his tower, the light glistened off yourâ€¦',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'royal "prince"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'color',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'Right you are.  As I was saying, the knight\'s attack was probably inevitable.  After all, you did just kidnap the prince \nfrom right out of his tower.  As you ripped the roof off his tower, the light glistened off yourâ€¦',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'royal "prince"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'color',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'You know, I never thought about that before.  In fact, I think I kidnapped a prince, just to avoid being sexist.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'Of course.  I\'m sorry for questioning you.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: 'royal "princess"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'color',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'Of course.  I\'m sorry for questioning you.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: 'royal "princess"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'color',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'I\'ll have you know that I make a careful point of alternating between princes and princesses, but it happened to be time for a princess.',
                 type: 'CHOICE_ITEM',
@@ -1249,68 +1009,56 @@ describe('ChoiceScript parser', () => {
           components: [],
           label: 'color',
           link: {
-            block: [
+            components: [
               {
-                components: [
-                  {
-                    text: 'royal_him "her"',
-                    type: 'SET',
-                  },
-                  {
-                    text: 'royal_his "her"',
-                    type: 'SET',
-                  },
-                  {
-                    text: 'royal_she "she"',
-                    type: 'SET',
-                  },
-                  {
-                    text: 'royals "princesses"',
-                    type: 'SET',
-                  },
-                ],
-                label: '',
-                link: {
-                  text: 'A',
-                  type: 'GOTO',
-                },
-                type: 'NODE',
+                text: 'royal_him "her"',
+                type: 'SET',
+              },
+              {
+                text: 'royal_his "her"',
+                type: 'SET',
+              },
+              {
+                text: 'royal_she "she"',
+                type: 'SET',
+              },
+              {
+                text: 'royals "princesses"',
+                type: 'SET',
               },
             ],
             condition: '(royal="princess")',
             elses: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'royal_him "him"',
-                        type: 'SET',
-                      },
-                      {
-                        text: 'royal_his "his"',
-                        type: 'SET',
-                      },
-                      {
-                        text: 'royal_she "he"',
-                        type: 'SET',
-                      },
-                      {
-                        text: 'royals "princes"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'A',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'royal_him "him"',
+                    type: 'SET',
+                  },
+                  {
+                    text: 'royal_his "his"',
+                    type: 'SET',
+                  },
+                  {
+                    text: 'royal_she "he"',
+                    type: 'SET',
+                  },
+                  {
+                    text: 'royals "princes"',
+                    type: 'SET',
                   },
                 ],
+                link: {
+                  text: 'A',
+                  type: 'GOTO',
+                },
                 type: 'ELSE',
               },
             ],
+            link: {
+              text: 'A',
+              type: 'GOTO',
+            },
             type: 'IF',
           },
           type: 'NODE',
@@ -1326,207 +1074,153 @@ describe('ChoiceScript parser', () => {
           link: {
             block: [
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'brutality %+ 30',
-                        type: 'SET',
-                      },
-                      {
-                        text: 'yes, of course!  Your wish is my command.\n\nOn with the show!\n',
-                        type: 'TEXT',
-                      },
-                      {
-                        text: '',
-                        type: 'PAGE_BREAK',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'RoyalResolution',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'brutality %+ 30',
+                    type: 'SET',
+                  },
+                  {
+                    text: 'yes, of course!  Your wish is my command.\n\nOn with the show!\n',
+                    type: 'TEXT',
+                  },
+                  {
+                    text: '',
+                    type: 'PAGE_BREAK',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'RoyalResolution',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Can we just get on to the smashing?',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "black"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "black"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Black.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "blue"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "blue"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Blue.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "brown"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "brown"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Brown.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "golden"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "golden"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Gold.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "green"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "green"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Green.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "iridescent"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "iridescent"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Iridescent.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "red"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "red"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'Red.',
                 type: 'CHOICE_ITEM',
               },
               {
-                block: [
+                components: [
                   {
-                    components: [
-                      {
-                        text: 'color "white"',
-                        type: 'SET',
-                      },
-                    ],
-                    label: '',
-                    link: {
-                      text: 'limbs',
-                      type: 'GOTO',
-                    },
-                    type: 'NODE',
+                    text: 'color "white"',
+                    type: 'SET',
                   },
                 ],
                 condition: null,
+                link: {
+                  text: 'limbs',
+                  type: 'GOTO',
+                },
                 reuse: null,
                 text: 'White.',
                 type: 'CHOICE_ITEM',
@@ -1587,45 +1281,33 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'head "ridged"',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'wings',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'head "ridged"',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'wings',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Ridged.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'head "smooth"',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'wings',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'head "smooth"',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'wings',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Smooth.',
                       type: 'CHOICE_ITEM',
@@ -1646,67 +1328,49 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'wings "feathery"',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'Summary',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'wings "feathery"',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'Summary',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Feathery.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'wings "leathery"',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'Summary',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'wings "leathery"',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'Summary',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Leathery.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'wings "scaly"',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'Summary',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'wings "scaly"',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'Summary',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Scaly.',
                       type: 'CHOICE_ITEM',
@@ -1736,208 +1400,166 @@ describe('ChoiceScript parser', () => {
                     link: {
                       block: [
                         {
-                          block: [
+                          components: [
                             {
-                              components: [
-                                {
-                                  text: 'Life can be lonely as a dragon, and interesting conversation is at a premium.  The elite upbringing of royalty makes them more suitable for entertaining dragons.\n\nBut what do you do after you tire of ${royal_his} conversation?',
-                                  type: 'TEXT',
-                                },
-                              ],
-                              label: '',
-                              link: {
-                                block: [
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'The ${royal}\'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n',
-                                            type: 'TEXT',
-                                          },
-                                          {
-                                            text: 'brutality %+10',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'cunning %+10',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'infamy %+10',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'personality',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that\'s\nworth sparing ${royal_his} life.',
-                                            type: 'TEXT',
-                                          },
-                                          {
-                                            text: 'brutality %-10',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'cunning %-10',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'infamy %-10',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'personality',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                ],
-                                type: 'CHOICE',
-                              },
-                              type: 'NODE',
+                              text: 'Life can be lonely as a dragon, and interesting conversation is at a premium.  The elite upbringing of royalty makes them more suitable for entertaining dragons.\n\nBut what do you do after you tire of ${royal_his} conversation?',
+                              type: 'TEXT',
                             },
                           ],
                           condition: null,
+                          link: {
+                            block: [
+                              {
+                                components: [
+                                  {
+                                    text: 'The ${royal}\'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n',
+                                    type: 'TEXT',
+                                  },
+                                  {
+                                    text: 'brutality %+10',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'cunning %+10',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'infamy %+10',
+                                    type: 'SET',
+                                  },
+                                ],
+                                condition: null,
+                                link: {
+                                  text: 'personality',
+                                  type: 'GOTO',
+                                },
+                                reuse: null,
+                                text: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
+                                type: 'CHOICE_ITEM',
+                              },
+                              {
+                                components: [
+                                  {
+                                    text: 'The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that\'s\nworth sparing ${royal_his} life.',
+                                    type: 'TEXT',
+                                  },
+                                  {
+                                    text: 'brutality %-10',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'cunning %-10',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'infamy %-10',
+                                    type: 'SET',
+                                  },
+                                ],
+                                condition: null,
+                                link: {
+                                  text: 'personality',
+                                  type: 'GOTO',
+                                },
+                                reuse: null,
+                                text: 'I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.',
+                                type: 'CHOICE_ITEM',
+                              },
+                            ],
+                            type: 'CHOICE',
+                          },
                           reuse: null,
                           text: 'It\'s all about companionship and good conversation.',
                           type: 'CHOICE_ITEM',
                         },
                         {
-                          block: [
-                            {
-                              components: [],
-                              label: '',
-                              link: {
-                                text: 'EatHer',
-                                type: 'GOTO',
-                              },
-                              type: 'NODE',
-                            },
-                          ],
+                          components: [],
                           condition: null,
+                          link: {
+                            text: 'EatHer',
+                            type: 'GOTO',
+                          },
                           reuse: null,
                           text: 'I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.',
                           type: 'CHOICE_ITEM',
                         },
                         {
-                          block: [
+                          components: [
                             {
-                              components: [
-                                {
-                                  text: 'Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}\'s release.',
-                                  type: 'TEXT',
-                                },
-                                {
-                                  text: 'wealth +1500',
-                                  type: 'SET',
-                                },
-                                {
-                                  text: 'What do you do then?',
-                                  type: 'TEXT',
-                                },
-                              ],
-                              label: '',
-                              link: {
-                                block: [
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'Of course.  No sooner have you received the payment than you let the ${royal} go.',
-                                            type: 'TEXT',
-                                          },
-                                          {
-                                            text: 'cunning %-20',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'brutality %-10',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'infamy %-10',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'personality',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Honor demands that I carry out my end of the bargain.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                  {
-                                    block: [
-                                      {
-                                        components: [
-                                          {
-                                            text: 'Crunch, munch.  Delicious.\n',
-                                            type: 'TEXT',
-                                          },
-                                          {
-                                            text: 'cunning %+20',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'brutality %+10',
-                                            type: 'SET',
-                                          },
-                                          {
-                                            text: 'infamy %+10',
-                                            type: 'SET',
-                                          },
-                                        ],
-                                        label: '',
-                                        link: {
-                                          text: 'personality',
-                                          type: 'GOTO',
-                                        },
-                                        type: 'NODE',
-                                      },
-                                    ],
-                                    condition: null,
-                                    reuse: null,
-                                    text: 'Once I have the payment, I have no reason to delay my dinner.',
-                                    type: 'CHOICE_ITEM',
-                                  },
-                                ],
-                                type: 'CHOICE',
-                              },
-                              type: 'NODE',
+                              text: 'Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}\'s release.',
+                              type: 'TEXT',
+                            },
+                            {
+                              text: 'wealth +1500',
+                              type: 'SET',
+                            },
+                            {
+                              text: 'What do you do then?',
+                              type: 'TEXT',
                             },
                           ],
                           condition: null,
+                          link: {
+                            block: [
+                              {
+                                components: [
+                                  {
+                                    text: 'Of course.  No sooner have you received the payment than you let the ${royal} go.',
+                                    type: 'TEXT',
+                                  },
+                                  {
+                                    text: 'cunning %-20',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'brutality %-10',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'infamy %-10',
+                                    type: 'SET',
+                                  },
+                                ],
+                                condition: null,
+                                link: {
+                                  text: 'personality',
+                                  type: 'GOTO',
+                                },
+                                reuse: null,
+                                text: 'Honor demands that I carry out my end of the bargain.',
+                                type: 'CHOICE_ITEM',
+                              },
+                              {
+                                components: [
+                                  {
+                                    text: 'Crunch, munch.  Delicious.\n',
+                                    type: 'TEXT',
+                                  },
+                                  {
+                                    text: 'cunning %+20',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'brutality %+10',
+                                    type: 'SET',
+                                  },
+                                  {
+                                    text: 'infamy %+10',
+                                    type: 'SET',
+                                  },
+                                ],
+                                condition: null,
+                                link: {
+                                  text: 'personality',
+                                  type: 'GOTO',
+                                },
+                                reuse: null,
+                                text: 'Once I have the payment, I have no reason to delay my dinner.',
+                                type: 'CHOICE_ITEM',
+                              },
+                            ],
+                            type: 'CHOICE',
+                          },
                           reuse: null,
                           text: 'It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.',
                           type: 'CHOICE_ITEM',
@@ -2000,45 +1622,33 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'brutality %+70',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'CunningQuestion',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'brutality %+70',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'CunningQuestion',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Brutality: strength and cruelty.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'brutality %-70',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'CunningQuestion',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'brutality %-70',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'CunningQuestion',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Finesse: precision and aerial maneuverability.',
                       type: 'CHOICE_ITEM',
@@ -2063,45 +1673,33 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'cunning %+70',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'DisdainQuestion',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'cunning %+70',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'DisdainQuestion',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Cunning: intelligence and trickery.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'cunning %-70',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'DisdainQuestion',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'cunning %-70',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'DisdainQuestion',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Honor: honesty and trustworthiness.',
                       type: 'CHOICE_ITEM',
@@ -2126,45 +1724,33 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'disdain %+70',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'FirstChoice',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'disdain %+70',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'FirstChoice',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Disdain: patience and scorn.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'disdain %-70',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'FirstChoice',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'disdain %-70',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'FirstChoice',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Vigilance: attention and impulsiveness.',
                       type: 'CHOICE_ITEM',
@@ -2193,61 +1779,49 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'A wise choice that made you more Cunning and taught you Finesse.',
-                              type: 'TEXT',
-                            },
-                            {
-                              text: 'cunning %+20',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'brutality %-20',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'SecondChoice',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'A wise choice that made you more Cunning and taught you Finesse.',
+                          type: 'TEXT',
+                        },
+                        {
+                          text: 'cunning %+20',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'brutality %-20',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'SecondChoice',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Reading.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'You developed your muscles as you gloried in combat and the kill at\nthe end of the hunt.  Your brawls with your siblings also taught you the\nbasics of Honor. \n\nBrutality and Honor increase.',
-                              type: 'TEXT',
-                            },
-                            {
-                              text: 'cunning %-20',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'brutality %+20',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'SecondChoice',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'You developed your muscles as you gloried in combat and the kill at\nthe end of the hunt.  Your brawls with your siblings also taught you the\nbasics of Honor. \n\nBrutality and Honor increase.',
+                          type: 'TEXT',
+                        },
+                        {
+                          text: 'cunning %-20',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'brutality %+20',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'SecondChoice',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Hunting.',
                       type: 'CHOICE_ITEM',
@@ -2272,61 +1846,49 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'You were unable to truly threaten her, but you forced your mother to\nspend her time suppressing the revolts of human villages.  The dead    \nvillagers also provided her with no tribute, reducing the increase of her\nhoard.  Perhaps something more direct would be better as revenge. Still, a real\ngain nonetheless. \n\nCunning and Vigilance increase.',
-                              type: 'TEXT',
-                            },
-                            {
-                              text: 'cunning %+20',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'disdain %-20',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'ThirdChoice',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'You were unable to truly threaten her, but you forced your mother to\nspend her time suppressing the revolts of human villages.  The dead    \nvillagers also provided her with no tribute, reducing the increase of her\nhoard.  Perhaps something more direct would be better as revenge. Still, a real\ngain nonetheless. \n\nCunning and Vigilance increase.',
+                          type: 'TEXT',
+                        },
+                        {
+                          text: 'cunning %+20',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'disdain %-20',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'ThirdChoice',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'I sought revenge.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'Disdain for petty matters is essential for a dragon, as it avoids the\npointless feuds that weaken you and allow your enemies to achieve great\ngoals. \n\nManipulating peasants is also not the most honorable of activities for a    \nmighty dragon such as yourself. \n\nYour wise choice increases Disdain and Honor.',
-                              type: 'TEXT',
-                            },
-                            {
-                              text: 'cunning %-20',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'disdain %+20',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'ThirdChoice',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'Disdain for petty matters is essential for a dragon, as it avoids the\npointless feuds that weaken you and allow your enemies to achieve great\ngoals. \n\nManipulating peasants is also not the most honorable of activities for a    \nmighty dragon such as yourself. \n\nYour wise choice increases Disdain and Honor.',
+                          type: 'TEXT',
+                        },
+                        {
+                          text: 'cunning %-20',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'disdain %+20',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'ThirdChoice',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'Revenge is beneath my dignity.',
                       type: 'CHOICE_ITEM',
@@ -2351,61 +1913,49 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'There\'s no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n\nDisdain and Finesse increase.',
-                              type: 'TEXT',
-                            },
-                            {
-                              text: 'brutality %-20',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'disdain %+20',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'Axilmeus',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'There\'s no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n\nDisdain and Finesse increase.',
+                          type: 'TEXT',
+                        },
+                        {
+                          text: 'brutality %-20',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'disdain %+20',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'Axilmeus',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'I waited for him to die.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'It wasn\'t easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n\nBrutality and Vigilance increase.',
-                              type: 'TEXT',
-                            },
-                            {
-                              text: 'brutality %+20',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'disdain %-20',
-                              type: 'SET',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'Axilmeus',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'It wasn\'t easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n\nBrutality and Vigilance increase.',
+                          type: 'TEXT',
+                        },
+                        {
+                          text: 'brutality %+20',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'disdain %-20',
+                          type: 'SET',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'Axilmeus',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: 'I killed him on the spot.',
                       type: 'CHOICE_ITEM',
@@ -2430,87 +1980,69 @@ describe('ChoiceScript parser', () => {
                 link: {
                   block: [
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'disdain %+ 15',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'Disdain increases.\n\nAxilmeus took your shield and beat you with it, hard.',
-                              type: 'TEXT',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'ResolveAxilmeus',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'disdain %+ 15',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'Disdain increases.\n\nAxilmeus took your shield and beat you with it, hard.',
+                          type: 'TEXT',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'ResolveAxilmeus',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: ' I gave him the shield to avoid a fight.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'brutality %+ 15',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'cunning %- 15',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'Brutality and Honor increase.\n\nYou fought your hardest, but Axilmeus was a bit stronger than you; he pinned you to the ground and pried the shield out of your claws.',
-                              type: 'TEXT',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'ResolveAxilmeus',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'brutality %+ 15',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'cunning %- 15',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'Brutality and Honor increase.\n\nYou fought your hardest, but Axilmeus was a bit stronger than you; he pinned you to the ground and pried the shield out of your claws.',
+                          type: 'TEXT',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'ResolveAxilmeus',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: ' I dueled him for the shield.',
                       type: 'CHOICE_ITEM',
                     },
                     {
-                      block: [
+                      components: [
                         {
-                          components: [
-                            {
-                              text: 'brutality %- 15',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'cunning %+ 15',
-                              type: 'SET',
-                            },
-                            {
-                              text: 'Cunning and Finesse increase.\n\nUnfortunately, Axilmeus is your elder; at this age, he has the advantage in maneuverability.  He caught up to you quickly, pinning you to the ground and prying the shield out of your claws.',
-                              type: 'TEXT',
-                            },
-                          ],
-                          label: '',
-                          link: {
-                            text: 'ResolveAxilmeus',
-                            type: 'GOTO',
-                          },
-                          type: 'NODE',
+                          text: 'brutality %- 15',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'cunning %+ 15',
+                          type: 'SET',
+                        },
+                        {
+                          text: 'Cunning and Finesse increase.\n\nUnfortunately, Axilmeus is your elder; at this age, he has the advantage in maneuverability.  He caught up to you quickly, pinning you to the ground and prying the shield out of your claws.',
+                          type: 'TEXT',
                         },
                       ],
                       condition: null,
+                      link: {
+                        text: 'ResolveAxilmeus',
+                        type: 'GOTO',
+                      },
                       reuse: null,
                       text: ' I evaded him and hid the shield.',
                       type: 'CHOICE_ITEM',
@@ -3002,7 +2534,11 @@ describe('ChoiceScript parser', () => {
               type: 'NODE',
               id: 'Hk3gaDSctib',
               label: '',
-              components: [{ type: 'TEXT', id: 'S1qe6PBcFiW', text: 'You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse\'s back and begin devouring it.\n' }, {
+              components: [{
+                type: 'TEXT',
+                id: 'S1qe6PBcFiW',
+                text: 'You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse\'s back and begin devouring it.\n',
+              }, {
                 type: 'SET',
                 id: 'HJjxawHqYjb',
                 text: 'cunning %+10',
@@ -3049,7 +2585,13 @@ describe('ChoiceScript parser', () => {
             reuse: null,
             condition: { type: 'IF', condition: '(choice_save_allowed)' },
             text: 'Restore a saved game.',
-            block: [{ type: 'NODE', id: 'HJPWpvHctsZ', label: '', components: [{ type: 'TEXT', id: 'ByL-TwH5tjW', text: '*restore_game' }], link: { type: 'GOTO', text: 'purchased' } }],
+            block: [{
+              type: 'NODE',
+              id: 'HJPWpvHctsZ',
+              label: '',
+              components: [{ type: 'TEXT', id: 'ByL-TwH5tjW', text: '*restore_game' }],
+              link: { type: 'GOTO', text: 'purchased' },
+            }],
           }],
         },
       }, {
@@ -3070,7 +2612,11 @@ describe('ChoiceScript parser', () => {
               type: 'NODE',
               id: 'S1RbTvrqFjW',
               label: '',
-              components: [{ type: 'TEXT', id: 'HJ3-TDHqFiW', text: 'Your jaws crush him in a single bite.\n\nThat showed him.' }, { type: 'SET', id: 'BJ6bTwBqKiZ', text: 'brutality %+10' }],
+              components: [{
+                type: 'TEXT',
+                id: 'HJ3-TDHqFiW',
+                text: 'Your jaws crush him in a single bite.\n\nThat showed him.',
+              }, { type: 'SET', id: 'BJ6bTwBqKiZ', text: 'brutality %+10' }],
               link: { type: 'GOTO', text: 'Naming' },
             }],
           }, {
@@ -3104,7 +2650,11 @@ describe('ChoiceScript parser', () => {
                 type: 'TEXT',
                 id: 'r14zpwSqFo-',
                 text: 'You leisurely eat the knight\'s horse.  He slinks away as quietly as he can.  (His heavy armor makes a stealthy escape impossible.)  Still, you pay him no mind as he leaves.\n',
-              }, { type: 'SET', id: 'BkSzpDScYoZ', text: 'infamy %+10' }, { type: 'SET', id: 'SyIGawSqYiW', text: 'disdain %+10' }],
+              }, { type: 'SET', id: 'BkSzpDScYoZ', text: 'infamy %+10' }, {
+                type: 'SET',
+                id: 'SyIGawSqYiW',
+                text: 'disdain %+10',
+              }],
               link: { type: 'GOTO', text: 'Naming' },
             }],
           }],
@@ -3113,7 +2663,11 @@ describe('ChoiceScript parser', () => {
         type: 'NODE',
         id: 'r1_NTDBcFs-',
         label: 'Naming',
-        components: [{ type: 'TEXT', id: 'rJjzaDBcFsb', text: 'You know, it\'s going to get annoying to keep calling you "great and mighty dragon."  What is your name?' }],
+        components: [{
+          type: 'TEXT',
+          id: 'rJjzaDBcFsb',
+          text: 'You know, it\'s going to get annoying to keep calling you "great and mighty dragon."  What is your name?',
+        }],
         link: {
           type: 'CHOICE',
           id: 'SkwVavBcto-',
@@ -3123,21 +2677,39 @@ describe('ChoiceScript parser', () => {
             reuse: null,
             condition: null,
             text: 'Gorthalon.',
-            block: [{ type: 'NODE', id: 'SJazpPBqKsW', label: '', components: [{ type: 'SET', id: 'r13MTPBcYo-', text: 'name "Gorthalon"' }], link: { type: 'GOTO', text: 'gender' } }],
+            block: [{
+              type: 'NODE',
+              id: 'SJazpPBqKsW',
+              label: '',
+              components: [{ type: 'SET', id: 'r13MTPBcYo-', text: 'name "Gorthalon"' }],
+              link: { type: 'GOTO', text: 'gender' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'BJWm6DS9Yj-',
             reuse: null,
             condition: null,
             text: 'Sssetheliss.',
-            block: [{ type: 'NODE', id: 'BylQ6Pr9Kib', label: '', components: [{ type: 'SET', id: 'rkkXawB5tj-', text: 'name "Sssetheliss"' }], link: { type: 'GOTO', text: 'gender' } }],
+            block: [{
+              type: 'NODE',
+              id: 'BylQ6Pr9Kib',
+              label: '',
+              components: [{ type: 'SET', id: 'rkkXawB5tj-', text: 'name "Sssetheliss"' }],
+              link: { type: 'GOTO', text: 'gender' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'HJEmaPB5Fjb',
             reuse: null,
             condition: null,
             text: 'Calemvir.',
-            block: [{ type: 'NODE', id: 'BJXm6PSqYib', label: '', components: [{ type: 'SET', id: 'ryzXawScKsZ', text: 'name "Calemvir"' }], link: { type: 'GOTO', text: 'gender' } }],
+            block: [{
+              type: 'NODE',
+              id: 'BJXm6PSqYib',
+              label: '',
+              components: [{ type: 'SET', id: 'ryzXawScKsZ', text: 'name "Calemvir"' }],
+              link: { type: 'GOTO', text: 'gender' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'r1UNpwScts-',
@@ -3152,49 +2724,79 @@ describe('ChoiceScript parser', () => {
               link: {
                 type: 'NODE_LINK',
                 node: {
-                type: 'NODE',
-                id: 'ByEETvB5KjZ',
-                label: 'input_name',
-                components: [{ type: 'TEXT', id: 'rJL76vHqto-', text: 'What name would you prefer?' }, { type: 'INPUT_TEXT', id: 'B1PXpDS9Kj-', text: 'name' }, { type: 'COMMENT', id: 'S1dXTwH5toZ', text: 'check capitalization' }],
-                link: {
-                  type: 'IF',
-                  id: 'Bk74TDS9KsZ',
-                  condition: '("${name}" != "$!{name}")',
-                  block: [{
-                    type: 'NODE',
-                    id: 'rJGVaPr5FiZ',
-                    label: '',
-                    components: [{ type: 'TEXT', id: 'BkFQavHqYo-', text: 'Your name is $!{name}, is that right?\n' }],
-                    link: {
-                      type: 'CHOICE',
-                      id: 'Bk-46Pr9FsW',
-                      block: [{
-                        type: 'CHOICE_ITEM',
-                        id: 'HJn7pwB5Kob',
-                        reuse: null,
-                        condition: null,
-                        text: 'Yes.',
-                        block: [{ type: 'NODE', id: 'Byj7pwH5Ko-', label: '', components: [{ type: 'SET', id: 'ry97pPHqtjW', text: 'name "$!{name}"' }], link: { type: 'GOTO', text: 'gender' } }],
-                      }, {
-                        type: 'CHOICE_ITEM',
-                        id: 'HyRmpvScFi-',
-                        reuse: null,
-                        condition: null,
-                        text: 'No, my name is ${name}, just as I said.',
-                        block: [{ type: 'NODE', id: 'HJ676wrqtsb', label: '', components: [], link: { type: 'GOTO', text: 'gender' } }],
-                      }, {
-                        type: 'CHOICE_ITEM',
-                        id: 'ryl46DBqYjb',
-                        reuse: null,
-                        condition: null,
-                        text: 'Er, wait, let me try that again.',
-                        block: [{ type: 'NODE', id: 'S11VpwSqYib', label: '', components: [], link: { type: 'GOTO', text: 'input_name' } }],
-                      }],
-                    },
+                  type: 'NODE',
+                  id: 'ByEETvB5KjZ',
+                  label: 'input_name',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'rJL76vHqto-',
+                    text: 'What name would you prefer?',
+                  }, { type: 'INPUT_TEXT', id: 'B1PXpDS9Kj-', text: 'name' }, {
+                    type: 'COMMENT',
+                    id: 'S1dXTwH5toZ',
+                    text: 'check capitalization',
                   }],
-                  elses: [],
+                  link: {
+                    type: 'IF',
+                    id: 'Bk74TDS9KsZ',
+                    condition: '("${name}" != "$!{name}")',
+                    block: [{
+                      type: 'NODE',
+                      id: 'rJGVaPr5FiZ',
+                      label: '',
+                      components: [{
+                        type: 'TEXT',
+                        id: 'BkFQavHqYo-',
+                        text: 'Your name is $!{name}, is that right?\n',
+                      }],
+                      link: {
+                        type: 'CHOICE',
+                        id: 'Bk-46Pr9FsW',
+                        block: [{
+                          type: 'CHOICE_ITEM',
+                          id: 'HJn7pwB5Kob',
+                          reuse: null,
+                          condition: null,
+                          text: 'Yes.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'Byj7pwH5Ko-',
+                            label: '',
+                            components: [{ type: 'SET', id: 'ry97pPHqtjW', text: 'name "$!{name}"' }],
+                            link: { type: 'GOTO', text: 'gender' },
+                          }],
+                        }, {
+                          type: 'CHOICE_ITEM',
+                          id: 'HyRmpvScFi-',
+                          reuse: null,
+                          condition: null,
+                          text: 'No, my name is ${name}, just as I said.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'HJ676wrqtsb',
+                            label: '',
+                            components: [],
+                            link: { type: 'GOTO', text: 'gender' },
+                          }],
+                        }, {
+                          type: 'CHOICE_ITEM',
+                          id: 'ryl46DBqYjb',
+                          reuse: null,
+                          condition: null,
+                          text: 'Er, wait, let me try that again.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'S11VpwSqYib',
+                            label: '',
+                            components: [],
+                            link: { type: 'GOTO', text: 'input_name' },
+                          }],
+                        }],
+                      },
+                    }],
+                    elses: [],
+                  },
                 },
-              },
               },
             }],
           }],
@@ -3213,28 +2815,52 @@ describe('ChoiceScript parser', () => {
             reuse: null,
             condition: null,
             text: 'Male.',
-            block: [{ type: 'NODE', id: 'rJsVpvB9KiZ', label: '', components: [{ type: 'SET', id: 'BJ54TPB9Ko-', text: 'gender "male"' }], link: { type: 'GOTO', text: 'Princess' } }],
+            block: [{
+              type: 'NODE',
+              id: 'rJsVpvB9KiZ',
+              label: '',
+              components: [{ type: 'SET', id: 'BJ54TPB9Ko-', text: 'gender "male"' }],
+              link: { type: 'GOTO', text: 'Princess' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'S11B6wS9KjW',
             reuse: null,
             condition: null,
             text: 'Female.',
-            block: [{ type: 'NODE', id: 'HJA4awS9KiZ', label: '', components: [{ type: 'SET', id: 'SyaNTvHcKjZ', text: 'gender "female"' }], link: { type: 'GOTO', text: 'Princess' } }],
+            block: [{
+              type: 'NODE',
+              id: 'HJA4awS9KiZ',
+              label: '',
+              components: [{ type: 'SET', id: 'SyaNTvHcKjZ', text: 'gender "female"' }],
+              link: { type: 'GOTO', text: 'Princess' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'HJGBTvSctob',
             reuse: null,
             condition: null,
             text: 'Neither.',
-            block: [{ type: 'NODE', id: 'B1-BpwH5YjZ', label: '', components: [{ type: 'SET', id: 'BylBpPr9Fsb', text: 'gender "neither"' }], link: { type: 'GOTO', text: 'Princess' } }],
+            block: [{
+              type: 'NODE',
+              id: 'B1-BpwH5YjZ',
+              label: '',
+              components: [{ type: 'SET', id: 'BylBpPr9Fsb', text: 'gender "neither"' }],
+              link: { type: 'GOTO', text: 'Princess' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'SJSSTvr9Fs-',
             reuse: null,
             condition: null,
             text: 'Unknown/undetermined.',
-            block: [{ type: 'NODE', id: 'rJVSTPrqFsb', label: '', components: [{ type: 'SET', id: 'ryXH6PScKjb', text: 'gender "unknown"' }], link: { type: 'GOTO', text: 'Princess' } }],
+            block: [{
+              type: 'NODE',
+              id: 'rJVSTPrqFsb',
+              label: '',
+              components: [{ type: 'SET', id: 'ryXH6PScKjb', text: 'gender "unknown"' }],
+              link: { type: 'GOTO', text: 'Princess' },
+            }],
           }, {
             type: 'CHOICE_ITEM',
             id: 'ryALaPBcKjb',
@@ -3242,78 +2868,110 @@ describe('ChoiceScript parser', () => {
             condition: null,
             text: 'Do not pester me with impudent questions!',
             block: [{
-            type: 'NODE',
-            id: 'HJpI6PScFsb',
-            label: '',
-            components: [{ type: 'SET', id: 'HJUHpvrctjW', text: 'brutality %+ 15' }, {
-              type: 'TEXT',
-              id: 'S1DSTPB5YiZ',
-              text: 'I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don\'t enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n',
-            }],
-            link: {
-              type: 'CHOICE',
-              id: 'SJ2UaDScYob',
-              block: [{
-                type: 'CHOICE_ITEM',
-                id: 'Syw8pwScYiZ',
-                reuse: null,
-                condition: null,
-                text: 'Very well.',
-                block: [{
-                  type: 'NODE',
-                  id: 'r1LL6wSqYsZ',
-                  label: '',
-                  components: [{ type: 'TEXT', id: 'HJdBavB5FsW', text: 'Excellent choice!  What gender will you be?\n' }],
-                  link: {
-                    type: 'CHOICE',
-                    id: 'rJrUpwBqFib',
-                    block: [{
-                      type: 'CHOICE_ITEM',
-                      id: 'S1jBpPS9tsb',
-                      reuse: null,
-                      condition: null,
-                      text: 'Male.',
-                      block: [{ type: 'NODE', id: 'HkqBpvrqKs-', label: '', components: [{ type: 'SET', id: 'HyKH6DrqFjb', text: 'gender "male"' }], link: { type: 'GOTO', text: 'Princess' } }],
-                    }, {
-                      type: 'CHOICE_ITEM',
-                      id: 'SJRSpDH5Yib',
-                      reuse: null,
-                      condition: null,
-                      text: 'Female.',
-                      block: [{ type: 'NODE', id: 'HkTS6DrqYjb', label: '', components: [{ type: 'SET', id: 'ry3rpDr9KiW', text: 'gender "female"' }], link: { type: 'GOTO', text: 'Princess' } }],
-                    }, {
-                      type: 'CHOICE_ITEM',
-                      id: 'rJb8TPB9Ys-',
-                      reuse: null,
-                      condition: null,
-                      text: 'Neither.',
-                      block: [{ type: 'NODE', id: 'SJgL6vH5tsW', label: '', components: [{ type: 'SET', id: 'rkk8avr9Yi-', text: 'gender "neither"' }], link: { type: 'GOTO', text: 'Princess' } }],
-                    }, {
-                      type: 'CHOICE_ITEM',
-                      id: 'rkNLTDHcYib',
-                      reuse: null,
-                      condition: null,
-                      text: 'Unknown/undetermined.',
-                      block: [{ type: 'NODE', id: 'SyXLpwBqFiZ', label: '', components: [{ type: 'SET', id: 'B1GUaDB9KjZ', text: 'gender "unknown"' }], link: { type: 'GOTO', text: 'Princess' } }],
-                    }],
-                  },
-                }],
-              }, {
-                type: 'CHOICE_ITEM',
-                id: 'B1jUTDScKoW',
-                reuse: null,
-                condition: null,
-                text: 'I said no.',
-                block: [{
-                  type: 'NODE',
-                  id: 'S198TDr5YoZ',
-                  label: '',
-                  components: [{ type: 'SET', id: 'HydIavrcFoZ', text: 'gender "unknown"' }, { type: 'TEXT', id: 'HkF8pDH9YiW', text: 'Well, let\'s just leave it undetermined, then!' }],
-                  link: { type: 'GOTO', text: 'Princess' },
-                }],
+              type: 'NODE',
+              id: 'HJpI6PScFsb',
+              label: '',
+              components: [{ type: 'SET', id: 'HJUHpvrctjW', text: 'brutality %+ 15' }, {
+                type: 'TEXT',
+                id: 'S1DSTPB5YiZ',
+                text: 'I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don\'t enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n',
               }],
-            },
-          }],
+              link: {
+                type: 'CHOICE',
+                id: 'SJ2UaDScYob',
+                block: [{
+                  type: 'CHOICE_ITEM',
+                  id: 'Syw8pwScYiZ',
+                  reuse: null,
+                  condition: null,
+                  text: 'Very well.',
+                  block: [{
+                    type: 'NODE',
+                    id: 'r1LL6wSqYsZ',
+                    label: '',
+                    components: [{
+                      type: 'TEXT',
+                      id: 'HJdBavB5FsW',
+                      text: 'Excellent choice!  What gender will you be?\n',
+                    }],
+                    link: {
+                      type: 'CHOICE',
+                      id: 'rJrUpwBqFib',
+                      block: [{
+                        type: 'CHOICE_ITEM',
+                        id: 'S1jBpPS9tsb',
+                        reuse: null,
+                        condition: null,
+                        text: 'Male.',
+                        block: [{
+                          type: 'NODE',
+                          id: 'HkqBpvrqKs-',
+                          label: '',
+                          components: [{ type: 'SET', id: 'HyKH6DrqFjb', text: 'gender "male"' }],
+                          link: { type: 'GOTO', text: 'Princess' },
+                        }],
+                      }, {
+                        type: 'CHOICE_ITEM',
+                        id: 'SJRSpDH5Yib',
+                        reuse: null,
+                        condition: null,
+                        text: 'Female.',
+                        block: [{
+                          type: 'NODE',
+                          id: 'HkTS6DrqYjb',
+                          label: '',
+                          components: [{ type: 'SET', id: 'ry3rpDr9KiW', text: 'gender "female"' }],
+                          link: { type: 'GOTO', text: 'Princess' },
+                        }],
+                      }, {
+                        type: 'CHOICE_ITEM',
+                        id: 'rJb8TPB9Ys-',
+                        reuse: null,
+                        condition: null,
+                        text: 'Neither.',
+                        block: [{
+                          type: 'NODE',
+                          id: 'SJgL6vH5tsW',
+                          label: '',
+                          components: [{ type: 'SET', id: 'rkk8avr9Yi-', text: 'gender "neither"' }],
+                          link: { type: 'GOTO', text: 'Princess' },
+                        }],
+                      }, {
+                        type: 'CHOICE_ITEM',
+                        id: 'rkNLTDHcYib',
+                        reuse: null,
+                        condition: null,
+                        text: 'Unknown/undetermined.',
+                        block: [{
+                          type: 'NODE',
+                          id: 'SyXLpwBqFiZ',
+                          label: '',
+                          components: [{ type: 'SET', id: 'B1GUaDB9KjZ', text: 'gender "unknown"' }],
+                          link: { type: 'GOTO', text: 'Princess' },
+                        }],
+                      }],
+                    },
+                  }],
+                }, {
+                  type: 'CHOICE_ITEM',
+                  id: 'B1jUTDScKoW',
+                  reuse: null,
+                  condition: null,
+                  text: 'I said no.',
+                  block: [{
+                    type: 'NODE',
+                    id: 'S198TDr5YoZ',
+                    label: '',
+                    components: [{ type: 'SET', id: 'HydIavrcFoZ', text: 'gender "unknown"' }, {
+                      type: 'TEXT',
+                      id: 'HkF8pDH9YiW',
+                      text: 'Well, let\'s just leave it undetermined, then!',
+                    }],
+                    link: { type: 'GOTO', text: 'Princess' },
+                  }],
+                }],
+              },
+            }],
           }],
         },
       }, {
@@ -3338,7 +2996,11 @@ describe('ChoiceScript parser', () => {
               type: 'NODE',
               id: 'rkIvaDBcKsZ',
               label: '',
-              components: [{ type: 'TEXT', id: 'ryEwTDrqKoW', text: 'I guess you\'re right.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦' }, { type: 'SET', id: 'HJSDTvSqKoW', text: 'royal "princess"' }],
+              components: [{
+                type: 'TEXT',
+                id: 'ryEwTDrqKoW',
+                text: 'I guess you\'re right.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+              }, { type: 'SET', id: 'HJSDTvSqKoW', text: 'royal "princess"' }],
               link: { type: 'GOTO', text: 'color' },
             }],
           }, {
@@ -3369,10 +3031,10 @@ describe('ChoiceScript parser', () => {
               id: 'Sy0DTwH5tsW',
               label: '',
               components: [{
-              type: 'TEXT',
-              id: 'S1hDTPrcKjb',
-              text: 'Right you are.  As I was saying, the knight\'s attack was probably inevitable.  After all, you did just kidnap the prince \nfrom right out of his tower.  As you ripped the roof off his tower, the light glistened off yourâ€¦',
-            }, { type: 'SET', id: 'Sk6PTDS5Ko-', text: 'royal "prince"' }],
+                type: 'TEXT',
+                id: 'S1hDTPrcKjb',
+                text: 'Right you are.  As I was saying, the knight\'s attack was probably inevitable.  After all, you did just kidnap the prince \nfrom right out of his tower.  As you ripped the roof off his tower, the light glistened off yourâ€¦',
+              }, { type: 'SET', id: 'Sk6PTDS5Ko-', text: 'royal "prince"' }],
               link: { type: 'GOTO', text: 'color' },
             }],
           }, {
@@ -3382,16 +3044,20 @@ describe('ChoiceScript parser', () => {
             condition: null,
             text: 'I\'ll have you know that I make a careful point of alternating between princes and princesses, but it happened to be time for a princess.',
             block: [{
-            type: 'NODE',
-            id: 'rJzOavHqKob',
-            label: '',
-            components: [{ type: 'TEXT', id: 'B1ed6PB9tsb', text: 'Of course.  I\'m sorry for questioning you.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦' }, {
-              type: 'SET',
-              id: 'rJbOawSqYob',
-              text: 'royal "princess"',
+              type: 'NODE',
+              id: 'rJzOavHqKob',
+              label: '',
+              components: [{
+                type: 'TEXT',
+                id: 'B1ed6PB9tsb',
+                text: 'Of course.  I\'m sorry for questioning you.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+              }, {
+                type: 'SET',
+                id: 'rJbOawSqYob',
+                text: 'royal "princess"',
+              }],
+              link: { type: 'GOTO', text: 'color' },
             }],
-            link: { type: 'GOTO', text: 'color' },
-          }],
           }],
         },
       }, {
@@ -3407,7 +3073,11 @@ describe('ChoiceScript parser', () => {
             type: 'NODE',
             id: 'HkAO6DrctiZ',
             label: '',
-            components: [{ type: 'SET', id: 'Skc_6PHcYib', text: 'royal_him "her"' }, { type: 'SET', id: 'rJsdTPSqtib', text: 'royal_his "her"' }, { type: 'SET', id: 'Hkh_awB9Yo-', text: 'royal_she "she"' }, {
+            components: [{ type: 'SET', id: 'Skc_6PHcYib', text: 'royal_him "her"' }, {
+              type: 'SET',
+              id: 'rJsdTPSqtib',
+              text: 'royal_his "her"',
+            }, { type: 'SET', id: 'Hkh_awB9Yo-', text: 'royal_she "she"' }, {
               type: 'SET',
               id: 'Hy6uavrqFsW',
               text: 'royals "princesses"',
@@ -3421,7 +3091,11 @@ describe('ChoiceScript parser', () => {
               type: 'NODE',
               id: 'S1mtavSqFib',
               label: '',
-              components: [{ type: 'SET', id: 'rJ1tpwB5Ys-', text: 'royal_him "him"' }, { type: 'SET', id: 'SJlFaDB5to-', text: 'royal_his "his"' }, { type: 'SET', id: 'HkbF6wH5tjW', text: 'royal_she "he"' }, {
+              components: [{ type: 'SET', id: 'rJ1tpwB5Ys-', text: 'royal_him "him"' }, {
+                type: 'SET',
+                id: 'SJlFaDB5to-',
+                text: 'royal_his "his"',
+              }, { type: 'SET', id: 'HkbF6wH5tjW', text: 'royal_she "he"' }, {
                 type: 'SET',
                 id: 'SJMY6wS5Fjb',
                 text: 'royals "princes"',
@@ -3434,7 +3108,11 @@ describe('ChoiceScript parser', () => {
         type: 'NODE',
         id: 'S1do6vH9KoW',
         label: 'A',
-        components: [{ type: 'TEXT', id: 'BkDF6DS9Kob', text: 'Ah, would you like to specify the color of your hide?  I wasn\'t sure which color to put in that description.\n' }],
+        components: [{
+          type: 'TEXT',
+          id: 'BkDF6DS9Kob',
+          text: 'Ah, would you like to specify the color of your hide?  I wasn\'t sure which color to put in that description.\n',
+        }],
         link: {
           type: 'CHOICE',
           id: 'HkDiaPB9Yjb',
@@ -3448,11 +3126,15 @@ describe('ChoiceScript parser', () => {
               type: 'NODE',
               id: 'HkpKaPrqKsZ',
               label: '',
-              components: [{ type: 'SET', id: 'SJ9t6PH5Kj-', text: 'brutality %+ 30' }, { type: 'TEXT', id: 'SJiK6vH5tjb', text: 'yes, of course!  Your wish is my command.\n\nOn with the show!\n' }, {
-              type: 'PAGE_BREAK',
-              id: 'rJ3FTwB5Yob',
-              text: '',
-            }],
+              components: [{ type: 'SET', id: 'SJ9t6PH5Kj-', text: 'brutality %+ 30' }, {
+                type: 'TEXT',
+                id: 'SJiK6vH5tjb',
+                text: 'yes, of course!  Your wish is my command.\n\nOn with the show!\n',
+              }, {
+                type: 'PAGE_BREAK',
+                id: 'rJ3FTwB5Yob',
+                text: '',
+              }],
               link: { type: 'GOTO', text: 'RoyalResolution' },
             }],
           }, {
@@ -3461,57 +3143,105 @@ describe('ChoiceScript parser', () => {
             reuse: null,
             condition: null,
             text: 'Black.',
-            block: [{ type: 'NODE', id: 'HJlqaDScYsZ', label: '', components: [{ type: 'SET', id: 'B1yqTPHctib', text: 'color "black"' }], link: { type: 'GOTO', text: 'limbs' } }],
+            block: [{
+              type: 'NODE',
+              id: 'HJlqaDScYsZ',
+              label: '',
+              components: [{ type: 'SET', id: 'B1yqTPHctib', text: 'color "black"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
           }, {
-          type: 'CHOICE_ITEM',
-          id: 'ByNcavB9Yo-',
-          reuse: null,
-          condition: null,
-          text: 'Blue.',
-          block: [{ type: 'NODE', id: 'H1Q96DH9YsW', label: '', components: [{ type: 'SET', id: 'SJz5avBqtib', text: 'color "blue"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }, {
-          type: 'CHOICE_ITEM',
-          id: 'SyDcTDH9Ysb',
-          reuse: null,
-          condition: null,
-          text: 'Brown.',
-          block: [{ type: 'NODE', id: 'SkI9avBctib', label: '', components: [{ type: 'SET', id: 'SJrcawS9ti-', text: 'color "brown"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }, {
-          type: 'CHOICE_ITEM',
-          id: 'ryc96wB5KjZ',
-          reuse: null,
-          condition: null,
-          text: 'Gold.',
-          block: [{ type: 'NODE', id: 'ryKcawr9Fjb', label: '', components: [{ type: 'SET', id: 'SJO9pPS5Yj-', text: 'color "golden"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }, {
-          type: 'CHOICE_ITEM',
-          id: 'HJaq6vHctsW',
-          reuse: null,
-          condition: null,
-          text: 'Green.',
-          block: [{ type: 'NODE', id: 'H1ncavSqFs-', label: '', components: [{ type: 'SET', id: 'S1iqaPH5to-', text: 'color "green"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }, {
-          type: 'CHOICE_ITEM',
-          id: 'BJgi6Dr9Fo-',
-          reuse: null,
-          condition: null,
-          text: 'Iridescent.',
-          block: [{ type: 'NODE', id: 'HyJoTwrqKsb', label: '', components: [{ type: 'SET', id: 'rJ0qpPr9Fsb', text: 'color "iridescent"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }, {
-          type: 'CHOICE_ITEM',
-          id: 'rkmoawB9FiW',
-          reuse: null,
-          condition: null,
-          text: 'Red.',
-          block: [{ type: 'NODE', id: 'rJzo6vrcYiZ', label: '', components: [{ type: 'SET', id: 'SJboavrqYjb', text: 'color "red"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }, {
-          type: 'CHOICE_ITEM',
-          id: 'BkLsTDr9tj-',
-          reuse: null,
-          condition: null,
-          text: 'White.',
-          block: [{ type: 'NODE', id: 'SkSo6Pr9Fj-', label: '', components: [{ type: 'SET', id: 'S14oaPH5tsZ', text: 'color "white"' }], link: { type: 'GOTO', text: 'limbs' } }],
-        }],
+            type: 'CHOICE_ITEM',
+            id: 'ByNcavB9Yo-',
+            reuse: null,
+            condition: null,
+            text: 'Blue.',
+            block: [{
+              type: 'NODE',
+              id: 'H1Q96DH9YsW',
+              label: '',
+              components: [{ type: 'SET', id: 'SJz5avBqtib', text: 'color "blue"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }, {
+            type: 'CHOICE_ITEM',
+            id: 'SyDcTDH9Ysb',
+            reuse: null,
+            condition: null,
+            text: 'Brown.',
+            block: [{
+              type: 'NODE',
+              id: 'SkI9avBctib',
+              label: '',
+              components: [{ type: 'SET', id: 'SJrcawS9ti-', text: 'color "brown"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }, {
+            type: 'CHOICE_ITEM',
+            id: 'ryc96wB5KjZ',
+            reuse: null,
+            condition: null,
+            text: 'Gold.',
+            block: [{
+              type: 'NODE',
+              id: 'ryKcawr9Fjb',
+              label: '',
+              components: [{ type: 'SET', id: 'SJO9pPS5Yj-', text: 'color "golden"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }, {
+            type: 'CHOICE_ITEM',
+            id: 'HJaq6vHctsW',
+            reuse: null,
+            condition: null,
+            text: 'Green.',
+            block: [{
+              type: 'NODE',
+              id: 'H1ncavSqFs-',
+              label: '',
+              components: [{ type: 'SET', id: 'S1iqaPH5to-', text: 'color "green"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }, {
+            type: 'CHOICE_ITEM',
+            id: 'BJgi6Dr9Fo-',
+            reuse: null,
+            condition: null,
+            text: 'Iridescent.',
+            block: [{
+              type: 'NODE',
+              id: 'HyJoTwrqKsb',
+              label: '',
+              components: [{ type: 'SET', id: 'rJ0qpPr9Fsb', text: 'color "iridescent"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }, {
+            type: 'CHOICE_ITEM',
+            id: 'rkmoawB9FiW',
+            reuse: null,
+            condition: null,
+            text: 'Red.',
+            block: [{
+              type: 'NODE',
+              id: 'rJzo6vrcYiZ',
+              label: '',
+              components: [{ type: 'SET', id: 'SJboavrqYjb', text: 'color "red"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }, {
+            type: 'CHOICE_ITEM',
+            id: 'BkLsTDr9tj-',
+            reuse: null,
+            condition: null,
+            text: 'White.',
+            block: [{
+              type: 'NODE',
+              id: 'SkSo6Pr9Fj-',
+              label: '',
+              components: [{ type: 'SET', id: 'S14oaPH5tsZ', text: 'color "white"' }],
+              link: { type: 'GOTO', text: 'limbs' },
+            }],
+          }],
         },
       }, {
         type: 'NODE',
@@ -3525,550 +3255,759 @@ describe('ChoiceScript parser', () => {
         link: {
           type: 'FAKE_CHOICE',
           id: 'SkNwxTPHcKjW',
-          choices: [{ type: 'FAKE_CHOICE_ITEM', id: 'S19sTPBcFsZ', reuse: null, condition: null, text: 'Four.', block: null }, {
+          choices: [{
+            type: 'FAKE_CHOICE_ITEM',
+            id: 'S19sTPBcFsZ',
+            reuse: null,
+            condition: null,
+            text: 'Four.',
+            block: null,
+          }, {
             type: 'FAKE_CHOICE_ITEM',
             id: 'r1ijavB5Ys-',
             reuse: null,
             condition: null,
             text: 'Five.',
             block: null,
-          }, { type: 'FAKE_CHOICE_ITEM', id: 'By3j6wScKjb', reuse: null, condition: null, text: 'Six.', block: null }, { type: 'FAKE_CHOICE_ITEM', id: 'r16s6PHqto-', reuse: null, condition: null, text: 'Eight.', block: null }],
+          }, {
+            type: 'FAKE_CHOICE_ITEM',
+            id: 'By3j6wScKjb',
+            reuse: null,
+            condition: null,
+            text: 'Six.',
+            block: null,
+          }, {
+            type: 'FAKE_CHOICE_ITEM',
+            id: 'r16s6PHqto-',
+            reuse: null,
+            condition: null,
+            text: 'Eight.',
+            block: null,
+          }],
           link: [{
             type: 'NODE',
             id: 'Sk_3avSqtsW',
             label: '',
             components: [{ type: 'TEXT', id: 'rk0o6DBqFo-', text: 'Hmm.  Is the top of your head ridged or smooth?' }],
             link: {
-            type: 'CHOICE',
-            id: 'H1w3avH5YiZ',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'HJX3avB5KjZ',
-              reuse: null,
-              condition: null,
-              text: 'Ridged.',
-              block: [{ type: 'NODE', id: 'BkGhaDB9Fs-', label: '', components: [{ type: 'SET', id: 'rJZhTDBqKi-', text: 'head "ridged"' }], link: { type: 'GOTO', text: 'wings' } }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'S18naDr9YjZ',
-              reuse: null,
-              condition: null,
-              text: 'Smooth.',
-              block: [{ type: 'NODE', id: 'r1SnaDSqYiZ', label: '', components: [{ type: 'SET', id: 'Hk43TPS5KoW', text: 'head "smooth"' }], link: { type: 'GOTO', text: 'wings' } }],
-            }],
-          },
-          }, {
-          type: 'NODE',
-          id: 'r1ITTDH5KsZ',
-          label: 'wings',
-          components: [{ type: 'TEXT', id: 'HktnaDHqKoZ', text: 'I see.  And your wingsâ€”feathery, leathery, or scaly?\n' }],
-          link: {
-            type: 'CHOICE',
-            id: 'B1rp6DSqYoZ',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'Hy02pwS5tj-',
-              reuse: null,
-              condition: null,
-              text: 'Feathery.',
-              block: [{ type: 'NODE', id: 'S1pn6vB5Ks-', label: '', components: [{ type: 'SET', id: 'Sy23aDS5Yo-', text: 'wings "feathery"' }], link: { type: 'GOTO', text: 'Summary' } }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'Sk-66DrqKsb',
-              reuse: null,
-              condition: null,
-              text: 'Leathery.',
-              block: [{ type: 'NODE', id: 'Syl66vr9ti-', label: '', components: [{ type: 'SET', id: 'S1yapwSqFiZ', text: 'wings "leathery"' }], link: { type: 'GOTO', text: 'Summary' } }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'ry466vBqtsb',
-              reuse: null,
-              condition: null,
-              text: 'Scaly.',
-              block: [{ type: 'NODE', id: 'BkXT6wSqKib', label: '', components: [{ type: 'SET', id: 'HyGapwSqYsW', text: 'wings "scaly"' }], link: { type: 'GOTO', text: 'Summary' } }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'HJylg6vHqKi-',
-          label: 'Summary',
-          components: [{
-            type: 'TEXT',
-            id: 'B1wp6PBqtob',
-            text: 'As you kidnapped the ${royal}, you beat your ${wings} ${color} wings and flew off into the night, as ${royal_she} clutched tightly to your ${head} scalp to avoid plummeting to ${royal_his} doom.\n',
-          }],
-          link: {
-            type: 'NODE_LINK',
-            node: {
-              type: 'NODE',
-              id: 'r1RkgaPScKiZ',
-              label: 'RoyalResolution',
-              components: [{ type: 'TEXT', id: 'BJOT6vBcFob', text: 'What are you planning on doing with the ${royal}, anyway?' }],
-              link: {
-                type: 'CHOICE',
-                id: 'BkpygTPS5KoW',
+              type: 'CHOICE',
+              id: 'H1w3avH5YiZ',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'HJX3avB5KjZ',
+                reuse: null,
+                condition: null,
+                text: 'Ridged.',
                 block: [{
-                  type: 'CHOICE_ITEM',
-                  id: 'B1_CpwH5Yob',
-                  reuse: null,
-                  condition: null,
-                  text: 'It\'s all about companionship and good conversation.',
-                  block: [{
-                    type: 'NODE',
-                    id: 'rkP0avS5to-',
-                    label: '',
-                    components: [{
-                      type: 'TEXT',
-                      id: 'rytaawHcKiZ',
-                      text: 'Life can be lonely as a dragon, and interesting conversation is at a premium.  The elite upbringing of royalty makes them more suitable for entertaining dragons.\n\nBut what do you do after you tire of ${royal_his} conversation?',
-                    }],
-                    link: {
-                      type: 'CHOICE',
-                      id: 'B1LATwS5tsZ',
-                      block: [{
-                        type: 'CHOICE_ITEM',
-                        id: 'SkkRpDrcKo-',
-                        reuse: null,
-                        condition: null,
-                        text: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
-                        block: [{
-                          type: 'NODE',
-                          id: 'ryRppvB9YjZ',
-                          label: '',
-                          components: [{
-                            type: 'TEXT',
-                            id: 'HJ9ppDB9Fib',
-                            text: 'The ${royal}\'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n',
-                          }, { type: 'SET', id: 'SJoppDr5ts-', text: 'brutality %+10' }, { type: 'SET', id: 'HJhpaPSqFjZ', text: 'cunning %+10' }, { type: 'SET', id: 'H1TaTDr9KoZ', text: 'infamy %+10' }],
-                          link: { type: 'GOTO', text: 'personality' },
-                        }],
-                      }, {
-                        type: 'CHOICE_ITEM',
-                        id: 'HJr0pPrqtiZ',
-                        reuse: null,
-                        condition: null,
-                        text: 'I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.',
-                        block: [{
-                          type: 'NODE',
-                          id: 'ByVCpvrqFo-',
-                          label: '',
-                          components: [{
-                            type: 'TEXT',
-                            id: 'BkeRpvSqYoW',
-                            text: 'The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that\'s\nworth sparing ${royal_his} life.',
-                          }, { type: 'SET', id: 'SyWA6wH5Ys-', text: 'brutality %-10' }, { type: 'SET', id: 'BkMRTvHcFob', text: 'cunning %-10' }, { type: 'SET', id: 'SkXApvB5KiZ', text: 'infamy %-10' }],
-                          link: { type: 'GOTO', text: 'personality' },
-                        }],
-                      }],
-                    },
-                  }],
-                }, {
-                  type: 'CHOICE_ITEM',
-                  id: 'H150pwBqFsb',
-                  reuse: null,
-                  condition: null,
-                  text: 'I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.',
-                  block: [{ type: 'NODE', id: 'r1FCpvHqKjb', label: '', components: [], link: { type: 'GOTO', text: 'EatHer' } }],
-                }, {
-                  type: 'CHOICE_ITEM',
-                  id: 'rynklTvBqts-',
-                  reuse: null,
-                  condition: null,
-                  text: 'It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.',
-                  block: [{
-                    type: 'NODE',
-                    id: 'ByoJxawr5Ks-',
-                    label: '',
-                    components: [{ type: 'TEXT', id: 'B1iCawB5Ysb', text: 'Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}\'s release.' }, { type: 'SET', id: 'rk20pPBcKjW', text: 'wealth +1500' }, {
-                      type: 'TEXT',
-                      id: 'Syp0avBqKj-',
-                      text: 'What do you do then?',
-                    }],
-                    link: {
-                      type: 'CHOICE',
-                      id: 'H15yeTwHqKs-',
-                      block: [{
-                        type: 'CHOICE_ITEM',
-                        id: 'SkmyxawrcKsW',
-                        reuse: null,
-                        condition: null,
-                        text: 'Honor demands that I carry out my end of the bargain.',
-                        block: [{
-                          type: 'NODE',
-                          id: 'BJfJlpvrcti-',
-                          label: '',
-                          components: [{ type: 'TEXT', id: 'BkACTDB9Fi-', text: 'Of course.  No sooner have you received the payment than you let the ${royal} go.' }, { type: 'SET', id: 'S1ykgTvBcFoZ', text: 'cunning %-20' }, {
-                            type: 'SET',
-                            id: 'S1x1gpvB9YoZ',
-                            text: 'brutality %-10',
-                          }, { type: 'SET', id: 'BJZ1x6wr5YiW', text: 'infamy %-10' }],
-                          link: { type: 'GOTO', text: 'personality' },
-                        }],
-                      }, {
-                        type: 'CHOICE_ITEM',
-                        id: 'S1Ykg6DBqtob',
-                        reuse: null,
-                        condition: null,
-                        text: 'Once I have the payment, I have no reason to delay my dinner.',
-                        block: [{
-                          type: 'NODE',
-                          id: 'rkO1x6vrcKob',
-                          label: '',
-                          components: [{ type: 'TEXT', id: 'BkNJeTvScYoZ', text: 'Crunch, munch.  Delicious.\n' }, { type: 'SET', id: 'ByrJlTDS9KoZ', text: 'cunning %+20' }, {
-                            type: 'SET',
-                            id: 'ryLye6DHqKoZ',
-                            text: 'brutality %+10',
-                          }, { type: 'SET', id: 'HJDJeTPSqYj-', text: 'infamy %+10' }],
-                          link: { type: 'GOTO', text: 'personality' },
-                        }],
-                      }],
-                    },
-                  }],
+                  type: 'NODE',
+                  id: 'BkGhaDB9Fs-',
+                  label: '',
+                  components: [{ type: 'SET', id: 'rJZhTDBqKi-', text: 'head "ridged"' }],
+                  link: { type: 'GOTO', text: 'wings' },
                 }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'S18naDr9YjZ',
+                reuse: null,
+                condition: null,
+                text: 'Smooth.',
+                block: [{
+                  type: 'NODE',
+                  id: 'r1SnaDSqYiZ',
+                  label: '',
+                  components: [{ type: 'SET', id: 'Hk43TPS5KoW', text: 'head "smooth"' }],
+                  link: { type: 'GOTO', text: 'wings' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'r1ITTDH5KsZ',
+            label: 'wings',
+            components: [{
+              type: 'TEXT',
+              id: 'HktnaDHqKoZ',
+              text: 'I see.  And your wingsâ€”feathery, leathery, or scaly?\n',
+            }],
+            link: {
+              type: 'CHOICE',
+              id: 'B1rp6DSqYoZ',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'Hy02pwS5tj-',
+                reuse: null,
+                condition: null,
+                text: 'Feathery.',
+                block: [{
+                  type: 'NODE',
+                  id: 'S1pn6vB5Ks-',
+                  label: '',
+                  components: [{ type: 'SET', id: 'Sy23aDS5Yo-', text: 'wings "feathery"' }],
+                  link: { type: 'GOTO', text: 'Summary' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'Sk-66DrqKsb',
+                reuse: null,
+                condition: null,
+                text: 'Leathery.',
+                block: [{
+                  type: 'NODE',
+                  id: 'Syl66vr9ti-',
+                  label: '',
+                  components: [{ type: 'SET', id: 'S1yapwSqFiZ', text: 'wings "leathery"' }],
+                  link: { type: 'GOTO', text: 'Summary' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'ry466vBqtsb',
+                reuse: null,
+                condition: null,
+                text: 'Scaly.',
+                block: [{
+                  type: 'NODE',
+                  id: 'BkXT6wSqKib',
+                  label: '',
+                  components: [{ type: 'SET', id: 'HyGapwSqYsW', text: 'wings "scaly"' }],
+                  link: { type: 'GOTO', text: 'Summary' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'HJylg6vHqKi-',
+            label: 'Summary',
+            components: [{
+              type: 'TEXT',
+              id: 'B1wp6PBqtob',
+              text: 'As you kidnapped the ${royal}, you beat your ${wings} ${color} wings and flew off into the night, as ${royal_she} clutched tightly to your ${head} scalp to avoid plummeting to ${royal_his} doom.\n',
+            }],
+            link: {
+              type: 'NODE_LINK',
+              node: {
+                type: 'NODE',
+                id: 'r1RkgaPScKiZ',
+                label: 'RoyalResolution',
+                components: [{
+                  type: 'TEXT',
+                  id: 'BJOT6vBcFob',
+                  text: 'What are you planning on doing with the ${royal}, anyway?',
+                }],
+                link: {
+                  type: 'CHOICE',
+                  id: 'BkpygTPS5KoW',
+                  block: [{
+                    type: 'CHOICE_ITEM',
+                    id: 'B1_CpwH5Yob',
+                    reuse: null,
+                    condition: null,
+                    text: 'It\'s all about companionship and good conversation.',
+                    block: [{
+                      type: 'NODE',
+                      id: 'rkP0avS5to-',
+                      label: '',
+                      components: [{
+                        type: 'TEXT',
+                        id: 'rytaawHcKiZ',
+                        text: 'Life can be lonely as a dragon, and interesting conversation is at a premium.  The elite upbringing of royalty makes them more suitable for entertaining dragons.\n\nBut what do you do after you tire of ${royal_his} conversation?',
+                      }],
+                      link: {
+                        type: 'CHOICE',
+                        id: 'B1LATwS5tsZ',
+                        block: [{
+                          type: 'CHOICE_ITEM',
+                          id: 'SkkRpDrcKo-',
+                          reuse: null,
+                          condition: null,
+                          text: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'ryRppvB9YjZ',
+                            label: '',
+                            components: [{
+                              type: 'TEXT',
+                              id: 'HJ9ppDB9Fib',
+                              text: 'The ${royal}\'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n',
+                            }, { type: 'SET', id: 'SJoppDr5ts-', text: 'brutality %+10' }, {
+                              type: 'SET',
+                              id: 'HJhpaPSqFjZ',
+                              text: 'cunning %+10',
+                            }, { type: 'SET', id: 'H1TaTDr9KoZ', text: 'infamy %+10' }],
+                            link: { type: 'GOTO', text: 'personality' },
+                          }],
+                        }, {
+                          type: 'CHOICE_ITEM',
+                          id: 'HJr0pPrqtiZ',
+                          reuse: null,
+                          condition: null,
+                          text: 'I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'ByVCpvrqFo-',
+                            label: '',
+                            components: [{
+                              type: 'TEXT',
+                              id: 'BkeRpvSqYoW',
+                              text: 'The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that\'s\nworth sparing ${royal_his} life.',
+                            }, { type: 'SET', id: 'SyWA6wH5Ys-', text: 'brutality %-10' }, {
+                              type: 'SET',
+                              id: 'BkMRTvHcFob',
+                              text: 'cunning %-10',
+                            }, { type: 'SET', id: 'SkXApvB5KiZ', text: 'infamy %-10' }],
+                            link: { type: 'GOTO', text: 'personality' },
+                          }],
+                        }],
+                      },
+                    }],
+                  }, {
+                    type: 'CHOICE_ITEM',
+                    id: 'H150pwBqFsb',
+                    reuse: null,
+                    condition: null,
+                    text: 'I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.',
+                    block: [{
+                      type: 'NODE',
+                      id: 'r1FCpvHqKjb',
+                      label: '',
+                      components: [],
+                      link: { type: 'GOTO', text: 'EatHer' },
+                    }],
+                  }, {
+                    type: 'CHOICE_ITEM',
+                    id: 'rynklTvBqts-',
+                    reuse: null,
+                    condition: null,
+                    text: 'It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.',
+                    block: [{
+                      type: 'NODE',
+                      id: 'ByoJxawr5Ks-',
+                      label: '',
+                      components: [{
+                        type: 'TEXT',
+                        id: 'B1iCawB5Ysb',
+                        text: 'Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}\'s release.',
+                      }, { type: 'SET', id: 'rk20pPBcKjW', text: 'wealth +1500' }, {
+                        type: 'TEXT',
+                        id: 'Syp0avBqKj-',
+                        text: 'What do you do then?',
+                      }],
+                      link: {
+                        type: 'CHOICE',
+                        id: 'H15yeTwHqKs-',
+                        block: [{
+                          type: 'CHOICE_ITEM',
+                          id: 'SkmyxawrcKsW',
+                          reuse: null,
+                          condition: null,
+                          text: 'Honor demands that I carry out my end of the bargain.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'BJfJlpvrcti-',
+                            label: '',
+                            components: [{
+                              type: 'TEXT',
+                              id: 'BkACTDB9Fi-',
+                              text: 'Of course.  No sooner have you received the payment than you let the ${royal} go.',
+                            }, { type: 'SET', id: 'S1ykgTvBcFoZ', text: 'cunning %-20' }, {
+                              type: 'SET',
+                              id: 'S1x1gpvB9YoZ',
+                              text: 'brutality %-10',
+                            }, { type: 'SET', id: 'BJZ1x6wr5YiW', text: 'infamy %-10' }],
+                            link: { type: 'GOTO', text: 'personality' },
+                          }],
+                        }, {
+                          type: 'CHOICE_ITEM',
+                          id: 'S1Ykg6DBqtob',
+                          reuse: null,
+                          condition: null,
+                          text: 'Once I have the payment, I have no reason to delay my dinner.',
+                          block: [{
+                            type: 'NODE',
+                            id: 'rkO1x6vrcKob',
+                            label: '',
+                            components: [{
+                              type: 'TEXT',
+                              id: 'BkNJeTvScYoZ',
+                              text: 'Crunch, munch.  Delicious.\n',
+                            }, { type: 'SET', id: 'ByrJlTDS9KoZ', text: 'cunning %+20' }, {
+                              type: 'SET',
+                              id: 'ryLye6DHqKoZ',
+                              text: 'brutality %+10',
+                            }, { type: 'SET', id: 'HJDJeTPSqYj-', text: 'infamy %+10' }],
+                            link: { type: 'GOTO', text: 'personality' },
+                          }],
+                        }],
+                      },
+                    }],
+                  }],
+                },
               },
             },
-          },
-        }, {
-          type: 'NODE',
-          id: 'Sk7llTDBctsW',
-          label: 'EatHer',
-          components: [{ type: 'TEXT', id: 'r1egx6DHqFjW', text: 'It must be the diet.  In any event, you have a delightful dinner of roast ${royal}.' }, { type: 'SET', id: 'Sy-egpDHqFo-', text: 'brutality %+10' }, {
-            type: 'SET',
-            id: 'ByMgg6vrcYib',
-            text: 'infamy %+10',
-          }],
-          link: { type: 'GOTO', text: 'personality' },
-        }, {
-          type: 'NODE',
-          id: 'HkeZeavH5tob',
-          label: 'personality',
-          components: [{ type: 'PAGE_BREAK', id: 'S1VlgpDH5Fob', text: '' }, {
-            type: 'TEXT',
-            id: 'rkBllpvBqtsb',
-            text: 'This would be a good time to talk a little more about your personality.\n\nAll dragons can be described in terms of a handful of characteristics, each in opposed pairs:  Brutality and Finesse, Cunning and Honor, Disdain and Vigilance.\n',
-          }, { type: 'COMMENT', id: 'SyIlgavrqtj-', text: 'We start with the basic dichotomies between the paired attributes' }, {
-            type: 'COMMENT',
-            id: 'rywll6Dr9Kib',
-            text: 'brutality is the opposite of finesse; only modify by %+ or %-',
-          }, { type: 'TEXT', id: 'rkdglpDrqtsb', text: 'Are you more notable for your Brutality or your Finesse?' }],
-          link: {
-            type: 'CHOICE',
-            id: 'HJ1-gTPH5YiZ',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'ryslgaDScYob',
-              reuse: null,
-              condition: null,
-              text: 'Brutality: strength and cruelty.',
-              block: [{ type: 'NODE', id: 'H19xgavHctob', label: '', components: [{ type: 'SET', id: 'B1Kee6wS5Ks-', text: 'brutality %+70' }], link: { type: 'GOTO', text: 'CunningQuestion' } }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'BkCelTDHqFsb',
-              reuse: null,
-              condition: null,
-              text: 'Finesse: precision and aerial maneuverability.',
-              block: [{ type: 'NODE', id: 'SkpxgpDB9KoW', label: '', components: [{ type: 'SET', id: 'SyhxeTPSqtib', text: 'brutality %-70' }], link: { type: 'GOTO', text: 'CunningQuestion' } }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'rk5ZlpwHqYoW',
-          label: 'CunningQuestion',
-          components: [{ type: 'COMMENT', id: 'H1-ZepPr9YsZ', text: 'cunning is the opposite of honorable; only modified by %+ or %-' }, { type: 'TEXT', id: 'BJzZl6PrqYib', text: 'Do you have more Cunning or Honor?' }],
-          link: {
-            type: 'CHOICE',
-            id: 'S1KbgavScFoZ',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'HkS-xTwr9tj-',
-              reuse: null,
-              condition: null,
-              text: 'Cunning: intelligence and trickery.',
-              block: [{ type: 'NODE', id: 'H1Vbl6DHqKoZ', label: '', components: [{ type: 'SET', id: 'BJQ-xTvrcFs-', text: 'cunning %+70' }], link: { type: 'GOTO', text: 'DisdainQuestion' } }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'Hy_beTDScYoW',
-              reuse: null,
-              condition: null,
-              text: 'Honor: honesty and trustworthiness.',
-              block: [{ type: 'NODE', id: 'rkv-xTDH5YiW', label: '', components: [{ type: 'SET', id: 'HyUWe6wr9KjZ', text: 'cunning %-70' }], link: { type: 'GOTO', text: 'DisdainQuestion' } }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'HyEMeawH9toZ',
-          label: 'DisdainQuestion',
-          components: [{ type: 'COMMENT', id: 'rJiblTDHqYiW', text: 'disdain is the opposite of vigilant; only modify by %+ or %-' }, {
-            type: 'TEXT',
-            id: 'HynZeTPBctoZ',
-            text: 'Do you disdain threats and insults that are beneath you, or are you vigilant\nagainst any slight or transgression?',
-          }],
-          link: {
-            type: 'CHOICE',
-            id: 'B1mfgTDr5tjW',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'rk1fepvH9Fib',
-              reuse: null,
-              condition: null,
-              text: 'Disdain: patience and scorn.',
-              block: [{ type: 'NODE', id: 'Hk0-eTwS5tjZ', label: '', components: [{ type: 'SET', id: 'r1pZl6wH5to-', text: 'disdain %+70' }], link: { type: 'GOTO', text: 'FirstChoice' } }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'ryzMlpPSqKsW',
-              reuse: null,
-              condition: null,
-              text: 'Vigilance: attention and impulsiveness.',
-              block: [{ type: 'NODE', id: 'r1-MeaDrqtjW', label: '', components: [{ type: 'SET', id: 'BkxMx6DBctiW', text: 'disdain %-70' }], link: { type: 'GOTO', text: 'FirstChoice' } }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'BJmXgTvHcYs-',
-          label: 'FirstChoice',
-          components: [{ type: 'COMMENT', id: 'rJSGgTwHqFjZ', text: 'Now we face some real choices to finish chargen and establish setting' }, {
-            type: 'COMMENT',
-            id: 'By8Gx6Dr9tjb',
-            text: 'First choice trades off cunning vs. brutality',
           }, {
-            type: 'TEXT',
-            id: 'BkDGgpvr5Fs-',
-            text: 'Now we\'re going to view some flashbacks to your days as a wyrmling.\n\nAs a young hatchling, you lived with your mother in a cave high up on a mountain.  Your mother had a vast hoard of treasure and a varied hunting range. Some of your siblings chose to spend much of their time reading the rare codices and scrolls your mother had collected.  Other siblings spent their time hunting dangerous game and brawling with each other.  Which pursuit did you prefer?\n',
-          }],
-          link: {
-            type: 'CHOICE',
-            id: 'SkGmx6DB5YiZ',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'By3zx6wr5FjW',
-              reuse: null,
-              condition: null,
-              text: 'Reading.',
-              block: [{
-                type: 'NODE',
-                id: 'B1jMl6PHqFsZ',
-                label: '',
-                components: [{ type: 'TEXT', id: 'BkdfxpDHcFsZ', text: 'A wise choice that made you more Cunning and taught you Finesse.' }, { type: 'SET', id: 'HyYMlaDS9KoW', text: 'cunning %+20' }, {
-                  type: 'SET',
-                  id: 'B1cGe6DrqYob',
-                  text: 'brutality %-20',
-                }],
-                link: { type: 'GOTO', text: 'SecondChoice' },
-              }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'HJ-me6PrcYo-',
-              reuse: null,
-              condition: null,
-              text: 'Hunting.',
-              block: [{
-                type: 'NODE',
-                id: 'rJg7eaDSqFjb',
-                label: '',
-                components: [{
-                  type: 'TEXT',
-                  id: 'r16fg6vrcFjW',
-                  text: 'You developed your muscles as you gloried in combat and the kill at\nthe end of the hunt.  Your brawls with your siblings also taught you the\nbasics of Honor. \n\nBrutality and Honor increase.',
-                }, { type: 'SET', id: 'rkAzlawHcKsb', text: 'cunning %-20' }, { type: 'SET', id: 'rkkQgTvHctjb', text: 'brutality %+20' }],
-                link: { type: 'GOTO', text: 'SecondChoice' },
-              }],
+            type: 'NODE',
+            id: 'Sk7llTDBctsW',
+            label: 'EatHer',
+            components: [{
+              type: 'TEXT',
+              id: 'r1egx6DHqFjW',
+              text: 'It must be the diet.  In any event, you have a delightful dinner of roast ${royal}.',
+            }, { type: 'SET', id: 'Sy-egpDHqFo-', text: 'brutality %+10' }, {
+              type: 'SET',
+              id: 'ByMgg6vrcYib',
+              text: 'infamy %+10',
             }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'BJbVxavHqKi-',
-          label: 'SecondChoice',
-          components: [{ type: 'COMMENT', id: 'r1EXl6wr5tsb', text: 'Second choice trades off cunning vs. disdain' }, {
-            type: 'TEXT',
-            id: 'rJHXxTDSqKob',
-            text: 'As you reached maturity, you began to threaten your mother\'s dominance over her territory.  Before you could possibly have bested her in a direct confrontation, she threw you out of her lair and drove you from the lands in which you grew up, leaving you to fend for yourself without any resources beyond your claws, wings, and teeth. \n\nDid you seek revenge on her by turning some of the humans in her lands against her, or did you consider petty revenge beneath you?\n',
-          }],
-          link: {
-            type: 'CHOICE',
-            id: 'Bke4e6PS9KjW',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'SkcQg6vS9KoW',
-              reuse: null,
-              condition: null,
-              text: 'I sought revenge.',
-              block: [{
-                type: 'NODE',
-                id: 'rJKXgTwHqYiZ',
-                label: '',
-                components: [{
-                  type: 'TEXT',
-                  id: 'S1LXgavrcKs-',
-                  text: 'You were unable to truly threaten her, but you forced your mother to\nspend her time suppressing the revolts of human villages.  The dead    \nvillagers also provided her with no tribute, reducing the increase of her\nhoard.  Perhaps something more direct would be better as revenge. Still, a real\ngain nonetheless. \n\nCunning and Vigilance increase.',
-                }, { type: 'SET', id: 'SyPXgaDrqYob', text: 'cunning %+20' }, { type: 'SET', id: 'Skumlpwr9Ki-', text: 'disdain %-20' }],
-                link: { type: 'GOTO', text: 'ThirdChoice' },
-              }],
+            link: { type: 'GOTO', text: 'personality' },
+          }, {
+            type: 'NODE',
+            id: 'HkeZeavH5tob',
+            label: 'personality',
+            components: [{ type: 'PAGE_BREAK', id: 'S1VlgpDH5Fob', text: '' }, {
+              type: 'TEXT',
+              id: 'rkBllpvBqtsb',
+              text: 'This would be a good time to talk a little more about your personality.\n\nAll dragons can be described in terms of a handful of characteristics, each in opposed pairs:  Brutality and Finesse, Cunning and Honor, Disdain and Vigilance.\n',
             }, {
-              type: 'CHOICE_ITEM',
-              id: 'Hkk4g6wrcts-',
-              reuse: null,
-              condition: null,
-              text: 'Revenge is beneath my dignity.',
-              block: [{
-                type: 'NODE',
-                id: 'ryRmx6DSqYiW',
-                label: '',
-                components: [{
-                  type: 'TEXT',
-                  id: 'H1jmgaPB5Fob',
-                  text: 'Disdain for petty matters is essential for a dragon, as it avoids the\npointless feuds that weaken you and allow your enemies to achieve great\ngoals. \n\nManipulating peasants is also not the most honorable of activities for a    \nmighty dragon such as yourself. \n\nYour wise choice increases Disdain and Honor.',
-                }, { type: 'SET', id: 'rknXe6vSqYib', text: 'cunning %-20' }, { type: 'SET', id: 'BJT7x6wSqKj-', text: 'disdain %+20' }],
-                link: { type: 'GOTO', text: 'ThirdChoice' },
-              }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'BJJSx6wB9Fsb',
-          label: 'ThirdChoice',
-          components: [{ type: 'COMMENT', id: 'HkfNlpDBcYjW', text: 'Trades off Disdain versus Brutality' }, {
-            type: 'TEXT',
-            id: 'SkQEl6vHqKib',
-            text: 'After several days of flight, you came across a tiny halfling travelling through the desert.  Even from afar, your keen eyes detected the glint of gold and the sparkle of magic.  This halfling has some sort of magic golden shield strapped to his tiny back.\n\nYou knew immediately that this treasure must be yours.\n\nThe halfling was far from civilization and would almost surely die soon of thirst and starvation.  For the moment, he seemed to be protected by the power of the shield.\n\nDid you kill him on the spot, ignoring his magical protections, or did you hover nearby and wait for the halfling to die, knowing that you might lose the treasure?\n',
-          }],
-          link: {
-            type: 'CHOICE',
-            id: 'B10VxTvrctob',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'ryd4xpwrqKiW',
-              reuse: null,
-              condition: null,
-              text: 'I waited for him to die.',
-              block: [{
-                type: 'NODE',
-                id: 'S1DElawHctiW',
-                label: '',
-                components: [{
-                  type: 'TEXT',
-                  id: 'BJ44laDSqto-',
-                  text: 'There\'s no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n\nDisdain and Finesse increase.',
-                }, { type: 'SET', id: 'S1rVe6wr9Kjb', text: 'brutality %-20' }, { type: 'SET', id: 'r18NlTPB9tjW', text: 'disdain %+20' }],
-                link: { type: 'GOTO', text: 'Axilmeus' },
-              }],
+              type: 'COMMENT',
+              id: 'SyIlgavrqtj-',
+              text: 'We start with the basic dichotomies between the paired attributes',
             }, {
-              type: 'CHOICE_ITEM',
-              id: 'By6VgTvH5tiW',
-              reuse: null,
-              condition: null,
-              text: 'I killed him on the spot.',
+              type: 'COMMENT',
+              id: 'rywll6Dr9Kib',
+              text: 'brutality is the opposite of finesse; only modify by %+ or %-',
+            }, { type: 'TEXT', id: 'rkdglpDrqtsb', text: 'Are you more notable for your Brutality or your Finesse?' }],
+            link: {
+              type: 'CHOICE',
+              id: 'HJ1-gTPH5YiZ',
               block: [{
-                type: 'NODE',
-                id: 'HkhElaPS5KjZ',
-                label: '',
-                components: [{
-                  type: 'TEXT',
-                  id: 'HyK4g6vSqYib',
-                  text: 'It wasn\'t easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n\nBrutality and Vigilance increase.',
-                }, { type: 'SET', id: 'B154gpPr5Kjb', text: 'brutality %+20' }, { type: 'SET', id: 'ByjExTDBqFj-', text: 'disdain %-20' }],
-                link: { type: 'GOTO', text: 'Axilmeus' },
-              }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'B1bLlaDH9KsW',
-          label: 'Axilmeus',
-          components: [{ type: 'PAGE_BREAK', id: 'BygHx6vS9FsZ', text: '' }, {
-            type: 'TEXT',
-            id: 'Bk-BlaDH9KoW',
-            text: 'One of your elder clutchmates was an overbearing brute named Axilmeus.  Axilmeus loved to torment the others, always seeking to seize what did not belong to him.\n\n"${name}," he said with a menacing grin, "give me that golden shield, or I will beat you within an inch of your life."\n',
-          }],
-          link: {
-            type: 'CHOICE',
-            id: 'rJl8gavr9Kib',
-            block: [{
-              type: 'CHOICE_ITEM',
-              id: 'HkBSx6vB9KiZ',
-              reuse: null,
-              condition: null,
-              text: ' I gave him the shield to avoid a fight.',
-              block: [{
-                type: 'NODE',
-                id: 'HJNrgTDB9KiZ',
-                label: '',
-                components: [{ type: 'SET', id: 'HJGHxTDrqYsZ', text: 'disdain %+ 15' }, { type: 'TEXT', id: 'rymSeTwBqKjb', text: 'Disdain increases.\n\nAxilmeus took your shield and beat you with it, hard.' }],
-                link: { type: 'GOTO', text: 'ResolveAxilmeus' },
-              }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'ByqBepPS5YiW',
-              reuse: null,
-              condition: null,
-              text: ' I dueled him for the shield.',
-              block: [{
-                type: 'NODE',
-                id: 'rkKBlTwHctsb',
-                label: '',
-                components: [{ type: 'SET', id: 'Sy8Sg6DBqFib', text: 'brutality %+ 15' }, { type: 'SET', id: 'H1wrgpwBqFiZ', text: 'cunning %- 15' }, {
-                  type: 'TEXT',
-                  id: 'HkOHlTPH5Fj-',
-                  text: 'Brutality and Honor increase.\n\nYou fought your hardest, but Axilmeus was a bit stronger than you; he pinned you to the ground and pried the shield out of your claws.',
+                type: 'CHOICE_ITEM',
+                id: 'ryslgaDScYob',
+                reuse: null,
+                condition: null,
+                text: 'Brutality: strength and cruelty.',
+                block: [{
+                  type: 'NODE',
+                  id: 'H19xgavHctob',
+                  label: '',
+                  components: [{ type: 'SET', id: 'B1Kee6wS5Ks-', text: 'brutality %+70' }],
+                  link: { type: 'GOTO', text: 'CunningQuestion' },
                 }],
-                link: { type: 'GOTO', text: 'ResolveAxilmeus' },
-              }],
-            }, {
-              type: 'CHOICE_ITEM',
-              id: 'By1Lxawrcts-',
-              reuse: null,
-              condition: null,
-              text: ' I evaded him and hid the shield.',
-              block: [{
-                type: 'NODE',
-                id: 'rJABxawH5KoZ',
-                label: '',
-                components: [{ type: 'SET', id: 'Sksrl6wSqts-', text: 'brutality %- 15' }, { type: 'SET', id: 'Sk2Bg6Pr9KjZ', text: 'cunning %+ 15' }, {
-                  type: 'TEXT',
-                  id: 'BJpSxavSctsW',
-                  text: 'Cunning and Finesse increase.\n\nUnfortunately, Axilmeus is your elder; at this age, he has the advantage in maneuverability.  He caught up to you quickly, pinning you to the ground and prying the shield out of your claws.',
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'BkCelTDHqFsb',
+                reuse: null,
+                condition: null,
+                text: 'Finesse: precision and aerial maneuverability.',
+                block: [{
+                  type: 'NODE',
+                  id: 'SkpxgpDB9KoW',
+                  label: '',
+                  components: [{ type: 'SET', id: 'SyhxeTPSqtib', text: 'brutality %-70' }],
+                  link: { type: 'GOTO', text: 'CunningQuestion' },
                 }],
-                link: { type: 'GOTO', text: 'ResolveAxilmeus' },
               }],
-            }],
-          },
-        }, {
-          type: 'NODE',
-          id: 'HJ7veavS5Fib',
-          label: 'ResolveAxilmeus',
-          components: [{ type: 'TEXT', id: 'SkMUepvrqtiZ', text: 'Then he crushed the shield in his jaws, wasting the magical energies imbued within it, and spat it out at your feet.  He laughed with a great roar as he flew away.\n' }],
-          link: {
-            type: 'NODE_LINK',
-            node: {
-              type: 'NODE',
-              id: 'HJfDeawS9Fsb',
-              label: 'Wrapup',
-              components: [{ type: 'COMMENT', id: 'rJQUgTDr9tob', text: '[We need to generate a starting Wealth somehow.  My current thought is' }, {
-                type: 'COMMENT',
-                id: 'HJ4UxaDrqtsb',
-                text: 'that we use a random number increased up by low Brutality, low Disdain,',
-              }, { type: 'COMMENT', id: 'rJHUlaPHcKsW', text: 'and high Cunning. ' }, { type: 'COMMENT', id: 'SkULlpDH9to-', text: 'But we could also tie it more specifically to the choices, or just go' }, {
-                type: 'COMMENT',
-                id: 'HJDUgpwHqYjb',
-                text: 'random, or whatever.]',
-              }, { type: 'PAGE_BREAK', id: 'HJO8l6DH9ts-', text: '' }, { type: 'TEXT', id: 'BytLgTwH5Ys-', text: 'You have the following stats:\n' }, {
-                type: 'STAT_CHART',
-                id: 'SJxwg6wH5Yob',
-                stats: [{ type: 'STAT_OPPOSED', id: 'BJi8xpDH9Fib', stat: 'Brutality', name: 'Brutality', opposed: 'Finesse' }, {
-                  type: 'STAT_OPPOSED',
-                  id: 'rJnLx6wBqti-',
-                  stat: 'Cunning',
-                  name: 'Cunning',
-                  opposed: 'Honor',
-                }, { type: 'STAT_OPPOSED', id: 'rJpUxTvr9Fs-', stat: 'Disdain', name: 'Disdain', opposed: 'Vigilance' }, { type: 'STAT_PERCENT', id: 'SyRUgpwB9Fob', text: 'Infamy' }, {
-                  type: 'STAT_TEXT',
-                  id: 'BJkwxTwH9FiW',
-                  text: 'wealth_text Wealth',
-                }],
-              }, { type: 'TEXT', id: 'HyWPx6PS9tob', text: '' }],
-              link: { type: 'FINISH', text: 'Begin the Adventure' },
             },
-          },
-        }],
+          }, {
+            type: 'NODE',
+            id: 'rk5ZlpwHqYoW',
+            label: 'CunningQuestion',
+            components: [{
+              type: 'COMMENT',
+              id: 'H1-ZepPr9YsZ',
+              text: 'cunning is the opposite of honorable; only modified by %+ or %-',
+            }, { type: 'TEXT', id: 'BJzZl6PrqYib', text: 'Do you have more Cunning or Honor?' }],
+            link: {
+              type: 'CHOICE',
+              id: 'S1KbgavScFoZ',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'HkS-xTwr9tj-',
+                reuse: null,
+                condition: null,
+                text: 'Cunning: intelligence and trickery.',
+                block: [{
+                  type: 'NODE',
+                  id: 'H1Vbl6DHqKoZ',
+                  label: '',
+                  components: [{ type: 'SET', id: 'BJQ-xTvrcFs-', text: 'cunning %+70' }],
+                  link: { type: 'GOTO', text: 'DisdainQuestion' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'Hy_beTDScYoW',
+                reuse: null,
+                condition: null,
+                text: 'Honor: honesty and trustworthiness.',
+                block: [{
+                  type: 'NODE',
+                  id: 'rkv-xTDH5YiW',
+                  label: '',
+                  components: [{ type: 'SET', id: 'HyUWe6wr9KjZ', text: 'cunning %-70' }],
+                  link: { type: 'GOTO', text: 'DisdainQuestion' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'HyEMeawH9toZ',
+            label: 'DisdainQuestion',
+            components: [{
+              type: 'COMMENT',
+              id: 'rJiblTDHqYiW',
+              text: 'disdain is the opposite of vigilant; only modify by %+ or %-',
+            }, {
+              type: 'TEXT',
+              id: 'HynZeTPBctoZ',
+              text: 'Do you disdain threats and insults that are beneath you, or are you vigilant\nagainst any slight or transgression?',
+            }],
+            link: {
+              type: 'CHOICE',
+              id: 'B1mfgTDr5tjW',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'rk1fepvH9Fib',
+                reuse: null,
+                condition: null,
+                text: 'Disdain: patience and scorn.',
+                block: [{
+                  type: 'NODE',
+                  id: 'Hk0-eTwS5tjZ',
+                  label: '',
+                  components: [{ type: 'SET', id: 'r1pZl6wH5to-', text: 'disdain %+70' }],
+                  link: { type: 'GOTO', text: 'FirstChoice' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'ryzMlpPSqKsW',
+                reuse: null,
+                condition: null,
+                text: 'Vigilance: attention and impulsiveness.',
+                block: [{
+                  type: 'NODE',
+                  id: 'r1-MeaDrqtjW',
+                  label: '',
+                  components: [{ type: 'SET', id: 'BkxMx6DBctiW', text: 'disdain %-70' }],
+                  link: { type: 'GOTO', text: 'FirstChoice' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'BJmXgTvHcYs-',
+            label: 'FirstChoice',
+            components: [{
+              type: 'COMMENT',
+              id: 'rJSGgTwHqFjZ',
+              text: 'Now we face some real choices to finish chargen and establish setting',
+            }, {
+              type: 'COMMENT',
+              id: 'By8Gx6Dr9tjb',
+              text: 'First choice trades off cunning vs. brutality',
+            }, {
+              type: 'TEXT',
+              id: 'BkDGgpvr5Fs-',
+              text: 'Now we\'re going to view some flashbacks to your days as a wyrmling.\n\nAs a young hatchling, you lived with your mother in a cave high up on a mountain.  Your mother had a vast hoard of treasure and a varied hunting range. Some of your siblings chose to spend much of their time reading the rare codices and scrolls your mother had collected.  Other siblings spent their time hunting dangerous game and brawling with each other.  Which pursuit did you prefer?\n',
+            }],
+            link: {
+              type: 'CHOICE',
+              id: 'SkGmx6DB5YiZ',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'By3zx6wr5FjW',
+                reuse: null,
+                condition: null,
+                text: 'Reading.',
+                block: [{
+                  type: 'NODE',
+                  id: 'B1jMl6PHqFsZ',
+                  label: '',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'BkdfxpDHcFsZ',
+                    text: 'A wise choice that made you more Cunning and taught you Finesse.',
+                  }, { type: 'SET', id: 'HyYMlaDS9KoW', text: 'cunning %+20' }, {
+                    type: 'SET',
+                    id: 'B1cGe6DrqYob',
+                    text: 'brutality %-20',
+                  }],
+                  link: { type: 'GOTO', text: 'SecondChoice' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'HJ-me6PrcYo-',
+                reuse: null,
+                condition: null,
+                text: 'Hunting.',
+                block: [{
+                  type: 'NODE',
+                  id: 'rJg7eaDSqFjb',
+                  label: '',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'r16fg6vrcFjW',
+                    text: 'You developed your muscles as you gloried in combat and the kill at\nthe end of the hunt.  Your brawls with your siblings also taught you the\nbasics of Honor. \n\nBrutality and Honor increase.',
+                  }, { type: 'SET', id: 'rkAzlawHcKsb', text: 'cunning %-20' }, {
+                    type: 'SET',
+                    id: 'rkkQgTvHctjb',
+                    text: 'brutality %+20',
+                  }],
+                  link: { type: 'GOTO', text: 'SecondChoice' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'BJbVxavHqKi-',
+            label: 'SecondChoice',
+            components: [{
+              type: 'COMMENT',
+              id: 'r1EXl6wr5tsb',
+              text: 'Second choice trades off cunning vs. disdain',
+            }, {
+              type: 'TEXT',
+              id: 'rJHXxTDSqKob',
+              text: 'As you reached maturity, you began to threaten your mother\'s dominance over her territory.  Before you could possibly have bested her in a direct confrontation, she threw you out of her lair and drove you from the lands in which you grew up, leaving you to fend for yourself without any resources beyond your claws, wings, and teeth. \n\nDid you seek revenge on her by turning some of the humans in her lands against her, or did you consider petty revenge beneath you?\n',
+            }],
+            link: {
+              type: 'CHOICE',
+              id: 'Bke4e6PS9KjW',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'SkcQg6vS9KoW',
+                reuse: null,
+                condition: null,
+                text: 'I sought revenge.',
+                block: [{
+                  type: 'NODE',
+                  id: 'rJKXgTwHqYiZ',
+                  label: '',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'S1LXgavrcKs-',
+                    text: 'You were unable to truly threaten her, but you forced your mother to\nspend her time suppressing the revolts of human villages.  The dead    \nvillagers also provided her with no tribute, reducing the increase of her\nhoard.  Perhaps something more direct would be better as revenge. Still, a real\ngain nonetheless. \n\nCunning and Vigilance increase.',
+                  }, { type: 'SET', id: 'SyPXgaDrqYob', text: 'cunning %+20' }, {
+                    type: 'SET',
+                    id: 'Skumlpwr9Ki-',
+                    text: 'disdain %-20',
+                  }],
+                  link: { type: 'GOTO', text: 'ThirdChoice' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'Hkk4g6wrcts-',
+                reuse: null,
+                condition: null,
+                text: 'Revenge is beneath my dignity.',
+                block: [{
+                  type: 'NODE',
+                  id: 'ryRmx6DSqYiW',
+                  label: '',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'H1jmgaPB5Fob',
+                    text: 'Disdain for petty matters is essential for a dragon, as it avoids the\npointless feuds that weaken you and allow your enemies to achieve great\ngoals. \n\nManipulating peasants is also not the most honorable of activities for a    \nmighty dragon such as yourself. \n\nYour wise choice increases Disdain and Honor.',
+                  }, { type: 'SET', id: 'rknXe6vSqYib', text: 'cunning %-20' }, {
+                    type: 'SET',
+                    id: 'BJT7x6wSqKj-',
+                    text: 'disdain %+20',
+                  }],
+                  link: { type: 'GOTO', text: 'ThirdChoice' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'BJJSx6wB9Fsb',
+            label: 'ThirdChoice',
+            components: [{ type: 'COMMENT', id: 'HkfNlpDBcYjW', text: 'Trades off Disdain versus Brutality' }, {
+              type: 'TEXT',
+              id: 'SkQEl6vHqKib',
+              text: 'After several days of flight, you came across a tiny halfling travelling through the desert.  Even from afar, your keen eyes detected the glint of gold and the sparkle of magic.  This halfling has some sort of magic golden shield strapped to his tiny back.\n\nYou knew immediately that this treasure must be yours.\n\nThe halfling was far from civilization and would almost surely die soon of thirst and starvation.  For the moment, he seemed to be protected by the power of the shield.\n\nDid you kill him on the spot, ignoring his magical protections, or did you hover nearby and wait for the halfling to die, knowing that you might lose the treasure?\n',
+            }],
+            link: {
+              type: 'CHOICE',
+              id: 'B10VxTvrctob',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'ryd4xpwrqKiW',
+                reuse: null,
+                condition: null,
+                text: 'I waited for him to die.',
+                block: [{
+                  type: 'NODE',
+                  id: 'S1DElawHctiW',
+                  label: '',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'BJ44laDSqto-',
+                    text: 'There\'s no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n\nDisdain and Finesse increase.',
+                  }, { type: 'SET', id: 'S1rVe6wr9Kjb', text: 'brutality %-20' }, {
+                    type: 'SET',
+                    id: 'r18NlTPB9tjW',
+                    text: 'disdain %+20',
+                  }],
+                  link: { type: 'GOTO', text: 'Axilmeus' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'By6VgTvH5tiW',
+                reuse: null,
+                condition: null,
+                text: 'I killed him on the spot.',
+                block: [{
+                  type: 'NODE',
+                  id: 'HkhElaPS5KjZ',
+                  label: '',
+                  components: [{
+                    type: 'TEXT',
+                    id: 'HyK4g6vSqYib',
+                    text: 'It wasn\'t easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n\nBrutality and Vigilance increase.',
+                  }, { type: 'SET', id: 'B154gpPr5Kjb', text: 'brutality %+20' }, {
+                    type: 'SET',
+                    id: 'ByjExTDBqFj-',
+                    text: 'disdain %-20',
+                  }],
+                  link: { type: 'GOTO', text: 'Axilmeus' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'B1bLlaDH9KsW',
+            label: 'Axilmeus',
+            components: [{ type: 'PAGE_BREAK', id: 'BygHx6vS9FsZ', text: '' }, {
+              type: 'TEXT',
+              id: 'Bk-BlaDH9KoW',
+              text: 'One of your elder clutchmates was an overbearing brute named Axilmeus.  Axilmeus loved to torment the others, always seeking to seize what did not belong to him.\n\n"${name}," he said with a menacing grin, "give me that golden shield, or I will beat you within an inch of your life."\n',
+            }],
+            link: {
+              type: 'CHOICE',
+              id: 'rJl8gavr9Kib',
+              block: [{
+                type: 'CHOICE_ITEM',
+                id: 'HkBSx6vB9KiZ',
+                reuse: null,
+                condition: null,
+                text: ' I gave him the shield to avoid a fight.',
+                block: [{
+                  type: 'NODE',
+                  id: 'HJNrgTDB9KiZ',
+                  label: '',
+                  components: [{ type: 'SET', id: 'HJGHxTDrqYsZ', text: 'disdain %+ 15' }, {
+                    type: 'TEXT',
+                    id: 'rymSeTwBqKjb',
+                    text: 'Disdain increases.\n\nAxilmeus took your shield and beat you with it, hard.',
+                  }],
+                  link: { type: 'GOTO', text: 'ResolveAxilmeus' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'ByqBepPS5YiW',
+                reuse: null,
+                condition: null,
+                text: ' I dueled him for the shield.',
+                block: [{
+                  type: 'NODE',
+                  id: 'rkKBlTwHctsb',
+                  label: '',
+                  components: [{ type: 'SET', id: 'Sy8Sg6DBqFib', text: 'brutality %+ 15' }, {
+                    type: 'SET',
+                    id: 'H1wrgpwBqFiZ',
+                    text: 'cunning %- 15',
+                  }, {
+                    type: 'TEXT',
+                    id: 'HkOHlTPH5Fj-',
+                    text: 'Brutality and Honor increase.\n\nYou fought your hardest, but Axilmeus was a bit stronger than you; he pinned you to the ground and pried the shield out of your claws.',
+                  }],
+                  link: { type: 'GOTO', text: 'ResolveAxilmeus' },
+                }],
+              }, {
+                type: 'CHOICE_ITEM',
+                id: 'By1Lxawrcts-',
+                reuse: null,
+                condition: null,
+                text: ' I evaded him and hid the shield.',
+                block: [{
+                  type: 'NODE',
+                  id: 'rJABxawH5KoZ',
+                  label: '',
+                  components: [{ type: 'SET', id: 'Sksrl6wSqts-', text: 'brutality %- 15' }, {
+                    type: 'SET',
+                    id: 'Sk2Bg6Pr9KjZ',
+                    text: 'cunning %+ 15',
+                  }, {
+                    type: 'TEXT',
+                    id: 'BJpSxavSctsW',
+                    text: 'Cunning and Finesse increase.\n\nUnfortunately, Axilmeus is your elder; at this age, he has the advantage in maneuverability.  He caught up to you quickly, pinning you to the ground and prying the shield out of your claws.',
+                  }],
+                  link: { type: 'GOTO', text: 'ResolveAxilmeus' },
+                }],
+              }],
+            },
+          }, {
+            type: 'NODE',
+            id: 'HJ7veavS5Fib',
+            label: 'ResolveAxilmeus',
+            components: [{
+              type: 'TEXT',
+              id: 'SkMUepvrqtiZ',
+              text: 'Then he crushed the shield in his jaws, wasting the magical energies imbued within it, and spat it out at your feet.  He laughed with a great roar as he flew away.\n',
+            }],
+            link: {
+              type: 'NODE_LINK',
+              node: {
+                type: 'NODE',
+                id: 'HJfDeawS9Fsb',
+                label: 'Wrapup',
+                components: [{
+                  type: 'COMMENT',
+                  id: 'rJQUgTDr9tob',
+                  text: '[We need to generate a starting Wealth somehow.  My current thought is',
+                }, {
+                  type: 'COMMENT',
+                  id: 'HJ4UxaDrqtsb',
+                  text: 'that we use a random number increased up by low Brutality, low Disdain,',
+                }, { type: 'COMMENT', id: 'rJHUlaPHcKsW', text: 'and high Cunning. ' }, {
+                  type: 'COMMENT',
+                  id: 'SkULlpDH9to-',
+                  text: 'But we could also tie it more specifically to the choices, or just go',
+                }, {
+                  type: 'COMMENT',
+                  id: 'HJDUgpwHqYjb',
+                  text: 'random, or whatever.]',
+                }, { type: 'PAGE_BREAK', id: 'HJO8l6DH9ts-', text: '' }, {
+                  type: 'TEXT',
+                  id: 'BytLgTwH5Ys-',
+                  text: 'You have the following stats:\n',
+                }, {
+                  type: 'STAT_CHART',
+                  id: 'SJxwg6wH5Yob',
+                  stats: [{
+                    type: 'STAT_OPPOSED',
+                    id: 'BJi8xpDH9Fib',
+                    stat: 'Brutality',
+                    name: 'Brutality',
+                    opposed: 'Finesse',
+                  }, {
+                    type: 'STAT_OPPOSED',
+                    id: 'rJnLx6wBqti-',
+                    stat: 'Cunning',
+                    name: 'Cunning',
+                    opposed: 'Honor',
+                  }, {
+                    type: 'STAT_OPPOSED',
+                    id: 'rJpUxTvr9Fs-',
+                    stat: 'Disdain',
+                    name: 'Disdain',
+                    opposed: 'Vigilance',
+                  }, { type: 'STAT_PERCENT', id: 'SyRUgpwB9Fob', text: 'Infamy' }, {
+                    type: 'STAT_TEXT',
+                    id: 'BJkwxTwH9FiW',
+                    text: 'wealth_text Wealth',
+                  }],
+                }, { type: 'TEXT', id: 'HyWPx6PS9tob', text: '' }],
+                link: { type: 'FINISH', text: 'Begin the Adventure' },
+              },
+            },
+          }],
         },
       }];
     // const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...parseResult }));

@@ -6,7 +6,7 @@ const HomePage = () => (
   <div className="jumbotron center">
     <h1 className="lead">Welcome to Chronicler </h1>
     <div>
-      <Link to="node/2">
+      <Link to="node/4">
         <button className="btn btn-lg btn-primary">View Node</button>
       </Link>
     </div>

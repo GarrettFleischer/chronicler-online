@@ -43,13 +43,13 @@ export const ComponentType = {
 };
 
 
-export function project(_id, title, author, children) {
-  return { type: DataType.PROJECT, _id, title, author, children };
+export function project(_id, title, author, scenes) {
+  return { type: DataType.PROJECT, _id, title, author, scenes };
 }
 
 
-export function scene(_id, name, parent, children) {
-  return { type: DataType.SCENE, _id, name, parent, children };
+export function scene(_id, name, nodes) {
+  return { type: DataType.SCENE, _id, name, nodes };
 }
 
 

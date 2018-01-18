@@ -17,11 +17,22 @@ function chroniclerReducer(state, action) {
   return historyReducer(state, action);
 }
 
-
 function presentReducer(state, action) {
-  return state.map(nodeMapper(action));
+  return { ...state, projects: state.projects.map(projectMapper(action)) };
 }
 
+const projectMapper = (action) => (state) => projectReducer(state, action);
+
+function projectReducer(state, action) {
+  return { ...state, scenes: state.scenes.map(sceneMapper(action)) };
+}
+
+
+const sceneMapper = (action) => (state) => state.nodes.map(nodeMapper(action));
+
+// function sceneReducer(state, action) {
+//   return state.nodes.map(nodeMapper(action));
+// }
 
 const nodeMapper = (action) => (state) => nodeReducer(state, action);
 

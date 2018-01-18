@@ -2,88 +2,6 @@ import { empty, peek, push } from '../lib/stack';
 // PUBLIC FUNCTIONS
 import { DataType } from './nodes';
 
-
-// export const makeFlattenResult = (nodes, object) => ({ nodes, object });
-//
-//
-// export function flattenNodes(nodes) {
-//
-//   return makeFlattenResult(nodes, nodes);
-// }
-//
-//
-// function flattenNode(node) {
-//   const nodes = [node];
-//
-//
-//   return nodes;
-// }
-//
-//
-// function flattenLink(flattenResult) {
-//   const nodes = [];
-//
-//   switch (link.type) {
-//     case CHOICE:
-//       nodes.push(flattenBlock(link));
-//       break;
-//
-//     default:
-//       break;
-//   }
-//
-//   return { link, nodes };
-// }
-
-
-// export function findById(state, id, type = DataType.ANY) {
-//   const item = findFirst(state, filterIdAndType(id, type));
-//   const children = findChildren(state, item);
-//   return { item, children };
-// }
-//
-//
-// export function findChildren(state, item) {
-//   let children = [];
-//
-//   if (item) {
-//     for (let i = 0; i < item.children.length; ++i) {
-//       const child = findFirst(state, filterIdAndType(item.children[i]));
-//       if (!children.indexOf(child)) {
-//         const grandChildren = findChildren(state, child);
-//         for (let j = 0; j < grandChildren.length; ++j) {
-//           if (!children.indexOf(grandChildren[j]))
-//             children = push(children, grandChildren[j]);
-//         }
-//         children = push(children, child);
-//       }
-//     }
-//   }
-//
-//   return children;
-// }
-//
-//
-// // PRIVATE FUNCTIONS
-// const filterIdAndType = (id, type = DataType.ANY) => (item) =>
-//   (item.id === id && (type === DataType.ANY || item.type === type));
-//
-//
-// function findFirst(state, filter) {
-//   const results = state.filter(filter);
-//   return empty(results) ? null : results[0];
-// }
-
-
-// function filterBy(state, filter) {
-//   return [
-//     ...state.variables.filter(filter),
-//     ...state.scenes.filter(filter),
-//     ...state.nodes.filter(filter),
-//     ...state.components.filter(filter),
-//   ];
-// }
-
 export const NO_FILTER = 'core/NO_FILTER';
 
 
@@ -141,7 +59,7 @@ const matchIdAndType = (id, type = NO_FILTER) => (item) => (item.id === id && (t
 
 const matchParents = (id) => (item) => {
   switch (item.type) {
-    case DataType.BASE:
+    case DataType.PROJECT:
       return !empty(item.scenes.filter(matchIdAndType(id)));
 
     case DataType.SCENE:
@@ -178,7 +96,7 @@ const filterBy = (filter, found = []) => (item) => {
   let result = filter(item) ? push(found, item) : found;
 
   switch (item.type) {
-    case DataType.BASE:
+    case DataType.PROJECT:
       result = item.scenes.filter(filterBy(filter, result));
       break;
 
@@ -216,7 +134,7 @@ const reduceBy = (reduce) => (acc, curr) => {
   let result = reduce(acc, curr);
 
   switch (curr.type) {
-    case DataType.BASE:
+    case DataType.PROJECT:
       result = curr.scenes.reduce(reduceBy(reduce), result);
       break;
 
@@ -254,7 +172,7 @@ const mapBy = (func) => (curr) => {
   const updated = func(curr);
 
   switch (updated.type) {
-    case DataType.BASE:
+    case DataType.PROJECT:
       return { ...updated, scenes: updated.scenes.map(mapBy(func)) };
 
     case DataType.SCENE:
