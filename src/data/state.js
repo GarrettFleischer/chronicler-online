@@ -13,22 +13,26 @@ export const initialState = {
     canUndo: false,
     canRedo: false,
     present: [
-      project(1, 'Dragon', 'CoG', [2, 3, 4, 5, 6, 7]),
-
-      // TODO add variables
-      scene(2, 'startup', [3, 4]),
-      scene(3, 'chapter 2', [5, 6]),
-
-      node(4, 'intro', 1, [8]),
-      node(5, 'carry on', 1, [9]),
-      node(6, 'chapter 2', 2, [10]),
-      node(7, 'fin', 2, [11]),
-
-      // TODO add more components
-      cText(8, 'welcome'),
-      cText(9, 'end of chapter 1'),
-      cText(10, 'number of chapter 2'),
-      cText(11, 'end of chapter 2'),
+      project(1, 'Dragon', 'CoG', [
+        scene(2, 'startup', [
+          node(4, 'intro', 1, [
+            cText(8, 'welcome'),
+          ]),
+          node(5, 'carry on', 1, [
+            cText(9, 'end of chapter 1'),
+          ]),
+        ]),
+        scene(3, 'chapter 2', [
+          node(6, 'chapter 2', 2, [
+            cText(10, 'number of chapter 2'),
+          ]),
+          node(7, 'fin', 2, [
+            cText(11, 'end of chapter 2'),
+          ]),
+        ]),
+      ], [
+        // variable(''), // TODO add variables
+      ]),
     ],
   },
 };

@@ -2,7 +2,7 @@ import AddIcon from 'material-ui-icons/Add';
 import IconButton from 'material-ui/IconButton';
 import Input from 'material-ui/Input/Input';
 import Paper from 'material-ui/Paper';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
+import { createMuiTheme, withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ import { nodeComponentAdd, nodeComponentsSorted } from './reducers';
 import makeSelectNode from './selectors';
 
 
-const styleSheet = createStyleSheet((theme) => ({
+const styleSheet = createMuiTheme((theme) => ({
   root: {
     padding: '10px',
   },
@@ -71,7 +71,7 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
 Node.propTypes = {
   // @see makeMapStateToProps
   // eslint-disable-next-makeLine react/no-unused-prop-types
-  match: PropTypes.object.isRequired,
+  // match: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   onSortEnd: PropTypes.func.isRequired,
   onAddClick: PropTypes.func.isRequired,

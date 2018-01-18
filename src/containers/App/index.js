@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
+import { createMuiTheme, withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 
 
-const styleSheet = createStyleSheet({
+const styleSheet = createMuiTheme({
   root: {
     width: '100%',
   },

@@ -10,32 +10,36 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { DataType } from '../../data/nodes';
 import messages from './messages';
+import TextComponent from './TextComponent';
 
 
-const Component = ({ item }) => (
-  <Card>
-    <CardContent>
-      {content(item)}
-    </CardContent>
-  </Card>
-);
+const Component = ({ item }) => {
+  switch (item.type) {
+    case DataType.TEXT:
+      return TextComponent(item);
+    case DataType.NEXT:
+      return (
+        <Card>
+          <CardContent>
+            <div className="component">{`next ${item.id.toString()}: ${item.text}`}</div>
+          </CardContent>
+        </Card>
+      );
+    default:
+      return (
+        <Card>
+          <CardContent>
+            <div><FormattedMessage {...messages.unknown} /></div>
+          </CardContent>
+        </Card>
+      );
+  }
+};
 
 
 Component.propTypes = {
   item: PropTypes.object.isRequired,
 };
-
-
-function content(item) {
-  switch (item.type) {
-    case DataType.TEXT:
-      return <div className="component">{`text ${item.id.toString()}: ${item.text}`}</div>;
-    case DataType.NEXT:
-      return <div className="component">{`next ${item.id.toString()}: ${item.text}`}</div>;
-    default:
-      return <div><FormattedMessage {...messages.unknown} /></div>;
-  }
-}
 
 
 export default Component;
