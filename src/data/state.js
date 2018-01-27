@@ -1,12 +1,10 @@
-import { cText, node, project, scene } from './nodes';
+// import { cText, node, project, scene } from './nodes';
+import { makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink } from './datatypes';
 
 
 export function getActiveProject(state) {
   return state.chronicler.present.projects[0];
 }
-
-export const USER = 'USER';
-export const user = (_id, name, email, projects) => ({ _id, name, email, projects, activeProject: 0 });
 
 
 export const initialState = {
@@ -16,30 +14,37 @@ export const initialState = {
     canUndo: false,
     canRedo: false,
     present:
-      user(0, 'Garrett', 'garrett.fleischer@yahoo.com', [
-        project(1, 'Dragon', 'CoG', [
-          scene(2, 'startup', [
-            node(4, 'intro', 1, [
-              cText(8, 'welcome'),
-            ]),
-            node(5, 'carry on', 1, [
-              cText(9, 'end of chapter 1'),
-            ]),
-          ]),
-          scene(3, 'chapter 2', [
-            node(6, 'chapter 2', 2, [
-              cText(10, 'number of chapter 2'),
-            ]),
-            node(7, 'fin', 2, [
-              cText(11, 'end of chapter 2'),
-            ]),
-          ]),
+      makeUser(0, 'Garrett', 'garrett.fleischer@yahoo.com', [
+        makeProject(1, 'Dragon', 'CoG', [
+          { id: 2,
+            ...makeScene('startup', [
+              { id: 3, ...makeNode('intro', [makeText('welcome')], makeNodeLink(4)) },
+              { id: 4, ...makeNode('carry on', [makeText('end of chapter 1')]) },
+            ]) },
+
         ], [
         // variable(''), // TODO add variables
         ]),
       ]),
   },
 };
+
+// scene(2, 'startup', [
+//   node(4, 'intro', 1, [
+//     cText(8, 'welcome'),
+//   ]),
+//   node(5, 'carry on', 1, [
+//     cText(9, 'end of chapter 1'),
+//   ]),
+// ]),
+//   scene(3, 'chapter 2', [
+//     node(6, 'chapter 2', 2, [
+//       cText(10, 'number of chapter 2'),
+//     ]),
+//     node(7, 'fin', 2, [
+//       cText(11, 'end of chapter 2'),
+//     ]),
+//   ]),
 
 // export const USER = 'USER';
 // export const PROJECT = 'PROJECT';
@@ -51,8 +56,8 @@ export const initialState = {
 // export const LINK_NODE = 'LINK_NODE';
 // export const LINK_IF = 'LINK_IF';
 //
-// const user = (name, email, projects) => ({ name, email, projects });
-// const project = (name, author, variables, scenes) => ({ name, author, variables, scenes });
+// const makeUser = (name, email, projects) => ({ name, email, projects });
+// const makeProject = (name, author, variables, scenes) => ({ name, author, variables, scenes });
 // const variable = (name, value) => ({ name, value });
 // const scene = (name, variables, nodes) => ({ name, variables, nodes });
 // const node = (label, components, link) => ({ label, components, link });
@@ -70,7 +75,7 @@ export const initialState = {
 
 // const projectDB = [
 //   {
-//     _id: 'project::info',
+//     _id: 'makeProject::info',
 //     owner: '',
 //     collaborators: [{ _id: '', pending: true }],
 //     name: '',
@@ -92,8 +97,8 @@ export const initialState = {
 //         current_project: 0,
 //         projects: [
 //           {
-//             owner: '', // can only be set on project creation, not updated
-//             collaborators: [{ user: '', pending: false }, { user: '', pending: true }], // can only be updated if user is owner of project
+//             owner: '', // can only be set on makeProject creation, not updated
+//             collaborators: [{ makeUser: '', pending: false }, { makeUser: '', pending: true }], // can only be updated if makeUser is owner of makeProject
 //             data: {
 //               past: [],
 //               present: {
@@ -127,8 +132,8 @@ export const initialState = {
 //   lastName: '',
 //   email: '',
 //   projects: {
-//     created: [0, 1, 2], // project ids
-//     collaborating: [0, 1, 2], // project ids
+//     created: [0, 1, 2], // makeProject ids
+//     collaborating: [0, 1, 2], // makeProject ids
 //   },
 // };
 //
@@ -141,10 +146,10 @@ export const initialState = {
 // };
 //
 // export const pouchInitialState = {
-//   user: pouchUser,          // current logged in user
-//   projects: [pouchProject], // projects belonging to user filtered by path function
+//   makeUser: pouchUser,          // current logged in makeUser
+//   projects: [pouchProject], // projects belonging to makeUser filtered by path function
 //   ui: {
-//     project: 0, // id of active project
+//     makeProject: 0, // id of active makeProject
 //   },
 //   history: {
 //     past: [],
@@ -153,7 +158,7 @@ export const initialState = {
 //       uid: 0,
 //       avail: [],
 //       data: {
-//         // all data in specific project database
+//         // all data in specific makeProject database
 //         projectName: '',
 //         authorName: '',
 //         variables: [pouchVariable],
@@ -206,7 +211,7 @@ export const initialState = {
 //   _id: 0,
 //   type: DataType.CHANGESET,
 //   component: 0, // id of related component
-//   owner: 0, // id of user
+//   owner: 0, // id of makeUser
 //   parent: 0, // id of parent changeset
 //   children: [0, 1, 2], // ids of child changesets
 //   changesetType: DataType.CHANGESET, // specific changeset type

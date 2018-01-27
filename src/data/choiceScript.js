@@ -1,7 +1,9 @@
-import { generate as getID } from 'shortid';
 import { findIdForLabel } from './core';
 
+import { tokenize } from './tokenizer';
+
 import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, inOrderIgnore, makeError, makeParseResult, match, maybe, optional, sameDent } from './parser';
+
 import {
   ACHIEVE,
   ACHIEVEMENT,
@@ -47,62 +49,37 @@ import {
   SHOW_PASSWORD,
   SOUND,
   STAT_CHART,
-  STAT_OPPOSED,
-  STAT_PERCENT,
-  STAT_TEXT,
   TEMP,
   TEXT,
   TITLE,
-  tokenize,
-} from './tokenizer';
-
-
-export const NODE = 'NODE';
-export const NODE_LINK = 'NODE_LINK';
-export const FAKE_CHOICE_ITEM = 'FAKE_CHOICE_ITEM';
-export const SCENE = 'SCENE';
-export const ACTION_BLOCK = 'ACTION_BLOCK';
-// export const CHOICE_ITEM_BLOCK = 'CHOICE_ITEM_BLOCK';
-
-// other
-export const makeScene = (name, nodes) => ({ type: SCENE, id: getID(), name, nodes });
-
-// symbols
-export const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
-export const makeAuthor = (text) => ({ type: AUTHOR, id: getID(), text });
-export const makeCreate = (text) => ({ type: CREATE, id: getID(), text });
-export const makeTemp = (text, scene) => ({ type: TEMP, id: getID(), text, scene });
-export const makeAchievement = (text, pre, post) => ({ type: ACHIEVEMENT, id: getID(), text, pre, post });
-export const makeSceneList = (scenes) => ({ type: SCENE_LIST, id: getID(), scenes });
-export const makeImage = (path, options) => ({ type: IMAGE, id: getID(), path, options });
-export const makeSound = (path) => ({ type: SOUND, id: getID(), path });
-export const makeReuse = (type) => ({ type, id: getID() });
-
-// nodes and components
-export const makeText = (text) => ({ type: TEXT, id: getID(), text });
-export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
-export const makeActionBlock = (components, link) => ({ components, link });
-
-export const makeLink = (type, text) => ({ type, text });
-export const makeNodeLink = (node) => ({ type: NODE_LINK, node });
-
-export const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
-
-export const makeChoice = (block) => ({ type: CHOICE, id: getID(), block });
-export const makeChoiceItem = (reuse, condition, text, block) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, ...block });
-// export const makeChoiceItemBlock = (block, link) => ({ type: CHOICE_ITEM_BLOCK, id: getID(), block, link });
-
-export const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, ...block, elses });
-export const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition, ...block });
-export const makeElse = (block) => ({ type: ELSE, id: getID(), ...block });
-
-export const makeFakeChoice = (choices, link) => ({ type: FAKE_CHOICE, id: getID(), choices, link });
-export const makeFakeChoiceItem = (reuse, condition, text, block) => ({ type: FAKE_CHOICE_ITEM, id: getID(), reuse, condition, text, block });
-
-export const makeStatChart = (stats) => ({ type: STAT_CHART, id: getID(), stats });
-export const makeTextStat = (text) => ({ type: STAT_TEXT, id: getID(), text });
-export const makePercentStat = (text) => ({ type: STAT_PERCENT, id: getID(), text });
-export const makeOpposedStat = (stat, name, opposed) => ({ type: STAT_OPPOSED, id: getID(), stat, name, opposed });
+  NODE_LINK,
+  makeTitle,
+  makeAuthor,
+  makeCreate,
+  makeTemp,
+  makeAchievement,
+  makeSceneList,
+  makeImage,
+  makeSound,
+  makeReuse,
+  makeText,
+  makeAction,
+  makeActionBlock,
+  makeLink,
+  makeNodeLink,
+  makeNode,
+  makeChoice,
+  makeChoiceItem,
+  makeIf,
+  makeElseIf,
+  makeElse,
+  makeFakeChoice,
+  makeFakeChoiceItem,
+  makeStatChart,
+  makeTextStat,
+  makePercentStat,
+  makeOpposedStat,
+} from './datatypes';
 
 
 export function parse(cs) {

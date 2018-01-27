@@ -1,60 +1,63 @@
 /* eslint-disable no-nested-ternary */
-export const EOF = 'EOF';
-export const TEXT = 'TEXT';
-export const ACHIEVE = 'ACHIEVE';
-export const ACHIEVEMENT = 'ACHIEVEMENT';
-export const ALLOW_REUSE = 'ALLOW_REUSE';
-export const AUTHOR = 'AUTHOR';
-export const BUG = 'BUG';
-export const CHECK_ACHIEVEMENTS = 'CHECK_ACHIEVEMENTS';
-export const CHOICE = 'CHOICE';
-export const CHOICE_ITEM = 'CHOICE_ITEM';
-export const COMMENT = 'COMMENT';
-export const CREATE = 'CREATE';
-export const DELETE = 'DELETE';
-export const DISABLE_REUSE = 'DISABLE_REUSE';
-export const ELSE = 'ELSE';
-export const ELSEIF = 'ELSEIF';
-export const ENDING = 'ENDING';
-export const FAKE_CHOICE = 'FAKE_CHOICE';
-export const FINISH = 'FINISH';
-export const GOSUB = 'GOSUB';
-export const GOSUB_SCENE = 'GOSUB_SCENE';
-export const GOTO = 'GOTO';
-export const GOTO_RANDOM_SCENE = 'GOTO_RANDOM_SCENE';
-export const GOTO_SCENE = 'GOTO_SCENE';
-export const HIDE_REUSE = 'HIDE_REUSE';
-export const IF = 'IF';
-export const IMAGE = 'IMAGE';
-export const INPUT_NUMBER = 'INPUT_NUMBER';
-export const INPUT_TEXT = 'INPUT_TEXT';
-export const LABEL = 'LABEL';
-export const LINE_BREAK = 'LINE_BREAK';
-export const LINK = 'LINK';
-export const MORE_GAMES = 'MORE_GAMES';
-export const PAGE_BREAK = 'PAGE_BREAK';
-export const PRINT = 'PRINT';
-export const RAND = 'RAND';
-export const GOTO_REF = 'GOTO_REF';
-export const SET_REF = 'SET_REF';
-export const SCENE_LIST = 'SCENE_LIST';
-export const SCRIPT = 'SCRIPT';
-export const SELECTABLE_IF = 'SELECTABLE_IF';
-export const SET = 'SET';
-export const SHARE = 'SHARE';
-export const SHOW_PASSWORD = 'SHOW_PASSWORD';
-export const SOUND = 'SOUND';
-export const STAT_CHART = 'STAT_CHART';
-export const STAT_OPPOSED = 'STAT_OPPOSED';
-export const STAT_PERCENT = 'STAT_PERCENT';
-export const STAT_TEXT = 'STAT_TEXT';
-export const TEMP = 'TEMP';
-export const TITLE = 'TITLE';
+
+import {
+  EOF,
+  TEXT,
+  ACHIEVE,
+  ACHIEVEMENT,
+  ALLOW_REUSE,
+  AUTHOR,
+  BUG,
+  CHECK_ACHIEVEMENTS,
+  CHOICE,
+  CHOICE_ITEM,
+  COMMENT,
+  CREATE,
+  DELETE,
+  DISABLE_REUSE,
+  ELSE,
+  ELSEIF,
+  ENDING,
+  FAKE_CHOICE,
+  FINISH,
+  GOSUB,
+  GOSUB_SCENE,
+  GOTO,
+  GOTO_RANDOM_SCENE,
+  GOTO_SCENE,
+  HIDE_REUSE,
+  IF,
+  IMAGE,
+  INPUT_NUMBER,
+  INPUT_TEXT,
+  LABEL,
+  LINE_BREAK,
+  LINK,
+  MORE_GAMES,
+  PAGE_BREAK,
+  PRINT,
+  RAND,
+  GOTO_REF,
+  SET_REF,
+  SCENE_LIST,
+  SCRIPT,
+  SELECTABLE_IF,
+  SET,
+  SHARE,
+  SHOW_PASSWORD,
+  SOUND,
+  STAT_CHART,
+  TEMP,
+  TITLE,
+} from './datatypes';
 
 // TODO add restore_game token as a Link
 
 
-export const makeLine = (type, number, raw, indent, text) => ({ type, number, raw, indent, text });
+export const makeLine
+
+
+  = (type, number, raw, indent, text) => ({ type, number, raw, indent, text });
 
 export const nextToken = (tokens) => ({ ...tokens, index: tokens.index + 1 });
 
