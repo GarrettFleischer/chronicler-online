@@ -8,10 +8,9 @@ import {
   CHOICE,
   CHOICE_ITEM, EOF,
   FINISH,
-  makeLine,
   TEXT,
-  tokenize,
-} from '../tokenizer';
+} from '../datatypes';
+import { tokenize, makeLine } from '../tokenizer';
 
 
 describe('tokenizer', () => {
@@ -70,8 +69,9 @@ describe('tokenizer', () => {
   it('handles *allow_reuse', () => {
     const cs = '    *allow_reuse #Eat some food.';
     const expected = [
-      makeLine(ALLOW_REUSE, 0, '    *allow_reuse #Eat some food.', 4, '#Eat some food.'),
-      makeLine(EOF, 1, '', 0, ''),
+      makeLine(ALLOW_REUSE, 0, '    *allow_reuse #Eat some food.', 4, ''),
+      makeLine(CHOICE_ITEM, 0, '#Eat some food.', 0, 'Eat some food.'),
+      makeLine(EOF, 2, '', 0, ''),
     ];
     const result = tokenize(cs);
 

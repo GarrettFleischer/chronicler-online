@@ -83,8 +83,8 @@ export function cChoice(_id, links) {
 }
 
 
-export function cFakeChoice(_id, linkId, children) {
-  return { type: NodeType.FAKE_CHOICE, _id, linkId, children };
+export function cFakeChoice(_id, linkId, links) {
+  return { type: NodeType.FAKE_CHOICE, _id, linkId, links };
 }
 
 

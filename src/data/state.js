@@ -1,5 +1,5 @@
 // import { cText, node, project, scene } from './nodes';
-import { makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink } from './datatypes';
+import { makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink, makeLink, FINISH } from './datatypes';
 
 
 export function getActiveProject(state) {
@@ -14,14 +14,12 @@ export const initialState = {
     canUndo: false,
     canRedo: false,
     present:
-      makeUser(0, 'Garrett', 'garrett.fleischer@yahoo.com', [
-        makeProject(1, 'Dragon', 'CoG', [
-          { id: 2,
-            ...makeScene('startup', [
-              { id: 3, ...makeNode('intro', [makeText('welcome')], makeNodeLink(4)) },
-              { id: 4, ...makeNode('carry on', [makeText('end of chapter 1')]) },
-            ]) },
-
+      makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
+        makeProject('1', 'Dragon', 'CoG', [
+          makeScene('startup', [
+              { ...makeNode('intro', [makeText('welcome')], makeNodeLink('4')), id: '3' },
+              { ...makeNode('carry on', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
+          ]),
         ], [
         // variable(''), // TODO add variables
         ]),

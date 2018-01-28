@@ -13,6 +13,7 @@ import { validateLabel } from '../../data/core';
 // import { validateLabel } from '../../data/core';
 import { nodeComponentAdd, nodeComponentsSorted } from './reducers';
 import makeSelectNode from './selectors';
+import Component from '../../components/Component/index';
 
 
 const styleSheet = createMuiTheme((theme) => ({
@@ -62,6 +63,9 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
         <div>
           <ComponentList components={node.components} onSortEnd={this.onSortEnd} />
         </div>
+        <div>
+          <Component item={node.link} />
+        </div>
       </Paper>
     );
   }
@@ -81,7 +85,7 @@ Node.propTypes = {
 
 const makeMapStateToProps = () => {
   const selectNode = makeSelectNode();
-  return (state, props) => ({ data: selectNode(state, parseInt(props.match.params.id, 10)) });
+  return (state, props) => ({ data: selectNode(state, props.match.params.id, 10) });
 };
 
 

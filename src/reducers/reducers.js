@@ -27,12 +27,11 @@ function projectReducer(state, action) {
   return { ...state, scenes: state.scenes.map(sceneMapper(action)) };
 }
 
+const sceneMapper = (action) => (state) => sceneReducer(state, action);
 
-const sceneMapper = (action) => (state) => state.nodes.map(nodeMapper(action));
-
-// function sceneReducer(state, action) {
-//   return state.nodes.map(nodeMapper(action));
-// }
+function sceneReducer(state, action) {
+  return { ...state, nodes: state.nodes.map(nodeMapper(action)) };
+}
 
 const nodeMapper = (action) => (state) => nodeReducer(state, action);
 
