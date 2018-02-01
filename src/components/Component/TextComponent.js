@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 
-const TextComponent = (item) => (
+const TextComponent = ({ item }) => (
   <Card>
     <CardContent>
-      <div className="component">{`text ${item.id.toString()}: ${item.text}`}</div>
+      <div className="component">{`text ${item.id}: ${item.text}`}</div>
     </CardContent>
   </Card>
 );

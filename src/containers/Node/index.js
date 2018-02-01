@@ -1,6 +1,6 @@
 import AddIcon from 'material-ui-icons/Add';
 import IconButton from 'material-ui/IconButton';
-import Input from 'material-ui/Input/Input';
+import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import { createMuiTheme, withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
@@ -36,6 +36,9 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
     this.props.onAddClick(this.props.data.node.id);
   };
 
+  onLabelChange = () => {
+    this.props.onLabelChange();
+  };
 
   render() {
     const { classes } = this.props;
@@ -48,15 +51,14 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
       <Paper className={classes.root}>
         <Align container>
           <Align left>
-            <Input
-              placeholder={`Page ${node.id}`}
-              value={node.label}
-              className={classes.input}
-              error={!validateLabel(state, node.label)}
-              inputProps={{
-                'aria-label': 'Description',
-              }}
-            />
+            <div>
+              <TextField
+                placeholder={`Page ${node.id}`}
+                value={node.label}
+                error={!validateLabel(state, node.label)}
+                label="Label"
+              />
+            </div>
           </Align>
           <Align right><IconButton onClick={this.onAddClick}><AddIcon /></IconButton></Align>
         </Align>
@@ -79,6 +81,7 @@ Node.propTypes = {
   data: PropTypes.object.isRequired,
   onSortEnd: PropTypes.func.isRequired,
   onAddClick: PropTypes.func.isRequired,
+  onLabelChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -96,6 +99,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onAddClick: (id) => {
     dispatch(nodeComponentAdd(id));
+  },
+  onLabelChange: (text) => {
+
   },
 });
 

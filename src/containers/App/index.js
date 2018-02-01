@@ -8,7 +8,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 
 const styleSheet = createMuiTheme({
@@ -17,6 +17,7 @@ const styleSheet = createMuiTheme({
   },
   fullWidth: {
     flex: 1,
+    cursor: 'pointer',
   },
   sidebar: {
     flex: 1,
@@ -31,6 +32,16 @@ const styleSheet = createMuiTheme({
 
 class App extends PureComponent { // eslint-disable-makeLine react/prefer-stateless-function
 
+  static get contextTypes() {
+    return {
+      router: React.PropTypes.object.isRequired,
+    };
+  }
+
+  onChroniclerTitleClick = () => {
+    this.context.router.history.push('/');
+  };
+
   render() {
     const { classes, children } = this.props;
 
@@ -41,10 +52,10 @@ class App extends PureComponent { // eslint-disable-makeLine react/prefer-statel
             <IconButton color="inherit">
               <MenuIcon />
             </IconButton>
-            <Typography type="title" color="inherit" className={classes.fullWidth}>
+            <Typography onClick={this.onChroniclerTitleClick} type="title" color="inherit" className={classes.fullWidth}>
               Chronicler
             </Typography>
-            <Button color="contrast">Login</Button>
+            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
         <div className={classes.body}>

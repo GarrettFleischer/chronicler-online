@@ -16,7 +16,7 @@ import { TEXT, NODE_LINK } from '../../data/datatypes';
 const Component = ({ item }) => {
   switch (item.type) {
     case TEXT:
-      return TextComponent(item);
+      return <TextComponent item={item} />;
     case NODE_LINK:
       return (
         <Card>

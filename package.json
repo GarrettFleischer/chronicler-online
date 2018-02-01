@@ -7,7 +7,7 @@
     "intl": "^1.2.5",
     "invariant": "^2.2.2",
     "lodash": "^4.17.4",
-    "material-ui": "^1.0.0-beta.3",
+    "material-ui": "^1.0.0-beta.31",
     "material-ui-icons": "^1.0.0-alpha.19",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
@@ -42,10 +42,10 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-import-resolver-webpack": "^0.8.4",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react": "^7.6.1",
     "eslint-plugin-redux-saga": "^0.4.0"
   }
 }

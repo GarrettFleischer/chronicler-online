@@ -17,7 +17,7 @@ export const initialState = {
       makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
         makeProject('1', 'Dragon', 'CoG', [
           makeScene('startup', [
-              { ...makeNode('intro', [makeText('welcome')], makeNodeLink('4')), id: '3' },
+              { ...makeNode('', [makeText('welcome')], makeNodeLink('4')), id: '3' },
               { ...makeNode('carry on', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
           ]),
         ], [
