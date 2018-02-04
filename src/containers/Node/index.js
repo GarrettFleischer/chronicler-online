@@ -11,9 +11,10 @@ import Align from '../../components/Align';
 import ComponentList from '../../components/ComponentList';
 import { validateLabel } from '../../data/core';
 // import { validateLabel } from '../../data/core';
-import { nodeComponentAdd, nodeComponentsSorted } from './reducers';
+import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reducers';
 import makeSelectNode from './selectors';
 import Component from '../../components/Component/index';
+import { makeText } from '../../data/datatypes';
 
 
 const styleSheet = createMuiTheme((theme) => ({
@@ -33,11 +34,11 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
   };
 
   onAddClick = () => {
-    this.props.onAddClick(this.props.data.node.id);
+    this.props.onAddClick(this.props.data.node.id, makeText('blarg'));
   };
 
-  onLabelChange = () => {
-    this.props.onLabelChange();
+  onLabelChange = (event) => {
+    this.props.onLabelChange(this.props.data.node.id, event.target.value);
   };
 
   render() {
@@ -53,6 +54,7 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
           <Align left>
             <div>
               <TextField
+                onChange={this.onLabelChange}
                 placeholder={`Page ${node.id}`}
                 value={node.label}
                 error={!validateLabel(state, node.label)}
@@ -97,11 +99,11 @@ const mapDispatchToProps = (dispatch) => ({
     if (oldIndex !== newIndex)
       dispatch(nodeComponentsSorted(id, oldIndex, newIndex));
   },
-  onAddClick: (id) => {
-    dispatch(nodeComponentAdd(id));
+  onAddClick: (id, component) => {
+    dispatch(nodeComponentAdd(id, component));
   },
-  onLabelChange: (text) => {
-
+  onLabelChange: (id, label) => {
+    dispatch(nodeLabelChange(id, label));
   },
 });
 

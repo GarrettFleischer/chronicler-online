@@ -1,4 +1,5 @@
 import history, { initState as initHistoryState, merge, MERGE } from '../history';
+import { removeKeys } from '../../data/utilities';
 
 
 const SET_VALUE = 'history.test/SET_VALUE';
@@ -76,8 +77,9 @@ describe('history', () => {
       let result = historyReducer({ ...initHistoryState, present: initTestState }, setValue(15));
       result = historyReducer(result, merge(setValue(7)));
       result = historyReducer(result, merge(setValue(723)));
+      const filtered = removeKeys(false, 'updateTime')({ ...result });
 
-      expect(result).toEqual(expected);
+      expect(filtered).toEqual(expected);
     });
 
     it('ignores undo and redo actions', () => {

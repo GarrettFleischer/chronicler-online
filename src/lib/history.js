@@ -20,7 +20,7 @@ export default function history(reducer, initReducerState) {
   };
 
   return function historyReducer(state = historyInitialState, action) {
-    const { past, present, future, canUndo, canRedo, lastActionType } = state;
+    const { past, present, future, canUndo, canRedo, lastActionType, updateTime } = state;
 
     let newPast = past;
     let newPresent = present;
@@ -28,6 +28,7 @@ export default function history(reducer, initReducerState) {
     let newCanUndo = canUndo;
     let newCanRedo = canRedo;
     let newLastActionType = lastActionType;
+    const newUpdateTime = (new Date()).getTime();
 
     switch (action.type) {
       case UNDO:
@@ -62,7 +63,8 @@ export default function history(reducer, initReducerState) {
         const mergeAction = `${MERGE}/${action.action.type}`;
         newPresent = reducer(present, action.action);
         if (deepEqual(newPresent, present)) return state;
-        if (lastActionType !== mergeAction) {
+        // merge only if the last action was the same or time since last update was less than a second
+        if (lastActionType !== mergeAction || (newUpdateTime - updateTime) > 1000) {
           newPast = push(past, present);
           newCanUndo = true;
         }
@@ -76,7 +78,7 @@ export default function history(reducer, initReducerState) {
         // reduce the state and only create an undo if the state changed
         newPresent = reducer(present, action);
         if (deepEqual(newPresent, present)) return state;
-        newPast = push(past, present);
+        newPast = push(past, { ...present });
         newFuture = [];
         newCanUndo = true;
         newCanRedo = false;
@@ -92,6 +94,7 @@ export default function history(reducer, initReducerState) {
       canUndo: newCanUndo,
       canRedo: newCanRedo,
       lastActionType: newLastActionType,
+      updateTime: newUpdateTime,
     };
   };
 }
