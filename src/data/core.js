@@ -40,7 +40,7 @@ export function validateLabel(state, label) {
   if (label && label.length)
     return (findNumLabels(state, label) <= 1);
 
-  return false;
+  return true;
 }
 
 

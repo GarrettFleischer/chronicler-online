@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Home page Component. This serves as the welcome page with link to the library
+// Shows an error message and a button to return to the main menu
+// TODO integrate with intl
 const NotFound = () => (
   <div className="not-found">
     <h1>The specified resource could not be found</h1>

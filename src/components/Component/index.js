@@ -9,14 +9,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import TextComponent from './TextComponent';
+import Text from '../Text/index';
 import { TEXT, NODE_LINK } from '../../data/datatypes';
 
+const UnknownComponent = () => (
+  <Card>
+    <CardContent>
+      <div><FormattedMessage {...messages.unknown} /></div>
+    </CardContent>
+  </Card>
+);
 
-const Component = ({ item }) => {
+const Component = ({ item, reorder }) => {
   switch (item.type) {
     case TEXT:
-      return <TextComponent item={item} />;
+      return <Text item={item} reorder={reorder} />;
+
     case NODE_LINK:
       return (
         <Card>
@@ -25,20 +33,16 @@ const Component = ({ item }) => {
           </CardContent>
         </Card>
       );
+
     default:
-      return (
-        <Card>
-          <CardContent>
-            <div><FormattedMessage {...messages.unknown} /></div>
-          </CardContent>
-        </Card>
-      );
+      return <UnknownComponent />;
   }
 };
 
 
 Component.propTypes = {
   item: PropTypes.object.isRequired,
+  reorder: PropTypes.bool.isRequired,
 };
 
 

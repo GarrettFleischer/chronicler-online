@@ -8,6 +8,11 @@ export function getActiveProject(state) {
 
 
 export const initialState = {
+  ui: {
+    node: {
+      reordering: false,
+    },
+  },
   chronicler: {
     past: [],
     future: [],
@@ -17,11 +22,11 @@ export const initialState = {
       makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
         makeProject('1', 'Dragon', 'CoG', [
           makeScene('startup', [
-              { ...makeNode('', [makeText('welcome')], makeNodeLink('4')), id: '3' },
-              { ...makeNode('carry on', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
+            { ...makeNode('', [makeText('welcome')], makeNodeLink('4')), id: '3' },
+            { ...makeNode('carry on', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
           ]),
         ], [
-        // variable(''), // TODO add variables
+          // variable(''), // TODO add variables
         ]),
       ]),
   },

@@ -1,11 +1,13 @@
 import { intlReducer } from 'react-intl-redux';
 import { nodeReducer } from '../containers/Node/reducers';
 import history from '../lib/history';
+import uiReducer from './uiReducer';
 
 
 export default function rootReducer(state, action) {
   return {
     ...state,
+    ui: uiReducer(state.ui, action),
     chronicler: chroniclerReducer(state.chronicler, action),
     intl: intlReducer(state.intl, action),
   };
