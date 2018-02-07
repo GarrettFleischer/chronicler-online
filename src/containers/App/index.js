@@ -9,8 +9,8 @@ import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
-// import { syncData } from './reducers';
-// import { connect } from 'react-redux';
+import { ShortcutManager, Shortcuts } from 'react-shortcuts';
+import keymap from '../../keymap';
 
 
 const styleSheet = createMuiTheme({
@@ -31,6 +31,8 @@ const styleSheet = createMuiTheme({
   },
 });
 
+const shortcutManager = new ShortcutManager(keymap);
+
 
 class App extends PureComponent { // eslint-disable-makeLine react/prefer-stateless-function
 
@@ -40,18 +42,13 @@ class App extends PureComponent { // eslint-disable-makeLine react/prefer-statel
     };
   }
 
-  // constructor(props) {
-  //   super(props);
-  //   setInterval(this.onSyncState, 60000);
-  // }
+  getChildContext() {
+    return { shortcuts: shortcutManager };
+  }
 
   onChroniclerTitleClick = () => {
     this.context.router.history.push('/');
   };
-
-  // onSyncState = () => {
-  //   this.props.onSyncData();
-  // };
 
   render() {
     const { classes, children } = this.props;
@@ -93,17 +90,10 @@ class App extends PureComponent { // eslint-disable-makeLine react/prefer-statel
 App.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  // onSyncData: PropTypes.func.isRequired,
 };
 
-// const mapStateToProps = (state, props) => (props);
-//
-// const mapDispatchToProps = (dispatch) => ({
-//   onSyncData: () => {
-//     dispatch(syncData());
-//   },
-// });
+App.childContextTypes = {
+  shortcuts: PropTypes.object.isRequired,
+};
 
-
-// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(withRouter(App)));
 export default (withStyles(styleSheet)(withRouter(App)));
