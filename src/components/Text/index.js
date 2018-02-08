@@ -1,4 +1,5 @@
 import Card, { CardContent } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -9,7 +10,7 @@ export default function Text({ item, reorder }) {
   return (
     <Card>
       <CardContent>
-        <div>{item.text}</div>
+        <TextField value={item.text} />
       </CardContent>
     </Card>
   );
@@ -24,7 +25,7 @@ Text.propTypes = {
 const Reorder = ({ item }) => (
   <Card>
     <CardContent>
-      <div>{`text ${item.id}: ${item.text}`}</div>
+      <div>{item.text}</div>
     </CardContent>
   </Card>
 );

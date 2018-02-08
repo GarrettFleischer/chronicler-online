@@ -9,8 +9,9 @@ import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
-import { ShortcutManager, Shortcuts } from 'react-shortcuts';
+import { ShortcutManager } from 'react-shortcuts';
 import keymap from '../../keymap';
+import HistoryShortcuts from '../HistoryShortcuts';
 
 
 const styleSheet = createMuiTheme({
@@ -54,33 +55,35 @@ class App extends PureComponent { // eslint-disable-makeLine react/prefer-statel
     const { classes, children } = this.props;
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton color="inherit">
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              onClick={this.onChroniclerTitleClick}
-              type="title"
-              color="inherit"
-              className={classes.fullWidth}
-            >
+      <HistoryShortcuts>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton color="inherit">
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                onClick={this.onChroniclerTitleClick}
+                type="title"
+                color="inherit"
+                className={classes.fullWidth}
+              >
               Chronicler
-            </Typography>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-        <div className={classes.body}>
-          <Grid container>
-            <Grid item xs />
-            <Grid item xs={8}>
-              {children}
+              </Typography>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+          <div className={classes.body}>
+            <Grid container>
+              <Grid item xs />
+              <Grid item xs={8}>
+                {children}
+              </Grid>
+              <Grid item xs />
             </Grid>
-            <Grid item xs />
-          </Grid>
+          </div>
         </div>
-      </div>
+      </HistoryShortcuts>
     );
   }
 

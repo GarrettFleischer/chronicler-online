@@ -19,8 +19,9 @@ import { setReordering } from '../../reducers/uiReducer';
 import Tooltip from 'material-ui/Tooltip';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import { redo, undo } from '../../lib/history';
-import { Shortcuts } from 'react-shortcuts';
+// import { redo, undo } from '../../lib/history';
+// import { Shortcuts } from 'react-shortcuts';
+// import HistoryShortcuts from '../HistoryShortcuts';
 
 
 const styleSheet = createMuiTheme((theme) => ({
@@ -51,22 +52,6 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
     this.props.onLabelChange(this.props.data.node.id, event.target.value);
   };
 
-  handleShortcuts = (action) => {
-    switch (action) {
-      case 'Undo':
-        this.props.undo();
-        break;
-
-      case 'Redo':
-        this.props.redo();
-        break;
-
-      default:
-        break;
-    }
-  };
-
-
   render() {
     const { classes, ui } = this.props;
     const { node, state } = this.props.data;
@@ -77,39 +62,37 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
     // <ComponentList components={node.components} onSortEnd={this.onSortEnd} />
 
     return (
-      <Shortcuts name="App" handler={this.handleShortcuts}>
-        <Paper className={classes.root}>
-          <Align container>
-            <Align left>
-              <div>
-                <TextField
-                  onChange={this.onLabelChange}
-                  placeholder={`Page ${node.id}`}
-                  value={node.label}
-                  error={!validateLabel(state, node.label)}
-                  label="Label"
-                />
-              </div>
-            </Align>
-            <Align right>
-              <div>
-                <Tooltip title={<FormattedMessage {...messages.reorder} />}>
-                  <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
-                </Tooltip>
-                <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
-                  <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
-                </Tooltip>
-              </div>
-            </Align>
+      <Paper className={classes.root}>
+        <Align container>
+          <Align left>
+            <div>
+              <TextField
+                onChange={this.onLabelChange}
+                placeholder={`Page ${node.id}`}
+                value={node.label}
+                error={!validateLabel(state, node.label)}
+                label="Label"
+              />
+            </div>
           </Align>
-          <div>
-            <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
-          </div>
-          <div>
-            <Component item={node.link} reorder={ui.reordering} />
-          </div>
-        </Paper>
-      </Shortcuts>
+          <Align right>
+            <div>
+              <Tooltip title={<FormattedMessage {...messages.reorder} />}>
+                <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
+              </Tooltip>
+              <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
+                <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
+              </Tooltip>
+            </div>
+          </Align>
+        </Align>
+        <div>
+          <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
+        </div>
+        <div>
+          <Component item={node.link} reorder={ui.reordering} />
+        </div>
+      </Paper>
     );
   }
 }
@@ -122,8 +105,8 @@ Node.propTypes = {
   onAddClick: PropTypes.func.isRequired,
   onReorderClick: PropTypes.func.isRequired,
   onLabelChange: PropTypes.func.isRequired,
-  undo: PropTypes.func.isRequired,
-  redo: PropTypes.func.isRequired,
+  // undo: PropTypes.func.isRequired,
+  // redo: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   ui: PropTypes.object.isRequired,
 };
@@ -149,12 +132,12 @@ const mapDispatchToProps = (dispatch) => ({
   onReorderClick: (reordering) => {
     dispatch(setReordering(!reordering));
   },
-  undo: () => {
-    dispatch(undo());
-  },
-  redo: () => {
-    dispatch(redo());
-  },
+  // undo: () => {
+  //   dispatch(undo());
+  // },
+  // redo: () => {
+  //   dispatch(redo());
+  // },
 });
 
 

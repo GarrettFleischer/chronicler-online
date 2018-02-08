@@ -11,6 +11,7 @@
     "material-ui-icons": "^1.0.0-alpha.19",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
+    "react-ace": "^5.9.0",
     "react-dom": "^15.6.1",
     "react-draggable-list": "^3.3.1",
     "react-helmet": "^5.1.3",

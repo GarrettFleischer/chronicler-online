@@ -1,14 +1,14 @@
 export default {
-  App: {
+  History: {
     Undo: {
       osx: 'command+z',
-      windows: 'control+z',
-      linux: 'control+z',
+      windows: 'ctrl+z',
+      linux: 'ctrl+z',
     },
     Redo: {
       osx: ['command+y', 'command+shift+z'],
-      windows: ['control+y', 'control+shift+z'],
-      linux: ['control+y', 'control+shift+z'],
+      windows: ['ctrl+y', 'ctrl+shift+z'],
+      linux: ['ctrl+y', 'ctrl+shift+z'],
     },
   },
 };
