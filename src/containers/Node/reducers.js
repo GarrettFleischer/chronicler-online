@@ -1,5 +1,7 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { merge } from '../../lib/history';
+import { TEXT } from '../../data/datatypes';
+import { textReducer } from '../../components/Text/reducers';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
@@ -29,7 +31,7 @@ export const nodeLabelChange = (id, label) => merge({
 
 export function nodeReducer(state, action) {
   // ignore action if it is not meant for this node
-  if (state.id !== action.id) return state;
+  if (state.id !== action.id) return { ...state, components: state.components.map(componentMapper(action)) };
 
   switch (action.type) {
     case NODE_COMPONENTS_SORTED:
@@ -54,3 +56,16 @@ export function nodeReducer(state, action) {
       return state;
   }
 }
+
+
+const componentMapper = (action) => (state) => componentReducer(state, action);
+
+const componentReducer = (state, action) => {
+  switch (state.type) {
+    case TEXT:
+      return textReducer(state, action);
+
+    default:
+      return state;
+  }
+};
