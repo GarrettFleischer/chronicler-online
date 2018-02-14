@@ -4,6 +4,7 @@
  *
  */
 
+import { createMuiTheme, withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,6 +12,12 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Text from '../Text/index';
 import { TEXT, NODE_LINK } from '../../data/datatypes';
+
+const styleSheet = createMuiTheme((theme) => ({
+  component: {
+    margin: theme.spacing.unit,
+  },
+}));
 
 const UnknownComponent = () => (
   <Card>
@@ -20,10 +27,10 @@ const UnknownComponent = () => (
   </Card>
 );
 
-const Component = ({ item, reorder }) => {
+const Component = ({ item, reorder, classes }) => {
   switch (item.type) {
     case TEXT:
-      return <Text item={item} reorder={reorder} />;
+      return <Card className={classes.component}><CardContent><Text item={item} reorder={reorder} /></CardContent></Card>;
 
     case NODE_LINK:
       return (
@@ -43,7 +50,8 @@ const Component = ({ item, reorder }) => {
 Component.propTypes = {
   item: PropTypes.object.isRequired,
   reorder: PropTypes.bool.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 
-export default Component;
+export default withStyles(styleSheet)(Component);

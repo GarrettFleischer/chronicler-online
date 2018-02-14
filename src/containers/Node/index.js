@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Tooltip from 'material-ui/Tooltip';
+import { FormattedMessage } from 'react-intl';
 import Align from '../../components/Align';
 import { validateLabel } from '../../data/core';
 import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reducers';
@@ -16,8 +18,6 @@ import Component from '../../components/Component/index';
 import { makeText } from '../../data/datatypes';
 import ComponentManager from '../../components/ComponentManager/index';
 import { setReordering } from '../../reducers/uiReducer';
-import Tooltip from 'material-ui/Tooltip';
-import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 // import { redo, undo } from '../../lib/history';
 // import { Shortcuts } from 'react-shortcuts';
@@ -28,8 +28,9 @@ const styleSheet = createMuiTheme((theme) => ({
   root: {
     padding: '10px',
   },
-  input: {
+  nodeTitle: {
     margin: theme.spacing.unit,
+    backgroundColor: 'blue',
   },
 }));
 
@@ -63,29 +64,31 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
 
     return (
       <Paper className={classes.root}>
-        <Align container>
-          <Align left>
-            <div>
-              <TextField
-                onChange={this.onLabelChange}
-                placeholder={`Page ${node.id}`}
-                value={node.label}
-                error={!validateLabel(state, node.label)}
-                label="Label"
-              />
-            </div>
+        <Paper className={classes.nodeTitle}>
+          <Align container>
+            <Align left>
+              <div>
+                <TextField
+                  onChange={this.onLabelChange}
+                  placeholder={`Page ${node.id}`}
+                  value={node.label}
+                  error={!validateLabel(state, node.label)}
+                  label="Label"
+                />
+              </div>
+            </Align>
+            <Align right>
+              <div>
+                <Tooltip title={<FormattedMessage {...messages.reorder} />}>
+                  <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
+                </Tooltip>
+                <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
+                  <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
+                </Tooltip>
+              </div>
+            </Align>
           </Align>
-          <Align right>
-            <div>
-              <Tooltip title={<FormattedMessage {...messages.reorder} />}>
-                <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
-              </Tooltip>
-              <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
-                <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
-              </Tooltip>
-            </div>
-          </Align>
-        </Align>
+        </Paper>
         <div>
           <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
         </div>

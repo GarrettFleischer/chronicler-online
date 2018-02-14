@@ -1,14 +1,14 @@
 import Card, { CardContent } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import React from 'react';
-import brace from 'brace';
+// import brace from 'brace';
 import AceEditor from 'react-ace';
 import { connect } from 'react-redux';
 
 import 'brace/mode/python';
 import 'brace/theme/github';
 import { textComponentChanged } from './reducers';
+
 
 const Reorder = ({ item }) => (
   <Card>
@@ -23,7 +23,7 @@ Reorder.propTypes = {
 };
 
 
-function Text({ item, reorder, onChange }) {
+const Text = ({ item, reorder, onChange }) => {
   if (reorder)
     return <Reorder item={item} />;
 
@@ -40,11 +40,12 @@ function Text({ item, reorder, onChange }) {
           name={item.id}
           editorProps={{ $blockScrolling: true }}
           height="200px"
+          showGutter={false}
         />
       </CardContent>
     </Card>
   );
-}
+};
 
 Text.propTypes = {
   item: PropTypes.object.isRequired,
