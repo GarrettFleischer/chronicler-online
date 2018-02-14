@@ -1,10 +1,15 @@
-import { flatten, flattenNodes } from '../core';
+import { findById, flatten, flattenNodes } from '../core';
 import { base } from '../nodes';
+import { getActiveProject, initialState } from '../state';
+import { makeCreate } from '../datatypes';
 
 
 describe('core', () => {
-  it('works', () => {
-
+  describe('findById', () => {
+    it('can find a global variable', () => {
+      const result = findById(getActiveProject(initialState), 'var_str');
+      expect(result).toEqual({ ...makeCreate('str', '50'), id: 'var_str' });
+    });
   });
 });
 

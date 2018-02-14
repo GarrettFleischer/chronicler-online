@@ -6,7 +6,7 @@ import { dragonCS } from './dragon';
 
 describe('ChoiceScript parser', () => {
   it('handles non-nested code', () => {
-    const cs = 'Hello world\n\nAnd all who inhabit it!\n\n*set joy 23\n*goto fun\n\n*label fun\n*set fun %+ 10\n*finish';
+    const cs = '*create joy 0\n*create fun 0\n\nHello world\n\nAnd all who inhabit it!\n\n*set joy 23\n*goto fun\n\n*label fun\n*set fun %+ 10\n*finish';
     const expected = {
       object: [
         {
@@ -16,8 +16,8 @@ describe('ChoiceScript parser', () => {
               type: 'TEXT',
             },
             {
-              text: 'joy 23',
               type: 'SET',
+              value: '23',
             },
           ],
           label: '',
@@ -30,8 +30,8 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'fun %+ 10',
               type: 'SET',
+              value: '%+ 10',
             },
           ],
           label: 'fun',
@@ -43,18 +43,29 @@ describe('ChoiceScript parser', () => {
         },
       ],
       success: true,
-      symbols: [],
+      symbols: [
+        {
+          name: 'joy',
+          type: 'CREATE',
+          value: '0',
+        },
+        {
+          name: 'fun',
+          type: 'CREATE',
+          value: '0',
+        },
+      ],
     };
 
     // remove id from nested objects, then error and tokens from top object
     const result = parse(cs);
-    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id', 'variableId')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });
 
   it('handles nested choices', () => {
-    const cs = 'Hello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you\'re cheerful\n    *goto cheerful\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish';
+    const cs = '*create happy false\n\nHello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you\'re cheerful\n    *goto cheerful\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish';
     const expected = {
       object: [
         {
@@ -70,7 +81,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'My, you\'re cheerful',
+                    text: "My, you're cheerful",
                     type: 'TEXT',
                   },
                 ],
@@ -98,8 +109,8 @@ describe('ChoiceScript parser', () => {
                   node: {
                     components: [
                       {
-                        text: 'happy false',
                         type: 'SET',
+                        value: 'false',
                       },
                     ],
                     label: 'hate',
@@ -123,8 +134,8 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'happy true',
               type: 'SET',
+              value: 'true',
             },
           ],
           label: 'cheerful',
@@ -136,11 +147,17 @@ describe('ChoiceScript parser', () => {
         },
       ],
       success: true,
-      symbols: [],
+      symbols: [
+        {
+          name: 'happy',
+          type: 'CREATE',
+          value: 'false',
+        },
+      ],
     };
 
     const result = parse(cs);
-    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id', 'variableId')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });
@@ -371,7 +388,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'Let us begin.\n\nA knight charges up the slope at you.  His horse pounds at the ground, carrying the heavily armored warrior as if he were a child\'s doll.  The knight sets his lance to attack you.\n\nHow do you defend yourself, O mighty dragon?',
+              text: "Let us begin.\n\nA knight charges up the slope at you.  His horse pounds at the ground, carrying the heavily armored warrior as if he were a child's doll.  The knight sets his lance to attack you.\n\nHow do you defend yourself, O mighty dragon?",
               type: 'TEXT',
             },
           ],
@@ -381,12 +398,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'You leap to the air, deftly avoiding the knight\'s thrust.  Now that you are in the air, he hardly poses any threat at allâ€”not that he ever posed much of one to you.  You circle back and knock him off his horse with a swipe of your claw.\n',
+                    text: "You leap to the air, deftly avoiding the knight's thrust.  Now that you are in the air, he hardly poses any threat at allâ€”not that he ever posed much of one to you.  You circle back and knock him off his horse with a swipe of your claw.\n",
                     type: 'TEXT',
                   },
                   {
-                    text: 'brutality %-10',
                     type: 'SET',
+                    value: '%-10',
                   },
                 ],
                 condition: null,
@@ -401,12 +418,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse\'s back and begin devouring it.\n',
+                    text: "You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse's back and begin devouring it.\n",
                     type: 'TEXT',
                   },
                   {
-                    text: 'cunning %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                 ],
                 condition: null,
@@ -421,12 +438,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'The knight\'s lance shatters against your nigh-impenetrable hide as you slam into him.  You yank him clean off his horse, slamming him to the ground and ripping his plate armor with your vicious claws.  The fight is over before it has begun. \n',
+                    text: "The knight's lance shatters against your nigh-impenetrable hide as you slam into him.  You yank him clean off his horse, slamming him to the ground and ripping his plate armor with your vicious claws.  The fight is over before it has begun. \n",
                     type: 'TEXT',
                   },
                   {
-                    text: 'brutality %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                 ],
                 condition: null,
@@ -441,12 +458,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'You let loose an inferno of fire.  The knight\'s horse is cooked nicely, and your stomach lets out a deafening rumble as the smell of roast destrier reaches your nostrils.  The knight himself staggers to his feet.  His armor managed to keep him alive, but only barely.\n',
+                    text: "You let loose an inferno of fire.  The knight's horse is cooked nicely, and your stomach lets out a deafening rumble as the smell of roast destrier reaches your nostrils.  The knight himself staggers to his feet.  His armor managed to keep him alive, but only barely.\n",
                     type: 'TEXT',
                   },
                   {
-                    text: 'disdain %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                 ],
                 condition: null,
@@ -499,8 +516,8 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
-                    text: 'brutality %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                 ],
                 condition: null,
@@ -519,8 +536,8 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
-                    text: 'infamy %+15',
                     type: 'SET',
+                    value: '%+15',
                   },
                 ],
                 condition: null,
@@ -535,16 +552,16 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'You leisurely eat the knight\'s horse.  He slinks away as quietly as he can.  (His heavy armor makes a stealthy escape impossible.)  Still, you pay him no mind as he leaves.\n',
+                    text: "You leisurely eat the knight's horse.  He slinks away as quietly as he can.  (His heavy armor makes a stealthy escape impossible.)  Still, you pay him no mind as he leaves.\n",
                     type: 'TEXT',
                   },
                   {
-                    text: 'infamy %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                   {
-                    text: 'disdain %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                 ],
                 condition: null,
@@ -564,7 +581,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'You know, it\'s going to get annoying to keep calling you "great and mighty dragon."  What is your name?',
+              text: "You know, it's going to get annoying to keep calling you \"great and mighty dragon.\"  What is your name?",
               type: 'TEXT',
             },
           ],
@@ -574,8 +591,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'name "Gorthalon"',
                     type: 'SET',
+                    value: '"Gorthalon"',
                   },
                 ],
                 condition: null,
@@ -590,8 +607,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'name "Sssetheliss"',
                     type: 'SET',
+                    value: '"Sssetheliss"',
                   },
                 ],
                 condition: null,
@@ -606,8 +623,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'name "Calemvir"',
                     type: 'SET',
+                    value: '"Calemvir"',
                   },
                 ],
                 condition: null,
@@ -658,8 +675,8 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
-                                text: 'name "$!{name}"',
                                 type: 'SET',
+                                value: '"$!{name}"',
                               },
                             ],
                             condition: null,
@@ -724,8 +741,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'gender "male"',
                     type: 'SET',
+                    value: '"male"',
                   },
                 ],
                 condition: null,
@@ -740,8 +757,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'gender "female"',
                     type: 'SET',
+                    value: '"female"',
                   },
                 ],
                 condition: null,
@@ -756,8 +773,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'gender "neither"',
                     type: 'SET',
+                    value: '"neither"',
                   },
                 ],
                 condition: null,
@@ -772,8 +789,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'gender "unknown"',
                     type: 'SET',
+                    value: '"unknown"',
                   },
                 ],
                 condition: null,
@@ -788,11 +805,11 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'brutality %+ 15',
                     type: 'SET',
+                    value: '%+ 15',
                   },
                   {
-                    text: 'I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don\'t enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n',
+                    text: "I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don't enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n",
                     type: 'TEXT',
                   },
                 ],
@@ -812,8 +829,8 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
-                                text: 'gender "male"',
                                 type: 'SET',
+                                value: '"male"',
                               },
                             ],
                             condition: null,
@@ -828,8 +845,8 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
-                                text: 'gender "female"',
                                 type: 'SET',
+                                value: '"female"',
                               },
                             ],
                             condition: null,
@@ -844,8 +861,8 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
-                                text: 'gender "neither"',
                                 type: 'SET',
+                                value: '"neither"',
                               },
                             ],
                             condition: null,
@@ -860,8 +877,8 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
-                                text: 'gender "unknown"',
                                 type: 'SET',
+                                value: '"unknown"',
                               },
                             ],
                             condition: null,
@@ -883,11 +900,11 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'gender "unknown"',
                           type: 'SET',
+                          value: '"unknown"',
                         },
                         {
-                          text: 'Well, let\'s just leave it undetermined, then!',
+                          text: "Well, let's just leave it undetermined, then!",
                           type: 'TEXT',
                         },
                       ],
@@ -915,7 +932,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'As you think about it, the knight\'s attack was probably inevitable.  After all, you did just kidnap the princess from right out of her tower.  Althoughâ€¦\n\nIsn\'t it a little sexist to always kidnap princesses?',
+              text: "As you think about it, the knight's attack was probably inevitable.  After all, you did just kidnap the princess from right out of her tower.  Althoughâ€¦\n\nIsn't it a little sexist to always kidnap princesses?",
               type: 'TEXT',
             },
           ],
@@ -925,12 +942,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'I guess you\'re right.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+                    text: "I guess you're right.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦",
                     type: 'TEXT',
                   },
                   {
-                    text: 'royal "princess"',
                     type: 'SET',
+                    value: '"princess"',
                   },
                 ],
                 condition: null,
@@ -945,12 +962,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'No, no!  Of course not.  I just wanted toâ€”I meanâ€”What I\'m trying to say isâ€¦\n\nLet\'s just move on.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+                    text: "No, no!  Of course not.  I just wanted toâ€”I meanâ€”What I'm trying to say isâ€¦\n\nLet's just move on.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦",
                     type: 'TEXT',
                   },
                   {
-                    text: 'royal "princess"',
                     type: 'SET',
+                    value: '"princess"',
                   },
                 ],
                 condition: null,
@@ -965,12 +982,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'Right you are.  As I was saying, the knight\'s attack was probably inevitable.  After all, you did just kidnap the prince \nfrom right out of his tower.  As you ripped the roof off his tower, the light glistened off yourâ€¦',
+                    text: "Right you are.  As I was saying, the knight's attack was probably inevitable.  After all, you did just kidnap the prince \nfrom right out of his tower.  As you ripped the roof off his tower, the light glistened off yourâ€¦",
                     type: 'TEXT',
                   },
                   {
-                    text: 'royal "prince"',
                     type: 'SET',
+                    value: '"prince"',
                   },
                 ],
                 condition: null,
@@ -985,12 +1002,12 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'Of course.  I\'m sorry for questioning you.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦',
+                    text: "Of course.  I'm sorry for questioning you.\n\nAnyway, as you ripped the roof off her tower, the light glistened off yourâ€¦",
                     type: 'TEXT',
                   },
                   {
-                    text: 'royal "princess"',
                     type: 'SET',
+                    value: '"princess"',
                   },
                 ],
                 condition: null,
@@ -999,7 +1016,7 @@ describe('ChoiceScript parser', () => {
                   type: 'GOTO',
                 },
                 reuse: null,
-                text: 'I\'ll have you know that I make a careful point of alternating between princes and princesses, but it happened to be time for a princess.',
+                text: "I'll have you know that I make a careful point of alternating between princes and princesses, but it happened to be time for a princess.",
                 type: 'CHOICE_ITEM',
               },
             ],
@@ -1013,20 +1030,20 @@ describe('ChoiceScript parser', () => {
           link: {
             components: [
               {
-                text: 'royal_him "her"',
                 type: 'SET',
+                value: '"her"',
               },
               {
-                text: 'royal_his "her"',
                 type: 'SET',
+                value: '"her"',
               },
               {
-                text: 'royal_she "she"',
                 type: 'SET',
+                value: '"she"',
               },
               {
-                text: 'royals "princesses"',
                 type: 'SET',
+                value: '"princesses"',
               },
             ],
             condition: '(royal="princess")',
@@ -1034,20 +1051,20 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'royal_him "him"',
                     type: 'SET',
+                    value: '"him"',
                   },
                   {
-                    text: 'royal_his "his"',
                     type: 'SET',
+                    value: '"his"',
                   },
                   {
-                    text: 'royal_she "he"',
                     type: 'SET',
+                    value: '"he"',
                   },
                   {
-                    text: 'royals "princes"',
                     type: 'SET',
+                    value: '"princes"',
                   },
                 ],
                 link: {
@@ -1068,7 +1085,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'Ah, would you like to specify the color of your hide?  I wasn\'t sure which color to put in that description.\n',
+              text: "Ah, would you like to specify the color of your hide?  I wasn't sure which color to put in that description.\n",
               type: 'TEXT',
             },
           ],
@@ -1078,8 +1095,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'brutality %+ 30',
                     type: 'SET',
+                    value: '%+ 30',
                   },
                   {
                     text: 'yes, of course!  Your wish is my command.\n\nOn with the show!\n',
@@ -1102,8 +1119,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "black"',
                     type: 'SET',
+                    value: '"black"',
                   },
                 ],
                 condition: null,
@@ -1118,8 +1135,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "blue"',
                     type: 'SET',
+                    value: '"blue"',
                   },
                 ],
                 condition: null,
@@ -1134,8 +1151,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "brown"',
                     type: 'SET',
+                    value: '"brown"',
                   },
                 ],
                 condition: null,
@@ -1150,8 +1167,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "golden"',
                     type: 'SET',
+                    value: '"golden"',
                   },
                 ],
                 condition: null,
@@ -1166,8 +1183,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "green"',
                     type: 'SET',
+                    value: '"green"',
                   },
                 ],
                 condition: null,
@@ -1182,8 +1199,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "iridescent"',
                     type: 'SET',
+                    value: '"iridescent"',
                   },
                 ],
                 condition: null,
@@ -1198,8 +1215,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "red"',
                     type: 'SET',
+                    value: '"red"',
                   },
                 ],
                 condition: null,
@@ -1214,8 +1231,8 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'color "white"',
                     type: 'SET',
+                    value: '"white"',
                   },
                 ],
                 condition: null,
@@ -1235,7 +1252,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
-              text: 'Wonderful choice.  So the light glistened off your ${color} hide, as you snatched the ${royal} out of ${royal_his} tower.\n\nWhile we\'re on the subject, let\'s settle a few other details.  How many limbs will you have, not counting your wings or tail?\n',
+              text: "Wonderful choice.  So the light glistened off your ${color} hide, as you snatched the ${royal} out of ${royal_his} tower.\n\nWhile we're on the subject, let's settle a few other details.  How many limbs will you have, not counting your wings or tail?\n",
               type: 'TEXT',
             },
           ],
@@ -1285,8 +1302,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'head "ridged"',
                           type: 'SET',
+                          value: '"ridged"',
                         },
                       ],
                       condition: null,
@@ -1301,8 +1318,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'head "smooth"',
                           type: 'SET',
+                          value: '"smooth"',
                         },
                       ],
                       condition: null,
@@ -1332,8 +1349,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'wings "feathery"',
                           type: 'SET',
+                          value: '"feathery"',
                         },
                       ],
                       condition: null,
@@ -1348,8 +1365,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'wings "leathery"',
                           type: 'SET',
+                          value: '"leathery"',
                         },
                       ],
                       condition: null,
@@ -1364,8 +1381,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'wings "scaly"',
                           type: 'SET',
+                          value: '"scaly"',
                         },
                       ],
                       condition: null,
@@ -1414,20 +1431,20 @@ describe('ChoiceScript parser', () => {
                               {
                                 components: [
                                   {
-                                    text: 'The ${royal}\'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n',
+                                    text: "The ${royal}'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n",
                                     type: 'TEXT',
                                   },
                                   {
-                                    text: 'brutality %+10',
                                     type: 'SET',
+                                    value: '%+10',
                                   },
                                   {
-                                    text: 'cunning %+10',
                                     type: 'SET',
+                                    value: '%+10',
                                   },
                                   {
-                                    text: 'infamy %+10',
                                     type: 'SET',
+                                    value: '%+10',
                                   },
                                 ],
                                 condition: null,
@@ -1436,26 +1453,26 @@ describe('ChoiceScript parser', () => {
                                   type: 'GOTO',
                                 },
                                 reuse: null,
-                                text: 'Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.',
+                                text: "Then it's time for a royal feastâ€”by which I mean I eat ${royal_him}.",
                                 type: 'CHOICE_ITEM',
                               },
                               {
                                 components: [
                                   {
-                                    text: 'The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that\'s\nworth sparing ${royal_his} life.',
+                                    text: "The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that's\nworth sparing ${royal_his} life.",
                                     type: 'TEXT',
                                   },
                                   {
-                                    text: 'brutality %-10',
                                     type: 'SET',
+                                    value: '%-10',
                                   },
                                   {
-                                    text: 'cunning %-10',
                                     type: 'SET',
+                                    value: '%-10',
                                   },
                                   {
-                                    text: 'infamy %-10',
                                     type: 'SET',
+                                    value: '%-10',
                                   },
                                 ],
                                 condition: null,
@@ -1471,7 +1488,7 @@ describe('ChoiceScript parser', () => {
                             type: 'CHOICE',
                           },
                           reuse: null,
-                          text: 'It\'s all about companionship and good conversation.',
+                          text: "It's all about companionship and good conversation.",
                           type: 'CHOICE_ITEM',
                         },
                         {
@@ -1482,18 +1499,18 @@ describe('ChoiceScript parser', () => {
                             type: 'GOTO',
                           },
                           reuse: null,
-                          text: 'I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.',
+                          text: "I'll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}'s dinner.  It's a little known fact that ${royals} taste better than most humans.",
                           type: 'CHOICE_ITEM',
                         },
                         {
                           components: [
                             {
-                              text: 'Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}\'s release.',
+                              text: "Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}'s release.",
                               type: 'TEXT',
                             },
                             {
-                              text: 'wealth +1500',
                               type: 'SET',
+                              value: '+1500',
                             },
                             {
                               text: 'What do you do then?',
@@ -1510,16 +1527,16 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
-                                    text: 'cunning %-20',
                                     type: 'SET',
+                                    value: '%-20',
                                   },
                                   {
-                                    text: 'brutality %-10',
                                     type: 'SET',
+                                    value: '%-10',
                                   },
                                   {
-                                    text: 'infamy %-10',
                                     type: 'SET',
+                                    value: '%-10',
                                   },
                                 ],
                                 condition: null,
@@ -1538,16 +1555,16 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
-                                    text: 'cunning %+20',
                                     type: 'SET',
+                                    value: '%+20',
                                   },
                                   {
-                                    text: 'brutality %+10',
                                     type: 'SET',
+                                    value: '%+10',
                                   },
                                   {
-                                    text: 'infamy %+10',
                                     type: 'SET',
+                                    value: '%+10',
                                   },
                                 ],
                                 condition: null,
@@ -1563,7 +1580,7 @@ describe('ChoiceScript parser', () => {
                             type: 'CHOICE',
                           },
                           reuse: null,
-                          text: 'It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.',
+                          text: "It's all about the ransom payments.  Those are a quick and easy way to build a hoard.",
                           type: 'CHOICE_ITEM',
                         },
                       ],
@@ -1582,12 +1599,12 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
-                    text: 'brutality %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                   {
-                    text: 'infamy %+10',
                     type: 'SET',
+                    value: '%+10',
                   },
                 ],
                 label: 'EatHer',
@@ -1626,8 +1643,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'brutality %+70',
                           type: 'SET',
+                          value: '%+70',
                         },
                       ],
                       condition: null,
@@ -1642,8 +1659,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'brutality %-70',
                           type: 'SET',
+                          value: '%-70',
                         },
                       ],
                       condition: null,
@@ -1677,8 +1694,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'cunning %+70',
                           type: 'SET',
+                          value: '%+70',
                         },
                       ],
                       condition: null,
@@ -1693,8 +1710,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'cunning %-70',
                           type: 'SET',
+                          value: '%-70',
                         },
                       ],
                       condition: null,
@@ -1728,8 +1745,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'disdain %+70',
                           type: 'SET',
+                          value: '%+70',
                         },
                       ],
                       condition: null,
@@ -1744,8 +1761,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'disdain %-70',
                           type: 'SET',
+                          value: '%-70',
                         },
                       ],
                       condition: null,
@@ -1773,7 +1790,7 @@ describe('ChoiceScript parser', () => {
                     type: 'COMMENT',
                   },
                   {
-                    text: 'Now we\'re going to view some flashbacks to your days as a wyrmling.\n\nAs a young hatchling, you lived with your mother in a cave high up on a mountain.  Your mother had a vast hoard of treasure and a varied hunting range. Some of your siblings chose to spend much of their time reading the rare codices and scrolls your mother had collected.  Other siblings spent their time hunting dangerous game and brawling with each other.  Which pursuit did you prefer?\n',
+                    text: "Now we're going to view some flashbacks to your days as a wyrmling.\n\nAs a young hatchling, you lived with your mother in a cave high up on a mountain.  Your mother had a vast hoard of treasure and a varied hunting range. Some of your siblings chose to spend much of their time reading the rare codices and scrolls your mother had collected.  Other siblings spent their time hunting dangerous game and brawling with each other.  Which pursuit did you prefer?\n",
                     type: 'TEXT',
                   },
                 ],
@@ -1787,12 +1804,12 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
-                          text: 'cunning %+20',
                           type: 'SET',
+                          value: '%+20',
                         },
                         {
-                          text: 'brutality %-20',
                           type: 'SET',
+                          value: '%-20',
                         },
                       ],
                       condition: null,
@@ -1811,12 +1828,12 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
-                          text: 'cunning %-20',
                           type: 'SET',
+                          value: '%-20',
                         },
                         {
-                          text: 'brutality %+20',
                           type: 'SET',
+                          value: '%+20',
                         },
                       ],
                       condition: null,
@@ -1840,7 +1857,7 @@ describe('ChoiceScript parser', () => {
                     type: 'COMMENT',
                   },
                   {
-                    text: 'As you reached maturity, you began to threaten your mother\'s dominance over her territory.  Before you could possibly have bested her in a direct confrontation, she threw you out of her lair and drove you from the lands in which you grew up, leaving you to fend for yourself without any resources beyond your claws, wings, and teeth. \n\nDid you seek revenge on her by turning some of the humans in her lands against her, or did you consider petty revenge beneath you?\n',
+                    text: "As you reached maturity, you began to threaten your mother's dominance over her territory.  Before you could possibly have bested her in a direct confrontation, she threw you out of her lair and drove you from the lands in which you grew up, leaving you to fend for yourself without any resources beyond your claws, wings, and teeth. \n\nDid you seek revenge on her by turning some of the humans in her lands against her, or did you consider petty revenge beneath you?\n",
                     type: 'TEXT',
                   },
                 ],
@@ -1854,12 +1871,12 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
-                          text: 'cunning %+20',
                           type: 'SET',
+                          value: '%+20',
                         },
                         {
-                          text: 'disdain %-20',
                           type: 'SET',
+                          value: '%-20',
                         },
                       ],
                       condition: null,
@@ -1878,12 +1895,12 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
-                          text: 'cunning %-20',
                           type: 'SET',
+                          value: '%-20',
                         },
                         {
-                          text: 'disdain %+20',
                           type: 'SET',
+                          value: '%+20',
                         },
                       ],
                       condition: null,
@@ -1917,16 +1934,16 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'There\'s no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n\nDisdain and Finesse increase.',
+                          text: "There's no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n\nDisdain and Finesse increase.",
                           type: 'TEXT',
                         },
                         {
-                          text: 'brutality %-20',
                           type: 'SET',
+                          value: '%-20',
                         },
                         {
-                          text: 'disdain %+20',
                           type: 'SET',
+                          value: '%+20',
                         },
                       ],
                       condition: null,
@@ -1941,16 +1958,16 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'It wasn\'t easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n\nBrutality and Vigilance increase.',
+                          text: "It wasn't easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n\nBrutality and Vigilance increase.",
                           type: 'TEXT',
                         },
                         {
-                          text: 'brutality %+20',
                           type: 'SET',
+                          value: '%+20',
                         },
                         {
-                          text: 'disdain %-20',
                           type: 'SET',
+                          value: '%-20',
                         },
                       ],
                       condition: null,
@@ -1984,8 +2001,8 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'disdain %+ 15',
                           type: 'SET',
+                          value: '%+ 15',
                         },
                         {
                           text: 'Disdain increases.\n\nAxilmeus took your shield and beat you with it, hard.',
@@ -2004,12 +2021,12 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'brutality %+ 15',
                           type: 'SET',
+                          value: '%+ 15',
                         },
                         {
-                          text: 'cunning %- 15',
                           type: 'SET',
+                          value: '%- 15',
                         },
                         {
                           text: 'Brutality and Honor increase.\n\nYou fought your hardest, but Axilmeus was a bit stronger than you; he pinned you to the ground and pried the shield out of your claws.',
@@ -2028,12 +2045,12 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
-                          text: 'brutality %- 15',
                           type: 'SET',
+                          value: '%- 15',
                         },
                         {
-                          text: 'cunning %+ 15',
                           type: 'SET',
+                          value: '%+ 15',
                         },
                         {
                           text: 'Cunning and Finesse increase.\n\nUnfortunately, Axilmeus is your elder; at this age, he has the advantage in maneuverability.  He caught up to you quickly, pinning you to the ground and prying the shield out of your claws.',
@@ -2157,115 +2174,140 @@ describe('ChoiceScript parser', () => {
           type: 'AUTHOR',
         },
         {
-          text: 'name ""',
+          name: 'name',
           type: 'CREATE',
+          value: '""',
         },
         {
-          text: 'brutality 50',
+          name: 'brutality',
           type: 'CREATE',
+          value: '50',
         },
         {
-          text: 'cunning 50',
+          name: 'cunning',
           type: 'CREATE',
+          value: '50',
         },
         {
-          text: 'disdain 50',
+          name: 'disdain',
           type: 'CREATE',
+          value: '50',
         },
         {
-          text: 'gender "unknown"',
+          name: 'gender',
           type: 'CREATE',
+          value: '"unknown"',
         },
         {
-          text: 'wounds 0',
+          name: 'wounds',
           type: 'CREATE',
+          value: '0',
         },
         {
-          text: 'blasphemy 0',
+          name: 'blasphemy',
           type: 'CREATE',
+          value: '0',
         },
         {
-          text: 'infamy 50',
+          name: 'infamy',
           type: 'CREATE',
+          value: '50',
         },
         {
-          text: 'wealth 5000',
+          name: 'wealth',
           type: 'CREATE',
+          value: '5000',
         },
         {
-          text: 'encourage 0',
+          name: 'encourage',
           type: 'CREATE',
+          value: '0',
         },
         {
-          text: 'victory 0',
+          name: 'victory',
           type: 'CREATE',
+          value: '0',
         },
         {
-          text: 'clutchmate_alive false',
+          name: 'clutchmate_alive',
           type: 'CREATE',
+          value: 'false',
         },
         {
-          text: 'vermias_killed_axilmeus false',
+          name: 'vermias_killed_axilmeus',
           type: 'CREATE',
+          value: 'false',
         },
         {
-          text: 'callax_alive true',
+          name: 'callax_alive',
           type: 'CREATE',
+          value: 'true',
         },
         {
-          text: 'Callax_With false',
+          name: 'Callax_With',
           type: 'CREATE',
+          value: 'false',
         },
         {
+          name: 'royal',
           scene: 'startup',
-          text: 'royal',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'royal_him',
           scene: 'startup',
-          text: 'royal_him',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'royal_his',
           scene: 'startup',
-          text: 'royal_his',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'royal_she',
           scene: 'startup',
-          text: 'royal_she',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'royals',
           scene: 'startup',
-          text: 'royals',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'color',
           scene: 'startup',
-          text: 'color',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'head',
           scene: 'startup',
-          text: 'head',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'wings',
           scene: 'startup',
-          text: 'wings',
           type: 'TEMP',
+          value: '',
         },
         {
+          name: 'wealth_text',
           scene: 'startup',
-          text: 'wealth_text "${wealth} gold coins"',
           type: 'TEMP',
+          value: '"${wealth} gold coins"',
         },
       ],
     };
 
+
     const result = parse(cs);
-    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...result }));
+    const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id', 'variableId')({ ...result }));
 
     expect(filtered).toEqual(expected);
   });

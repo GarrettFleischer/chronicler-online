@@ -7,7 +7,7 @@
     "intl": "^1.2.5",
     "invariant": "^2.2.2",
     "lodash": "^4.17.5",
-    "material-ui": "^1.0.0-beta.32",
+    "material-ui": "^1.0.0-beta.33",
     "material-ui-icons": "^1.0.0-alpha.19",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

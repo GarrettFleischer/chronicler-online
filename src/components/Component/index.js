@@ -10,8 +10,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import Text from '../Text/index';
-import { TEXT, NODE_LINK } from '../../data/datatypes';
+import Text from '../Text';
+import SetAction from '../SetAction';
+import { TEXT, NODE_LINK, SET } from '../../data/datatypes';
 
 const styleSheet = createMuiTheme((theme) => ({
   component: {
@@ -30,7 +31,10 @@ const UnknownComponent = () => (
 const Component = ({ item, reorder, classes }) => {
   switch (item.type) {
     case TEXT:
-      return <Card className={classes.component}><CardContent><Text item={item} reorder={reorder} /></CardContent></Card>;
+      return <Text item={item} reorder={reorder} />;
+
+    case SET:
+      return <SetAction item={item} reorder={reorder} />;
 
     case NODE_LINK:
       return (

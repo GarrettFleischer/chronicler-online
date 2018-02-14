@@ -1,7 +1,8 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { merge } from '../../lib/history';
-import { TEXT } from '../../data/datatypes';
+import { SET, TEXT } from '../../data/datatypes';
 import { textReducer } from '../../components/Text/reducers';
+import { setActionReducer } from '../../components/SetAction/reducers';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
@@ -64,6 +65,9 @@ const componentReducer = (state, action) => {
   switch (state.type) {
     case TEXT:
       return textReducer(state, action);
+
+    case SET:
+      return setActionReducer(state, action);
 
     default:
       return state;

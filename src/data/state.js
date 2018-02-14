@@ -1,14 +1,18 @@
 // import { cText, node, project, scene } from './nodes';
-import { makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink, makeLink, FINISH } from './datatypes';
+import {
+  makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink, makeLink, FINISH,
+  makeCreate, makeSetAction,
+} from './datatypes';
 
 
 export function getActiveProject(state) {
-  return state.chronicler.present.projects[0];
+  return state.chronicler.present.projects.find((project) => project.id === state.ui.activeProject);
 }
 
 
 export const initialState = {
   ui: {
+    activeProject: '1',
     node: {
       reordering: false,
     },
@@ -22,12 +26,14 @@ export const initialState = {
       makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
         makeProject('1', 'Dragon', 'CoG', [
           makeScene('startup', [
-            { ...makeNode('', [makeText('welcome')], makeNodeLink('4')), id: '3' },
+            { ...makeNode('', [makeText('welcome'), makeSetAction('var_str', '%+ 10')], makeNodeLink('4')), id: '3' },
             { ...makeNode('carry on', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
           ]),
-        ], [
-          // variable(''), // TODO add variables
-        ]),
+        ],
+          [
+            { ...makeCreate('str', '50'), id: 'var_str' },
+            { ...makeCreate('dex', '23'), id: 'var_dex' },
+          ]),
       ]),
   },
 };

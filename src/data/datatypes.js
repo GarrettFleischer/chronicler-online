@@ -71,8 +71,8 @@ export const makeScene = (name, nodes) => ({ type: SCENE, id: getID(), name, nod
 // symbols
 export const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
 export const makeAuthor = (text) => ({ type: AUTHOR, id: getID(), text });
-export const makeCreate = (text) => ({ type: CREATE, id: getID(), text });
-export const makeTemp = (text, scene) => ({ type: TEMP, id: getID(), text, scene });
+export const makeCreate = (name, value) => ({ type: CREATE, id: getID(), name, value });
+export const makeTemp = (name, value, scene) => ({ type: TEMP, id: getID(), name, value, scene });
 export const makeAchievement = (text, pre, post) => ({ type: ACHIEVEMENT, id: getID(), text, pre, post });
 export const makeSceneList = (scenes) => ({ type: SCENE_LIST, id: getID(), scenes });
 export const makeImage = (path, options) => ({ type: IMAGE, id: getID(), path, options });
@@ -82,6 +82,7 @@ export const makeReuse = (type) => ({ type, id: getID() });
 // nodes and components
 export const makeText = (text) => ({ type: TEXT, id: getID(), text });
 export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
+export const makeSetAction = (variableId, value) => ({ type: SET, id: getID(), variableId, value });
 export const makeActionBlock = (components, link) => ({ components, link });
 
 export const makeLink = (type, text) => ({ type, text });

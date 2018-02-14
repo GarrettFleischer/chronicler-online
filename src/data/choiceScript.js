@@ -2,7 +2,23 @@ import { findIdForLabel } from './core';
 
 import { tokenize } from './tokenizer';
 
-import { anyNumberOf, atLeastOne, choose, dedent, endingIn, ignore, indent, inOrder, inOrderIgnore, makeError, makeParseResult, match, maybe, optional, sameDent } from './parser';
+import {
+  anyNumberOf,
+  atLeastOne,
+  choose,
+  dedent,
+  endingIn,
+  ignore,
+  indent,
+  inOrder,
+  inOrderIgnore,
+  makeError,
+  makeParseResult,
+  match,
+  maybe,
+  optional,
+  sameDent,
+} from './parser';
 
 import {
   ACHIEVE,
@@ -78,16 +94,24 @@ import {
   makeStatChart,
   makeTextStat,
   makePercentStat,
-  makeOpposedStat,
+  makeOpposedStat, makeSetAction,
 } from './datatypes';
+
+
+const getVariableName = (text, offset = 0) => text.split(' ')[offset];
+const getVariableValue = (text, offset = 0) => text.split(' ').slice(offset + 1).join(' ');
 
 
 export function parse(cs) {
   const tokens = tokenize(cs); // TODO loop over every scene
   const parseResult = makeParseResult('startup', tokens);
   const result = inOrder(anyNumberOf(Symbol), endingIn(Node, match(EOF)))(parseResult);
-  if (!result.success)
-    return { ...result, object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}` };
+  if (!result.success) {
+    return {
+      ...result,
+      object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}`,
+    };
+  }
 
   return { ...result, object: result.object[1].objects };
 }
@@ -206,7 +230,9 @@ function Create(parseResult) {
   const result = sameDent(match(CREATE))(parseResult);
   if (!result.success) return result;
 
-  return addSymbol(result, makeCreate(result.object.text));
+  const name = getVariableName(result.object.text);
+  const value = getVariableValue(result.object.text);
+  return addSymbol(result, makeCreate(name, value));
 }
 
 
@@ -214,7 +240,9 @@ function Temp(parseResult) {
   const result = sameDent(match(TEMP))(parseResult);
   if (!result.success) return result;
 
-  return addSymbol(result, makeTemp(result.object.text, result.scene));
+  const name = getVariableName(result.object.text);
+  const value = getVariableValue(result.object.text);
+  return addSymbol(result, makeTemp(name, value, result.scene));
 }
 
 
@@ -222,8 +250,8 @@ function Image(parseResult) {
   const result = sameDent(match(IMAGE))(parseResult);
   if (!result.success) return result;
 
-  const name = result.object.text.split(' ')[0];
-  const options = result.object.text.split(' ').slice(1).join(' ');
+  const name = getVariableName(result.object.text);// result.object.text.split(' ')[0];
+  const options = getVariableValue(result.object.text);// result.object.text.split(' ').slice(1).join(' ');
   const symbol = makeImage(name, options);
   return { ...addSymbol(result, symbol), object: symbol };
 }
@@ -301,14 +329,27 @@ function Text(parseResult) {
 
 
 function Action(parseResult) {
-  return choose(ActionItem, Comment, StatChart, Image, Sound)(parseResult);
+  return choose(SetAction, ActionItem, Comment, StatChart, Image, Sound)(parseResult);
+}
+
+
+function SetAction(parseResult) {
+  const result = sameDent(match(SET))(parseResult);
+  if (!result.success) return result;
+
+  const variable = result.symbols.find(
+    (symbol) => (symbol.type === CREATE || symbol.type === TEMP) && symbol.name === getVariableName(result.object.text)
+  );
+  // TODO handle not found
+  const value = getVariableValue(result.object.text);
+  return { ...result, object: makeSetAction(variable.id, value) };
 }
 
 
 function ActionItem(parseResult) {
   const result = sameDent(match(ACHIEVE, BUG, CHECK_ACHIEVEMENTS, COMMENT, IMAGE,
     INPUT_NUMBER, INPUT_TEXT, LINE_BREAK, LINK, MORE_GAMES, PAGE_BREAK, PRINT, RAND, SET_REF, SCENE_LIST,
-    SCRIPT, SELECTABLE_IF, SET, SHARE, SHOW_PASSWORD, SOUND))(parseResult);
+    SCRIPT, SELECTABLE_IF, SHARE, SHOW_PASSWORD, SOUND))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeAction(result.object) };
@@ -330,7 +371,13 @@ function TextStat(parseResult) {
   const result = sameDent(match(TEXT))(parseResult);
   if (!result.success) return result;
 
-  if (!result.object.text.match(/^text /)) return { ...result, success: false, error: makeError('text stat', result.object.text, result.object.number) };
+  if (!result.object.text.match(/^text /)) {
+    return {
+      ...result,
+      success: false,
+      error: makeError('text stat', result.object.text, result.object.number),
+    };
+  }
   return { ...result, object: makeTextStat(result.object.text.replace(/^text /, '')) };
 }
 
@@ -339,7 +386,13 @@ function PercentStat(parseResult) {
   const result = sameDent(match(TEXT))(parseResult);
   if (!result.success) return result;
 
-  if (!result.object.text.match(/^percent /)) return { ...result, success: false, error: makeError('percent stat', result.object.text, result.object.number) };
+  if (!result.object.text.match(/^percent /)) {
+    return {
+      ...result,
+      success: false,
+      error: makeError('percent stat', result.object.text, result.object.number),
+    };
+  }
   return { ...result, object: makePercentStat(result.object.text.replace(/^percent /, '')) };
 }
 
@@ -350,7 +403,13 @@ function OpposedStat(parseResult) {
   const result = sameDent(inOrder(match(TEXT), Block(inOrder(match(TEXT), optional(match(TEXT))))))(parseResult);
   if (!result.success) return result;
 
-  if (!result.object[0].text.match(/^opposed_pair /)) return { ...result, success: false, error: makeError('opposed_pair', result.object.text, result.object.number) };
+  if (!result.object[0].text.match(/^opposed_pair /)) {
+    return {
+      ...result,
+      success: false,
+      error: makeError('opposed_pair', result.object.text, result.object.number),
+    };
+  }
   const stat = result.object[0].text.replace(/^opposed_pair /, '');
   const name = result.object[1][1] === null ? null : result.object[1][0].text;
   const opposed = result.object[1][1] === null ? result.object[1][0].text : result.object[1][1].text;
@@ -391,13 +450,17 @@ function FakeChoiceItem(parseResult) {
   const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), optional(Block(atLeastOne(TextOrAction)))))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeFakeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
+  return {
+    ...result,
+    object: makeFakeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]),
+  };
 }
 
 
 function TextOrAction(parseResult) {
   return ignore(choose(Temp, Reuse), choose(Text, Action))(parseResult);
 }
+
 
 function Choice(parseResult) {
   const result = sameDent(inOrder(match(CHOICE), Block(atLeastOne(ChoiceItem))))(parseResult);
@@ -411,7 +474,10 @@ function ChoiceItem(parseResult) {
   const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), ActionBlock))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]) };
+  return {
+    ...result,
+    object: makeChoiceItem(result.object[0], result.object[1], result.object[2].text, result.object[3]),
+  };
 }
 
 
@@ -433,7 +499,10 @@ function ChoiceItemReuse(parseResult) {
 function ChoiceItemCondition(parseResult) {
   const result = optional(match(SELECTABLE_IF, IF))(parseResult);
 
-  return { ...result, object: result.object === null ? null : { type: result.object.type, condition: result.object.text } };
+  return {
+    ...result,
+    object: result.object === null ? null : { type: result.object.type, condition: result.object.text },
+  };
 }
 
 
@@ -460,12 +529,14 @@ function Else(parseResult) {
   return { ...result, object: makeElse(result.object[1]) };
 }
 
+
 function ActionBlock(parseResult) {
   const result = Block(inOrder(anyNumberOf(TextOrAction), Link))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeActionBlock(result.object[0], result.object[1]) };
 }
+
 
 function Block(parser) {
   return (parseResult) => {

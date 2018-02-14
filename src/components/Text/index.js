@@ -1,7 +1,6 @@
 import Card, { CardContent } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 import React from 'react';
-// import brace from 'brace';
 import AceEditor from 'react-ace';
 import { connect } from 'react-redux';
 

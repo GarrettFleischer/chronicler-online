@@ -175,10 +175,12 @@ const reduceBy = (reduce) => (acc, curr) => {
   switch (curr.type) {
     case PROJECT:
       result = curr.scenes.reduce(reduceBy(reduce), result);
+      result = curr.variables.reduce(reduce, result); // recursive reduction not necessary for variables
       break;
 
     case SCENE:
       result = curr.nodes.reduce(reduceBy(reduce), result);
+      // result = curr.variables.reduce(reduceBy(reduce), result);
       break;
 
     case NODE:
@@ -201,10 +203,18 @@ const mapBy = (func) => (curr) => {
       return { ...updated, projects: updated.projects.map(mapBy(func)) };
 
     case PROJECT:
-      return { ...updated, scenes: updated.scenes.map(mapBy(func)) };
+      return {
+        ...updated,
+        scenes: updated.scenes.map(mapBy(func)),
+        variables: updated.variables.map(func), // recursive mapping not necessary for variables
+      };
 
     case SCENE:
-      return { ...updated, nodes: updated.nodes.map(mapBy(func)) };
+      return {
+        ...updated,
+        nodes: updated.nodes.map(mapBy(func)),
+        // variables: updated.variables.map(mapBy(func)),
+      };
 
     case NODE:
       return { ...updated, components: updated.components.map(mapBy(func)) };
