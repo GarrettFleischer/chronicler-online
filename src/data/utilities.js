@@ -21,3 +21,10 @@ export function removeKeys(deep, ...keys) {
     return newObject;
   };
 }
+
+export const indexOf = (string, ...strings) => {
+  let index = -1;
+  for (let i = 0; i < strings.length && index === -1; ++i)
+    index = string.indexOf(strings[i]);
+  return index;
+};

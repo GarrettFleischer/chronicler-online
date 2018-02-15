@@ -1,5 +1,4 @@
 import Card, { CardContent } from 'material-ui/Card';
-import { InputLabel } from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
 import Select from 'material-ui/Select';
 import PropTypes from 'prop-types';
@@ -26,9 +25,11 @@ Reorder.propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-const styles = (theme) => {
-
-};
+const styles = (/* theme */) => ({
+  actionText: {
+    marginTop: '10px',
+  },
+});
 
 const SetAction = ({ item, reorder, variables, onChange }) => {
   if (reorder)
@@ -77,5 +78,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetAction);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SetAction));
 

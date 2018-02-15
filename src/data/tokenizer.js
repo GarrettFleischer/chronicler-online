@@ -48,8 +48,9 @@ import {
   SOUND,
   STAT_CHART,
   TEMP,
-  TITLE,
+  TITLE, OPERATOR,
 } from './datatypes';
+import { indexOf } from './utilities';
 
 // TODO add restore_game token as a Link
 
@@ -72,7 +73,7 @@ export const isBlank = (line) => line.type === TEXT && !line.text.length;
 
 export function tokenize(cs) {
   const tokens = [];
-  const lines = cs.replace(/\r+/g, '').split('\n');
+  const lines = cs.replace(/\r+/g, '').split('\n'); // remove Windows carriage returns and split on newline characters
   let incrementLine = 1;
   for (let i = 0; i < lines.length; i += incrementLine) {
     const raw = lines[i];
@@ -113,6 +114,18 @@ export function tokenize(cs) {
         lines[i] = parsed.slice(index);
         parsed = parsed.slice(0, index).trim();
       }
+    } else if (type === SET) {
+      const items = (parsed.split(/\s/)).filter((s) => s.length > 0);
+      tokens.push(makeLine(SET, i, raw, indent, ''));
+      tokens.push(makeLine(TEXT, i, raw, indent, items[0]));
+      if (items[1].match(/(\+|-|\*|\/|%\+|%-)/)) {
+        tokens.push(makeLine(OPERATOR, i, raw, indent, items[1]));
+        tokens.push(makeLine(TEXT, i, raw, indent, items[2]));
+      } else
+        tokens.push(makeLine(TEXT, i, raw, indent, items[1]));
+
+      // eslint-disable-next-line no-continue
+      continue; // all pushing is taken care of, continue from the beginning the loop
     }
 
     tokens.push(makeLine(type, i, raw, indent, parsed));

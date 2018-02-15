@@ -60,6 +60,7 @@ import {
   SCRIPT,
   SELECTABLE_IF,
   SET,
+  SET2,
   SET_REF,
   SHARE,
   SHOW_PASSWORD,
@@ -94,7 +95,9 @@ import {
   makeStatChart,
   makeTextStat,
   makePercentStat,
-  makeOpposedStat, makeSetAction,
+  makeOpposedStat,
+  makeSetAction,
+  makeSetAction2, OPERATOR,
 } from './datatypes';
 
 
@@ -332,17 +335,22 @@ function Action(parseResult) {
   return choose(SetAction, ActionItem, Comment, StatChart, Image, Sound)(parseResult);
 }
 
+const findSymbol = (symbols, name) => (
+  symbols.find((symbol) => (symbol.type === CREATE || symbol.type === TEMP) && symbol.name === name)
+);
 
 function SetAction(parseResult) {
-  const result = sameDent(match(SET))(parseResult);
+  const result = sameDent(inOrder(match(SET), match(TEXT), optional(match(OPERATOR)), match(TEXT)))(parseResult);
   if (!result.success) return result;
 
-  const variable = result.symbols.find(
-    (symbol) => (symbol.type === CREATE || symbol.type === TEMP) && symbol.name === getVariableName(result.object.text)
-  );
+  const variable = findSymbol(result.symbols, result.object[1].text);
   // TODO handle not found
-  const value = getVariableValue(result.object.text);
-  return { ...result, object: makeSetAction(variable.id, value) };
+  const op = result.object[2] === null ? '' : result.object[2].text;
+  const variable2 = findSymbol(result.symbols, result.object[3].text);
+  if (variable2 === undefined)
+    return { ...result, object: makeSetAction(variable.id, op, result.object[3].text) };
+
+  return { ...result, object: makeSetAction2(variable.id, op, variable2.id) };
 }
 
 

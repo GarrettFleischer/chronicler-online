@@ -38,25 +38,25 @@ export const dragonCS =
   '  #I take to the air with a quick beat of my wings.\n' +
   '    You leap to the air, deftly avoiding the knight\'s thrust.  Now that you are in the air, he hardly poses any threat at allâ€”not that he ever posed much of one to you.  You circle back and knock him off his horse with a swipe of your claw.\n' +
   '\n' +
-  '    *set brutality %-10\n' +
+  '    *set brutality %- 10\n' +
   '    *goto Victory\n' +
   '\n' +
   '  #I knock the knight from his horse with a slap of my tail.\n' +
   '    You swing your mighty tail around and knock the knight flying.  While he struggles to stand, you break his horse\'s back and begin devouring it.\n' +
   '\n' +
-  '    *set cunning %+10\n' +
+  '    *set cunning %+ 10\n' +
   '    *goto Victory\n' +
   ' \n' +
   '  #I rush into his charge and tear him to pieces with my claws.\n' +
   '    The knight\'s lance shatters against your nigh-impenetrable hide as you slam into him.  You yank him clean off his horse, slamming him to the ground and ripping his plate armor with your vicious claws.  The fight is over before it has begun. \n' +
   '\n' +
-  '    *set brutality %+10\n' +
+  '    *set brutality %+ 10\n' +
   '    *goto Victory\n' +
   '\n' +
   '  #A puff of my fiery breath should be enough for him.\n' +
   '    You let loose an inferno of fire.  The knight\'s horse is cooked nicely, and your stomach lets out a deafening rumble as the smell of roast destrier reaches your nostrils.  The knight himself staggers to his feet.  His armor managed to keep him alive, but only barely.\n' +
   '\n' +
-  '    *set disdain %+10\n' +
+  '    *set disdain %+ 10\n' +
   '    *goto Victory\n' +
   '  *if (choice_save_allowed) #Restore a saved game.\n' +
   '    *restore_game\n' +
@@ -70,21 +70,21 @@ export const dragonCS =
   '        Your jaws crush him in a single bite.\n' +
   '\n' +
   '        That showed him.\n' +
-  '        *set brutality %+10\n' +
+  '        *set brutality %+ 10\n' +
   '        *goto Naming\n' +
   '\n' +
   '      #I let him live to warn others of my immense power.\n' +
   '        "Begone, petty human.  To attack me is to meet your doom," you growl.\n' +
   '\n' +
   '        The knight stumbles away as quickly as he can, not even daring to pretend that he could still fight you.\n' +
-  '        *set infamy %+15\n' +
+  '        *set infamy %+ 15\n' +
   '        *goto Naming\n' +
   '\n' +
   '      #Eh.  Now that the threat is ended, he is beneath my concern.\n' +
   '        You leisurely eat the knight\'s horse.  He slinks away as quietly as he can.  (His heavy armor makes a stealthy escape impossible.)  Still, you pay him no mind as he leaves.\n' +
   '\n' +
-  '        *set infamy %+10\n' +
-  '        *set disdain %+10\n' +
+  '        *set infamy %+ 10\n' +
+  '        *set disdain %+ 10\n' +
   '        *goto Naming\n' +
   '\n' +
   '*label Naming\n' +
@@ -310,45 +310,45 @@ export const dragonCS =
   '      #Then it\'s time for a royal feastâ€”by which I mean I eat ${royal_him}.\n' +
   '        The ${royal}\'s efforts to entertain you with ${royal_his} stories, harp-playing, and singing become more desperate as your boredom becomes more apparent.  But even ${royal_his} best efforts are not enough, and you devour ${royal_him} without remorse.\n' +
   '\n' +
-  '        *set brutality %+10\n' +
-  '        *set cunning %+10\n' +
-  '        *set infamy %+10\n' +
+  '        *set brutality %+ 10\n' +
+  '        *set cunning %+ 10\n' +
+  '        *set infamy %+ 10\n' +
   '        *goto personality\n' +
   '\n' +
   '      #I let ${royal_him} slip away, pretending not to notice ${royal_his} escape plan.\n' +
   '        The ${royal} becomes gradually more fearful as ${royal_his} stories, harp-playing, and singing amuse you less each passing day.  One evening, as you pretend to sleep, ${royal_she} makes a break for it.  You are well aware of ${royal_his} departure and could catch ${royal_him} easily, but you let ${royal_him} go.  $!{Royal_She} made several months more interesting, and that\'s\n' +
   '        worth sparing ${royal_his} life.\n' +
-  '        *set brutality %-10\n' +
-  '        *set cunning %-10\n' +
-  '        *set infamy %-10\n' +
+  '        *set brutality %- 10\n' +
+  '        *set cunning %- 10\n' +
+  '        *set infamy %- 10\n' +
   '        *goto personality\n' +
   '  #I\'ll keep ${royal_him} around for a little while to lure in more knights, but then ${royal_she}\'s dinner.  It\'s a little known fact that ${royals} taste better than most humans.\n' +
   '    *goto EatHer\n' +
   '  #It\'s all about the ransom payments.  Those are a quick and easy way to build a hoard.\n' +
   '    Indeed.  Within a month, a large chest of gold comes to pay for the ${royal}\'s release.\n' +
-  '    *set wealth +1500\n' +
+  '    *set wealth + 1500\n' +
   '\n' +
   '    What do you do then?\n' +
   '    *choice\n' +
   '      #Honor demands that I carry out my end of the bargain.\n' +
   '        Of course.  No sooner have you received the payment than you let the ${royal} go.\n' +
-  '        *set cunning %-20\n' +
-  '        *set brutality %-10\n' +
-  '        *set infamy %-10\n' +
+  '        *set cunning %- 20\n' +
+  '        *set brutality %- 10\n' +
+  '        *set infamy %- 10\n' +
   '        *goto personality\n' +
   '\n' +
   '      #Once I have the payment, I have no reason to delay my dinner.\n' +
   '        Crunch, munch.  Delicious.\n' +
   '\n' +
-  '        *set cunning %+20\n' +
-  '        *set brutality %+10\n' +
-  '        *set infamy %+10\n' +
+  '        *set cunning %+ 20\n' +
+  '        *set brutality %+ 10\n' +
+  '        *set infamy %+ 10\n' +
   '        *goto personality\n' +
   '    \n' +
   '*label EatHer\n' +
   'It must be the diet.  In any event, you have a delightful dinner of roast ${royal}.\n' +
-  '*set brutality %+10\n' +
-  '*set infamy %+10\n' +
+  '*set brutality %+ 10\n' +
+  '*set infamy %+ 10\n' +
   '*goto personality\n' +
   '\n' +
   '*label personality\n' +
@@ -359,42 +359,42 @@ export const dragonCS =
   'All dragons can be described in terms of a handful of characteristics, each in opposed pairs:  Brutality and Finesse, Cunning and Honor, Disdain and Vigilance.\n' +
   '\n' +
   '*comment We start with the basic dichotomies between the paired attributes\n' +
-  '*comment brutality is the opposite of finesse; only modify by %+ or %-\n' +
+  '*comment brutality is the opposite of finesse; only modify by %+  or %- \n' +
   '\n' +
   'Are you more notable for your Brutality or your Finesse?\n' +
   '*choice\n' +
   '  #Brutality: strength and cruelty.\n' +
-  '    *set brutality %+70\n' +
+  '    *set brutality %+ 70\n' +
   '    *goto CunningQuestion\n' +
   '  #Finesse: precision and aerial maneuverability.\n' +
-  '    *set brutality %-70\n' +
+  '    *set brutality %- 70\n' +
   '    *goto CunningQuestion\n' +
   '\n' +
   '*label CunningQuestion\n' +
   '\n' +
-  '*comment cunning is the opposite of honorable; only modified by %+ or %-\n' +
+  '*comment cunning is the opposite of honorable; only modified by %+  or %- \n' +
   '\n' +
   'Do you have more Cunning or Honor?\n' +
   '*choice\n' +
   '  #Cunning: intelligence and trickery.\n' +
-  '    *set cunning %+70\n' +
+  '    *set cunning %+ 70\n' +
   '    *goto DisdainQuestion\n' +
   '  #Honor: honesty and trustworthiness.\n' +
-  '    *set cunning %-70\n' +
+  '    *set cunning %- 70\n' +
   '    *goto DisdainQuestion\n' +
   '\n' +
   '*label DisdainQuestion\n' +
   '\n' +
-  '*comment disdain is the opposite of vigilant; only modify by %+ or %-\n' +
+  '*comment disdain is the opposite of vigilant; only modify by %+  or %-\n' +
   '\n' +
   'Do you disdain threats and insults that are beneath you, or are you vigilant\n' +
   'against any slight or transgression?\n' +
   '*choice\n' +
   '  #Disdain: patience and scorn.\n' +
-  '    *set disdain %+70\n' +
+  '    *set disdain %+ 70\n' +
   '    *goto FirstChoice\n' +
   '  #Vigilance: attention and impulsiveness.\n' +
-  '    *set disdain %-70\n' +
+  '    *set disdain %- 70\n' +
   '    *goto FirstChoice\n' +
   '\n' +
   '*label FirstChoice\n' +
@@ -407,8 +407,8 @@ export const dragonCS =
   '*choice\n' +
   '  #Reading.\n' +
   '    A wise choice that made you more Cunning and taught you Finesse.\n' +
-  '    *set cunning %+20\n' +
-  '    *set brutality %-20\n' +
+  '    *set cunning %+ 20\n' +
+  '    *set brutality %- 20\n' +
   '    *goto SecondChoice\n' +
   '  #Hunting.\n' +
   '    You developed your muscles as you gloried in combat and the kill at\n' +
@@ -416,8 +416,8 @@ export const dragonCS =
   '    basics of Honor. \n' +
   '\n' +
   '    Brutality and Honor increase.\n' +
-  '    *set cunning %-20\n' +
-  '    *set brutality %+20\n' +
+  '    *set cunning %- 20\n' +
+  '    *set brutality %+ 20\n' +
   '    *goto SecondChoice\n' +
   '\n' +
   '*label SecondChoice\n' +
@@ -436,8 +436,8 @@ export const dragonCS =
   '    gain nonetheless. \n' +
   '\n' +
   '    Cunning and Vigilance increase.\n' +
-  '    *set cunning %+20\n' +
-  '    *set disdain %-20\n' +
+  '    *set cunning %+ 20\n' +
+  '    *set disdain %- 20\n' +
   '    *goto ThirdChoice\n' +
   '  #Revenge is beneath my dignity.\n' +
   '    Disdain for petty matters is essential for a dragon, as it avoids the\n' +
@@ -448,8 +448,8 @@ export const dragonCS =
   '    mighty dragon such as yourself. \n' +
   '   \n' +
   '    Your wise choice increases Disdain and Honor.\n' +
-  '    *set cunning %-20\n' +
-  '    *set disdain %+20\n' +
+  '    *set cunning %- 20\n' +
+  '    *set disdain %+ 20\n' +
   '    *goto ThirdChoice\n' +
   '\n' +
   '*label ThirdChoice\n' +
@@ -468,15 +468,15 @@ export const dragonCS =
   '    There\'s no reason you have to do all the dirty work yourself.  A few hours later, the halfling stumbled, crawled for a while, and finally stopped.  You easily plucked the treasure off of his body, saving yourself quite a bit of work.\n' +
   '   \n' +
   '    Disdain and Finesse increase.\n' +
-  '    *set brutality %-20\n' +
-  '    *set disdain %+20\n' +
+  '    *set brutality %- 20\n' +
+  '    *set disdain %+ 20\n' +
   '    *goto Axilmeus\n' +
   '  #I killed him on the spot.\n' +
   '    It wasn\'t easy; the shield protected him from fire and helped him evade your attacks.  Eventually you had to swallow him whole and cough up the shield.  That worked!\n' +
   '   \n' +
   '    Brutality and Vigilance increase.\n' +
-  '    *set brutality %+20\n' +
-  '    *set disdain %-20\n' +
+  '    *set brutality %+ 20\n' +
+  '    *set disdain %- 20\n' +
   '    *goto Axilmeus\n' +
   '\n' +
   '*label Axilmeus\n' +

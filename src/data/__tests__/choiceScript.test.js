@@ -16,6 +16,7 @@ describe('ChoiceScript parser', () => {
               type: 'TEXT',
             },
             {
+              op: '',
               type: 'SET',
               value: '23',
             },
@@ -30,8 +31,9 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
+              op: '%+',
               type: 'SET',
-              value: '%+ 10',
+              value: '10',
             },
           ],
           label: 'fun',
@@ -109,6 +111,7 @@ describe('ChoiceScript parser', () => {
                   node: {
                     components: [
                       {
+                        op: '',
                         type: 'SET',
                         value: 'false',
                       },
@@ -134,6 +137,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
+              op: '',
               type: 'SET',
               value: 'true',
             },
@@ -402,8 +406,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%-',
                     type: 'SET',
-                    value: '%-10',
+                    value: '10',
                   },
                 ],
                 condition: null,
@@ -422,8 +427,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                 ],
                 condition: null,
@@ -442,8 +448,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                 ],
                 condition: null,
@@ -462,8 +469,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                 ],
                 condition: null,
@@ -516,8 +524,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                 ],
                 condition: null,
@@ -536,8 +545,9 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+15',
+                    value: '15',
                   },
                 ],
                 condition: null,
@@ -556,12 +566,14 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                 ],
                 condition: null,
@@ -591,6 +603,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"Gorthalon"',
                   },
@@ -607,6 +620,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"Sssetheliss"',
                   },
@@ -623,6 +637,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"Calemvir"',
                   },
@@ -675,6 +690,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                op: '',
                                 type: 'SET',
                                 value: '"$!{name}"',
                               },
@@ -741,6 +757,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"male"',
                   },
@@ -757,6 +774,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"female"',
                   },
@@ -773,6 +791,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"neither"',
                   },
@@ -789,6 +808,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"unknown"',
                   },
@@ -805,8 +825,9 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+ 15',
+                    value: '15',
                   },
                   {
                     text: "I, ah, I mean, yes!  Of course!  How churlish of me.\n\nBut, O mighty ${name}, I feel I should let you know that this game is full of choices; indeed, it is nothing but multiple choice questions that determine the course of your adventures as a dragon.  If you don't enjoy answering questions, this game may not be for you!\n\nDo youâ€¦I mean, if I may, would you like to specify your gender after all?\n",
@@ -829,6 +850,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                op: '',
                                 type: 'SET',
                                 value: '"male"',
                               },
@@ -845,6 +867,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                op: '',
                                 type: 'SET',
                                 value: '"female"',
                               },
@@ -861,6 +884,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                op: '',
                                 type: 'SET',
                                 value: '"neither"',
                               },
@@ -877,6 +901,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                op: '',
                                 type: 'SET',
                                 value: '"unknown"',
                               },
@@ -900,11 +925,12 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '',
                           type: 'SET',
                           value: '"unknown"',
                         },
                         {
-                          text: "Well, let's just leave it undetermined, then!",
+                          text: "\nWell, let's just leave it undetermined, then!",
                           type: 'TEXT',
                         },
                       ],
@@ -946,6 +972,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"princess"',
                   },
@@ -966,6 +993,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"princess"',
                   },
@@ -986,6 +1014,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"prince"',
                   },
@@ -1006,6 +1035,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"princess"',
                   },
@@ -1030,18 +1060,22 @@ describe('ChoiceScript parser', () => {
           link: {
             components: [
               {
+                op: '',
                 type: 'SET',
                 value: '"her"',
               },
               {
+                op: '',
                 type: 'SET',
                 value: '"her"',
               },
               {
+                op: '',
                 type: 'SET',
                 value: '"she"',
               },
               {
+                op: '',
                 type: 'SET',
                 value: '"princesses"',
               },
@@ -1051,18 +1085,22 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"him"',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"his"',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"he"',
                   },
                   {
+                    op: '',
                     type: 'SET',
                     value: '"princes"',
                   },
@@ -1095,8 +1133,9 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+ 30',
+                    value: '30',
                   },
                   {
                     text: 'yes, of course!  Your wish is my command.\n\nOn with the show!\n',
@@ -1119,6 +1158,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"black"',
                   },
@@ -1135,6 +1175,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"blue"',
                   },
@@ -1151,6 +1192,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"brown"',
                   },
@@ -1167,6 +1209,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"golden"',
                   },
@@ -1183,6 +1226,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"green"',
                   },
@@ -1199,6 +1243,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"iridescent"',
                   },
@@ -1215,6 +1260,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"red"',
                   },
@@ -1231,6 +1277,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    op: '',
                     type: 'SET',
                     value: '"white"',
                   },
@@ -1302,6 +1349,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '',
                           type: 'SET',
                           value: '"ridged"',
                         },
@@ -1318,6 +1366,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '',
                           type: 'SET',
                           value: '"smooth"',
                         },
@@ -1349,6 +1398,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '',
                           type: 'SET',
                           value: '"feathery"',
                         },
@@ -1365,6 +1415,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '',
                           type: 'SET',
                           value: '"leathery"',
                         },
@@ -1381,6 +1432,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '',
                           type: 'SET',
                           value: '"scaly"',
                         },
@@ -1435,16 +1487,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    op: '%+',
                                     type: 'SET',
-                                    value: '%+10',
+                                    value: '10',
                                   },
                                   {
+                                    op: '%+',
                                     type: 'SET',
-                                    value: '%+10',
+                                    value: '10',
                                   },
                                   {
+                                    op: '%+',
                                     type: 'SET',
-                                    value: '%+10',
+                                    value: '10',
                                   },
                                 ],
                                 condition: null,
@@ -1463,16 +1518,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    op: '%-',
                                     type: 'SET',
-                                    value: '%-10',
+                                    value: '10',
                                   },
                                   {
+                                    op: '%-',
                                     type: 'SET',
-                                    value: '%-10',
+                                    value: '10',
                                   },
                                   {
+                                    op: '%-',
                                     type: 'SET',
-                                    value: '%-10',
+                                    value: '10',
                                   },
                                 ],
                                 condition: null,
@@ -1509,11 +1567,12 @@ describe('ChoiceScript parser', () => {
                               type: 'TEXT',
                             },
                             {
+                              op: '+',
                               type: 'SET',
-                              value: '+1500',
+                              value: '1500',
                             },
                             {
-                              text: 'What do you do then?',
+                              text: '\nWhat do you do then?',
                               type: 'TEXT',
                             },
                           ],
@@ -1527,16 +1586,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    op: '%-',
                                     type: 'SET',
-                                    value: '%-20',
+                                    value: '20',
                                   },
                                   {
+                                    op: '%-',
                                     type: 'SET',
-                                    value: '%-10',
+                                    value: '10',
                                   },
                                   {
+                                    op: '%-',
                                     type: 'SET',
-                                    value: '%-10',
+                                    value: '10',
                                   },
                                 ],
                                 condition: null,
@@ -1555,16 +1617,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    op: '%+',
                                     type: 'SET',
-                                    value: '%+20',
+                                    value: '20',
                                   },
                                   {
+                                    op: '%+',
                                     type: 'SET',
-                                    value: '%+10',
+                                    value: '10',
                                   },
                                   {
+                                    op: '%+',
                                     type: 'SET',
-                                    value: '%+10',
+                                    value: '10',
                                   },
                                 ],
                                 condition: null,
@@ -1599,12 +1664,14 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                   {
+                    op: '%+',
                     type: 'SET',
-                    value: '%+10',
+                    value: '10',
                   },
                 ],
                 label: 'EatHer',
@@ -1629,7 +1696,7 @@ describe('ChoiceScript parser', () => {
                     type: 'COMMENT',
                   },
                   {
-                    text: 'brutality is the opposite of finesse; only modify by %+ or %-',
+                    text: 'brutality is the opposite of finesse; only modify by %+  or %- ',
                     type: 'COMMENT',
                   },
                   {
@@ -1643,8 +1710,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+70',
+                          value: '70',
                         },
                       ],
                       condition: null,
@@ -1659,8 +1727,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-70',
+                          value: '70',
                         },
                       ],
                       condition: null,
@@ -1680,7 +1749,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'cunning is the opposite of honorable; only modified by %+ or %-',
+                    text: 'cunning is the opposite of honorable; only modified by %+  or %- ',
                     type: 'COMMENT',
                   },
                   {
@@ -1694,8 +1763,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+70',
+                          value: '70',
                         },
                       ],
                       condition: null,
@@ -1710,8 +1780,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-70',
+                          value: '70',
                         },
                       ],
                       condition: null,
@@ -1731,7 +1802,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
-                    text: 'disdain is the opposite of vigilant; only modify by %+ or %-',
+                    text: 'disdain is the opposite of vigilant; only modify by %+  or %-',
                     type: 'COMMENT',
                   },
                   {
@@ -1745,8 +1816,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+70',
+                          value: '70',
                         },
                       ],
                       condition: null,
@@ -1761,8 +1833,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-70',
+                          value: '70',
                         },
                       ],
                       condition: null,
@@ -1804,12 +1877,14 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+20',
+                          value: '20',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-20',
+                          value: '20',
                         },
                       ],
                       condition: null,
@@ -1828,12 +1903,14 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-20',
+                          value: '20',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+20',
+                          value: '20',
                         },
                       ],
                       condition: null,
@@ -1871,12 +1948,14 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+20',
+                          value: '20',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-20',
+                          value: '20',
                         },
                       ],
                       condition: null,
@@ -1895,12 +1974,14 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-20',
+                          value: '20',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+20',
+                          value: '20',
                         },
                       ],
                       condition: null,
@@ -1938,12 +2019,14 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-20',
+                          value: '20',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+20',
+                          value: '20',
                         },
                       ],
                       condition: null,
@@ -1962,12 +2045,14 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+20',
+                          value: '20',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%-20',
+                          value: '20',
                         },
                       ],
                       condition: null,
@@ -2001,8 +2086,9 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+ 15',
+                          value: '15',
                         },
                         {
                           text: 'Disdain increases.\n\nAxilmeus took your shield and beat you with it, hard.',
@@ -2021,12 +2107,14 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+ 15',
+                          value: '15',
                         },
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%- 15',
+                          value: '15',
                         },
                         {
                           text: 'Brutality and Honor increase.\n\nYou fought your hardest, but Axilmeus was a bit stronger than you; he pinned you to the ground and pried the shield out of your claws.',
@@ -2045,12 +2133,14 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          op: '%-',
                           type: 'SET',
-                          value: '%- 15',
+                          value: '15',
                         },
                         {
+                          op: '%+',
                           type: 'SET',
-                          value: '%+ 15',
+                          value: '15',
                         },
                         {
                           text: 'Cunning and Finesse increase.\n\nUnfortunately, Axilmeus is your elder; at this age, he has the advantage in maneuverability.  He caught up to you quickly, pinning you to the ground and prying the shield out of your claws.',

@@ -34,6 +34,7 @@ export const LABEL = 'LABEL';
 export const LINE_BREAK = 'LINE_BREAK';
 export const LINK = 'LINK';
 export const MORE_GAMES = 'MORE_GAMES';
+export const OPERATOR = 'OPERATOR';
 export const PAGE_BREAK = 'PAGE_BREAK';
 export const PRINT = 'PRINT';
 export const RAND = 'RAND';
@@ -43,6 +44,7 @@ export const SCENE_LIST = 'SCENE_LIST';
 export const SCRIPT = 'SCRIPT';
 export const SELECTABLE_IF = 'SELECTABLE_IF';
 export const SET = 'SET';
+export const SET2 = 'SET2';
 export const SHARE = 'SHARE';
 export const SHOW_PASSWORD = 'SHOW_PASSWORD';
 export const SOUND = 'SOUND';
@@ -82,7 +84,8 @@ export const makeReuse = (type) => ({ type, id: getID() });
 // nodes and components
 export const makeText = (text) => ({ type: TEXT, id: getID(), text });
 export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
-export const makeSetAction = (variableId, value) => ({ type: SET, id: getID(), variableId, value });
+export const makeSetAction = (variableId, op, value) => ({ type: SET, id: getID(), variableId, op, value });
+export const makeSetAction2 = (variableId1, op, variableId2) => ({ type: SET2, id: getID(), variableId1, op, variableId2 });
 export const makeActionBlock = (components, link) => ({ components, link });
 
 export const makeLink = (type, text) => ({ type, text });
