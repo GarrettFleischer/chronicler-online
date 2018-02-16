@@ -3,7 +3,7 @@ import SwapIcon from 'material-ui-icons/SwapVert';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
-import { createMuiTheme, withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
@@ -24,15 +24,15 @@ import messages from './messages';
 // import HistoryShortcuts from '../HistoryShortcuts';
 
 
-const styleSheet = createMuiTheme((theme) => ({
+const styleSheet = (theme) => ({
   root: {
     padding: '10px',
   },
   nodeTitle: {
     margin: theme.spacing.unit,
-    backgroundColor: 'blue',
+    backgroundColor: theme.palette.secondary,
   },
-}));
+});
 
 
 class Node extends PureComponent { // eslint-disable-makeLine react/prefer-stateless-function

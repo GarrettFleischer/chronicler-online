@@ -85,7 +85,7 @@ export const makeReuse = (type) => ({ type, id: getID() });
 export const makeText = (text) => ({ type: TEXT, id: getID(), text });
 export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
 export const makeSetAction = (variableId, op, value) => ({ type: SET, id: getID(), variableId, op, value });
-export const makeSetAction2 = (variableId1, op, variableId2) => ({ type: SET2, id: getID(), variableId1, op, variableId2 });
+export const makeSetAction2 = (variableId, op, variableId2) => ({ type: SET2, id: getID(), variableId, op, variableId2 });
 export const makeActionBlock = (components, link) => ({ components, link });
 
 export const makeLink = (type, text) => ({ type, text });
