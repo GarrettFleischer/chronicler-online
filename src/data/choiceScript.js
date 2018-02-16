@@ -53,6 +53,7 @@ import {
   LINE_BREAK,
   LINK,
   MORE_GAMES,
+  OPERATOR,
   PAGE_BREAK,
   PRINT,
   RAND,
@@ -60,7 +61,6 @@ import {
   SCRIPT,
   SELECTABLE_IF,
   SET,
-  SET2,
   SET_REF,
   SHARE,
   SHOW_PASSWORD,
@@ -97,7 +97,6 @@ import {
   makePercentStat,
   makeOpposedStat,
   makeSetAction,
-  makeSetAction2, OPERATOR,
 } from './datatypes';
 
 
@@ -348,9 +347,9 @@ function SetAction(parseResult) {
   const op = result.object[2] === null ? '' : result.object[2].text;
   const variable2 = findSymbol(result.symbols, result.object[3].text);
   if (variable2 === undefined)
-    return { ...result, object: makeSetAction(variable.id, op, result.object[3].text) };
+    return { ...result, object: makeSetAction(variable.id, op, result.object[3].text, false) };
 
-  return { ...result, object: makeSetAction2(variable.id, op, variable2.id) };
+  return { ...result, object: makeSetAction(variable.id, op, variable2.id, true) };
 }
 
 

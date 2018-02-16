@@ -12,13 +12,13 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Text from '../Text';
 import SetAction from '../SetAction';
-import { TEXT, NODE_LINK, SET, SET2 } from '../../data/datatypes';
+import { TEXT, NODE_LINK, SET } from '../../data/datatypes';
 
-const styleSheet = createMuiTheme((theme) => ({
+const styleSheet = (theme) => ({
   component: {
     margin: theme.spacing.unit,
   },
-}));
+});
 
 const UnknownComponent = () => (
   <Card>
@@ -34,14 +34,13 @@ const Component = ({ item, reorder, classes }) => {
       return <Text item={item} reorder={reorder} />;
 
     case SET:
-    case SET2:
       return <SetAction item={item} reorder={reorder} />;
 
     case NODE_LINK:
       return (
         <Card>
           <CardContent>
-            <div className="component">{`next: ${item.text}`}</div>
+            <div className={classes.component}>{`next: ${item.text}`}</div>
           </CardContent>
         </Card>
       );
