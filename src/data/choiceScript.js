@@ -425,9 +425,15 @@ function OpposedStat(parseResult) {
 
 
 function Link(parseResult) {
-  return choose(SingleLink, Choice, FakeChoice, NodeLink, If)(parseResult);
+  return choose(PageBreakLink, SingleLink, Choice, FakeChoice, NodeLink, If)(parseResult);
 }
 
+function PageBreakLink(parseResult) {
+  const result = sameDent(inOrder(match(PAGE_BREAK), SingleLink))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeLink(result.object.type, result.object.text) };
+}
 
 function SingleLink(parseResult) {
   const result = sameDent(match(ENDING, FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE))(parseResult);

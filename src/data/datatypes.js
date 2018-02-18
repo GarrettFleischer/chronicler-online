@@ -86,6 +86,7 @@ export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.
 export const makeSetAction = (variableId, op, value, isVariable) => ({ type: SET, id: getID(), variableId, op, value, isVariable });
 export const makeActionBlock = (components, link) => ({ components, link });
 
+export const makePageBreakLink = (text, link) => ({ type: PAGE_BREAK_LINK, text, link });
 export const makeLink = (type, text) => ({ type, text });
 export const makeNodeLink = (node) => ({ type: NODE_LINK, node });
 

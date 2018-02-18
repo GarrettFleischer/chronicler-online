@@ -4,7 +4,7 @@
  *
  */
 
-import { createMuiTheme, withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 import React from 'react';

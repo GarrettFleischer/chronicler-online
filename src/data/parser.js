@@ -40,6 +40,12 @@ export function sameDent(parser) {
   };
 }
 
+export function not(parser) {
+  return (parseResult) => {
+    const result = parser(parseResult);
+    return { ...parseResult, object: result.object, success: !result.success, error: result.error };
+  };
+}
 
 export function match(...types) {
   return (parseResult) => {

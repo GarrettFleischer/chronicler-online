@@ -16,6 +16,7 @@ describe('ChoiceScript parser', () => {
               type: 'TEXT',
             },
             {
+              isVariable: false,
               op: '',
               type: 'SET',
               value: '23',
@@ -31,6 +32,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
+              isVariable: false,
               op: '%+',
               type: 'SET',
               value: '10',
@@ -111,6 +113,7 @@ describe('ChoiceScript parser', () => {
                   node: {
                     components: [
                       {
+                        isVariable: false,
                         op: '',
                         type: 'SET',
                         value: 'false',
@@ -137,6 +140,7 @@ describe('ChoiceScript parser', () => {
         {
           components: [
             {
+              isVariable: false,
               op: '',
               type: 'SET',
               value: 'true',

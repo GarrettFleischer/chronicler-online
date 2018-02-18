@@ -25,22 +25,11 @@ Reorder.propTypes = {
 const Text = ({ item, reorder, onChange }) => {
   if (reorder)
     return <Reorder item={item} />;
-  // TODO render line break and double line break before or after radio and checkbox options
+
   return (
     <Card>
       <CardContent>
-        <AceEditor
-          onChange={(text) => {
-            onChange(item.id, text);
-          }}
-          value={item.text}
-          mode="python"
-          theme="github"
-          name={item.id}
-          editorProps={{ $blockScrolling: true }}
-          height="200px"
-          showGutter={false}
-        />
+
       </CardContent>
     </Card>
   );
