@@ -15,7 +15,7 @@ import {
   makeError,
   makeParseResult,
   match,
-  maybe,
+  maybe, not,
   optional,
   sameDent,
 } from './parser';
@@ -96,7 +96,7 @@ import {
   makeTextStat,
   makePercentStat,
   makeOpposedStat,
-  makeSetAction,
+  makeSetAction, makePageBreakLink,
 } from './datatypes';
 
 
@@ -362,7 +362,6 @@ function ActionItem(parseResult) {
   return { ...result, object: makeAction(result.object) };
 }
 
-
 // TODO handle stat chart
 function StatChart(parseResult) {
   // let result = sameDent(match(STAT_CHART))(parseResult);
@@ -425,15 +424,17 @@ function OpposedStat(parseResult) {
 
 
 function Link(parseResult) {
-  return choose(PageBreakLink, SingleLink, Choice, FakeChoice, NodeLink, If)(parseResult);
+  return choose(SingleLink, Choice, FakeChoice, NodeLink, If)(parseResult);
 }
 
-function PageBreakLink(parseResult) {
-  const result = sameDent(inOrder(match(PAGE_BREAK), SingleLink))(parseResult);
-  if (!result.success) return result;
-
-  return { ...result, object: makeLink(result.object.type, result.object.text) };
-}
+// perhaps have another pass where in the case of a *label immediately followed by a *page_break, the page break is moved to be with every goto statement that links to the label
+// otherwise, add an extra property to a Node to set it as having a preceding *page_break
+// function PageBreakLink(parseResult) {
+//   const result = sameDent(inOrder(match(PAGE_BREAK), SingleLink))(parseResult);
+//   if (!result.success) return result;
+//
+//   return { ...result, object: makePageBreakLink(result.object[0].text, result.object[1]) };
+// }
 
 function SingleLink(parseResult) {
   const result = sameDent(match(ENDING, FINISH, GOTO, GOTO_REF, GOTO_RANDOM_SCENE, GOTO_SCENE, GOSUB, GOSUB_SCENE))(parseResult);
@@ -442,6 +443,12 @@ function SingleLink(parseResult) {
   return { ...result, object: makeLink(result.object.type, result.object.text) };
 }
 
+// function PageBreak(parseResult) {
+//   const result = maybe(not(inOrder(match(PAGE_BREAK), SingleLink)), match(PAGE_BREAK))(parseResult);
+//   if (!result.success) return result;
+//
+//   return { ...result, object: result.object };
+// }
 
 function NodeLink(parseResult) {
   const result = sameDent(maybe(Label, Node))(parseResult);

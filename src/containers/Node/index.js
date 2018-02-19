@@ -64,31 +64,29 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
 
     return (
       <Paper className={classes.root}>
-        <Paper className={classes.nodeTitle}>
-          <Align container>
-            <Align left>
-              <div>
-                <TextField
-                  onChange={this.onLabelChange}
-                  placeholder={`Page ${node.id}`}
-                  value={node.label}
-                  error={!validateLabel(state, node.label)}
-                  label="Label"
-                />
-              </div>
-            </Align>
-            <Align right>
-              <div>
-                <Tooltip title={<FormattedMessage {...messages.reorder} />}>
-                  <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
-                </Tooltip>
-                <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
-                  <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
-                </Tooltip>
-              </div>
-            </Align>
+        <Align container>
+          <Align left>
+            <div>
+              <TextField
+                onChange={this.onLabelChange}
+                placeholder={`Page ${node.id}`}
+                value={node.label}
+                error={!validateLabel(state, node.label)}
+                label="Label"
+              />
+            </div>
           </Align>
-        </Paper>
+          <Align right>
+            <div>
+              <Tooltip title={<FormattedMessage {...messages.reorder} />}>
+                <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
+              </Tooltip>
+              <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
+                <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
+              </Tooltip>
+            </div>
+          </Align>
+        </Align>
         <div>
           <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
         </div>

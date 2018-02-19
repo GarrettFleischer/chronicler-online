@@ -13,6 +13,7 @@ import messages from './messages';
 import Text from '../Text';
 import SetAction from '../SetAction';
 import { TEXT, NODE_LINK, SET } from '../../data/datatypes';
+import Next from '../Next';
 
 const styleSheet = (theme) => ({
   component: {
@@ -37,19 +38,18 @@ const Component = ({ item, reorder, classes }) => {
       return <SetAction item={item} reorder={reorder} />;
 
     case NODE_LINK:
-      return (
-        <Card>
-          <CardContent>
-            <div className={classes.component}>{`next: ${item.text}`}</div>
-          </CardContent>
-        </Card>
-      );
+      return <Next item={item} reorder={reorder} />;
 
     default:
       return <UnknownComponent />;
   }
 };
 
+// <Card>
+//   <CardContent>
+//     <div className={classes.component}>{`next: ${item.text}`}</div>
+//   </CardContent>
+// </Card>
 
 Component.propTypes = {
   item: PropTypes.object.isRequired,

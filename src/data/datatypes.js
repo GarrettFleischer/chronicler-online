@@ -36,6 +36,7 @@ export const LINK = 'LINK';
 export const MORE_GAMES = 'MORE_GAMES';
 export const OPERATOR = 'OPERATOR';
 export const PAGE_BREAK = 'PAGE_BREAK';
+export const PAGE_BREAK_LINK = 'PAGE_BREAK_LINK';
 export const PRINT = 'PRINT';
 export const RAND = 'RAND';
 export const GOTO_REF = 'GOTO_REF';

@@ -410,6 +410,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%-',
                     type: 'SET',
                     value: '10',
@@ -431,6 +432,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
@@ -452,6 +454,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
@@ -473,6 +476,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
@@ -528,6 +532,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
@@ -549,6 +554,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '15',
@@ -570,11 +576,13 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
@@ -607,6 +615,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"Gorthalon"',
@@ -624,6 +633,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"Sssetheliss"',
@@ -641,6 +651,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"Calemvir"',
@@ -694,6 +705,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                isVariable: false,
                                 op: '',
                                 type: 'SET',
                                 value: '"$!{name}"',
@@ -761,6 +773,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"male"',
@@ -778,6 +791,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"female"',
@@ -795,6 +809,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"neither"',
@@ -812,6 +827,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"unknown"',
@@ -829,6 +845,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '15',
@@ -854,6 +871,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                isVariable: false,
                                 op: '',
                                 type: 'SET',
                                 value: '"male"',
@@ -871,6 +889,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                isVariable: false,
                                 op: '',
                                 type: 'SET',
                                 value: '"female"',
@@ -888,6 +907,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                isVariable: false,
                                 op: '',
                                 type: 'SET',
                                 value: '"neither"',
@@ -905,6 +925,7 @@ describe('ChoiceScript parser', () => {
                           {
                             components: [
                               {
+                                isVariable: false,
                                 op: '',
                                 type: 'SET',
                                 value: '"unknown"',
@@ -929,6 +950,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '',
                           type: 'SET',
                           value: '"unknown"',
@@ -976,6 +998,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"princess"',
@@ -997,6 +1020,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"princess"',
@@ -1018,6 +1042,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"prince"',
@@ -1039,6 +1064,7 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"princess"',
@@ -1064,21 +1090,25 @@ describe('ChoiceScript parser', () => {
           link: {
             components: [
               {
+                isVariable: false,
                 op: '',
                 type: 'SET',
                 value: '"her"',
               },
               {
+                isVariable: false,
                 op: '',
                 type: 'SET',
                 value: '"her"',
               },
               {
+                isVariable: false,
                 op: '',
                 type: 'SET',
                 value: '"she"',
               },
               {
+                isVariable: false,
                 op: '',
                 type: 'SET',
                 value: '"princesses"',
@@ -1089,21 +1119,25 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"him"',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"his"',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"he"',
                   },
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"princes"',
@@ -1137,6 +1171,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '30',
@@ -1162,6 +1197,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"black"',
@@ -1179,6 +1215,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"blue"',
@@ -1196,6 +1233,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"brown"',
@@ -1213,6 +1251,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"golden"',
@@ -1230,6 +1269,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"green"',
@@ -1247,6 +1287,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"iridescent"',
@@ -1264,6 +1305,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"red"',
@@ -1281,6 +1323,7 @@ describe('ChoiceScript parser', () => {
               {
                 components: [
                   {
+                    isVariable: false,
                     op: '',
                     type: 'SET',
                     value: '"white"',
@@ -1353,6 +1396,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '',
                           type: 'SET',
                           value: '"ridged"',
@@ -1370,6 +1414,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '',
                           type: 'SET',
                           value: '"smooth"',
@@ -1402,6 +1447,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '',
                           type: 'SET',
                           value: '"feathery"',
@@ -1419,6 +1465,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '',
                           type: 'SET',
                           value: '"leathery"',
@@ -1436,6 +1483,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '',
                           type: 'SET',
                           value: '"scaly"',
@@ -1491,16 +1539,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%+',
                                     type: 'SET',
                                     value: '10',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%+',
                                     type: 'SET',
                                     value: '10',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%+',
                                     type: 'SET',
                                     value: '10',
@@ -1522,16 +1573,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%-',
                                     type: 'SET',
                                     value: '10',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%-',
                                     type: 'SET',
                                     value: '10',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%-',
                                     type: 'SET',
                                     value: '10',
@@ -1571,6 +1625,7 @@ describe('ChoiceScript parser', () => {
                               type: 'TEXT',
                             },
                             {
+                              isVariable: false,
                               op: '+',
                               type: 'SET',
                               value: '1500',
@@ -1590,16 +1645,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%-',
                                     type: 'SET',
                                     value: '20',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%-',
                                     type: 'SET',
                                     value: '10',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%-',
                                     type: 'SET',
                                     value: '10',
@@ -1621,16 +1679,19 @@ describe('ChoiceScript parser', () => {
                                     type: 'TEXT',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%+',
                                     type: 'SET',
                                     value: '20',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%+',
                                     type: 'SET',
                                     value: '10',
                                   },
                                   {
+                                    isVariable: false,
                                     op: '%+',
                                     type: 'SET',
                                     value: '10',
@@ -1668,11 +1729,13 @@ describe('ChoiceScript parser', () => {
                     type: 'TEXT',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
                   },
                   {
+                    isVariable: false,
                     op: '%+',
                     type: 'SET',
                     value: '10',
@@ -1714,6 +1777,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '70',
@@ -1731,6 +1795,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '70',
@@ -1767,6 +1832,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '70',
@@ -1784,6 +1850,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '70',
@@ -1820,6 +1887,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '70',
@@ -1837,6 +1905,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '70',
@@ -1881,11 +1950,13 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '20',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '20',
@@ -1907,11 +1978,13 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '20',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '20',
@@ -1952,11 +2025,13 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '20',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '20',
@@ -1978,11 +2053,13 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '20',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '20',
@@ -2023,11 +2100,13 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '20',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '20',
@@ -2049,11 +2128,13 @@ describe('ChoiceScript parser', () => {
                           type: 'TEXT',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '20',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '20',
@@ -2090,6 +2171,7 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '15',
@@ -2111,11 +2193,13 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '15',
                         },
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '15',
@@ -2137,11 +2221,13 @@ describe('ChoiceScript parser', () => {
                     {
                       components: [
                         {
+                          isVariable: false,
                           op: '%-',
                           type: 'SET',
                           value: '15',
                         },
                         {
+                          isVariable: false,
                           op: '%+',
                           type: 'SET',
                           value: '15',
