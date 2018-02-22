@@ -1,6 +1,6 @@
 import { arrayMove } from 'react-sortable-hoc';
-import { merge } from '../../lib/history';
 import { componentReducer } from '../../components/Component/reducers';
+import { linkReducer } from '../../components/Link/reducers';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
@@ -22,7 +22,7 @@ export const nodeComponentAdd = (id, component) => (
     component,
   });
 
-export const nodeLabelChange = (id, label) => merge({
+export const nodeLabelChange = (id, label) => ({
   type: NODE_LABEL_CHANGE,
   id,
   label,
@@ -30,7 +30,8 @@ export const nodeLabelChange = (id, label) => merge({
 
 export function nodeReducer(state, action) {
   // ignore action if it is not meant for this node
-  if (state.id !== action.id) return { ...state, components: state.components.map(componentMapper(action)) };
+  if (state.id !== action.id)
+    return { ...state, components: state.components.map(componentMapper(action)), link: linkReducer(state.link, action) };
 
   switch (action.type) {
     case NODE_COMPONENTS_SORTED:

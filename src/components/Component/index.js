@@ -13,7 +13,7 @@ import messages from './messages';
 import Text from '../Text';
 import SetAction from '../SetAction';
 import { TEXT, NODE_LINK, SET } from '../../data/datatypes';
-import Next from '../Next';
+import Next from '../Link';
 
 const styleSheet = (theme) => ({
   component: {

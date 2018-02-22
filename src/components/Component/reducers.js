@@ -1,4 +1,3 @@
-
 import { SET, TEXT } from '../../data/datatypes';
 import { textReducer } from '../Text/reducers';
 import { setActionReducer } from '../SetAction/reducers';

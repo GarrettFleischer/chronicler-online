@@ -121,7 +121,7 @@ export function parse(cs) {
 
 export function flattenScenes(scenes) {
   return scenes.map((scene) => {
-    const result = flattenNodes(scene.nodes);
+    const result = flattenNodes(scene.nodes, scenes);
     return result.map((node) => {
       let link = node.link;
       if (link.type === GOTO)
@@ -132,44 +132,54 @@ export function flattenScenes(scenes) {
 }
 
 
-function flattenNodes(nodes) {
+function flattenNodes(nodes, scenes) {
   let result = [];
   nodes.forEach((node) => {
-    result = [...result, ...flattenNode(node)];
+    result = [...result, ...flattenNode(node, scenes)];
   });
   return result;
 }
 
 
-function flattenNode(node) {
-  const result = flattenLink(node.link);
+function flattenNode(node, scenes) {
+  const result = flattenLink(node.link, scenes);
   return [{ ...node, link: result.link }, ...result.nodes];
 }
 
 
-function flattenLink(item) {
+function flattenLink(item, scenes) {
   let link = item;
   let nodes = [];
 
   switch (link.type) {
+    case GOTO:
+      link = { type: NODE_LINK, node: findIdForLabel(link.text)(scenes) };
+      break;
+
+    case GOTO_SCENE:
+      break;
+
+    case GOTO_REF:
+      break;
+
     case CHOICE:
       link.block = link.block.map((choiceItem) => {
-        const { block, ...data } = choiceItem;
-        if (block.length === 1)
-          nodes = [...nodes, ...flattenNodes(block)];
-        return { ...data, link: { type: NODE_LINK, node: block[0].id } };
+        const result = flattenLink(choiceItem.link, scenes);
+        nodes = [...nodes, ...result.nodes];
+        return { ...choiceItem, link: result.link };
       });
       break;
 
+    // TODO fix these to work with new parsing algorithm
     case FAKE_CHOICE:
-      nodes = [...nodes, ...flattenNodes(link.link)];
+      nodes = [...nodes, ...flattenNodes(link.link, scenes)];
       link.link = { type: NODE_LINK, node: link.link.id };
       break;
 
     case IF: {
       const { block, ...data } = link;
-      nodes = [...nodes, ...flattenNodes(block)];
-      const elses = link.elses.map((elseItem) => flattenLink(elseItem));
+      // nodes = [...nodes, ...flattenNodes(block, scenes)];
+      const elses = link.elses.map((elseItem) => flattenLink(elseItem, scenes));
       link = { ...data, elses, link: { type: NODE_LINK, node: block[0].id } };
     }
       break;
@@ -177,13 +187,13 @@ function flattenLink(item) {
     case ELSEIF:
     case ELSE: {
       const { block, ...data } = link;
-      nodes = [...nodes, ...flattenNodes(block)];
+      nodes = [...nodes, ...flattenNodes(block, scenes)];
       link = { ...data, link: { type: NODE_LINK, node: block[0].id } };
     }
       break;
 
     case NODE_LINK:
-      nodes = [...nodes, ...flattenNode(link.node)];
+      nodes = [...nodes, ...flattenNode(link.node, scenes)];
       link.node = { type: NODE_LINK, node: link.node.id };
       break;
 

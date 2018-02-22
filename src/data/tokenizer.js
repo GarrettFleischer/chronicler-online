@@ -149,7 +149,7 @@ function removeEmptyLines(lines) {
   });
 }
 
-
+// TODO make restore_game action
 const makeAction = (type, text) => ({ type, text });
 const ACTIONS = [
   makeAction(ACHIEVE, 'achieve'),

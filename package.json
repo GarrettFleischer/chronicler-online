@@ -5,9 +5,9 @@
   "dependencies": {
     "deep-equal": "^1.0.1",
     "intl": "^1.2.5",
-    "invariant": "^2.2.2",
+    "invariant": "^2.2.3",
     "lodash": "^4.17.5",
-    "material-ui": "^1.0.0-beta.33",
+    "material-ui": "^1.0.0-beta.34",
     "material-ui-icons": "^1.0.0-alpha.19",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
@@ -18,7 +18,7 @@
     "react-intl": "^2.3.0",
     "react-intl-redux": "^0.6.0",
     "react-mousetrap": "^0.1.1",
-    "react-redux": "^5.0.5",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",
     "react-shortcuts": "^2.0.0",
@@ -45,9 +45,9 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-import-resolver-webpack": "^0.8.4",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.6.1",
+    "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-redux-saga": "^0.4.0"
   }
 }

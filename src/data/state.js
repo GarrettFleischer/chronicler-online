@@ -3,6 +3,7 @@ import {
   makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink, makeLink, FINISH,
   makeCreate, makeSetAction,
 } from './datatypes';
+import { initialState as initialUiState } from '../reducers/uiReducer';
 
 
 export function getActiveProject(state) {
@@ -13,9 +14,7 @@ export function getActiveProject(state) {
 export const initialState = {
   ui: {
     activeProject: '1',
-    node: {
-      reordering: false,
-    },
+    ...initialUiState,
   },
   chronicler: {
     past: [],
