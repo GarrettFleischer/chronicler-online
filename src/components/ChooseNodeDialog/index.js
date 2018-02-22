@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
 import List, { ListItem, ListItemText } from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -10,7 +11,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 // import { setShowChooseNodeDialog } from '../../reducers/uiReducer';
 import { getActiveProject } from '../../data/state';
-import { setChooseNodeDialogValue } from '../../reducers/uiReducer';
+import { setChooseNodeDialogValue, setShowChooseNodeDialog } from '../../reducers/uiReducer';
 
 
 const nodeName = (node) => node.label === '' ? node.id : node.label;
@@ -25,13 +26,13 @@ const nodeItem = (node, value, setValue) => (
     }}
   >
     <ListItemText inset primary={nodeName(node)} />
+    <Checkbox checked={node.id === value} />
   </ListItem>
 );
 
-const ChooseNodeDialog = ({ open, scenes, value, setValue, handleClose }) => (
+const ChooseNodeDialog = ({ open, scenes, value, setValue, onClose, handleClose }) => (
   <Dialog
     open={open}
-    onClose={this.handleClose}
     aria-labelledby="form-dialog-title"
   >
     <DialogTitle id="form-dialog-title">Choose Node</DialogTitle>
@@ -48,10 +49,16 @@ const ChooseNodeDialog = ({ open, scenes, value, setValue, handleClose }) => (
       </List>
     </DialogContent>
     <DialogActions>
-      <Button onClick={() => handleClose(value)} color="primary">
+      <Button onClick={onClose} color="primary">
           Cancel
       </Button>
-      <Button onClick={() => handleClose(value)} color="primary">
+      <Button
+        onClick={() => {
+          onClose();
+          handleClose(value);
+        }}
+        color="primary"
+      >
           Select
       </Button>
     </DialogActions>
@@ -64,6 +71,7 @@ ChooseNodeDialog.propTypes = {
   scenes: PropTypes.array.isRequired,
   handleClose: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -75,6 +83,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setValue: (value) => {
     dispatch(setChooseNodeDialogValue(value));
+  },
+  onClose: () => {
+    dispatch(setShowChooseNodeDialog(false));
   },
 });
 

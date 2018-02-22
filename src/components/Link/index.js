@@ -13,7 +13,7 @@ import Align from '../Align';
 import { findById } from '../../data/core';
 import { getActiveProject } from '../../data/state';
 import ChooseNodeDialog from '../ChooseNodeDialog';
-import { setShowChooseNodeDialog } from '../../reducers/uiReducer';
+import { setChooseNodeDialogValue, setShowChooseNodeDialog } from '../../reducers/uiReducer';
 
 
 // TODO handle scene links
@@ -25,7 +25,7 @@ const LinkType = ({ item, onLinkIconClicked, onChange }) => {
       return (
         <div>
           <Tooltip title={title}>
-            <IconButton onClick={onLinkIconClicked} color="inherit"><LinkIcon /></IconButton>
+            <IconButton onClick={() => onLinkIconClicked(item.node.id)} color="inherit"><LinkIcon /></IconButton>
           </Tooltip>
           <ChooseNodeDialog
             handleClose={(value) => {
@@ -68,11 +68,11 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLinkIconClicked: () => {
+  onLinkIconClicked: (value) => {
+    dispatch(setChooseNodeDialogValue(value));
     dispatch(setShowChooseNodeDialog(true));
   },
   onChange: (id, value) => {
-    dispatch(setShowChooseNodeDialog(false));
     dispatch(nodeLinkChanged(id, value));
   },
 });

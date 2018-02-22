@@ -10,7 +10,7 @@ export function getActiveProject(state) {
   return state.chronicler.present.projects.find((project) => project.id === state.ui.activeProject);
 }
 
-
+// TODO define node templates for creating new nodes. Taking care of boilerplate generation of standard features
 export const initialState = {
   ui: {
     activeProject: '1',
@@ -25,7 +25,7 @@ export const initialState = {
       makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
         makeProject('1', 'Dragon', 'CoG', [
           makeScene('startup', [
-            { ...makeNode('', [makeText('welcome'), makeSetAction('var_str', '%+', '10', false)], makeNodeLink('4')), id: '3' },
+            { ...makeNode('intro', [makeText('welcome'), makeSetAction('var_str', '%+', '10', false)], makeNodeLink('4')), id: '3' },
             { ...makeNode('carry on', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
           ]),
         ],

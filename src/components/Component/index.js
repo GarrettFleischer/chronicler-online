@@ -29,7 +29,7 @@ const UnknownComponent = () => (
   </Card>
 );
 
-const Component = ({ item, reorder, classes }) => {
+const Component = ({ item, reorder /* classes */ }) => {
   switch (item.type) {
     case TEXT:
       return <Text item={item} reorder={reorder} />;
