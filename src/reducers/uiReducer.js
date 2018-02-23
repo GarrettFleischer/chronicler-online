@@ -30,7 +30,7 @@ export const initialState = {
   },
   link: {
     showChooseNodeDialog: false,
-    chooseNodeDialogValue: '4', // TODO change this temporary value
+    chooseNodeDialogValue: undefined,
   },
 };
 

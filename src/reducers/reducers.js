@@ -2,6 +2,7 @@ import { intlReducer } from 'react-intl-redux';
 import { nodeReducer } from '../containers/Node/reducers';
 import history from '../lib/history';
 import uiReducer from './uiReducer';
+import { sceneReducer } from '../containers/Scene/reducers';
 
 
 export default function rootReducer(state, action) {
@@ -31,9 +32,9 @@ function projectReducer(state, action) {
 
 const sceneMapper = (action) => (state) => sceneReducer(state, action);
 
-function sceneReducer(state, action) {
-  return { ...state, nodes: state.nodes.map(nodeMapper(action)) };
-}
-
-const nodeMapper = (action) => (state) => nodeReducer(state, action);
+// function sceneReducer(state, action) {
+//   return { ...state, nodes: state.nodes.map(nodeMapper(action)) };
+// }
+//
+// const nodeMapper = (action) => (state) => nodeReducer(state, action);
 

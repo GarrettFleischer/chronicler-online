@@ -10,6 +10,8 @@ export const NO_FILTER = 'core/NO_FILTER';
 
 // PUBLIC FUNCTIONS
 
+export const getNodeName = (node) => node.label === '' ? `node_${node.id}` : node.label;
+
 export const findIdForLabel = (label, sceneName = undefined) => (scenes) => scenes.reduce((id, scene) => {
   if (id !== null || (sceneName !== undefined && scene.name !== sceneName)) return id;
   return scene.nodes.reduce((nid, node) => {
