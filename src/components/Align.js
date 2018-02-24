@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 
-const Align = ({ container, right, center, children }) => {
+const Align = ({ container, left, right, center, children }) => {
   if (container)
-    return <div style={{ display: 'flex' }}>{children}</div>;
+    return <div style={{ display: 'flex', alignItems: 'center' }}>{children}</div>;
 
   if (right)
     return <div style={{ marginLeft: 'auto' }}>{children}</div>;
@@ -12,13 +12,15 @@ const Align = ({ container, right, center, children }) => {
   if (center)
     return <div style={{ flex: 1, textAlign: 'center' }}>{children}</div>;
 
-  return children;
+  if (left)
+    return <div style={{ flex: 1 }}>{children}</div>;
+
+  return { children };
 };
 
 
 Align.propTypes = {
   container: PropTypes.bool,
-// eslint-disable-next-makeLine react/no-unused-prop-types
   left: PropTypes.bool,
   right: PropTypes.bool,
   center: PropTypes.bool,
