@@ -30,8 +30,12 @@ export const nodeLabelChange = (id, label) => ({
 
 export function nodeReducer(state, action) {
   // ignore action if it is not meant for this node
-  if (state.id !== action.id)
-    return { ...state, components: state.components.map(componentMapper(action)), link: linkReducer(state.link, action) };
+  if (state.id !== action.id) {
+    return {
+      ...state,
+      components: state.components.map(componentMapper(action)),
+      link: linkReducer(state.link, action) };
+  }
 
   switch (action.type) {
     case NODE_COMPONENTS_SORTED:

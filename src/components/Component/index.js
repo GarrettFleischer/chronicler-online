@@ -12,8 +12,9 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Text from '../Text';
 import SetAction from '../SetAction';
-import { TEXT, NODE_LINK, SET } from '../../data/datatypes';
-import Next from '../Link';
+import { TEXT, SET } from '../../data/datatypes';
+// import Link from '../Link';
+// import Choice from '../Choice';
 
 const styleSheet = (theme) => ({
   component: {
@@ -37,8 +38,11 @@ const Component = ({ item, reorder /* classes */ }) => {
     case SET:
       return <SetAction item={item} reorder={reorder} />;
 
-    case NODE_LINK:
-      return <Next item={item} reorder={reorder} />;
+    // case NODE_LINK:
+    //   return <Link item={item} />;
+    //
+    // case CHOICE:
+    //   return <Choice item={item} />;
 
     default:
       return <UnknownComponent />;

@@ -20,6 +20,7 @@ export default function uiReducer(state = initialState, action) {
         ...state,
         node: nodeReducer(state.node, action),
         link: linkReducer(state.link, action),
+        choice: choiceReducer(state.choice, action),
       };
   }
 }
@@ -30,7 +31,10 @@ export const initialState = {
   },
   link: {
     showChooseNodeDialog: false,
-    chooseNodeDialogValue: undefined,
+    chooseNodeDialogValue: undefined, // id of selected node
+  },
+  choice: {
+    reordering: undefined, // id of the choice sorting components
   },
 };
 
@@ -53,6 +57,13 @@ const linkReducer = (state, action) => {
     case SET_CHOOSE_NODE_DIALOG_VALUE:
       return { ...state, chooseNodeDialogValue: action.value };
 
+    default:
+      return state;
+  }
+};
+
+const choiceReducer = (state, action) => {
+  switch (action.type) {
     default:
       return state;
   }

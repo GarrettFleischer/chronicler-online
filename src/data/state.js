@@ -1,7 +1,7 @@
 // import { cText, node, project, scene } from './nodes';
 import {
   makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink, makeLink, FINISH,
-  makeCreate, makeSetAction,
+  makeCreate, makeSetAction, makeChoice, makeChoiceItem,
 } from './datatypes';
 import { initialState as initialUiState } from '../reducers/uiReducer';
 
@@ -25,8 +25,23 @@ export const initialState = {
       makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
         makeProject('1', 'Dragon', 'CoG', [
           makeScene('startup', [
-            { ...makeNode('intro', [makeText('welcome'), makeSetAction('var_str', '%+', '10', false)], makeNodeLink('4')), id: '3' },
-            { ...makeNode('end', [makeText('end of chapter 1')], makeLink(FINISH, 'Fin')), id: '4' },
+            {
+              ...makeNode(
+              'intro',
+              [makeText('welcome'), makeSetAction('var_str', '%+', '10', false)],
+              makeChoice([
+                makeChoiceItem(null, null, 'do a thing', []),
+                makeChoiceItem(null, null, 'do something else', []),
+              ])),
+              id: '3',
+            },
+            {
+              ...makeNode(
+                'end',
+                [makeText('end of chapter 1')],
+                makeLink(FINISH, 'Fin')),
+              id: '4',
+            },
           ]),
         ],
           [

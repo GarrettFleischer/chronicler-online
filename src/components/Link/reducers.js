@@ -1,15 +1,16 @@
 
-export const NODE_LINK_CHANGED = 'NODE_LINK_CHANGED';
+import { CHOICE, NODE_LINK } from '../../data/datatypes';
+import { choiceReducer } from '../Choice/reducers';
+import { nodeLinkReducer } from '../NodeLink/reducers';
 
-export const nodeLinkChanged = (id, nodeId) => ({ type: NODE_LINK_CHANGED, id, nodeId });
 
 export const linkReducer = (state, action) => {
-  if (action.id !== state.id)
-    return state;
+  switch (state.type) {
+    case NODE_LINK:
+      return nodeLinkReducer(state, action);
 
-  switch (action.type) {
-    case NODE_LINK_CHANGED:
-      return { ...state, node: action.nodeId };
+    case CHOICE:
+      return choiceReducer(state, action);
 
     default:
       return state;

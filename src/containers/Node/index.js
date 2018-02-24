@@ -14,7 +14,7 @@ import Align from '../../components/Align';
 import { validateLabel } from '../../data/core';
 import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reducers';
 import { makeSelectNode } from './selectors';
-import Component from '../../components/Component/index';
+import Link from '../../components/Link';
 import { makeText } from '../../data/datatypes';
 import ComponentManager from '../../components/ComponentManager/index';
 import { setReordering } from '../../reducers/uiReducer';
@@ -90,8 +90,8 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
         <div>
           <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
         </div>
-        <div>
-          <Component item={node.link} reorder={ui.reordering} />
+        <div style={{ marginTop: '18px' }}>
+          <Link item={node.link} />
         </div>
       </Paper>
     );

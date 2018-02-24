@@ -64,7 +64,7 @@ export const SCENE = 'SCENE';
 export const USER = 'USER';
 export const PROJECT = 'PROJECT';
 
-
+// TODO modify these to take an object instead of parameters
 // other
 export const makeUser = (id, name, email, projects) => ({ type: USER, id, name, email, projects, activeProject: 0 });
 export const makeProject = (id, title, author, scenes, variables) => ({ type: PROJECT, id, title, author, scenes, variables });
@@ -93,7 +93,7 @@ export const makeNodeLink = (node) => ({ type: NODE_LINK, node });
 
 export const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
 
-export const makeChoice = (block) => ({ type: CHOICE, id: getID(), block });
+export const makeChoice = (choices) => ({ type: CHOICE, id: getID(), choices });
 export const makeChoiceItem = (reuse, condition, text, block) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, ...block });
 
 export const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, ...block, elses });
