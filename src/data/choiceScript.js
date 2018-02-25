@@ -96,7 +96,7 @@ import {
   makeTextStat,
   makePercentStat,
   makeOpposedStat,
-  makeSetAction, makePageBreakLink,
+  makeSetAction, makePageBreakLink, makeNodeBlock,
 } from './datatypes';
 
 
@@ -501,7 +501,7 @@ function Choice(parseResult) {
 
 
 function ChoiceItem(parseResult) {
-  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), ActionBlock))(parseResult);
+  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), choose(ActionBlock, NodeBlock)))(parseResult);
   if (!result.success) return result;
 
   return {
@@ -561,10 +561,17 @@ function Else(parseResult) {
 
 
 function ActionBlock(parseResult) {
-  const result = Block(inOrder(anyNumberOf(TextOrAction), Link))(parseResult);
+  const result = Block(inOrder(anyNumberOf(TextOrAction), choose(SingleLink, NodeLink)))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeActionBlock(result.object[0], result.object[1]) };
+}
+
+function NodeBlock(parseResult) {
+  const result = Block(atLeastOne(Node))(parseResult);
+  if (!result.success) return result;
+
+  return { ...result, object: makeNodeBlock(result.object) };
 }
 
 

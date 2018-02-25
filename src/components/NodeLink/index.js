@@ -15,12 +15,13 @@ import { setChooseNodeDialogValue, setShowChooseNodeDialog } from '../../reducer
 import Align from '../Align';
 
 
-const NodeLink = ({ item, onLinkIconClicked, onChange }) => (
+const NodeLink = ({ item, onLinkItemClicked, onChange }) => (
   <Align container>
     <Align center>
-      <Button onClick={() => onLinkIconClicked(item.node.id)}>{getNodeName(item.node)}</Button>
+      <Button onClick={() => onLinkItemClicked(item.id, item.node.id)}>{getNodeName(item.node)}</Button>
       <RouterLink to={`/node/${item.node.id}`} style={{ color: 'black' }}><IconButton color="inherit"><LinkIcon /></IconButton></RouterLink>
       <ChooseNodeDialog
+        id={item.id}
         handleClose={(value) => {
           onChange(item.id, value);
         }}
@@ -32,7 +33,7 @@ const NodeLink = ({ item, onLinkIconClicked, onChange }) => (
 NodeLink.propTypes = {
   item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  onLinkIconClicked: PropTypes.func.isRequired,
+  onLinkItemClicked: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -43,9 +44,9 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLinkIconClicked: (value) => {
+  onLinkItemClicked: (dialogId, value) => {
     dispatch(setChooseNodeDialogValue(value));
-    dispatch(setShowChooseNodeDialog(true));
+    dispatch(setShowChooseNodeDialog(dialogId));
   },
   onChange: (id, value) => {
     dispatch(nodeLinkChanged(id, value));

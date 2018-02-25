@@ -1,18 +1,18 @@
 import Card, { CardContent } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import AddIcon from 'material-ui-icons/Add';
-import SwapIcon from 'material-ui-icons/SwapVert';
 import IconButton from 'material-ui/IconButton';
 import Tooltip from 'material-ui/Tooltip';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Align from '../Align';
-import { choiceItemTextChanged } from './reducers';
+import { choiceAddItem, choiceItemTextChanged } from './reducers';
+import { renderLink } from '../Link';
 
 // TODO use intl
 // TODO draw internal components
-const Choice = ({ item, onChoiceTextChanged, onSortEnd, onSortClick, onAddChoiceClick, onAddComponentClick }) => (
+const Choice = ({ item, onChoiceTextChanged, onAddChoiceClick }) => (
   <div>
     <Align container>
       <Align left><span>*choice</span></Align>
@@ -33,6 +33,9 @@ const Choice = ({ item, onChoiceTextChanged, onSortEnd, onSortClick, onAddChoice
                 value={choice.text}
               />
             </Align>
+            <Align right>
+              {renderLink(choice.link)}
+            </Align>
           </Align>
         </CardContent>
       </Card>
@@ -43,27 +46,19 @@ const Choice = ({ item, onChoiceTextChanged, onSortEnd, onSortClick, onAddChoice
 Choice.propTypes = {
   item: PropTypes.object.isRequired,
   onChoiceTextChanged: PropTypes.func.isRequired,
-  onSortEnd: PropTypes.func.isRequired,
-  onSortClick: PropTypes.func.isRequired,
   onAddChoiceClick: PropTypes.func.isRequired,
-  onAddComponentClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  ui: state.ui.choice,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   onChoiceTextChanged: (id, text) => {
     dispatch(choiceItemTextChanged(id, text));
   },
-  onSortEnd: (id, oldIndex, newIndex) => {
-    // dispatch();
-  },
-  onSortClick: (id) => {
-    // dispatch();
-  },
   onAddChoiceClick: (id) => {
-    // dispatch();
-  },
-  onAddComponentClick: (id) => {
+    dispatch(choiceAddItem(id));
   },
 });
 

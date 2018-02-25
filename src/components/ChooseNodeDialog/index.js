@@ -71,6 +71,9 @@ const ChooseNodeDialog = ({ open, scenes, value, setValue, onAddClick, onClose, 
   );
 
 ChooseNodeDialog.propTypes = {
+  // id is used in mapStateToProps
+// eslint-disable-next-line react/no-unused-prop-types
+  id: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   value: PropTypes.string,
   scenes: PropTypes.array.isRequired,
@@ -84,8 +87,8 @@ ChooseNodeDialog.defaultProps = {
   value: undefined,
 };
 
-const mapStateToProps = (state) => ({
-  open: state.ui.link.showChooseNodeDialog,
+const mapStateToProps = (state, props) => ({
+  open: state.ui.link.showChooseNodeDialog === props.id,
   value: state.ui.link.chooseNodeDialogValue,
   scenes: (getActiveProject(state)).scenes,
 });
@@ -95,7 +98,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setChooseNodeDialogValue(value));
   },
   onClose: () => {
-    dispatch(setShowChooseNodeDialog(false));
+    dispatch(setShowChooseNodeDialog(''));
   },
   onAddClick: (sceneId) => {
     const node = makeNode('', [], makeLink(FINISH));

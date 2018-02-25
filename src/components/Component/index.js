@@ -30,7 +30,7 @@ const UnknownComponent = () => (
   </Card>
 );
 
-const Component = ({ item, reorder /* classes */ }) => {
+const renderItem = (item, reorder) => {
   switch (item.type) {
     case TEXT:
       return <Text item={item} reorder={reorder} />;
@@ -38,22 +38,18 @@ const Component = ({ item, reorder /* classes */ }) => {
     case SET:
       return <SetAction item={item} reorder={reorder} />;
 
-    // case NODE_LINK:
-    //   return <Link item={item} />;
-    //
-    // case CHOICE:
-    //   return <Choice item={item} />;
-
     default:
       return <UnknownComponent />;
   }
 };
 
-// <Card>
-//   <CardContent>
-//     <div className={classes.component}>{`next: ${item.text}`}</div>
-//   </CardContent>
-// </Card>
+const Component = ({ item, reorder, classes }) => (
+  <Card className={classes.component}>
+    <CardContent>
+      {renderItem(item, reorder)}
+    </CardContent>
+  </Card>
+);
 
 Component.propTypes = {
   item: PropTypes.object.isRequired,

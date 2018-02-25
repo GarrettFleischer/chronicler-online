@@ -1,6 +1,5 @@
-// import { cText, node, project, scene } from './nodes';
 import {
-  makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink, makeLink, FINISH,
+  makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink,
   makeCreate, makeSetAction, makeChoice, makeChoiceItem,
 } from './datatypes';
 import { initialState as initialUiState } from '../reducers/uiReducer';
@@ -30,8 +29,8 @@ export const initialState = {
               'intro',
               [makeText('welcome'), makeSetAction('var_str', '%+', '10', false)],
               makeChoice([
-                makeChoiceItem(null, null, 'do a thing', []),
-                makeChoiceItem(null, null, 'do something else', []),
+                makeChoiceItem(null, null, 'do a thing', makeNodeLink('4')),
+                makeChoiceItem(null, null, 'do something else', makeNodeLink('3')),
               ])),
               id: '3',
             },
@@ -39,7 +38,7 @@ export const initialState = {
               ...makeNode(
                 'end',
                 [makeText('end of chapter 1')],
-                makeLink(FINISH, 'Fin')),
+                makeNodeLink('3')),
               id: '4',
             },
           ]),

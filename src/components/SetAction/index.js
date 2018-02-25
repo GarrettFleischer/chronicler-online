@@ -1,4 +1,3 @@
-import Card, { CardContent } from 'material-ui/Card';
 import { FormControl, FormControlLabel } from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
@@ -22,11 +21,7 @@ const styles = (/* theme */) => ({
 });
 
 const Reorder = ({ item }) => (
-  <Card>
-    <CardContent>
-      <div>{`*set ${item.variable.name}`}</div>
-    </CardContent>
-  </Card>
+  <div>{`*set ${item.variable.name}`}</div>
 );
 
 Reorder.propTypes = {
@@ -83,57 +78,44 @@ const SetAction = ({ item, reorder, variables, onVariableChange, onOpChange, onV
     return <Reorder item={item} />;
   // TODO make labels based on intl
   return (
-    <Card>
-      <CardContent>
-        <text>*set</text>
-        <Align container>
-          <Align left>
-            <VariableSelect item={item} variableId={item.variable.id} variables={variables} onChange={onVariableChange} />
-          </Align>
-          <Align left>
-            <FormControl>
-              <Select
-                native
-                value={item.op}
-                onChange={(event) => {
-                  onOpChange(item.id, event.target.value);
-                }}
-                inputProps={{ id: `variable-${item.id}` }}
-              >
-                <option key={''} value={''} />
-                <option key={'+'} value={'+'}>+</option>
-                <option key={'-'} value={'-'}>-</option>
-                <option key={'*'} value={'*'}>*</option>
-                <option key={'/'} value={'/'}>/</option>
-                <option key={'%+'} value={'%+'}>%+</option>
-                <option key={'%-'} value={'%-'}>%-</option>
-              </Select>
-            </FormControl>
-          </Align>
-          <Align left>
-            <ValueField item={item} variables={variables} onValueChange={onValueChange} />
-          </Align>
-          <Align right>
-            <FormControl>
-              <FormControlLabel
-                label={'variable'}
-                control={
-                  <Checkbox
-                    checked={item.isVariable}
-                    onChange={(event) => {
-                      let variableId = '';
-                      if (event.target.checked)
-                        variableId = item.variableId;
-                      onIsVariableChange(item.id, variableId);
-                    }}
-                  />
-                }
-              />
-            </FormControl>
-          </Align>
+    <div>
+      <text>*set</text>
+      <Align container>
+        <Align left>
+          <VariableSelect item={item} variableId={item.variable.id} variables={variables} onChange={onVariableChange} />
+          <FormControl>
+            <Select
+              native
+              value={item.op}
+              onChange={(event) => onOpChange(item.id, event.target.value)}
+              inputProps={{ id: `variable-${item.id}` }}
+            >
+              <option key={''} value={''} />
+              <option key={'+'} value={'+'}>+</option>
+              <option key={'-'} value={'-'}>-</option>
+              <option key={'*'} value={'*'}>*</option>
+              <option key={'/'} value={'/'}>/</option>
+              <option key={'%+'} value={'%+'}>%+</option>
+              <option key={'%-'} value={'%-'}>%-</option>
+            </Select>
+          </FormControl>
+          <ValueField item={item} variables={variables} onValueChange={onValueChange} />
         </Align>
-      </CardContent>
-    </Card>
+        <Align right>
+          <FormControl>
+            <FormControlLabel
+              label={'variable'}
+              control={
+                <Checkbox
+                  checked={item.isVariable}
+                  onChange={(event) => onIsVariableChange(item.id, event.target.checked ? item.variableId : '')}
+                />
+                }
+            />
+          </FormControl>
+        </Align>
+      </Align>
+    </div>
   );
 };
 

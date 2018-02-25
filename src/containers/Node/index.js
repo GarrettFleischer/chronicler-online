@@ -64,9 +64,9 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
 
     return (
       <Paper className={classes.root}>
-        <Align container>
-          <Align left>
-            <div>
+        <div style={{ marginBottom: '18px' }}>
+          <Align container>
+            <Align left>
               <TextField
                 onChange={this.onLabelChange}
                 placeholder={`Page ${node.id}`}
@@ -74,19 +74,17 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
                 error={!validateLabel(state, node.label)}
                 label="Label"
               />
-            </div>
-          </Align>
-          <Align right>
-            <div>
+            </Align>
+            <Align right>
               <Tooltip title={<FormattedMessage {...messages.reorder} />}>
                 <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
               </Tooltip>
               <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
                 <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
               </Tooltip>
-            </div>
+            </Align>
           </Align>
-        </Align>
+        </div>
         <div>
           <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
         </div>

@@ -60,7 +60,8 @@ export const NODE = 'NODE';
 export const NODE_LINK = 'NODE_LINK';
 export const FAKE_CHOICE_ITEM = 'FAKE_CHOICE_ITEM';
 export const SCENE = 'SCENE';
-// export const ACTION_BLOCK = 'ACTION_BLOCK';
+export const ACTION_BLOCK = 'ACTION_BLOCK';
+export const NODE_BLOCK = 'NODE_BLOCK';
 export const USER = 'USER';
 export const PROJECT = 'PROJECT';
 
@@ -85,16 +86,17 @@ export const makeReuse = (type) => ({ type, id: getID() });
 export const makeText = (text) => ({ type: TEXT, id: getID(), text });
 export const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
 export const makeSetAction = (variableId, op, value, isVariable) => ({ type: SET, id: getID(), variableId, op, value, isVariable });
-export const makeActionBlock = (components, link) => ({ components, link });
+export const makeActionBlock = (components, link) => ({ type: ACTION_BLOCK, components, link });
+export const makeNodeBlock = (nodes) => ({ type: NODE_BLOCK, nodes });
 
 export const makePageBreakLink = (text, link) => ({ type: PAGE_BREAK_LINK, text, link });
 export const makeLink = (type, text) => ({ type, text });
-export const makeNodeLink = (node) => ({ type: NODE_LINK, node });
+export const makeNodeLink = (node) => ({ type: NODE_LINK, id: getID(), node });
 
 export const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
 
 export const makeChoice = (choices) => ({ type: CHOICE, id: getID(), choices });
-export const makeChoiceItem = (reuse, condition, text, block) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, ...block });
+export const makeChoiceItem = (reuse, condition, text, link) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, link });
 
 export const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, ...block, elses });
 export const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition, ...block });

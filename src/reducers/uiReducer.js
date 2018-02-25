@@ -30,7 +30,7 @@ export const initialState = {
     reordering: false,
   },
   link: {
-    showChooseNodeDialog: false,
+    showChooseNodeDialog: undefined,
     chooseNodeDialogValue: undefined, // id of selected node
   },
   choice: {

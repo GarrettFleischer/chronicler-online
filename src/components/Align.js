@@ -21,6 +21,7 @@ const Align = ({ container, left, right, center, children }) => {
 
 Align.propTypes = {
   container: PropTypes.bool,
+// eslint-disable-next-makeLine react/no-unused-prop-types
   left: PropTypes.bool,
   right: PropTypes.bool,
   center: PropTypes.bool,

@@ -7,7 +7,7 @@ import Choice from '../Choice';
 
 
 // TODO handle scene links
-const linkType = (item) => {
+export const renderLink = (item) => {
   switch (item.type) {
     case NODE_LINK:
       return <NodeLink item={item} />;
@@ -16,14 +16,14 @@ const linkType = (item) => {
       return <Choice item={item} />;
 
     default:
-      return <text>link component</text>;
+      return <text>{item.type}</text>;
   }
 };
 
 const Link = ({ item }) => (
   <Card>
     <CardContent>
-      {linkType(item)}
+      {renderLink(item)}
     </CardContent>
   </Card>
 );

@@ -1,4 +1,3 @@
-import Card, { CardContent } from 'material-ui/Card';
 import PropTypes from 'prop-types';
 import React from 'react';
 import AceEditor from 'react-ace';
@@ -10,11 +9,7 @@ import { textComponentChanged } from './reducers';
 
 
 const Reorder = ({ item }) => (
-  <Card>
-    <CardContent>
-      <div>{item.text}</div>
-    </CardContent>
-  </Card>
+  <text>{item.text}</text>
 );
 
 Reorder.propTypes = {
@@ -27,22 +22,18 @@ const Text = ({ item, reorder, onChange }) => {
     return <Reorder item={item} />;
   // TODO render line break and double line break before or after radio and checkbox options
   return (
-    <Card>
-      <CardContent>
-        <AceEditor
-          onChange={(text) => {
-            onChange(item.id, text);
-          }}
-          value={item.text}
-          mode="python"
-          theme="github"
-          name={item.id}
-          editorProps={{ $blockScrolling: true }}
-          height="200px"
-          showGutter={false}
-        />
-      </CardContent>
-    </Card>
+    <AceEditor
+      onChange={(text) => {
+        onChange(item.id, text);
+      }}
+      value={item.text}
+      mode="python"
+      theme="github"
+      name={item.id}
+      editorProps={{ $blockScrolling: true }}
+      height="75px"
+      showGutter
+    />
   );
 };
 
