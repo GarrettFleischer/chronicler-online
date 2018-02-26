@@ -15,57 +15,57 @@ describe('core', () => {
 
 // describe('core', () => {
 //   describe('findById', () => {
-//     it('returns null when id not found', () => {
+//     it('returns null when PropTypeId not found', () => {
 //       const result = findById(complexState(), 999);
 //       expect(result).toEqual(null);
 //     });
 //
-//     it('returns null if id exists but does not match type', () => {
+//     it('returns null if PropTypeId exists but does not match type', () => {
 //       const result = findById(complexState(), 18, DataType.NODE);
 //       expect(result).toEqual(null);
 //     });
 //
 //     it('can match by type', () => {
 //       const result = findById(complexState(), 10, DataType.NODE);
-//       expect(result.id).toEqual(10);
+//       expect(result.PropTypeId).toEqual(10);
 //     });
 //
 //     it('can find a scene at any index', () => {
 //       let result = findById(complexState(), 1);
-//       expect(result.id).toEqual(1);
+//       expect(result.PropTypeId).toEqual(1);
 //
 //       result = findById(complexState(), 9);
-//       expect(result.id).toEqual(9);
+//       expect(result.PropTypeId).toEqual(9);
 //     });
 //
 //     it('can find a node at any index', () => {
 //       let result = findById(complexState(), 2);
-//       expect(result.id).toEqual(2);
+//       expect(result.PropTypeId).toEqual(2);
 //
 //       result = findById(complexState(), 13);
-//       expect(result.id).toEqual(13);
+//       expect(result.PropTypeId).toEqual(13);
 //     });
 //
 //     it('can find a component at any index', () => {
 //       let result = findById(complexState(), 3);
-//       expect(result.id).toEqual(3);
+//       expect(result.PropTypeId).toEqual(3);
 //
 //       result = findById(complexState(), 17);
-//       expect(result.id).toEqual(17);
+//       expect(result.PropTypeId).toEqual(17);
 //     });
 //
 //     it('can find a link', () => {
 //       const result = findById(complexState(), 18);
-//       expect(result.id).toEqual(18);
+//       expect(result.PropTypeId).toEqual(18);
 //     });
 //   });
 //
 //   describe('setById', () => {
 //     it('can set in a node', () => {
-//       const result = setById(complexState(), 13, { id: 999 }, DataType.NODE);
+//       const result = setById(complexState(), 13, { PropTypeId: 999 }, DataType.NODE);
 //       const updatedNode = findById(result, 999, DataType.NODE);
 //
-//       expect(updatedNode.id).toEqual(999);
+//       expect(updatedNode.PropTypeId).toEqual(999);
 //     });
 //   });
 // });

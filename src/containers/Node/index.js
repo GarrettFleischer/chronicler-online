@@ -3,6 +3,7 @@ import SwapIcon from 'material-ui-icons/SwapVert';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
+import Card, { CardContent } from 'material-ui/Card';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
@@ -86,10 +87,14 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
           </Align>
         </div>
         <div>
-          <ComponentManager components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
+          <ComponentManager parent={node.id} components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
         </div>
         <div style={{ marginTop: '18px' }}>
-          <Link item={node.link} />
+          <Card>
+            <CardContent>
+              <Link item={node.link} />
+            </CardContent>
+          </Card>
         </div>
       </Paper>
     );

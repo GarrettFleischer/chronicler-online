@@ -61,7 +61,7 @@ describe('ChoiceScript parser', () => {
       ],
     };
 
-    // remove id from nested objects, then error and tokens from top object
+    // remove PropTypeId from nested objects, then error and tokens from top object
     const result = parse(cs);
     const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id', 'variableId')({ ...result }));
 
@@ -6081,7 +6081,7 @@ describe('ChoiceScript parser', () => {
           }],
         },
       }];
-    // const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'id')({ ...parseResult }));
+    // const filtered = removeKeys(false, 'scene', 'error', 'tokens', 'indent')(removeKeys(true, 'PropTypeId')({ ...parseResult }));
     const expected = [
       [
         {

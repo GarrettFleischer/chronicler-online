@@ -171,7 +171,7 @@ export const initialState = {
 //   makeUser: pouchUser,          // current logged in makeUser
 //   projects: [pouchProject], // projects belonging to makeUser filtered by path function
 //   ui: {
-//     makeProject: 0, // id of active makeProject
+//     makeProject: 0, // PropTypeId of active makeProject
 //   },
 //   history: {
 //     past: [],
@@ -201,7 +201,7 @@ export const initialState = {
 //   type: DataType.VARIABLE,
 //   name: '',
 //   value: '',
-//   scene: null, // null or scene id if local var
+//   scene: null, // null or scene PropTypeId if local var
 // };
 //
 // const pouchScene = {
@@ -215,7 +215,7 @@ export const initialState = {
 // const pouchNode = {
 //   _id: 0,
 //   type: DataType.NODE,
-//   scene: 0, // id of related scene
+//   scene: 0, // PropTypeId of related scene
 //   label: '',
 //   components: [0, 1, 2], // ids of related components
 // };
@@ -223,7 +223,7 @@ export const initialState = {
 // const pouchComponent = {
 //   _id: 0,
 //   type: DataType.COMPONENT,
-//   node: 0, // id
+//   node: 0, // PropTypeId
 //   changesets: [0, 1, 2], // ids of related changesets
 //   componentType: DataType.TEXT, // specific component type
 //   // type specific data
@@ -232,16 +232,16 @@ export const initialState = {
 // const pouchChangeset = {
 //   _id: 0,
 //   type: DataType.CHANGESET,
-//   component: 0, // id of related component
-//   owner: 0, // id of makeUser
-//   parent: 0, // id of parent changeset
+//   component: 0, // PropTypeId of related component
+//   owner: 0, // PropTypeId of makeUser
+//   parent: 0, // PropTypeId of parent changeset
 //   children: [0, 1, 2], // ids of child changesets
 //   changesetType: DataType.CHANGESET, // specific changeset type
 //   // type specific data
 // };
 //
 //
-// // const pouchGet = (id, includeChildren, type) => ({ id: 0, includeChildren: false, type: DataType.NODE });
+// // const pouchGet = (PropTypeId, includeChildren, type) => ({ PropTypeId: 0, includeChildren: false, type: DataType.NODE });
 //
 //
 // function initData() {

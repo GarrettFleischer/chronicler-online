@@ -6,15 +6,22 @@
 
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
+import DeleteIcon from 'material-ui-icons/Delete';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Text from '../Text';
 import SetAction from '../SetAction';
 import { TEXT, SET } from '../../data/datatypes';
-// import Link from '../Link';
-// import Choice from '../Choice';
+import Align from '../Align';
+import { PropTypeId } from '../../data/datatypes';
+import { nodeDeleteComponent } from '../../containers/Node/reducers';
+import { setComponentAnchorEl } from '../../reducers/uiReducer';
 
 const styleSheet = (theme) => ({
   component: {
@@ -43,19 +50,70 @@ const renderItem = (item, reorder) => {
   }
 };
 
-const Component = ({ item, reorder, classes }) => (
-  <Card className={classes.component}>
-    <CardContent>
-      {renderItem(item, reorder)}
-    </CardContent>
-  </Card>
-);
+const Component = ({ parent, item, reorder, classes, ui, setAnchorEl, onDeleteClicked }) => {
+  const options = [
+    { icon: <DeleteIcon />, text: 'delete', func: onDeleteClicked(parent) },
+  ];
+
+  return (
+    <div>
+      <Card className={classes.component}>
+        <CardContent>
+          <IconButton
+            style={{ float: 'left', marginLeft: '-20px' }}
+            aria-label="More"
+            aria-owns={ui.anchorEl ? item.id : null}
+            aria-haspopup="true"
+            onClick={(event) => setAnchorEl(event.currentTarget, item.id)}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          {renderItem(item, reorder)}
+        </CardContent>
+      </Card>
+      <Menu
+        id={item.id}
+        anchorEl={ui.anchorEl}
+        open={Boolean(ui.anchorEl) && ui.showMenu === item.id}
+        onClose={() => setAnchorEl(null)}
+      >
+        {options.map((option) => (
+          <MenuItem
+            key={option.text}
+            onClick={() => {
+              setAnchorEl(null);
+              option.func(item.id);
+            }}
+          >
+            {option.text}
+            {option.icon}
+          </MenuItem>
+      ))}
+      </Menu>
+    </div>
+  );
+};
 
 Component.propTypes = {
+  parent: PropTypeId.isRequired,
   item: PropTypes.object.isRequired,
   reorder: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired,
+  setAnchorEl: PropTypes.func.isRequired,
+  onDeleteClicked: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  ui: state.ui.component,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setAnchorEl: (anchorEl, showMenu) => {
+    dispatch(setComponentAnchorEl(anchorEl, showMenu));
+  },
+  onDeleteClicked: (parentId) => (id) => {
+    dispatch(nodeDeleteComponent(parentId, id));
+  },
+});
 
-export default withStyles(styleSheet)(Component);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Component));

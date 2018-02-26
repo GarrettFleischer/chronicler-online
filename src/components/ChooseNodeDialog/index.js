@@ -71,7 +71,7 @@ const ChooseNodeDialog = ({ open, scenes, value, setValue, onAddClick, onClose, 
   );
 
 ChooseNodeDialog.propTypes = {
-  // id is used in mapStateToProps
+  // PropTypeId is used in mapStateToProps
 // eslint-disable-next-line react/no-unused-prop-types
   id: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,

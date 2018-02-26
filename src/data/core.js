@@ -22,14 +22,14 @@ export const findIdForLabel = (label, sceneName = undefined) => (scenes) => scen
 
 
 export function findById(state, id, type = NO_FILTER) {
-  // since no more than one thing can match an id, peek the first returned element
+  // since no more than one thing can match an PropTypeId, peek the first returned element
   const found = reduceBy(matchIdAndType(id, type))([], state);
   return empty(found) ? null : peek(found);
 }
 
 
-// export function findParents(state, id) {
-//   return filterBy(matchParents(id))(state);
+// export function findParents(state, PropTypeId) {
+//   return filterBy(matchParents(PropTypeId))(state);
 // }
 
 
@@ -67,27 +67,27 @@ const matchIdAndType = (id, type = NO_FILTER) => (acc, curr) => {
   return acc;
 };
 
-// const matchParents = (id) => (item) => {
+// const matchParents = (PropTypeId) => (item) => {
 //   switch (item.type) {
 //     case PROJECT:
-//       return !empty(item.scenes.filter(matchIdAndType(id)));
+//       return !empty(item.scenes.filter(matchIdAndType(PropTypeId)));
 //
 //     case SCENE:
-//       return !empty(item.nodes.filter(matchIdAndType(id)));
+//       return !empty(item.nodes.filter(matchIdAndType(PropTypeId)));
 //
 //     case NODE:
-//       return !empty(item.components.filter(matchIdAndType(id)));
+//       return !empty(item.components.filter(matchIdAndType(PropTypeId)));
 //
 //     // case CHOICE:
-//     //   return !empty(item.links.filter(matchIdAndType(id)));
+//     //   return !empty(item.links.filter(matchIdAndType(PropTypeId)));
 //     //
 //     // case DataType.LINK:
 //     // case DataType.IF_LINK:
-//     //   return !empty(item.components.filter(matchIdAndType(id)));
+//     //   return !empty(item.components.filter(matchIdAndType(PropTypeId)));
 //     //
 //     // case DataType.IF:
-//     //   return (!empty(item.components.filter(matchIdAndType(id))) &&
-//     //     !empty(item.elseComponents.filter(matchIdAndType(id))));
+//     //   return (!empty(item.components.filter(matchIdAndType(PropTypeId))) &&
+//     //     !empty(item.elseComponents.filter(matchIdAndType(PropTypeId))));
 //
 //     default:
 //       return false;

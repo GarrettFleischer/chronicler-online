@@ -1,4 +1,5 @@
 import { generate as getID } from 'shortid';
+import PropTypes from 'prop-types';
 
 // TOKENS
 export const EOF = 'EOF';
@@ -64,6 +65,8 @@ export const ACTION_BLOCK = 'ACTION_BLOCK';
 export const NODE_BLOCK = 'NODE_BLOCK';
 export const USER = 'USER';
 export const PROJECT = 'PROJECT';
+
+export const PropTypeId = PropTypes.string;
 
 // TODO modify these to take an object instead of parameters
 // other

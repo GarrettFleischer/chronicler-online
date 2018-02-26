@@ -2,7 +2,6 @@ import { SET, TEXT } from '../../data/datatypes';
 import { textReducer } from '../Text/reducers';
 import { setActionReducer } from '../SetAction/reducers';
 
-
 export const componentReducer = (state, action) => {
   switch (state.type) {
     case TEXT:

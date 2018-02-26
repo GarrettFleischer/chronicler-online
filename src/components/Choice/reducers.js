@@ -1,11 +1,17 @@
+import { arrayMove } from 'react-sortable-hoc';
 import { linkReducer } from '../Link/reducers';
 import { FINISH, makeChoiceItem, makeLink } from '../../data/datatypes';
 
 export const CHOICE_ADD_ITEM = 'CHOICE_ADD_ITEM';
+export const CHOICE_SORT_END = 'CHOICE_SORT_END';
+
 export const CHOICE_ITEM_TEXT_CHANGED = 'CHOICE_ITEM_TEXT_CHANGED';
 
 export const choiceAddItem = (id) => ({ type: CHOICE_ADD_ITEM, id });
+export const choiceSortEnd = (id, oldIndex, newIndex) => ({ type: CHOICE_SORT_END, id, oldIndex, newIndex });
+
 export const choiceItemTextChanged = (id, text) => ({ type: CHOICE_ITEM_TEXT_CHANGED, id, text });
+
 
 export const choiceReducer = (state, action) => {
   if (state.id !== action.id)
@@ -13,8 +19,10 @@ export const choiceReducer = (state, action) => {
 
   switch (action.type) {
     case CHOICE_ADD_ITEM:
-      // TODO change this to a FINISH link
       return { ...state, choices: [...state.choices, makeChoiceItem(null, null, '', makeLink(FINISH, ''))] };
+
+    case CHOICE_SORT_END:
+      return { ...state, choices: arrayMove(state.choices, action.oldIndex, action.newIndex) };
 
     default:
       return state;
