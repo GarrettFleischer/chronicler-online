@@ -5,14 +5,14 @@ import Component from '../Component';
 import { PropTypeId } from '../../data/datatypes';
 
 
-const ComponentManager = ({ parent, components, reordering, onSortEnd }) => {
+const ComponentManager = ({ parentId, components, reordering, onSortEnd }) => {
   if (reordering)
     return <ComponentList components={components} onSortEnd={onSortEnd} />;
 
   return (
     <div>
       {components.map((component) => (
-        <Component key={component.id} parent={parent} item={component} reorder={false} />
+        <Component key={component.id} parentId={parentId} item={component} reorder={false} />
     ))}
     </div>
   );
@@ -20,7 +20,7 @@ const ComponentManager = ({ parent, components, reordering, onSortEnd }) => {
 
 
 ComponentManager.propTypes = {
-  parent: PropTypeId.isRequired,
+  parentId: PropTypeId.isRequired,
   components: PropTypes.array.isRequired,
   reordering: PropTypes.bool.isRequired,
   onSortEnd: PropTypes.func.isRequired,

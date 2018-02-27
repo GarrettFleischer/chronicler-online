@@ -1,22 +1,21 @@
 export const SET_REORDERING = 'SET_REORDERING';
-export const RESTORE_DEFAULT_UI = 'RESTORE_DEFAULT_UI';
-
-export const SET_SHOW_CHOOSE_NODE_DIALOG = 'SET_SHOW_CHOOSE_NODE_DIALOG';
-export const SET_CHOOSE_NODE_DIALOG_VALUE = 'SET_CHOOSE_NODE_DIALOG_VALUE';
-
-export const SET_CHOICE_REORDERING = 'SET_CHOICE_REORDERING';
-
-export const SET_COMPONENT_ANCHOR_EL = 'SET_COMPONENT_ANCHOR_EL';
-
 export const setReordering = (reordering) => ({ type: SET_REORDERING, reordering });
+
+export const RESTORE_DEFAULT_UI = 'RESTORE_DEFAULT_UI';
 export const restoreDefaultUI = () => ({ type: RESTORE_DEFAULT_UI });
 
+export const SET_SHOW_CHOOSE_NODE_DIALOG = 'SET_SHOW_CHOOSE_NODE_DIALOG';
 export const setShowChooseNodeDialog = (show) => ({ type: SET_SHOW_CHOOSE_NODE_DIALOG, show });
+
+export const SET_CHOOSE_NODE_DIALOG_VALUE = 'SET_CHOOSE_NODE_DIALOG_VALUE';
 export const setChooseNodeDialogValue = (value) => ({ type: SET_CHOOSE_NODE_DIALOG_VALUE, value });
 
+export const SET_CHOICE_REORDERING = 'SET_CHOICE_REORDERING';
 export const setChoiceReordering = (reordering) => ({ type: SET_CHOICE_REORDERING, reordering });
 
-export const setComponentAnchorEl = (anchorEl, showMenu) => ({ type: SET_COMPONENT_ANCHOR_EL, anchorEl, showMenu });
+export const SET_ITEM_MENU = 'SET_ITEM_MENU';
+export const setItemMenu = (anchorEl, showMenu) => ({ type: SET_ITEM_MENU, anchorEl, showMenu });
+
 
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
@@ -29,7 +28,7 @@ export default function uiReducer(state = initialState, action) {
         node: nodeReducer(state.node, action),
         link: linkReducer(state.link, action),
         choice: choiceReducer(state.choice, action),
-        component: componentReducer(state.component, action),
+        itemMenu: itemMenuReducer(state.itemMenu, action),
       };
   }
 }
@@ -38,16 +37,18 @@ export const initialState = {
   node: {
     reordering: false,
   },
-  component: {
-    anchorEl: null,
-    showMenu: undefined,
-  },
   link: {
     showChooseNodeDialog: undefined,
     chooseNodeDialogValue: undefined, // PropTypeId of selected node
   },
   choice: {
+    anchorEl: null,
+    showMenu: undefined,
     reordering: false, // PropTypeId of the choice sorting components
+  },
+  itemMenu: {
+    anchorEl: null,
+    showMenu: undefined,
   },
 };
 
@@ -85,10 +86,9 @@ const choiceReducer = (state, action) => {
   }
 };
 
-
-const componentReducer = (state, action) => {
+const itemMenuReducer = (state, action) => {
   switch (action.type) {
-    case SET_COMPONENT_ANCHOR_EL:
+    case SET_ITEM_MENU:
       return { ...state, anchorEl: action.anchorEl, showMenu: action.showMenu };
 
     default:

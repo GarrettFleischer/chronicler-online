@@ -17,11 +17,9 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Text from '../Text';
 import SetAction from '../SetAction';
-import { TEXT, SET } from '../../data/datatypes';
-import Align from '../Align';
-import { PropTypeId } from '../../data/datatypes';
+import { TEXT, SET, PropTypeId } from '../../data/datatypes';
 import { nodeDeleteComponent } from '../../containers/Node/reducers';
-import { setComponentAnchorEl } from '../../reducers/uiReducer';
+import ItemMenu from '../ItemMenu';
 
 const styleSheet = (theme) => ({
   component: {
@@ -50,57 +48,23 @@ const renderItem = (item, reorder) => {
   }
 };
 
-const Component = ({ parent, item, reorder, classes, ui, setAnchorEl, onDeleteClicked }) => {
-  const options = [
-    { icon: <DeleteIcon />, text: 'delete', func: onDeleteClicked(parent) },
-  ];
-
-  return (
-    <div>
-      <Card className={classes.component}>
-        <CardContent>
-          <IconButton
-            style={{ float: 'left', marginLeft: '-20px' }}
-            aria-label="More"
-            aria-owns={ui.anchorEl ? item.id : null}
-            aria-haspopup="true"
-            onClick={(event) => setAnchorEl(event.currentTarget, item.id)}
-          >
-            <MoreVertIcon />
-          </IconButton>
+const Component = ({ parentId, item, reorder, classes, onDeleteClicked }) => (
+  <div>
+    <Card className={classes.component}>
+      <CardContent>
+        <ItemMenu parentId={parentId} itemId={item.id} handleDelete={onDeleteClicked}>
           {renderItem(item, reorder)}
-        </CardContent>
-      </Card>
-      <Menu
-        id={item.id}
-        anchorEl={ui.anchorEl}
-        open={Boolean(ui.anchorEl) && ui.showMenu === item.id}
-        onClose={() => setAnchorEl(null)}
-      >
-        {options.map((option) => (
-          <MenuItem
-            key={option.text}
-            onClick={() => {
-              setAnchorEl(null);
-              option.func(item.id);
-            }}
-          >
-            {option.text}
-            {option.icon}
-          </MenuItem>
-      ))}
-      </Menu>
-    </div>
+        </ItemMenu>
+      </CardContent>
+    </Card>
+  </div>
   );
-};
 
 Component.propTypes = {
-  parent: PropTypeId.isRequired,
+  parentId: PropTypeId.isRequired,
   item: PropTypes.object.isRequired,
   reorder: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
-  ui: PropTypes.object.isRequired,
-  setAnchorEl: PropTypes.func.isRequired,
   onDeleteClicked: PropTypes.func.isRequired,
 };
 
@@ -108,10 +72,7 @@ const mapStateToProps = (state) => ({
   ui: state.ui.component,
 });
 const mapDispatchToProps = (dispatch) => ({
-  setAnchorEl: (anchorEl, showMenu) => {
-    dispatch(setComponentAnchorEl(anchorEl, showMenu));
-  },
-  onDeleteClicked: (parentId) => (id) => {
+  onDeleteClicked: (parentId, id) => {
     dispatch(nodeDeleteComponent(parentId, id));
   },
 });

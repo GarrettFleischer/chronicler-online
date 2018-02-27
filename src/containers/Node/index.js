@@ -87,7 +87,7 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
           </Align>
         </div>
         <div>
-          <ComponentManager parent={node.id} components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
+          <ComponentManager parentId={node.id} components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
         </div>
         <div style={{ marginTop: '18px' }}>
           <Card>

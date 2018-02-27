@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "deep-equal": "^1.0.1",
+    "deepcopy": "^0.6.3",
     "intl": "^1.2.5",
     "invariant": "^2.2.3",
+    "jsondiffpatch": "^0.3.5",
     "lodash": "^4.17.5",
     "material-ui": "^1.0.0-beta.34",
     "material-ui-icons": "^1.0.0-alpha.19",

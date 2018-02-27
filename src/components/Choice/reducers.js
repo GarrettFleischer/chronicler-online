@@ -3,13 +3,15 @@ import { linkReducer } from '../Link/reducers';
 import { FINISH, makeChoiceItem, makeLink } from '../../data/datatypes';
 
 export const CHOICE_ADD_ITEM = 'CHOICE_ADD_ITEM';
-export const CHOICE_SORT_END = 'CHOICE_SORT_END';
-
-export const CHOICE_ITEM_TEXT_CHANGED = 'CHOICE_ITEM_TEXT_CHANGED';
-
 export const choiceAddItem = (id) => ({ type: CHOICE_ADD_ITEM, id });
+
+export const CHOICE_SORT_END = 'CHOICE_SORT_END';
 export const choiceSortEnd = (id, oldIndex, newIndex) => ({ type: CHOICE_SORT_END, id, oldIndex, newIndex });
 
+export const CHOICE_DELETE_ITEM = 'CHOICE_DELETE_ITEM';
+export const choiceDeleteItem = (id, itemId) => ({ type: CHOICE_DELETE_ITEM, id, itemId });
+
+export const CHOICE_ITEM_TEXT_CHANGED = 'CHOICE_ITEM_TEXT_CHANGED';
 export const choiceItemTextChanged = (id, text) => ({ type: CHOICE_ITEM_TEXT_CHANGED, id, text });
 
 
@@ -23,6 +25,10 @@ export const choiceReducer = (state, action) => {
 
     case CHOICE_SORT_END:
       return { ...state, choices: arrayMove(state.choices, action.oldIndex, action.newIndex) };
+
+
+    case CHOICE_DELETE_ITEM:
+      return { ...state, choices: state.choices.filter((item) => item.id !== action.itemId) };
 
     default:
       return state;
