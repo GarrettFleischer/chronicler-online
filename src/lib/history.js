@@ -1,5 +1,6 @@
 import deepEqual from 'deep-equal';
 import { peek, pop, push } from './stack';
+import { diff, patch } from '../data/utilities';
 
 
 export const UNDO = 'history/UNDO';
@@ -36,8 +37,9 @@ export default function history(reducer, initReducerState) {
         for (let i = 0; i < action.changes; i += 1) {
           // revert changes if undo is not possible the number of changes
           if (!newCanUndo) return state;
-          newFuture = push(newFuture, newPresent);
-          newPresent = peek(newPast);
+          const patched = patch(newPresent, peek(newPast));
+          newFuture = push(newFuture, diff(patched, newPresent));
+          newPresent = patched;
           newPast = pop(newPast);
           newCanUndo = newPast.length > 0;
           newCanRedo = true;
@@ -50,8 +52,9 @@ export default function history(reducer, initReducerState) {
         for (let i = 0; i < action.changes; i += 1) {
           // revert changes if redo is not possible the number of changes
           if (!newCanRedo) return state;
-          newPast = push(newPast, newPresent);
-          newPresent = peek(newFuture);
+          const patched = patch(newPresent, peek(newFuture));
+          newPast = push(newPast, diff(patched, newPresent));
+          newPresent = patched;
           newFuture = pop(newFuture);
           newCanUndo = true;
           newCanRedo = newFuture.length > 0;
@@ -65,7 +68,7 @@ export default function history(reducer, initReducerState) {
         if (deepEqual(newPresent, present)) return state;
         // merge only if the last action was the same or time since last update was less than a second
         if (lastActionType !== mergeAction || (newUpdateTime - updateTime) > 1000) {
-          newPast = push(past, present);
+          newPast = push(past, diff(present, newPresent));
           newCanUndo = true;
         }
         newFuture = [];
@@ -78,7 +81,7 @@ export default function history(reducer, initReducerState) {
         // reduce the state and only create an undo if the state changed
         newPresent = reducer(present, action);
         if (deepEqual(newPresent, present)) return state;
-        newPast = push(past, { ...present });
+        newPast = push(past, diff(newPresent, present));
         newFuture = [];
         newCanUndo = true;
         newCanRedo = false;
