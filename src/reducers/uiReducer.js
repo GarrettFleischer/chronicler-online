@@ -16,6 +16,11 @@ export const setChoiceReordering = (reordering) => ({ type: SET_CHOICE_REORDERIN
 export const SET_ITEM_MENU = 'SET_ITEM_MENU';
 export const setItemMenu = (anchorEl, showMenu) => ({ type: SET_ITEM_MENU, anchorEl, showMenu });
 
+export const SET_SHOW_CHOOSE_COMPONENT_DIALOG = 'SET_SHOW_CHOOSE_COMPONENT_DIALOG';
+export const setShowChooseComponentDialog = (show) => ({ type: SET_SHOW_CHOOSE_COMPONENT_DIALOG, show });
+
+export const SET_CHOOSE_COMPONENT_DIALOG_VALUE = 'SET_CHOOSE_COMPONENT_DIALOG_VALUE';
+export const setChooseComponentDialogValue = (value) => ({ type: SET_CHOOSE_COMPONENT_DIALOG_VALUE, value });
 
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
@@ -29,6 +34,7 @@ export default function uiReducer(state = initialState, action) {
         link: linkReducer(state.link, action),
         choice: choiceReducer(state.choice, action),
         itemMenu: itemMenuReducer(state.itemMenu, action),
+        chooseComponentDialog: chooseComponentDialogReducer(state.chooseComponentDialog, action),
       };
   }
 }
@@ -49,6 +55,10 @@ export const initialState = {
   itemMenu: {
     anchorEl: null,
     showMenu: undefined,
+  },
+  chooseComponentDialog: {
+    show: false,
+    value: undefined,
   },
 };
 
@@ -90,6 +100,20 @@ const itemMenuReducer = (state, action) => {
   switch (action.type) {
     case SET_ITEM_MENU:
       return { ...state, anchorEl: action.anchorEl, showMenu: action.showMenu };
+
+    default:
+      return state;
+  }
+};
+
+
+const chooseComponentDialogReducer = (state, action) => {
+  switch (action.type) {
+    case SET_SHOW_CHOOSE_COMPONENT_DIALOG:
+      return { ...state, show: action.show };
+
+    case SET_CHOOSE_COMPONENT_DIALOG_VALUE:
+      return { ...state, value: action.value };
 
     default:
       return state;

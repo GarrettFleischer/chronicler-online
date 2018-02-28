@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 import Card, { CardContent } from 'material-ui/Card';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Tooltip from 'material-ui/Tooltip';
@@ -16,13 +16,10 @@ import { validateLabel } from '../../data/core';
 import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reducers';
 import { makeSelectNode } from './selectors';
 import Link from '../../components/Link';
-import { makeText } from '../../data/datatypes';
+import ChooseComponentDialog from '../../components/ChooseComponentDialog';
 import ComponentManager from '../../components/ComponentManager/index';
-import { setReordering } from '../../reducers/uiReducer';
+import { setReordering, setShowChooseComponentDialog } from '../../reducers/uiReducer';
 import messages from './messages';
-// import { redo, undo } from '../../lib/history';
-// import { Shortcuts } from 'react-shortcuts';
-// import HistoryShortcuts from '../HistoryShortcuts';
 
 
 const styleSheet = (theme) => ({
@@ -36,40 +33,20 @@ const styleSheet = (theme) => ({
 });
 
 
-class Node extends PureComponent { // eslint-disable-makeLine react/prefer-stateless-function
+const Node = ({ classes, ui, data, onSortEnd, onAddClick, onReorderClick, onLabelChange, onComponentAdded }) => {
+  const { node, state } = data;
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
-    this.props.onSortEnd(this.props.data.node.id, oldIndex, newIndex);
-  };
+  if (node === null)
+    return <Redirect to="/404" />;
 
-  onAddClick = () => {
-    this.props.onAddClick(this.props.data.node.id, makeText('blarg'));
-  };
-
-  onReorderClick = () => {
-    this.props.onReorderClick(this.props.ui.reordering);
-  };
-
-  onLabelChange = (event) => {
-    this.props.onLabelChange(this.props.data.node.id, event.target.value);
-  };
-
-  render() {
-    const { classes, ui } = this.props;
-    const { node, state } = this.props.data;
-
-    if (node === null)
-      return <Redirect to="/404" />;
-
-    // <ComponentList components={node.components} onSortEnd={this.onSortEnd} />
-
-    return (
+  return (
+    <div>
       <Paper className={classes.root}>
         <div style={{ marginBottom: '18px' }}>
           <Align container>
             <Align left>
               <TextField
-                onChange={this.onLabelChange}
+                onChange={onLabelChange(node.id)}
                 placeholder={`Page ${node.id}`}
                 value={node.label}
                 error={!validateLabel(state, node.label)}
@@ -78,16 +55,21 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
             </Align>
             <Align right>
               <Tooltip title={<FormattedMessage {...messages.reorder} />}>
-                <IconButton onClick={this.onReorderClick}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
+                <IconButton onClick={() => onReorderClick(ui.reordering)}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
               </Tooltip>
               <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
-                <IconButton onClick={this.onAddClick}><AddIcon /></IconButton>
+                <IconButton onClick={onAddClick}><AddIcon /></IconButton>
               </Tooltip>
             </Align>
           </Align>
         </div>
         <div>
-          <ComponentManager parentId={node.id} components={node.components} reordering={ui.reordering} onSortEnd={this.onSortEnd} />
+          <ComponentManager
+            parentId={node.id}
+            components={node.components}
+            reordering={ui.reordering}
+            onSortEnd={onSortEnd(node.id)}
+          />
         </div>
         <div style={{ marginTop: '18px' }}>
           <Card>
@@ -97,9 +79,10 @@ class Node extends PureComponent { // eslint-disable-makeLine react/prefer-state
           </Card>
         </div>
       </Paper>
-    );
-  }
-}
+      <ChooseComponentDialog handleClose={onComponentAdded(node.id)} />
+    </div>
+  );
+};
 
 
 Node.propTypes = {
@@ -109,8 +92,7 @@ Node.propTypes = {
   onAddClick: PropTypes.func.isRequired,
   onReorderClick: PropTypes.func.isRequired,
   onLabelChange: PropTypes.func.isRequired,
-  // undo: PropTypes.func.isRequired,
-  // redo: PropTypes.func.isRequired,
+  onComponentAdded: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   ui: PropTypes.object.isRequired,
 };
@@ -123,26 +105,22 @@ const makeMapStateToProps = () => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  onSortEnd: (id, oldIndex, newIndex) => {
+  onSortEnd: (id) => ({ oldIndex, newIndex }) => {
     if (oldIndex !== newIndex)
       dispatch(nodeComponentsSorted(id, oldIndex, newIndex));
   },
-  onAddClick: (id, component) => {
-    dispatch(nodeComponentAdd(id, component));
+  onAddClick: () => {
+    dispatch(setShowChooseComponentDialog(true));
   },
-  onLabelChange: (id, label) => {
-    dispatch(nodeLabelChange(id, label));
+  onLabelChange: (id) => (event) => {
+    dispatch(nodeLabelChange(id, event.target.value));
   },
   onReorderClick: (reordering) => {
     dispatch(setReordering(!reordering));
   },
-  // undo: () => {
-  //   dispatch(undo());
-  // },
-  // redo: () => {
-  //   dispatch(redo());
-  // },
+  onComponentAdded: (id) => (value) => {
+    dispatch(nodeComponentAdd(id, value));
+  },
 });
-
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Node));

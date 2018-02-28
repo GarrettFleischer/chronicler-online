@@ -1,6 +1,8 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { componentReducer } from '../../components/Component/reducers';
 import { linkReducer } from '../../components/Link/reducers';
+import { makeSetAction, makeText, SET, TEXT } from '../../data/datatypes';
+import { getActiveProject } from '../../data/state';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
@@ -10,25 +12,11 @@ export const NODE_DELETE_COMPONENT = 'NODE_DELETE_COMPONENT';
 
 export const nodeDeleteComponent = (id, componentId) => ({ type: NODE_DELETE_COMPONENT, id, componentId });
 
-export const nodeComponentsSorted = (id, oldIndex, newIndex) => ({
-  type: NODE_COMPONENTS_SORTED,
-  id,
-  oldIndex,
-  newIndex,
-});
+export const nodeComponentsSorted = (id, oldIndex, newIndex) => ({ type: NODE_COMPONENTS_SORTED, id, oldIndex, newIndex });
 
-export const nodeComponentAdd = (id, component) => (
-  {
-    type: NODE_COMPONENT_ADD,
-    id,
-    component,
-  });
+export const nodeComponentAdd = (id, value) => ({ type: NODE_COMPONENT_ADD, id, value });
 
-export const nodeLabelChange = (id, label) => ({
-  type: NODE_LABEL_CHANGE,
-  id,
-  label,
-});
+export const nodeLabelChange = (id, label) => ({ type: NODE_LABEL_CHANGE, id, label });
 
 
 export function nodeReducer(state, action) {
@@ -45,22 +33,13 @@ export function nodeReducer(state, action) {
       return { ...state, components: state.components.filter((component) => component.id !== action.componentId) };
 
     case NODE_COMPONENTS_SORTED:
-      return {
-        ...state,
-        components: arrayMove(state.components, action.oldIndex, action.newIndex),
-      };
+      return { ...state, components: arrayMove(state.components, action.oldIndex, action.newIndex) };
 
     case NODE_COMPONENT_ADD:
-      return {
-        ...state,
-        components: [...state.components, action.component],
-      };
+      return { ...state, components: [...state.components, makeComponentForValue(action.value)] };
 
     case NODE_LABEL_CHANGE:
-      return {
-        ...state,
-        label: action.label,
-      };
+      return { ...state, label: action.label };
 
     default:
       return state;
@@ -69,3 +48,17 @@ export function nodeReducer(state, action) {
 
 
 const componentMapper = (action) => (state) => componentReducer(state, action);
+
+
+const makeComponentForValue = (value) => {
+  switch (value) {
+    case TEXT:
+      return makeText('');
+
+    case SET:
+      return makeSetAction('', '', '', false); // TODO fix this
+
+    default:
+      return undefined;
+  }
+};
