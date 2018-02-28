@@ -64,14 +64,29 @@ describe('history', () => {
   describe('merge', () => {
     it('can merge into present state if the previous action was of the same type and marked mergeable', () => {
       const historyReducer = history(testReducer, initTestState);
-      const past = [{ ...initTestState, value: 15 }, initTestState];
-      const present = { ...initTestState, value: 723 };
       const expected = {
-        ...initHistoryState,
-        past,
-        present,
+        canRedo: false,
         canUndo: true,
-        lastActionType: `${MERGE}/${SET_VALUE}`,
+        future: [],
+        lastActionType: 'history/MERGE/history.test/SET_VALUE',
+        past: [
+          {
+            value: [
+              15,
+              7,
+            ],
+          },
+          {
+            value: [
+              15,
+              23,
+            ],
+          },
+        ],
+        present: {
+          key: 'foo',
+          value: 723,
+        },
       };
 
       let result = historyReducer({ ...initHistoryState, present: initTestState }, setValue(15));
