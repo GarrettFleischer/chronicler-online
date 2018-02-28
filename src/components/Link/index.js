@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { CHOICE, NODE_LINK } from '../../data/datatypes';
+import { CHOICE, IF, NODE_LINK } from '../../data/datatypes';
 import NodeLink from '../NodeLink';
 import Choice from '../Choice';
+import Condition from '../Condition';
 
 
 // TODO handle scene links
@@ -13,6 +14,9 @@ const Link = ({ item }) => {
 
     case CHOICE:
       return <Choice item={item} />;
+
+    case IF:
+      return <Condition item={item} />;
 
     default:
       return <text>{item.type}</text>;

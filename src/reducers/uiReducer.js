@@ -1,5 +1,5 @@
-export const SET_REORDERING = 'SET_REORDERING';
-export const setReordering = (reordering) => ({ type: SET_REORDERING, reordering });
+export const SET_NODE_REORDERING = 'SET_NODE_REORDERING';
+export const setNodeReordering = (reordering) => ({ type: SET_NODE_REORDERING, reordering });
 
 export const RESTORE_DEFAULT_UI = 'RESTORE_DEFAULT_UI';
 export const restoreDefaultUI = () => ({ type: RESTORE_DEFAULT_UI });
@@ -22,6 +22,9 @@ export const setShowChooseComponentDialog = (show) => ({ type: SET_SHOW_CHOOSE_C
 export const SET_CHOOSE_COMPONENT_DIALOG_VALUE = 'SET_CHOOSE_COMPONENT_DIALOG_VALUE';
 export const setChooseComponentDialogValue = (value) => ({ type: SET_CHOOSE_COMPONENT_DIALOG_VALUE, value });
 
+export const SET_COMPONENT_SORTING = 'SET_COMPONENT_SORTING';
+export const setComponentSorting = (sorting) => ({ type: SET_COMPONENT_SORTING, sorting });
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
@@ -35,6 +38,7 @@ export default function uiReducer(state = initialState, action) {
         choice: choiceReducer(state.choice, action),
         itemMenu: itemMenuReducer(state.itemMenu, action),
         chooseComponentDialog: chooseComponentDialogReducer(state.chooseComponentDialog, action),
+        component: componentReducer(state.component, action),
       };
   }
 }
@@ -48,9 +52,7 @@ export const initialState = {
     chooseNodeDialogValue: undefined, // PropTypeId of selected node
   },
   choice: {
-    anchorEl: null,
-    showMenu: undefined,
-    reordering: false, // PropTypeId of the choice sorting components
+    reordering: false,
   },
   itemMenu: {
     anchorEl: null,
@@ -60,12 +62,15 @@ export const initialState = {
     show: false,
     value: undefined,
   },
+  component: {
+    sorting: false,
+  },
 };
 
 
 const nodeReducer = (state, action) => {
   switch (action.type) {
-    case SET_REORDERING:
+    case SET_NODE_REORDERING:
       return { ...state, reordering: action.reordering };
 
     default:
@@ -114,6 +119,16 @@ const chooseComponentDialogReducer = (state, action) => {
 
     case SET_CHOOSE_COMPONENT_DIALOG_VALUE:
       return { ...state, value: action.value };
+
+    default:
+      return state;
+  }
+};
+
+const componentReducer = (state, action) => {
+  switch (action.type) {
+    case SET_COMPONENT_SORTING:
+      return { ...state, sorting: action.sorting };
 
     default:
       return state;

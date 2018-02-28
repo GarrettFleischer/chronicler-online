@@ -18,7 +18,7 @@ import { makeSelectNode } from './selectors';
 import Link from '../../components/Link';
 import ChooseComponentDialog from '../../components/ChooseComponentDialog';
 import ComponentManager from '../../components/ComponentManager/index';
-import { setReordering, setShowChooseComponentDialog } from '../../reducers/uiReducer';
+import { setNodeReordering, setShowChooseComponentDialog } from '../../reducers/uiReducer';
 import messages from './messages';
 
 
@@ -116,7 +116,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(nodeLabelChange(id, event.target.value));
   },
   onReorderClick: (reordering) => {
-    dispatch(setReordering(!reordering));
+    dispatch(setNodeReordering(!reordering));
   },
   onComponentAdded: (id) => (value) => {
     dispatch(nodeComponentAdd(id, value));

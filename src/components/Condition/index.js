@@ -51,7 +51,7 @@ const renderChoiceItem = (choice, parentId, onChoiceTextChanged, onDeleteClicked
       </ItemMenu>
     </CardContent>
   </Card>
-  );
+);
 
 const renderChoices = (item, reordering, onChoiceTextChanged, onSortEnd, onDeleteClicked) => {
   if (reordering)
@@ -62,7 +62,7 @@ const renderChoices = (item, reordering, onChoiceTextChanged, onSortEnd, onDelet
 
 // TODO use intl
 // TODO draw internal components
-const Choice = ({ item, ui, onChoiceTextChanged, onSortEnd, onReorderClick, onAddChoiceClick, onDeleteClicked }) => (
+const Condition = ({ item, ui, onChoiceTextChanged, onSortEnd, onReorderClick, onAddChoiceClick, onDeleteClicked }) => (
   <div>
     <Align container>
       <Align left><span>*choice</span></Align>
@@ -77,9 +77,9 @@ const Choice = ({ item, ui, onChoiceTextChanged, onSortEnd, onReorderClick, onAd
     </Align>
     {renderChoices(item, ui.reordering, onChoiceTextChanged, onSortEnd, onDeleteClicked)}
   </div>
-  );
+);
 
-Choice.propTypes = {
+Condition.propTypes = {
   item: PropTypes.object.isRequired,
   ui: PropTypes.object.isRequired,
   onChoiceTextChanged: PropTypes.func.isRequired,
@@ -111,4 +111,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Choice);
+export default connect(mapStateToProps, mapDispatchToProps)(Condition);

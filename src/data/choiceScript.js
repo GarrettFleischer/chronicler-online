@@ -15,7 +15,7 @@ import {
   makeError,
   makeParseResult,
   match,
-  maybe, not,
+  maybe,
   optional,
   sameDent,
 } from './parser';
@@ -501,7 +501,7 @@ function Choice(parseResult) {
 
 
 function ChoiceItem(parseResult) {
-  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), choose(ActionBlock, NodeBlock)))(parseResult);
+  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), NodeBlock))(parseResult);
   if (!result.success) return result;
 
   return {
@@ -537,7 +537,7 @@ function ChoiceItemCondition(parseResult) {
 
 
 function If(parseResult) {
-  const result = sameDent(inOrder(match(IF), ActionBlock, anyNumberOf(ElseIf, Else)))(parseResult);
+  const result = sameDent(inOrder(match(IF), NodeBlock, anyNumberOf(ElseIf, Else)))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeIf(result.object[0].text, result.object[1], result.object[2]) };
@@ -545,7 +545,7 @@ function If(parseResult) {
 
 
 function ElseIf(parseResult) {
-  const result = sameDent(inOrder(match(ELSEIF), ActionBlock))(parseResult);
+  const result = sameDent(inOrder(match(ELSEIF), NodeBlock))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeElseIf(result.object[0].text, result.object[1], result.object[2]) };
@@ -553,7 +553,7 @@ function ElseIf(parseResult) {
 
 
 function Else(parseResult) {
-  const result = sameDent(inOrder(match(ELSE), ActionBlock))(parseResult);
+  const result = sameDent(inOrder(match(ELSE), NodeBlock))(parseResult);
   if (!result.success) return result;
 
   return { ...result, object: makeElse(result.object[1]) };
@@ -566,6 +566,7 @@ function ActionBlock(parseResult) {
 
   return { ...result, object: makeActionBlock(result.object[0], result.object[1]) };
 }
+
 
 function NodeBlock(parseResult) {
   const result = Block(atLeastOne(Node))(parseResult);
