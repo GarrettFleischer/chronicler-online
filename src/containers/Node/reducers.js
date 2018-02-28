@@ -2,7 +2,6 @@ import { arrayMove } from 'react-sortable-hoc';
 import { componentReducer } from '../../components/Component/reducers';
 import { linkReducer } from '../../components/Link/reducers';
 import { makeSetAction, makeText, SET, TEXT } from '../../data/datatypes';
-import { getActiveProject } from '../../data/state';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
@@ -56,7 +55,7 @@ const makeComponentForValue = (value) => {
       return makeText('');
 
     case SET:
-      return makeSetAction('', '', '', false); // TODO fix this
+      return makeSetAction('', '', '', false);
 
     default:
       return undefined;

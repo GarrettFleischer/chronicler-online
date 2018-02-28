@@ -11,7 +11,7 @@ import 'brace/theme/github';
 import { setIsVariable, setOpChanged, setValueChanged, setVariableChanged } from './reducers';
 import Align from '../Align';
 import { getActiveProject } from '../../data/state';
-import { findById } from '../../data/core';
+import { findById, findByType } from '../../data/core';
 
 
 const styles = (/* theme */) => ({
@@ -21,7 +21,7 @@ const styles = (/* theme */) => ({
 });
 
 const Reorder = ({ item }) => (
-  <div>{`*set ${item.variable.name}`}</div>
+  <div>{`*set ${item.variable.name} ${item.variable.op} ${item.variable2.name}`}</div>
 );
 
 Reorder.propTypes = {
@@ -39,6 +39,7 @@ const VariableSelect = ({ item, variableId, variables, onChange }) => (
       }}
       inputProps={{ id: `variable-${item.id}` }}
     >
+      <option key={''} value={''} />
       {variables.map((variable) => (<option key={variable.id} value={variable.id}>{variable.name}</option>))}
     </Select>
   </FormControl>
@@ -53,7 +54,7 @@ VariableSelect.propTypes = {
 
 const ValueField = ({ item, variables, onValueChange }) => {
   if (item.isVariable)
-    return (<VariableSelect item={item} variableId={item.value} variables={variables} onChange={onValueChange} />);
+    return (<VariableSelect item={item} variableId={item.variable2.id} variables={variables} onChange={onValueChange} />);
 
   return (
     <TextField
@@ -69,7 +70,6 @@ const ValueField = ({ item, variables, onValueChange }) => {
 ValueField.propTypes = {
   item: PropTypes.object.isRequired,
   variables: PropTypes.array.isRequired,
-  // onVariableChange: PropTypes.func.isRequired,
   onValueChange: PropTypes.func.isRequired,
 };
 
@@ -82,7 +82,7 @@ const SetAction = ({ item, reorder, variables, onVariableChange, onOpChange, onV
       <text>*set</text>
       <Align container>
         <Align left>
-          <VariableSelect item={item} variableId={item.variable.id} variables={variables} onChange={onVariableChange} />
+          <VariableSelect item={item} variableId={item.variable ? item.variable.id : ''} variables={variables} onChange={onVariableChange} />
           <FormControl>
             <Select
               native
@@ -108,7 +108,7 @@ const SetAction = ({ item, reorder, variables, onVariableChange, onOpChange, onV
               control={
                 <Checkbox
                   checked={item.isVariable}
-                  onChange={(event) => onIsVariableChange(item.id, event.target.checked ? item.variableId : '')}
+                  onChange={(event) => onIsVariableChange(item.id, event.target.checked)}
                 />
                 }
             />
@@ -135,10 +135,12 @@ const mapStateToProps = (state, props) => ({
   variables: getActiveProject(state).variables,
   item: {
     ...props.item,
-    variable: findById(getActiveProject(state), props.item.variableId),
-    variable2: findById(getActiveProject(state), props.item.value),
+    variable: getVariable(state, props.item.variableId),
+    variable2: getVariable(state, props.item.value),
   },
 });
+
+const getVariable = (state, id) => findById(getActiveProject(state), id) || { id: '' };
 
 const mapDispatchToProps = (dispatch) => ({
   onVariableChange: (id, variableId) => {
@@ -150,8 +152,8 @@ const mapDispatchToProps = (dispatch) => ({
   onValueChange: (id, value) => {
     dispatch(setValueChanged(id, value));
   },
-  onIsVariableChange: (id, variableId) => {
-    dispatch(setIsVariable(id, variableId));
+  onIsVariableChange: (id, isVariable) => {
+    dispatch(setIsVariable(id, isVariable));
   },
 });
 

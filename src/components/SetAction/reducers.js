@@ -7,7 +7,7 @@ export const SET_IS_VARIABLE = 'SET_IS_VARIABLE';
 export const setVariableChanged = (id, variableId) => ({ type: SET_VARIABLE_CHANGED, id, variableId });
 export const setOpChanged = (id, op) => ({ type: SET_OP_CHANGED, id, op });
 export const setValueChanged = (id, value) => ({ type: SET_VALUE_CHANGED, id, value });
-export const setIsVariable = (id, variableId) => ({ type: SET_IS_VARIABLE, id, isVariable: variableId !== '', variableId });
+export const setIsVariable = (id, isVariable) => ({ type: SET_IS_VARIABLE, id, isVariable });
 
 export const setActionReducer = (state, action) => {
   if (action.id !== state.id)

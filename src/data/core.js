@@ -22,11 +22,12 @@ export const findIdForLabel = (label, sceneName = undefined) => (scenes) => scen
 
 
 export function findById(state, id, type = NO_FILTER) {
-  // since no more than one thing can match an PropTypeId, peek the first returned element
+  // since no more than one thing can match an id, peek the first returned element
   const found = reduceBy(matchIdAndType(id, type))([], state);
   return empty(found) ? null : peek(found);
 }
 
+export const findByType = (state, type) => reduceBy(matchType(type))([], state);
 
 // export function findParents(state, PropTypeId) {
 //   return filterBy(matchParents(PropTypeId))(state);
@@ -62,6 +63,13 @@ const setIdAndType = (id, type, data) => (item) => {
 // PRIVATE FUNCTIONS
 const matchIdAndType = (id, type = NO_FILTER) => (acc, curr) => {
   if (curr.id === id && (type === NO_FILTER || curr.type === type))
+    return push(acc, curr);
+
+  return acc;
+};
+
+const matchType = (type) => (acc, curr) => {
+  if (curr.type === type)
     return push(acc, curr);
 
   return acc;
