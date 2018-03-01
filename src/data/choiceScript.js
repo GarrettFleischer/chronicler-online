@@ -96,7 +96,7 @@ import {
   makeTextStat,
   makePercentStat,
   makeOpposedStat,
-  makeSetAction, makePageBreakLink, makeNodeBlock,
+  makeSetAction, makePageBreakLink, makeNodeBlock, makeCondition,
 } from './datatypes';
 
 
@@ -540,7 +540,8 @@ function If(parseResult) {
   const result = sameDent(inOrder(match(IF), NodeBlock, anyNumberOf(ElseIf, Else)))(parseResult);
   if (!result.success) return result;
 
-  return { ...result, object: makeIf(result.object[0].text, result.object[1], result.object[2]) };
+  const conditions = [makeIf(result.object[0].text, result.object[1]), ...(result.object[2])];
+  return { ...result, object: makeCondition(conditions) };
 }
 
 
@@ -569,10 +570,7 @@ function ActionBlock(parseResult) {
 
 
 function NodeBlock(parseResult) {
-  const result = Block(atLeastOne(Node))(parseResult);
-  if (!result.success) return result;
-
-  return { ...result, object: makeNodeBlock(result.object) };
+  return Block(atLeastOne(Node))(parseResult);
 }
 
 

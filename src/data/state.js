@@ -1,6 +1,6 @@
 import {
   makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink,
-  makeCreate, makeSetAction, makeChoice, makeChoiceItem, makeIf,
+  makeCreate, makeSetAction, makeChoice, makeChoiceItem, makeIf, makeCondition,
 } from './datatypes';
 import { initialState as initialUiState } from '../reducers/uiReducer';
 
@@ -38,7 +38,7 @@ export const initialState = {
               ...makeNode(
                 'end',
                 [makeText('end of chapter 1')],
-                makeIf('true', [], [])),
+                makeCondition([makeIf('true', makeNodeLink('3'))])),
               id: '4',
             },
           ]),

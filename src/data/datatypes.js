@@ -65,6 +65,7 @@ export const ACTION_BLOCK = 'ACTION_BLOCK';
 export const NODE_BLOCK = 'NODE_BLOCK';
 export const USER = 'USER';
 export const PROJECT = 'PROJECT';
+export const CONDITION = 'CONDITION';
 
 export const PropTypeId = PropTypes.string;
 
@@ -101,9 +102,10 @@ export const makeNode = (label, components, link) => ({ type: NODE, id: getID(),
 export const makeChoice = (choices) => ({ type: CHOICE, id: getID(), choices });
 export const makeChoiceItem = (reuse, condition, text, link) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, link });
 
-export const makeIf = (condition, block, elses) => ({ type: IF, id: getID(), condition, ...block, elses });
-export const makeElseIf = (condition, block) => ({ type: ELSEIF, id: getID(), condition, ...block });
-export const makeElse = (block) => ({ type: ELSE, id: getID(), ...block });
+export const makeCondition = (conditions) => ({ type: CONDITION, id: getID(), conditions });
+export const makeIf = (condition, link) => ({ type: IF, id: getID(), condition, link });
+export const makeElseIf = (condition, link) => ({ type: ELSEIF, id: getID(), condition, link });
+export const makeElse = (link) => ({ type: ELSE, id: getID(), link });
 
 export const makeFakeChoice = (choices, link) => ({ type: FAKE_CHOICE, id: getID(), choices, link });
 export const makeFakeChoiceItem = (reuse, condition, text, block) => ({ type: FAKE_CHOICE_ITEM, id: getID(), reuse, condition, text, block });

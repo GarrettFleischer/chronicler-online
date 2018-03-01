@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { CHOICE, IF, NODE_LINK } from '../../data/datatypes';
+import { CHOICE, CONDITION, NODE_LINK } from '../../data/datatypes';
 import NodeLink from '../NodeLink';
 import Choice from '../Choice';
 import Condition from '../Condition';
@@ -15,7 +15,7 @@ const Link = ({ item }) => {
     case CHOICE:
       return <Choice item={item} />;
 
-    case IF:
+    case CONDITION:
       return <Condition item={item} />;
 
     default:

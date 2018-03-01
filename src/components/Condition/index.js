@@ -9,12 +9,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import Align from '../Align';
-import { choiceAddItem, choiceDeleteItem, choiceItemTextChanged, choiceSortEnd } from './reducers';
+import { conditionAddItem, conditionDeleteItem, conditionItemTextChanged, conditionSortEnd } from './reducers';
 import Link from '../Link';
-import { setChoiceReordering } from '../../reducers/uiReducer';
+import { setConditionSorting } from '../../reducers/uiReducer';
 import ItemMenu from '../ItemMenu';
+import { ELSE, ELSEIF } from '../../data/datatypes';
 
-const SortableItem = SortableElement(({ value }) => renderChoiceItem(value));
+const SortableItem = SortableElement(({ value }) => renderConditionItem(value));
 
 const ChoiceList = SortableContainer(({ choices }) => (
   <div>
@@ -25,27 +26,39 @@ const ChoiceList = SortableContainer(({ choices }) => (
 ));
 
 // TODO use intl
-const renderChoiceText = (choice, onChoiceTextChanged) => {
-  if (!onChoiceTextChanged)
-    return <text>{choice.text}</text>;
+const renderConditionText = (item, onConditionTextChanged) => {
+  if (!onConditionTextChanged)
+    return <text>{item.condition}</text>;
 
   return (<TextField
-    onChange={(event) => onChoiceTextChanged(choice.id, event.target.value)}
-    placeholder={'choice'}
-    value={choice.text}
+    onChange={(event) => onConditionTextChanged(item.id, event.target.value)}
+    placeholder={'condition'}
+    value={item.condition}
   />);
 };
 
-const renderChoiceItem = (choice, parentId, onChoiceTextChanged, onDeleteClicked) => (
-  <Card key={choice.id} style={{ marginTop: '5px' }}>
+const conditionTypeText = (item) => {
+  switch (item.type) {
+    case ELSEIF:
+      return '*else if';
+    case ELSE:
+      return '*else';
+    default:
+      return '*if';
+  }
+};
+
+const renderConditionItem = (item, parentId, onConditionTextChanged, onDeleteClicked) => (
+  <Card key={item.id} style={{ marginTop: '5px' }}>
     <CardContent>
-      <ItemMenu parentId={parentId} itemId={choice.id} handleDelete={onDeleteClicked}>
+      <ItemMenu parentId={parentId} itemId={item.id} handleDelete={onDeleteClicked}>
         <Align container>
           <Align left>
-            {renderChoiceText(choice, onChoiceTextChanged)}
+            <text style={{ marginRight: '8px' }}>{conditionTypeText(item)}</text>
+            {renderConditionText(item, onConditionTextChanged)}
           </Align>
           <Align right>
-            <Link item={choice.link} />
+            <Link item={item.link} />
           </Align>
         </Align>
       </ItemMenu>
@@ -53,36 +66,36 @@ const renderChoiceItem = (choice, parentId, onChoiceTextChanged, onDeleteClicked
   </Card>
 );
 
-const renderChoices = (item, reordering, onChoiceTextChanged, onSortEnd, onDeleteClicked) => {
-  if (reordering)
-    return <ChoiceList choices={item.choices} onSortEnd={({ oldIndex, newIndex }) => onSortEnd(item.id, oldIndex, newIndex)} />;
+const renderConditions = (item, sorting, onConditionTextChanged, onSortEnd, onDeleteClicked) => {
+  if (sorting)
+    return <ChoiceList choices={item.conditions} onSortEnd={({ oldIndex, newIndex }) => onSortEnd(item.id, oldIndex, newIndex)} />;
 
-  return item.choices.map((choice) => renderChoiceItem(choice, item.id, onChoiceTextChanged, onDeleteClicked));
+  return item.conditions.map((condition) => renderConditionItem(condition, item.id, onConditionTextChanged, onDeleteClicked));
 };
 
 // TODO use intl
 // TODO draw internal components
-const Condition = ({ item, ui, onChoiceTextChanged, onSortEnd, onReorderClick, onAddChoiceClick, onDeleteClicked }) => (
+const Condition = ({ item, ui, onConditionTextChanged, onSortEnd, onReorderClick, onAddChoiceClick, onDeleteClicked }) => (
   <div>
     <Align container>
       <Align left><span>*choice</span></Align>
       <Align right>
-        <Tooltip title="reorder choices">
-          <IconButton onClick={() => onReorderClick(ui.reordering)}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
+        <Tooltip title="reorder conditions">
+          <IconButton onClick={() => onReorderClick(ui.sorting)}><SwapIcon style={{ fill: ui.sorting ? 'blue' : 'gray' }} /></IconButton>
         </Tooltip>
-        <Tooltip title="add choice">
+        <Tooltip title="add condition">
           <IconButton onClick={() => onAddChoiceClick(item.id)}><AddIcon /></IconButton>
         </Tooltip>
       </Align>
     </Align>
-    {renderChoices(item, ui.reordering, onChoiceTextChanged, onSortEnd, onDeleteClicked)}
+    {renderConditions(item, ui.sorting, onConditionTextChanged, onSortEnd, onDeleteClicked)}
   </div>
 );
 
 Condition.propTypes = {
   item: PropTypes.object.isRequired,
   ui: PropTypes.object.isRequired,
-  onChoiceTextChanged: PropTypes.func.isRequired,
+  onConditionTextChanged: PropTypes.func.isRequired,
   onAddChoiceClick: PropTypes.func.isRequired,
   onSortEnd: PropTypes.func.isRequired,
   onReorderClick: PropTypes.func.isRequired,
@@ -90,24 +103,24 @@ Condition.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  ui: state.ui.choice,
+  ui: state.ui.condition,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onChoiceTextChanged: (id, text) => {
-    dispatch(choiceItemTextChanged(id, text));
+  onConditionTextChanged: (id, text) => {
+    dispatch(conditionItemTextChanged(id, text));
   },
   onAddChoiceClick: (id) => {
-    dispatch(choiceAddItem(id));
+    dispatch(conditionAddItem(id));
   },
   onSortEnd: (id, oldIndex, newIndex) => {
-    dispatch(choiceSortEnd(id, oldIndex, newIndex));
+    dispatch(conditionSortEnd(id, oldIndex, newIndex));
   },
-  onReorderClick: (reordering) => {
-    dispatch(setChoiceReordering(!reordering));
+  onReorderClick: (sorting) => {
+    dispatch(setConditionSorting(!sorting));
   },
   onDeleteClicked: (parentId, id) => {
-    dispatch(choiceDeleteItem(parentId, id));
+    dispatch(conditionDeleteItem(parentId, id));
   },
 });
 

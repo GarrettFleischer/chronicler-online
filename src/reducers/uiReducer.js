@@ -23,7 +23,7 @@ export const SET_CHOOSE_COMPONENT_DIALOG_VALUE = 'SET_CHOOSE_COMPONENT_DIALOG_VA
 export const setChooseComponentDialogValue = (value) => ({ type: SET_CHOOSE_COMPONENT_DIALOG_VALUE, value });
 
 export const SET_COMPONENT_SORTING = 'SET_COMPONENT_SORTING';
-export const setComponentSorting = (sorting) => ({ type: SET_COMPONENT_SORTING, sorting });
+export const setConditionSorting = (sorting) => ({ type: SET_COMPONENT_SORTING, sorting });
 
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
@@ -38,7 +38,7 @@ export default function uiReducer(state = initialState, action) {
         choice: choiceReducer(state.choice, action),
         itemMenu: itemMenuReducer(state.itemMenu, action),
         chooseComponentDialog: chooseComponentDialogReducer(state.chooseComponentDialog, action),
-        component: componentReducer(state.component, action),
+        condition: conditionReducer(state.condition, action),
       };
   }
 }
@@ -62,7 +62,7 @@ export const initialState = {
     show: false,
     value: undefined,
   },
-  component: {
+  condition: {
     sorting: false,
   },
 };
@@ -125,7 +125,7 @@ const chooseComponentDialogReducer = (state, action) => {
   }
 };
 
-const componentReducer = (state, action) => {
+const conditionReducer = (state, action) => {
   switch (action.type) {
     case SET_COMPONENT_SORTING:
       return { ...state, sorting: action.sorting };
