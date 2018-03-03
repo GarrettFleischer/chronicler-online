@@ -1,7 +1,10 @@
-import { findById, flatten, flattenNodes } from '../core';
+import { findById, flatten, flattenNodes, getLinks } from '../core';
 import { base } from '../nodes';
 import { getActiveProject, initialState } from '../state';
-import { makeCreate } from '../datatypes';
+import {
+  FINISH, makeChoice, makeChoiceItem, makeCondition, makeCreate, makeElse, makeElseIf, makeIf, makeLink,
+  makeNodeLink, makeProject,
+} from '../datatypes';
 
 
 describe('core', () => {
@@ -9,6 +12,45 @@ describe('core', () => {
     it('can find a global variable', () => {
       const result = findById(getActiveProject(initialState), 'var_str');
       expect(result).toEqual({ ...makeCreate('str', '50'), id: 'var_str' });
+    });
+  });
+
+  describe('getLinks', () => {
+    it('returns a single link from a NODE_LINK', () => {
+      const link = makeNodeLink('1');
+      const expected = ['1'];
+      const result = getLinks(link);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns multiple links from a choice', () => {
+      const link = makeChoice([
+        makeChoiceItem(null, null, '', makeNodeLink('1')),
+        makeChoiceItem(null, null, '', makeLink(FINISH, '')),
+        makeChoiceItem(null, null, '', makeNodeLink('2')),
+      ]);
+      const expected = ['2', '1'];
+      const result = getLinks(link);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns multiple links from a condition', () => {
+      const link = makeCondition([
+        makeIf('', makeNodeLink('1')),
+        makeElseIf('', makeLink(FINISH, '')),
+        makeElse(makeNodeLink('2')),
+      ]);
+      const expected = ['2', '1'];
+      const result = getLinks(link);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('findParents', () => {
+    it('works', () => {
+      makeProject('1', '', '', [
+
+      ], []);
     });
   });
 });

@@ -2,7 +2,7 @@ import { empty, peek, push } from '../lib/stack';
 // PUBLIC FUNCTIONS
 // import { DataType } from './nodes';
 
-import { USER, PROJECT, SCENE, NODE } from './datatypes';
+import { USER, PROJECT, SCENE, NODE, NODE_LINK, CHOICE, CONDITION } from './datatypes';
 
 
 export const NO_FILTER = 'core/NO_FILTER';
@@ -29,14 +29,14 @@ export function findById(state, id, type = NO_FILTER) {
 
 export const findByType = (state, type) => reduceBy(matchType(type))([], state);
 
-// export function findParents(state, PropTypeId) {
-//   return filterBy(matchParents(PropTypeId))(state);
-// }
-
-
-export function setById(state, id, data, type = NO_FILTER) {
-  return mapBy(setIdAndType(id, type, data))(state);
+export function findParents(state, id) {
+  return reduceBy(matchParents(id))([], state);
 }
+
+
+// export function setById(state, id, data, type = NO_FILTER) {
+//   return mapBy(setIdAndType(id, type, data))(state);
+// }
 
 
 export function validateLabel(state, label) {
@@ -52,12 +52,12 @@ export function findNumLabels(state, label) {
 }
 
 
-const setIdAndType = (id, type, data) => (item) => {
-  if (matchIdAndType(id, type)(item))
-    return { ...item, ...data };
-
-  return item;
-};
+// const setIdAndType = (id, type, data) => (item) => {
+//   if (matchIdAndType(id, type)(item))
+//     return { ...item, ...data };
+//
+//   return item;
+// };
 
 
 // PRIVATE FUNCTIONS
@@ -75,32 +75,45 @@ const matchType = (type) => (acc, curr) => {
   return acc;
 };
 
-// const matchParents = (PropTypeId) => (item) => {
-//   switch (item.type) {
-//     case PROJECT:
-//       return !empty(item.scenes.filter(matchIdAndType(PropTypeId)));
-//
-//     case SCENE:
-//       return !empty(item.nodes.filter(matchIdAndType(PropTypeId)));
-//
-//     case NODE:
-//       return !empty(item.components.filter(matchIdAndType(PropTypeId)));
-//
-//     // case CHOICE:
-//     //   return !empty(item.links.filter(matchIdAndType(PropTypeId)));
-//     //
-//     // case DataType.LINK:
-//     // case DataType.IF_LINK:
-//     //   return !empty(item.components.filter(matchIdAndType(PropTypeId)));
-//     //
-//     // case DataType.IF:
-//     //   return (!empty(item.components.filter(matchIdAndType(PropTypeId))) &&
-//     //     !empty(item.elseComponents.filter(matchIdAndType(PropTypeId))));
-//
-//     default:
-//       return false;
-//   }
-// };
+// TODO check type
+const matchParents = (childId) => (acc, curr) => {
+  if ((getLinks(curr.link)).contains(childId))
+    return push(acc, curr);
+
+  return acc;
+};
+
+export const getLinks = (state) => {
+  if (!state) return []; // give up if state is undefined
+  let links = [];
+
+  switch (state.type) {
+    case NODE_LINK:
+      links = push(links, state.node);
+      break;
+
+    case CHOICE:
+      state.choices.forEach((choice) => {
+        (getLinks(choice.link)).forEach((link) => {
+          links = push(links, link);
+        });
+      });
+      break;
+
+    case CONDITION:
+      state.conditions.forEach((condition) => {
+        (getLinks(condition.link)).forEach((link) => {
+          links = push(links, link);
+        });
+      });
+      break;
+
+    default:
+      break;
+  }
+
+  return links.filter((link) => link); // remove undefined
+};
 
 const numLabels = (label) => (acc, curr) => {
   if (curr.label && (curr.label.toLocaleLowerCase() && label.toLocaleLowerCase()))
@@ -108,76 +121,6 @@ const numLabels = (label) => (acc, curr) => {
 
   return acc;
 };
-
-// const filterBy = (filter) => (item) => {
-//   const found = filter(item);
-//
-//   switch (item.type) {
-//     case USER:
-//       result = item.projects.filter(filterBy(filter, result));
-//       break;
-//
-//     case PROJECT:
-//       result = item.scenes.filter(filterBy(filter, result));
-//       break;
-//
-//     case SCENE:
-//       result = item.nodes.filter(filterBy(filter, result));
-//       break;
-//
-//     case NODE:
-//       result = item.components.filter(filterBy(filter, result));
-//       break;
-//
-//     default:
-//       break;
-//   }
-//
-//   return found;
-// };
-
-
-// const filterBy = (filter, found = []) => (item) => {
-//   let result = filter(item) ? push(found, item) : found;
-//
-//   switch (item.type) {
-//     case USER:
-//       result = item.projects.filter(filterBy(filter, result));
-//       break;
-//
-//     case PROJECT:
-//       result = item.scenes.filter(filterBy(filter, result));
-//       break;
-//
-//     case SCENE:
-//       result = item.nodes.filter(filterBy(filter, result));
-//       break;
-//
-//     case NODE:
-//       result = item.components.filter(filterBy(filter, result));
-//       break;
-//
-//     // case CHOICE:
-//     //   result = item.links.filter(filterBy(filter, result));
-//     //   break;
-//     //
-//     // case LINK:
-//     // case IF_LINK:
-//     //   result = item.components.filter(filterBy(filter, result));
-//     //   break;
-//     //
-//     // case IF:
-//     //   result = item.components.filter(filterBy(filter, result));
-//     //   result = item.elseComponents.filter(filterBy(filter, result));
-//     //   break;
-//
-//     default:
-//       break;
-//   }
-//
-//   return result;
-// };
-
 
 const reduceBy = (reduce) => (acc, curr) => {
   let result = reduce(acc, curr);
