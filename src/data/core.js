@@ -1,4 +1,4 @@
-import { empty, peek, push } from '../lib/stack';
+import { empty, peek, pop, push } from '../lib/stack';
 // PUBLIC FUNCTIONS
 // import { DataType } from './nodes';
 
@@ -77,7 +77,7 @@ const matchType = (type) => (acc, curr) => {
 
 // TODO check type
 const matchParents = (childId) => (acc, curr) => {
-  if ((getLinks(curr.link)).contains(childId))
+  if ((getLinks(curr.link)).includes(childId))
     return push(acc, curr);
 
   return acc;
@@ -176,3 +176,248 @@ const mapBy = (func) => (curr) => {
       return updated;
   }
 };
+
+export const getNodePositions = (state, colWidth, rowHeight) => {
+  const coord = {};
+  state.scenes.forEach((scene) => {
+    scene.nodes.forEach((node) => {
+      coord[node.id] = { x: 0, y: 0 };
+    });
+  });
+
+  state.scenes.forEach((scene) => {
+    if (scene.nodes.length) {
+      const startNode = scene.nodes[0];
+      const rows = buildRows(state, startNode.id);
+      const width = maxWidth(rows);
+
+      rows.forEach((row, y) => {
+        const offset = width / (row.length + 1);
+        row.forEach((id, x) => {
+          coord[id].x = Math.round((x + offset) * colWidth);
+          coord[id].y = Math.round(y * rowHeight);
+        });
+      });
+    }
+  });
+
+  return coord;
+};
+
+// Iteratively searches over the state starting at the given id.
+// Returns true if there is a path that loops back to the given id.
+/**
+ * @return {boolean}
+ */
+// export function ContainsLoop(state, nodeId) {
+//   let stack = Stack.of(nodeId);
+//   let visited = List();
+//
+//   while (stack.size) {
+//     const top = stack.peek();
+//     stack = stack.pop();
+//
+//     if (!visited.contains(top)) {
+//       visited = visited.push(top);
+//
+//       const children = FindChildren(state, top);
+//       for (let i = 0; i < children.size; ++i) {
+//         if (children.getIn([i, 'Id']) === nodeId)
+//           return true;
+//
+//         stack = stack.push(children.getIn([i, 'Id']));
+//       }
+//     }
+//   }
+//
+//   return false;
+// }
+
+// Helper function for UpdateNodePositions
+const buildRows = (state, nodeId) => {
+  const rows = [];
+  let stack = [{ id: nodeId, row: 0 }];
+  const visited = [];
+
+  while (stack.length) {
+    const top = peek(stack);
+    stack = pop(stack);
+    if (!visited.includes(top.id)) {
+      visited.push(top.id);
+
+      while (top.row >= rows.length) rows.push([]);
+      const currentRow = rows[top.row];
+      currentRow.push(top.id);
+
+      const children = getChildren(state, top.id);
+      children.forEach((child) => {
+        stack = push(stack, { id: child.id, row: top.row + 1 });
+      });
+    }
+  }
+
+  return rows; // handleMultipleParents(state, rows);
+};
+
+const getChildren = (state, nodeId) => {
+  const links = getLinks(findById(state, nodeId, NODE));
+  return links.map((id) => findById(state, id, NODE));
+};
+
+// Helper function for BuildRows
+// function HandleMultipleParents(state, rows) {
+//   let newRows = rows;
+//   let done = false;
+//   let visited = List();
+//
+//   // reset iteration whenever a change is made
+//   while (!done) {
+//     done = true;
+//
+//     for (let y = 0; y < newRows.size && done; ++y) {
+//       let row = newRows.get(y);
+//
+//       for (let x = 0; x < row.size && done; ++x) {
+//         const currentId = row.get(x);
+//
+//         // ignore this node if already processed
+//         if (!visited.contains(currentId)) {
+//           visited = visited.push(currentId);
+//
+//           // if (!ContainsLoop(state, currentId)) {
+//           // calc max parent row + 1
+//           const parents = FindParents(state, currentId);
+//           let newY = y;
+//           parents.forEach((parent) => {
+//             const below = IsBelow(newRows, currentId, parent.get('Id'));
+//             if (parent.get('Id') !== currentId && below)
+//               newY = Math.max(newY, RowOf(newRows, parent.get('Id')) + 1);
+//           });
+//
+//           if (newY !== y) {
+//             done = false;
+//             while (newY >= newRows.size) newRows = newRows.push(List());
+//             const newRow = newRows.get(newY).push(currentId);
+//             row = row.delete(x);
+//             newRows = newRows.set(y, row);
+//             newRows = newRows.set(newY, newRow);
+//           }
+//           // }
+//         }
+//       }
+//     }
+//   }
+//
+//   return newRows;
+// }
+
+/**
+ * @return {boolean}
+ */
+const isBelow = (rows, childId, parentId) => {
+  for (let y = 0; y < rows.length; ++y) {
+    const row = rows[y];
+    let potential = false;
+    for (let x = 0; x < row.length; ++x) {
+      const id = row[x];
+      if (id === parentId) potential = true;
+      if (id === childId && !potential) return false;
+    }
+    if (potential) return true;
+  }
+  return false;
+};
+
+// // Helper function for BuildRows
+// /**
+//  * @return {number}
+//  */
+// function RowOf(rows, nodeId) {
+//   for (let y = 0; y < rows.size; ++y) {
+//     const row = rows.get(y);
+//     for (let x = 0; x < row.size; ++x) {
+//       if (row.get(x) === nodeId)
+//         return y;
+//     }
+//   }
+//
+//   return -1;
+// }
+
+// Helper function for BuildRows
+/**
+ * @return {number}
+ */
+function maxWidth(rows) {
+  let width = 0;
+
+  for (let y = 0; y < rows.length; ++y)
+    width = Math.max(width, rows[y].length);
+
+  return width;
+}
+
+
+// export const layoutNodes = ({ state, nodes, levelSeparation = 100, siblingSeparation = 100, subtreeSeparation = 200 }) => {
+//   const layout = [];
+//
+//   const levelZeroPtr = nodes[0];
+//   let xTopAdjustment = 0;
+//   let yTopAdjustment = 0;
+//   const prevNodeAtLevel = { 0: null };
+//
+//   const data = {};
+//   nodes.forEach((node) => {
+//     const links = getLinks(node.link);
+//     data[node] = {
+//       parents: findParents(state, node.id),
+//       firstChild: links.length ? findById(state, links[0], NODE) : null,
+//       leftSibling: null,  // TODO write this
+//       rightSibling: null, // TODO write this
+//       x: 0,
+//       y: 0,
+//       prelim: 0,
+//       modifier: 0,
+//       leftNeighbor: null, // TODO write this
+//     };
+//   });
+//
+//
+//   const positionTree = (node) => {
+//     if (node) {
+//       initPrevNodeList();
+//
+//       firstWalk(node, 0);
+//
+//       xTopAdjustment = data[node].x - data[node].prelim;
+//       yTopAdjustment = data[node].y;
+//
+//       return secondWalk(node, 0, 0);
+//     }
+//
+//     return true;
+//   };
+//
+//   const initPrevNodeList = () => {};
+//
+//   const firstWalk = (node, level) => {
+//     data[node].leftNeighbor = prevNodeAtLevel[level];
+//     prevNodeAtLevel[level] = node;
+//     if (isLeaf(node)) {
+//       const leftSibling = data[node].leftSibling;
+//       if (leftSibling)
+//         data[node].prelim = data[leftSibling].prelim + siblingSeparation; // + meanNodeSize(leftSibling, node);
+//     }
+//     else {
+//       const leftMost = data[node].firstChild;
+//       const rightMost = leftMost;
+//       firstWalk(leftMost, level + 1);
+//
+//       const
+//     }
+//   };
+//
+//   const isLeaf = (node) => empty(getLinks(node.link));
+//
+//   return layout;
+// };

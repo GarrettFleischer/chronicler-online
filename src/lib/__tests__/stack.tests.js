@@ -55,6 +55,14 @@ describe('stack', () => {
 
       expect(result).toEqual(expected);
     });
+
+    it('handles empty stack', () => {
+      const stack = [];
+      const expected = undefined;
+      const result = peek(stack);
+
+      expect(result).toEqual(expected);
+    });
   });
 
   describe('empty', () => {

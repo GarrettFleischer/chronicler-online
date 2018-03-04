@@ -1,13 +1,14 @@
-import { findById, flatten, flattenNodes, getLinks } from '../core';
+import { findById, findParents, flatten, flattenNodes, getLinks, layoutNodes } from '../core';
 import { base } from '../nodes';
 import { getActiveProject, initialState } from '../state';
 import {
-  FINISH, makeChoice, makeChoiceItem, makeCondition, makeCreate, makeElse, makeElseIf, makeIf, makeLink,
-  makeNodeLink, makeProject,
+  FINISH, makeChoice, makeChoiceItem, makeCondition, makeCreate, makeElse, makeElseIf, makeIf, makeLink, makeNode,
+  makeNodeLink, makeProject, makeScene,
 } from '../datatypes';
 
 
 describe('core', () => {
+  // TODO fix this so it doesn't rely on initialState
   describe('findById', () => {
     it('can find a global variable', () => {
       const result = findById(getActiveProject(initialState), 'var_str');
@@ -47,10 +48,71 @@ describe('core', () => {
   });
 
   describe('findParents', () => {
-    it('works', () => {
-      makeProject('1', '', '', [
+    const child1 = makeNode('child 1', [], makeLink(FINISH, ''));
+    const child2 = makeNode('child 2', [], makeLink(FINISH, ''));
+    const parent1 = makeNode('parent 1', [], makeNodeLink(child1.id));
+    const parent2 = makeNode('parent 2', [], makeChoice([makeChoiceItem(null, null, '', makeNodeLink(child1.id)), makeChoiceItem(null, null, '', makeNodeLink(child2.id))]));
+    const project = makeProject('1', '', '', [
+      makeScene('', [parent1, child1]),
+      makeScene('', [parent2, child2]),
+    ], []);
 
-      ], []);
+    it('finds a single parent', () => {
+      const result = findParents(project, child2.id);
+      expect(result).toEqual([parent2]);
+    });
+
+    it('finds multiple parents', () => {
+      const result = findParents(project, child1.id);
+      expect(result).toEqual([parent2, parent1]);
+    });
+  });
+
+  describe('layoutNodes', () => {
+    const nodeL = makeNode('L', [], makeLink(FINISH, ''));
+    const nodeK = makeNode('K', [], makeLink(FINISH, ''));
+    const nodeJ = makeNode('J', [], makeLink(FINISH, ''));
+    const nodeI = makeNode('I', [], makeLink(FINISH, ''));
+    const nodeH = makeNode('H', [], makeLink(FINISH, ''));
+    const nodeC = makeNode('C', [], makeLink(FINISH, ''));
+    const nodeB = makeNode('B', [], makeLink(FINISH, ''));
+
+    const nodeM = makeNode('M', [], makeChoice([
+      makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
+    ]));
+    const nodeG = makeNode('G', [], makeLink(FINISH, ''));
+    const nodeD = makeNode('D', [], makeChoice([
+      makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
+    ]));
+    const nodeA = makeNode('A', [], makeLink(FINISH, ''));
+
+    const nodeN = makeNode('N', [], makeChoice([
+      makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
+    ]));
+    const nodeF = makeNode('F', [], makeLink(FINISH, ''));
+    const nodeE = makeNode('E', [], makeChoice([
+      makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
+    ]));
+
+    const node0 = makeNode('0', [], makeChoice([
+      makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
+      makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
+    ]));
+    const nodes = [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL];
+    const project = makeProject('1', '', '', [
+      makeScene('', nodes),
+    ], []);
+
+    it('does', () => {
+      layoutNodes({ state: project, nodes });
     });
   });
 });
