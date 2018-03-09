@@ -1,6 +1,6 @@
 import { arrayMove } from 'react-sortable-hoc';
 import { linkReducer } from '../Link/reducers';
-import { ELSE, ELSEIF, FINISH, IF, makeChoiceItem, makeElse, makeElseIf, makeIf, makeLink } from '../../data/datatypes';
+import { ELSE, ELSEIF, FINISH, IF, makeElse, makeLink } from '../../data/datatypes';
 
 export const CONDITION_ADD_ITEM = 'CONDITION_ADD_ITEM';
 export const conditionAddItem = (id) => ({ type: CONDITION_ADD_ITEM, id });

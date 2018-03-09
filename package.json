@@ -33,6 +33,7 @@
     "reselect": "^3.0.1",
     "sanitize.css": "^5.0.0",
     "shortid": "^2.2.8",
+    "storm-react-diagrams": "^5.0.0",
     "styled-components": "^2.4.0",
     "whatwg-fetch": "^2.0.3"
   },

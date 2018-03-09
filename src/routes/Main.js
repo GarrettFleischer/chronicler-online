@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import HomePage from '../components/Home';
 import NotFound from '../components/NotFound';
 import Node from '../containers/Node';
+import Scene from '../containers/Scene';
 
 // TODO make Project component
 const Main = () => (
@@ -10,7 +11,7 @@ const Main = () => (
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/project/:id" component={NotFound} />
-      <Route path="/scene/:id" component={NotFound} />
+      <Route path="/scene/:id" component={Scene} />
       <Route path="/node/:id" component={Node} />
       <Route path="/dashboard" component={NotFound} />
       <Route component={NotFound} />
