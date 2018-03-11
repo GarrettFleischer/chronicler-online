@@ -1,5 +1,4 @@
-import { findById, findParents, flatten, flattenNodes, getLinks, layoutNodes } from '../core';
-import { base } from '../nodes';
+import { findById, findParents, getLinks, getNodeCoords } from '../core';
 import { getActiveProject, initialState } from '../state';
 import {
   FINISH, makeChoice, makeChoiceItem, makeCondition, makeCreate, makeElse, makeElseIf, makeIf, makeLink, makeNode,
@@ -68,54 +67,250 @@ describe('core', () => {
     });
   });
 
-  describe('layoutNodes', () => {
-    const nodeL = makeNode('L', [], makeLink(FINISH, ''));
-    const nodeK = makeNode('K', [], makeLink(FINISH, ''));
-    const nodeJ = makeNode('J', [], makeLink(FINISH, ''));
-    const nodeI = makeNode('I', [], makeLink(FINISH, ''));
-    const nodeH = makeNode('H', [], makeLink(FINISH, ''));
-    const nodeC = makeNode('C', [], makeLink(FINISH, ''));
-    const nodeB = makeNode('B', [], makeLink(FINISH, ''));
+  describe('getNodeCoords', () => {
+    it('arranges nodes without loops', () => {
+      const expected = {
+        0: {
+          x: 4,
+          y: 0,
+        },
+        A: {
+          x: 1,
+          y: 2,
+        },
+        B: {
+          x: 1,
+          y: 3,
+        },
+        C: {
+          x: 2,
+          y: 3,
+        },
+        D: {
+          x: 2,
+          y: 2,
+        },
+        E: {
+          x: 2,
+          y: 1,
+        },
+        F: {
+          x: 3,
+          y: 1,
+        },
+        G: {
+          x: 3,
+          y: 2,
+        },
+        H: {
+          x: 3,
+          y: 3,
+        },
+        I: {
+          x: 4,
+          y: 3,
+        },
+        J: {
+          x: 5,
+          y: 3,
+        },
+        K: {
+          x: 6,
+          y: 3,
+        },
+        L: {
+          x: 7,
+          y: 3,
+        },
+        M: {
+          x: 4,
+          y: 2,
+        },
+        N: {
+          x: 4,
+          y: 1,
+        },
+      };
+      const result = getNodeCoords(getNodesWithoutLoops(), 1, 1);
+      expect(result).toEqual(expected);
+    });
 
-    const nodeM = makeNode('M', [], makeChoice([
-      makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
-    ]));
-    const nodeG = makeNode('G', [], makeLink(FINISH, ''));
-    const nodeD = makeNode('D', [], makeChoice([
-      makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
-    ]));
-    const nodeA = makeNode('A', [], makeLink(FINISH, ''));
-
-    const nodeN = makeNode('N', [], makeChoice([
-      makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
-    ]));
-    const nodeF = makeNode('F', [], makeLink(FINISH, ''));
-    const nodeE = makeNode('E', [], makeChoice([
-      makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
-    ]));
-
-    const node0 = makeNode('0', [], makeChoice([
-      makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
-      makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
-    ]));
-    const nodes = [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL];
-    const project = makeProject('1', '', '', [
-      makeScene('', nodes),
-    ], []);
-
-    it('does', () => {
-      layoutNodes({ state: project, nodes });
+    it('arranges nodes with loops', () => {
+      const expected = {
+        0: {
+          x: 3,
+          y: 0,
+        },
+        A: {
+          x: 2,
+          y: 2,
+        },
+        B: {
+          x: 1,
+          y: 3,
+        },
+        C: {
+          x: 2,
+          y: 3,
+        },
+        D: {
+          x: 3,
+          y: 2,
+        },
+        E: {
+          x: 2,
+          y: 1,
+        },
+        F: {
+          x: 3,
+          y: 1,
+        },
+        G: {
+          x: 3,
+          y: 4,
+        },
+        H: {
+          x: 2,
+          y: 4,
+        },
+        I: {
+          x: 3,
+          y: 3,
+        },
+        J: {
+          x: 4,
+          y: 3,
+        },
+        K: {
+          x: 5,
+          y: 3,
+        },
+        L: {
+          x: 6,
+          y: 3,
+        },
+        M: {
+          x: 4,
+          y: 2,
+        },
+        N: {
+          x: 4,
+          y: 1,
+        },
+      };
+      const result = getNodeCoords(getNodesWithLoops(), 1, 1);
+      expect(result).toEqual(expected);
     });
   });
 });
+
+
+const getNodesWithoutLoops = () => {
+  const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L' };
+  const nodeK = { ...makeNode('K', [], makeLink(FINISH, '')), id: 'K' };
+  const nodeJ = { ...makeNode('J', [], makeLink(FINISH, '')), id: 'J' };
+  const nodeI = { ...makeNode('I', [], makeLink(FINISH, '')), id: 'I' };
+  const nodeH = { ...makeNode('H', [], makeLink(FINISH, '')), id: 'H' };
+  const nodeC = { ...makeNode('C', [], makeLink(FINISH, '')), id: 'C' };
+  const nodeB = { ...makeNode('B', [], makeLink(FINISH, '')), id: 'B' };
+
+  const nodeM = { ...makeNode('M', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
+  ])),
+    id: 'M' };
+  const nodeG = { ...makeNode('G', [], makeLink(FINISH, '')), id: 'G' };
+  const nodeD = { ...makeNode('D', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
+  ])),
+    id: 'D' };
+  const nodeA = { ...makeNode('A', [], makeLink(FINISH, '')), id: 'A' };
+
+  const nodeN = { ...makeNode('N', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
+  ])),
+    id: 'N' };
+  const nodeF = { ...makeNode('F', [], makeLink(FINISH, '')), id: 'F' };
+  const nodeE = { ...makeNode('E', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
+  ])),
+    id: 'E' };
+
+  const node0 = { ...makeNode('0', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
+  ])),
+    id: '0' };
+  const project = makeProject('1', '', '', [
+    makeScene('', [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL]),
+  ], []);
+
+  return project;
+};
+
+const getNodesWithLoops = () => {
+  const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L' };
+  const nodeK = { ...makeNode('K', [], makeLink(FINISH, '')), id: 'K' };
+  const nodeJ = { ...makeNode('J', [], makeLink(FINISH, '')), id: 'J' };
+  const nodeI = { ...makeNode('I', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink('G')),
+    makeChoiceItem(null, null, '', makeNodeLink('M')),
+    makeChoiceItem(null, null, '', makeNodeLink('N')),
+    makeChoiceItem(null, null, '', makeNodeLink('H')),
+  ])),
+    id: 'I' };
+  const nodeH = { ...makeNode('H', [], makeLink(FINISH, '')), id: 'H' };
+  const nodeC = { ...makeNode('C', [], makeLink(FINISH, '')), id: 'C' };
+  const nodeB = { ...makeNode('B', [], makeLink(FINISH, '')), id: 'B' };
+
+  const nodeM = { ...makeNode('M', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
+  ])),
+    id: 'M' };
+  const nodeG = { ...makeNode('G', [], makeLink(FINISH, '')), id: 'G' };
+  const nodeD = { ...makeNode('D', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
+    makeChoiceItem(null, null, '', makeNodeLink('E')),
+  ])),
+    id: 'D' };
+  const nodeA = { ...makeNode('A', [], makeLink(FINISH, '')), id: 'A' };
+
+  const nodeN = { ...makeNode('N', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
+  ])),
+    id: 'N' };
+  const nodeF = { ...makeNode('F', [], makeLink(FINISH, '')), id: 'F' };
+  const nodeE = { ...makeNode('E', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
+  ])),
+    id: 'E' };
+
+  const node0 = { ...makeNode('0', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
+  ])),
+    id: '0' };
+  const project = makeProject('1', '', '', [
+    makeScene('', [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL]),
+  ], []);
+
+  return project;
+};
 
 // describe('core', () => {
 //   describe('findById', () => {

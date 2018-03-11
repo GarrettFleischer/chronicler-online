@@ -1,3 +1,4 @@
+import deepCopy from 'deepcopy';
 import { empty, peek, pop, push } from '../lib/stack';
 // PUBLIC FUNCTIONS
 // import { DataType } from './nodes';
@@ -177,7 +178,7 @@ const mapBy = (func) => (curr) => {
   }
 };
 
-export const getNodePositions = (state, colWidth, rowHeight) => {
+export const getNodeCoords = (state, colWidth, rowHeight) => {
   const coord = {};
   state.scenes.forEach((scene) => {
     scene.nodes.forEach((node) => {
@@ -186,19 +187,18 @@ export const getNodePositions = (state, colWidth, rowHeight) => {
   });
 
   state.scenes.forEach((scene) => {
-    if (scene.nodes.length) {
-      const startNode = scene.nodes[0];
-      const rows = buildRows(state, startNode.id);
-      const width = maxWidth(rows);
+    // assume each scene has at least one node
+    const startNode = scene.nodes[0];
+    const rows = buildRows(state, startNode.id);
+    const width = maxWidth(rows);
 
-      rows.forEach((row, y) => {
-        const offset = width / (row.length + 1);
-        row.forEach((id, x) => {
-          coord[id].x = Math.round((x + offset) * colWidth);
-          coord[id].y = Math.round(y * rowHeight);
-        });
+    rows.forEach((row, y) => {
+      const offset = row.length === width ? 0 : ((width - row.length) / 2);
+      row.forEach((id, x) => {
+        coord[id].x = ((x + offset) * colWidth);
+        coord[id].y = (y * rowHeight);
       });
-    }
+    });
   });
 
   return coord;
@@ -206,9 +206,9 @@ export const getNodePositions = (state, colWidth, rowHeight) => {
 
 // Iteratively searches over the state starting at the given id.
 // Returns true if there is a path that loops back to the given id.
-/**
- * @return {boolean}
- */
+// /**
+//  * @return {boolean}
+//  */
 // export function ContainsLoop(state, nodeId) {
 //   let stack = Stack.of(nodeId);
 //   let visited = List();
@@ -256,60 +256,62 @@ const buildRows = (state, nodeId) => {
     }
   }
 
-  return rows; // handleMultipleParents(state, rows);
+  return handleMultipleParents(state, rows); // handleMultipleParents(state, rows);
 };
 
-const getChildren = (state, nodeId) => {
-  const links = getLinks(findById(state, nodeId, NODE));
+export const getChildren = (state, nodeId) => {
+  const node = findById(state, nodeId, NODE);
+  const links = getLinks(node.link);
   return links.map((id) => findById(state, id, NODE));
 };
 
 // Helper function for BuildRows
-// function HandleMultipleParents(state, rows) {
-//   let newRows = rows;
-//   let done = false;
-//   let visited = List();
-//
-//   // reset iteration whenever a change is made
-//   while (!done) {
-//     done = true;
-//
-//     for (let y = 0; y < newRows.size && done; ++y) {
-//       let row = newRows.get(y);
-//
-//       for (let x = 0; x < row.size && done; ++x) {
-//         const currentId = row.get(x);
-//
-//         // ignore this node if already processed
-//         if (!visited.contains(currentId)) {
-//           visited = visited.push(currentId);
-//
-//           // if (!ContainsLoop(state, currentId)) {
-//           // calc max parent row + 1
-//           const parents = FindParents(state, currentId);
-//           let newY = y;
-//           parents.forEach((parent) => {
-//             const below = IsBelow(newRows, currentId, parent.get('Id'));
-//             if (parent.get('Id') !== currentId && below)
-//               newY = Math.max(newY, RowOf(newRows, parent.get('Id')) + 1);
-//           });
-//
-//           if (newY !== y) {
-//             done = false;
-//             while (newY >= newRows.size) newRows = newRows.push(List());
-//             const newRow = newRows.get(newY).push(currentId);
-//             row = row.delete(x);
-//             newRows = newRows.set(y, row);
-//             newRows = newRows.set(newY, newRow);
-//           }
-//           // }
-//         }
-//       }
-//     }
-//   }
-//
-//   return newRows;
-// }
+function handleMultipleParents(state, rows) {
+  const newRows = deepCopy(rows) || [];
+  let done = false;
+  const visited = [];
+
+  // reset iteration whenever a change is made
+  while (!done) {
+    done = true;
+
+    for (let y = 0; y < newRows.length && done; ++y) {
+      const row = newRows[y];
+
+      for (let x = 0; x < row.length && done; ++x) {
+        const currentId = row[x];
+
+        // ignore this node if already processed
+        if (!visited.includes(currentId)) {
+          visited.push(currentId);
+
+          if (!containsLoop(state, currentId)) {
+          // calc max parent row + 1
+            const parents = findParents(state, currentId);
+            let newY = y;
+            parents.forEach((parent) => {
+              const below = isBelow(newRows, parent.id, currentId);
+              const parentRow = rowOf(newRows, parent.id);
+              if (parent.id !== currentId && below)
+                newY = Math.max(newY, parentRow + 1);
+            });
+
+            if (newY !== y) {
+              done = false;
+              while (newY >= newRows.length) newRows.push([]);
+              const newRow = push(newRows[newY], currentId);
+              row.splice(x, 1);
+              newRows[y] = row;
+              newRows[newY] = newRow;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return newRows;
+}
 
 /**
  * @return {boolean}
@@ -328,21 +330,21 @@ const isBelow = (rows, childId, parentId) => {
   return false;
 };
 
-// // Helper function for BuildRows
-// /**
-//  * @return {number}
-//  */
-// function RowOf(rows, nodeId) {
-//   for (let y = 0; y < rows.size; ++y) {
-//     const row = rows.get(y);
-//     for (let x = 0; x < row.size; ++x) {
-//       if (row.get(x) === nodeId)
-//         return y;
-//     }
-//   }
-//
-//   return -1;
-// }
+// Helper function for BuildRows
+/**
+ * @return {number}
+ */
+function rowOf(rows, nodeId) {
+  for (let y = 0; y < rows.length; ++y) {
+    const row = rows[y];
+    for (let x = 0; x < row.length; ++x) {
+      if (row[x] === nodeId)
+        return y;
+    }
+  }
+
+  return -1;
+}
 
 // Helper function for BuildRows
 /**
@@ -357,6 +359,34 @@ function maxWidth(rows) {
   return width;
 }
 
+// Iteratively searches over the state starting at the given id.
+// Returns true if there is a path that loops back to the given id.
+/**
+ * @return {boolean}
+ */
+function containsLoop(state, nodeId) {
+  let stack = [nodeId];
+  const visited = [];
+
+  while (stack.length) {
+    const top = peek(stack);
+    stack = pop(stack);
+
+    if (!visited.includes(top)) {
+      visited.push(top);
+
+      const children = getChildren(state, top);
+      for (let i = 0; i < children.length; ++i) {
+        if (children[i].id === nodeId)
+          return true;
+
+        stack = push(stack, children[i].id);
+      }
+    }
+  }
+
+  return false;
+}
 
 // export const layoutNodes = ({ state, nodes, levelSeparation = 100, siblingSeparation = 100, subtreeSeparation = 200 }) => {
 //   const layout = [];
