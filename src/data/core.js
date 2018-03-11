@@ -180,58 +180,74 @@ const mapBy = (func) => (curr) => {
 
 export const getNodeCoords = (state, colWidth, rowHeight) => {
   const coord = {};
+  let stack = [];
+  const visited = [];
   state.scenes.forEach((scene) => {
     scene.nodes.forEach((node) => {
-      coord[node.id] = { x: 0, y: 0 };
+      coord[node.id] = { x: 0, y: 0, width: 0 };
     });
   });
 
   state.scenes.forEach((scene) => {
     // assume each scene has at least one node
-    const startNode = scene.nodes[0];
-    const rows = buildRows(state, startNode.id);
-    const width = maxWidth(rows);
-
-    rows.forEach((row, y) => {
-      const offset = row.length === width ? 0 : ((width - row.length) / 2);
-      row.forEach((id, x) => {
-        coord[id].x = ((x + offset) * colWidth);
-        coord[id].y = (y * rowHeight);
-      });
-    });
+    stack = [scene.nodes[0]];
+    // const rows = buildRows(state, startNode.id);
+    // const width = maxWidth(rows);
+    //
+    // rows.forEach((row, y) => {
+    //   const offset = row.length === width ? 0 : ((width - row.length) / 2);
+    //   row.forEach((id, x) => {
+    //     coord[id].x = ((x + offset) * colWidth);
+    //     coord[id].y = (y * rowHeight);
+    //   });
+    // });
+    while (stack.length) {
+      const top = peek(stack);
+      if (!visited.includes(top.id)) {
+        visited.push(top.id);
+        const data = coord[top.id];
+      }
+      stack = pop(stack);
+    }
   });
 
   return coord;
 };
 
-// Iteratively searches over the state starting at the given id.
-// Returns true if there is a path that loops back to the given id.
-// /**
-//  * @return {boolean}
-//  */
-// export function ContainsLoop(state, nodeId) {
-//   let stack = Stack.of(nodeId);
-//   let visited = List();
-//
-//   while (stack.size) {
-//     const top = stack.peek();
-//     stack = stack.pop();
-//
-//     if (!visited.contains(top)) {
-//       visited = visited.push(top);
-//
-//       const children = FindChildren(state, top);
-//       for (let i = 0; i < children.size; ++i) {
-//         if (children.getIn([i, 'Id']) === nodeId)
-//           return true;
-//
-//         stack = stack.push(children.getIn([i, 'Id']));
-//       }
-//     }
-//   }
-//
-//   return false;
-// }
+const postOrderTraversal = (state, baseNode, func) => {
+  // let root = baseNode;
+  // let stack = [];
+  // const queue = [];
+  // const visited = [];
+  //
+  // while (root) {
+  //   if (!visited.includes(root.id)) {
+  //     visited.push(root.id);
+  //     const children = (getChildren(state, root.id)).reverse();
+  //     children.forEach((child) => {
+  //       stack = push(stack, child);
+  //     });
+  //     root = peek(stack);
+  //   }
+  // }
+  //
+  // root = peek(stack);
+  // stack = pop(stack);
+  // const children = getChildren(state, root.id);
+  // if (children.length())
+
+  // while (stack.length) {
+  //   const top = peek(stack);
+  //   if (!visited.includes(top.id)) {
+  //     visited.push(top.id);
+  //     const children = getChildren(state, top.id);
+  //     if (children.length) {
+  //       children.forEach((node) => )
+  //     }
+  //   }
+  // }
+};
+
 
 // Helper function for UpdateNodePositions
 const buildRows = (state, nodeId) => {
