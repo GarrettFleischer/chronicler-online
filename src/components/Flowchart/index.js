@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import { PathLine } from 'react-svg-pathline';
 import { getLinks, getNodeCoords } from '../../data/core';
 import { getActiveProject } from '../../data/state';
-import {
-  FINISH, makeChoice, makeChoiceItem, makeCondition, makeCreate, makeElse, makeElseIf, makeIf, makeLink, makeNode,
-  makeNodeLink, makeProject, makeScene,
-} from '../../data/datatypes';
+
 // import { DiagramEngine, DiagramModel, DefaultNodeModel, DiagramWidget } from 'storm-react-diagrams';
 
 
@@ -43,7 +40,7 @@ import {
 //   return <DiagramWidget className="srd-demo-canvas" diagramEngine={engine} />;
 // };
 
-const Flowchart = ({ project, scene }) => {
+const Flowchart = ({ project, scene, onNodeClicked }) => {
   const layout = getNodeCoords(project, 100, 100);
   return (
     <svg width="100%" height={'100%'}>
@@ -60,7 +57,7 @@ const Flowchart = ({ project, scene }) => {
               r={0}
             />
             )),
-          <rect x={layout[node.id].x} y={layout[node.id].y} width={50} height={50} />,
+          <rect x={layout[node.id].x} y={layout[node.id].y} width={50} height={50} onClick={() => onNodeClicked(node.id)} />,
           <text key={node.id} x={layout[node.id].x + 25} y={layout[node.id].y + 25} stroke="white">{node.label}</text>,
         ]);
       })}
@@ -71,17 +68,12 @@ const Flowchart = ({ project, scene }) => {
 Flowchart.propTypes = {
   project: PropTypes.object.isRequired,
   scene: PropTypes.object.isRequired,
+  onNodeClicked: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => {
-  const project = getNodesWithoutLoops();
-  return ({
-    project,
-    scene: project.scenes[0],
-  });
-};
-// project: // getActiveProject(state),
-// scene: // getActiveProject(state).scenes[0], // TODO pass in as prop
+const mapStateToProps = (state) => ({
+  project: getActiveProject(state),
+});
 
 export default connect(mapStateToProps)(Flowchart);
 
@@ -100,111 +92,4 @@ const getPoints = (layout, from, to) => {
     points[0].y = y1;
 
   return points;
-};
-
-const getNodesWithoutLoops = () => {
-  const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L' };
-  const nodeK = { ...makeNode('K', [], makeLink(FINISH, '')), id: 'K' };
-  const nodeJ = { ...makeNode('J', [], makeLink(FINISH, '')), id: 'J' };
-  const nodeI = { ...makeNode('I', [], makeLink(FINISH, '')), id: 'I' };
-  const nodeH = { ...makeNode('H', [], makeLink(FINISH, '')), id: 'H' };
-  const nodeC = { ...makeNode('C', [], makeLink(FINISH, '')), id: 'C' };
-  const nodeB = { ...makeNode('B', [], makeLink(FINISH, '')), id: 'B' };
-
-  const nodeM = { ...makeNode('M', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
-  ])),
-    id: 'M' };
-  const nodeG = { ...makeNode('G', [], makeLink(FINISH, '')), id: 'G' };
-  const nodeD = { ...makeNode('D', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
-  ])),
-    id: 'D' };
-  const nodeA = { ...makeNode('A', [], makeLink(FINISH, '')), id: 'A' };
-
-  const nodeN = { ...makeNode('N', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
-  ])),
-    id: 'N' };
-  const nodeF = { ...makeNode('F', [], makeLink(FINISH, '')), id: 'F' };
-  const nodeE = { ...makeNode('E', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
-  ])),
-    id: 'E' };
-
-  const node0 = { ...makeNode('0', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
-  ])),
-    id: '0' };
-  const project = makeProject('1', '', '', [
-    makeScene('', [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL]),
-  ], []);
-
-  return project;
-};
-
-const getNodesWithLoops = () => {
-  const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L' };
-  const nodeK = { ...makeNode('K', [], makeLink(FINISH, '')), id: 'K' };
-  const nodeJ = { ...makeNode('J', [], makeLink(FINISH, '')), id: 'J' };
-  const nodeI = { ...makeNode('I', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink('G')),
-    makeChoiceItem(null, null, '', makeNodeLink('M')),
-    makeChoiceItem(null, null, '', makeNodeLink('N')),
-    makeChoiceItem(null, null, '', makeNodeLink('H')),
-  ])),
-    id: 'I' };
-  const nodeH = { ...makeNode('H', [], makeLink(FINISH, '')), id: 'H' };
-  const nodeC = { ...makeNode('C', [], makeLink(FINISH, '')), id: 'C' };
-  const nodeB = { ...makeNode('B', [], makeLink(FINISH, '')), id: 'B' };
-
-  const nodeM = { ...makeNode('M', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
-  ])),
-    id: 'M' };
-  const nodeG = { ...makeNode('G', [], makeLink(FINISH, '')), id: 'G' };
-  const nodeD = { ...makeNode('D', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
-    makeChoiceItem(null, null, '', makeNodeLink('E')),
-  ])),
-    id: 'D' };
-  const nodeA = { ...makeNode('A', [], makeLink(FINISH, '')), id: 'A' };
-
-  const nodeN = { ...makeNode('N', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
-  ])),
-    id: 'N' };
-  const nodeF = { ...makeNode('F', [], makeLink(FINISH, '')), id: 'F' };
-  const nodeE = { ...makeNode('E', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
-  ])),
-    id: 'E' };
-
-  const node0 = { ...makeNode('0', [], makeChoice([
-    makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
-    makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
-  ])),
-    id: '0' };
-  const project = makeProject('1', '', '', [
-    makeScene('', [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL]),
-  ], []);
-
-  return project;
 };

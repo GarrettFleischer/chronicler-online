@@ -1,8 +1,55 @@
 import {
   makeUser, makeProject, makeScene, makeNode, makeText, makeNodeLink,
-  makeCreate, makeSetAction, makeChoice, makeChoiceItem, makeIf, makeCondition,
+  makeCreate, makeSetAction, makeChoice, makeChoiceItem, makeIf, makeCondition, makeLink, FINISH,
 } from './datatypes';
 import { initialState as initialUiState } from '../reducers/uiReducer';
+
+const getNodesWithoutLoops = () => {
+  const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L' };
+  const nodeK = { ...makeNode('K', [], makeLink(FINISH, '')), id: 'K' };
+  const nodeJ = { ...makeNode('J', [], makeLink(FINISH, '')), id: 'J' };
+  const nodeI = { ...makeNode('I', [], makeLink(FINISH, '')), id: 'I' };
+  const nodeH = { ...makeNode('H', [], makeLink(FINISH, '')), id: 'H' };
+  const nodeC = { ...makeNode('C', [], makeLink(FINISH, '')), id: 'C' };
+  const nodeB = { ...makeNode('B', [], makeLink(FINISH, '')), id: 'B' };
+
+  const nodeM = { ...makeNode('M', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
+  ])),
+    id: 'M' };
+  const nodeG = { ...makeNode('G', [], makeLink(FINISH, '')), id: 'G' };
+  const nodeD = { ...makeNode('D', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
+  ])),
+    id: 'D' };
+  const nodeA = { ...makeNode('A', [], makeLink(FINISH, '')), id: 'A' };
+
+  const nodeN = { ...makeNode('N', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
+  ])),
+    id: 'N' };
+  const nodeF = { ...makeNode('F', [], makeLink(FINISH, '')), id: 'F' };
+  const nodeE = { ...makeNode('E', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
+  ])),
+    id: 'E' };
+
+  const node0 = { ...makeNode('0', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
+  ])),
+    id: '0' };
+
+  return [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL];
+};
 
 
 export function getActiveProject(state) {
@@ -23,25 +70,32 @@ export const initialState = {
     present:
       makeUser(0, 'BenSeawalker', 'benseawalker@yahoo.com', [
         makeProject('1', 'Dragon', 'CoG', [
-          makeScene('startup', [
-            {
-              ...makeNode(
+          {
+            ...makeScene('startup', [
+              {
+                ...makeNode(
               'intro',
               [makeText('welcome'), makeSetAction('var_str', '%+', '10', false)],
               makeChoice([
                 makeChoiceItem(null, null, 'do a thing', makeNodeLink('4')),
                 makeChoiceItem(null, null, 'do something else', makeNodeLink('3')),
               ])),
-              id: '3',
-            },
-            {
-              ...makeNode(
+                id: '3',
+              },
+              {
+                ...makeNode(
                 'end',
                 [makeText('end of chapter 1')],
                 makeCondition([makeIf('true', makeNodeLink('3'))])),
-              id: '4',
-            },
-          ]),
+                id: '4',
+              },
+            ]),
+            id: 'startup',
+          },
+          {
+            ...makeScene('scene2', getNodesWithoutLoops()),
+            id: 'scene2',
+          },
         ],
           [
             { ...makeCreate('str', '50'), id: 'var_str' },
