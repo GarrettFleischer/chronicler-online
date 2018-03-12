@@ -51,6 +51,61 @@ const getNodesWithoutLoops = () => {
   return [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL];
 };
 
+const getNodesWithLoops = () => {
+  const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L2' };
+  const nodeK = { ...makeNode('K', [], makeLink(FINISH, '')), id: 'K2' };
+  const nodeJ = { ...makeNode('J', [], makeLink(FINISH, '')), id: 'J2' };
+  const nodeI = { ...makeNode('I', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink('G2')),
+    makeChoiceItem(null, null, '', makeNodeLink('M2')),
+    makeChoiceItem(null, null, '', makeNodeLink('N2')),
+    makeChoiceItem(null, null, '', makeNodeLink('H2')),
+  ])),
+    id: 'I2' };
+  const nodeH = { ...makeNode('H', [], makeLink(FINISH, '')), id: 'H2' };
+  const nodeC = { ...makeNode('C', [], makeLink(FINISH, '')), id: 'C2' };
+  const nodeB = { ...makeNode('B', [], makeLink(FINISH, '')), id: 'B2' };
+
+  const nodeM = { ...makeNode('M', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeH.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeI.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeJ.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeK.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeL.id)),
+  ])),
+    id: 'M2' };
+  const nodeG = { ...makeNode('G', [], makeLink(FINISH, '')), id: 'G2' };
+  const nodeD = { ...makeNode('D', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeB.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeC.id)),
+    makeChoiceItem(null, null, '', makeNodeLink('E2')),
+  ])),
+    id: 'D2' };
+  const nodeA = { ...makeNode('A', [], makeLink(FINISH, '')), id: 'A2' };
+
+  const nodeN = { ...makeNode('N', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeG.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeM.id)),
+  ])),
+    id: 'N2' };
+  const nodeF = { ...makeNode('F', [], makeLink(FINISH, '')), id: 'F2' };
+  const nodeE = { ...makeNode('E', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeA.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeD.id)),
+  ])),
+    id: 'E2' };
+
+  const node0 = { ...makeNode('0', [], makeChoice([
+    makeChoiceItem(null, null, '', makeNodeLink(nodeE.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeF.id)),
+    makeChoiceItem(null, null, '', makeNodeLink(nodeN.id)),
+  ])),
+    id: '02' };
+
+
+  return [node0, nodeE, nodeF, nodeN, nodeA, nodeD, nodeG, nodeM, nodeB, nodeC, nodeH, nodeI, nodeJ, nodeK, nodeL];
+};
+
 
 export function getActiveProject(state) {
   return state.chronicler.present.projects.find((project) => project.id === state.ui.activeProject);
@@ -95,6 +150,10 @@ export const initialState = {
           {
             ...makeScene('scene2', getNodesWithoutLoops()),
             id: 'scene2',
+          },
+          {
+            ...makeScene('scene3', getNodesWithLoops()),
+            id: 'scene3',
           },
         ],
           [

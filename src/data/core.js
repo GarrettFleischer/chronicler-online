@@ -179,74 +179,129 @@ const mapBy = (func) => (curr) => {
 };
 
 export const getNodeCoords = (state, colWidth, rowHeight) => {
-  const coord = {};
-  let stack = [];
-  const visited = [];
+  // const data = {};
+  // let offset = 0;
+  // state.scenes.forEach((scene) => {
+  //   scene.nodes.forEach((node) => {
+  //     data[node.id] = { x: 0, y: 0, width: 0, offset: 0 };
+  //   });
+  // });
+  //
+  // const rows = buildRows(state, scene.nodes[0].id);
+  // rows.forEach((row, y) => {
+  //   row.forEach((id) => {
+  //     data[id].y = (y * rowHeight);
+  //   });
+  // });
+  //
+  // state.scenes.forEach((scene) => {
+  //   // assume each scene has at least one node
+  //   postOrderTraversal(state, scene.nodes[0], (node) => {
+  //     const children = getChildren(state, node.id);
+  //     if (!children.length) {
+  //       data[node.id].width = colWidth;
+  //       // data[node.id].offset ;
+  //     } else {
+  //       children.forEach((child) => {
+  //         data[node.id].width += data[child.id].width;
+  //       });
+  //       offset += data[node.id].width / 2;
+  //     }
+  //     data[node.id].x = offset / 2;
+  //   });
+  // });
+
+  const data = {};
+  // let offset = 0;
   state.scenes.forEach((scene) => {
     scene.nodes.forEach((node) => {
-      coord[node.id] = { x: 0, y: 0, width: 0 };
+      data[node.id] = { x: 0, y: 0, width: 0, offset: 0 };
     });
   });
 
   state.scenes.forEach((scene) => {
-    // assume each scene has at least one node
-    stack = [scene.nodes[0]];
-    // const rows = buildRows(state, startNode.id);
-    // const width = maxWidth(rows);
-    //
-    // rows.forEach((row, y) => {
-    //   const offset = row.length === width ? 0 : ((width - row.length) / 2);
-    //   row.forEach((id, x) => {
-    //     coord[id].x = ((x + offset) * colWidth);
-    //     coord[id].y = (y * rowHeight);
-    //   });
-    // });
-    while (stack.length) {
-      const top = peek(stack);
-      if (!visited.includes(top.id)) {
-        visited.push(top.id);
-        const data = coord[top.id];
-      }
-      stack = pop(stack);
-    }
+    const rows = buildRows(state, scene.nodes[0].id);
+    const width = maxWidth(rows);
+
+    rows.forEach((row, y) => {
+      const offset = row.length === width ? 0 : ((width - row.length) / 2);
+      row.forEach((id, x) => {
+        data[id].x = ((x + offset) * colWidth);
+        data[id].y = (y * rowHeight);
+      });
+    });
   });
 
-  return coord;
+  return data;
 };
 
-const postOrderTraversal = (state, baseNode, func) => {
-  // let root = baseNode;
-  // let stack = [];
-  // const queue = [];
-  // const visited = [];
-  //
-  // while (root) {
-  //   if (!visited.includes(root.id)) {
-  //     visited.push(root.id);
-  //     const children = (getChildren(state, root.id)).reverse();
-  //     children.forEach((child) => {
-  //       stack = push(stack, child);
-  //     });
-  //     root = peek(stack);
-  //   }
-  // }
-  //
-  // root = peek(stack);
-  // stack = pop(stack);
-  // const children = getChildren(state, root.id);
-  // if (children.length())
+const lowestParent = (state, rows, nodeId) => {
+  const parents = findParents(state, nodeId);
+  let parent = parents.pop();
+  while (parents.length) {
+    if (isBelow(rows, parent.id, parents[0].id))
+      parents[0] = parent;
+    parent = parents.pop();
+  }
 
-  // while (stack.length) {
-  //   const top = peek(stack);
-  //   if (!visited.includes(top.id)) {
-  //     visited.push(top.id);
-  //     const children = getChildren(state, top.id);
-  //     if (children.length) {
-  //       children.forEach((node) => )
-  //     }
-  //   }
-  // }
+  return parent;
 };
+
+const leftSibling = (state, parentId, nodeId) => {
+  let sibling = null;
+  const children = getChildren(state, parentId);
+  for (let i = 0; i < children.length; ++i) {
+    if (children[i].id === nodeId) break;
+    sibling = children[i];
+  }
+
+  return sibling;
+};
+
+const postOrderTraversal = (state, baseNode, func, visited = []) => {
+  if (!visited.includes(baseNode.id)) {
+    visited.push(baseNode.id);
+    const children = getChildren(state, baseNode.id);
+    children.forEach((child) => {
+      postOrderTraversal(state, child, func, visited);
+    });
+    func(baseNode);
+  }
+};
+
+// const postOrderTraversal = (state, baseNode, func) => {
+//   // let root = baseNode;
+//   // let stack = [];
+//   // const queue = [];
+//   // const visited = [];
+//   //
+//   // while (root) {
+//   //   if (!visited.includes(root.id)) {
+//   //     visited.push(root.id);
+//   //     const children = (getChildren(state, root.id)).reverse();
+//   //     children.forEach((child) => {
+//   //       stack = push(stack, child);
+//   //     });
+//   //     root = peek(stack);
+//   //   }
+//   // }
+//   //
+//   // root = peek(stack);
+//   // stack = pop(stack);
+//   // const children = getChildren(state, root.id);
+//   // if (children.length())
+//
+//   // while (stack.length) {
+//   //   const top = peek(stack);
+//   //   if (!visited.includes(top.id)) {
+//   //     visited.push(top.id);
+//   //     const children = getChildren(state, top.id);
+//   //     if (children.length) {
+//   //       children.forEach((node) => )
+//   //     }
+//   //   }
+//   // }
+// };
 
 
 // Helper function for UpdateNodePositions

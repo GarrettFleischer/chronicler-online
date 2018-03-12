@@ -58,7 +58,7 @@ const Flowchart = ({ project, scene, onNodeClicked }) => {
             />
             )),
           <rect x={layout[node.id].x} y={layout[node.id].y} width={50} height={50} onClick={() => onNodeClicked(node.id)} />,
-          <text key={node.id} x={layout[node.id].x + 25} y={layout[node.id].y + 25} stroke="white">{node.label}</text>,
+          <text key={node.id} x={layout[node.id].x + (25 - (node.label.length * 2.5))} y={layout[node.id].y + 25} stroke="white">{node.label}</text>,
         ]);
       })}
     </svg>
