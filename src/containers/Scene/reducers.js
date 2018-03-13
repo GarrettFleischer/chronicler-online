@@ -1,6 +1,6 @@
 import { nodeReducer } from '../Node/reducers';
 import { mapReducer } from '../../data/utilities';
-import { variableReducer } from '../../reducers/reducers';
+import { variableReducer } from '../../components/Variable/reducers';
 
 
 export const SCENE_ADD_NODE = 'SCENE_ADD_NODE';

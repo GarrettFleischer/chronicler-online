@@ -5,8 +5,9 @@ import lifecycle from 'react-pure-lifecycle';
 import { Redirect, withRouter } from 'react-router-dom';
 import Card, { CardContent } from 'material-ui/Card';
 import GridList, { GridListTile } from 'material-ui/GridList';
-import { setActiveProject } from '../../reducers/uiReducer';
 import TabView, { makeTab } from '../../components/TabView';
+import Variable from '../../components/Variable';
+import { setActiveProject } from '../../reducers/uiReducer';
 import { getProjects } from '../../data/state';
 import { peek } from '../../lib/stack';
 
@@ -26,6 +27,19 @@ SceneGrid.propTypes = {
   scenes: PropTypes.array.isRequired,
 };
 
+const VariableList = ({ variables }) => (
+  <div>
+    {variables.map((variable) => (
+      <Variable key={variable.id} variable={variable} />
+    ))}
+  </div>
+);
+
+VariableList.propTypes = {
+  variables: PropTypes.array.isRequired,
+};
+
+
 // TODO use intl
 const Project = ({ project }) => {
   if (project === undefined)
@@ -36,7 +50,7 @@ const Project = ({ project }) => {
       id={'dashboard'}
       tabs={[
         makeTab('Scenes', <SceneGrid scenes={project.scenes || []} />),
-        makeTab('Variables', <div />),
+        makeTab('Variables', <VariableList variables={project.variables} />),
       ]}
     />
   );

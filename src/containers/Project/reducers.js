@@ -1,6 +1,6 @@
 import { sceneReducer } from '../Scene/reducers';
-import { variableReducer } from '../../reducers/reducers';
 import { mapReducer } from '../../data/utilities';
+import { variableReducer } from '../../components/Variable/reducers';
 
 // export const projectReducer = (state, action) => ({ ...state, scenes: state.scenes.map(sceneMapper(action)) });
 
