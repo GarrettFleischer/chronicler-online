@@ -21,6 +21,7 @@
     "react-intl": "^2.3.0",
     "react-intl-redux": "^0.6.0",
     "react-mousetrap": "^0.1.1",
+    "react-pure-lifecycle": "^2.1.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.10",

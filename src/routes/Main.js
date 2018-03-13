@@ -4,6 +4,7 @@ import HomePage from '../components/HomePage';
 import NotFound from '../components/NotFound';
 import Node from '../containers/Node';
 import Scene from '../containers/Scene';
+import Dashboard from '../containers/Dashboard';
 
 // TODO make Project component
 const Main = () => (
@@ -13,7 +14,7 @@ const Main = () => (
       <Route path="/project/:id" component={NotFound} />
       <Route path="/scene/:id" component={Scene} />
       <Route path="/node/:id" component={Node} />
-      <Route path="/dashboard" component={NotFound} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   </main>

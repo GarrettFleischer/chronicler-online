@@ -107,9 +107,9 @@ const getNodesWithLoops = () => {
 };
 
 
-export function getActiveProject(state) {
-  return state.chronicler.present.projects.find((project) => project.id === state.ui.activeProject);
-}
+export const getProjects = (state) => state.chronicler.present.projects;
+
+export const getActiveProject = (state) => (getProjects(state)).find((project) => project.id === state.ui.activeProject);
 
 // TODO define node templates for creating new nodes. Taking care of boilerplate generation of standard features
 export const initialState = {
