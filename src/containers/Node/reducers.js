@@ -2,6 +2,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import { componentReducer } from '../../components/Component/reducers';
 import { linkReducer } from '../../components/Link/reducers';
 import { makeSetAction, makeText, SET, TEXT } from '../../data/datatypes';
+import { mapReducer } from '../../data/utilities';
 
 
 export const NODE_COMPONENTS_SORTED = 'Node/NODE_COMPONENTS_SORTED';
@@ -23,7 +24,7 @@ export function nodeReducer(state, action) {
   if (state.id !== action.id) {
     return {
       ...state,
-      components: state.components.map(componentMapper(action)),
+      components: mapReducer(state.components, action, componentReducer),
       link: linkReducer(state.link, action) };
   }
 
@@ -44,9 +45,6 @@ export function nodeReducer(state, action) {
       return state;
   }
 }
-
-
-const componentMapper = (action) => (state) => componentReducer(state, action);
 
 
 const makeComponentForValue = (value) => {

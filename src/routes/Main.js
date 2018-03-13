@@ -11,7 +11,7 @@ import Project from '../containers/Project';
 const Main = () => (
   <main>
     <Switch>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={Dashboard} /> {/* HomePage */}
       <Route path="/project/:id" component={Project} />
       <Route path="/scene/:id" component={Scene} />
       <Route path="/node/:id" component={Node} />

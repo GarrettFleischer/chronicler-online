@@ -40,3 +40,6 @@ export const patch = (obj, delta) => {
   jdp.patch(copy, delta);
   return copy;
 };
+
+
+export const mapReducer = (array, action, reducer) => array.map((item) => reducer(item, action));

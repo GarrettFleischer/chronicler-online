@@ -73,7 +73,7 @@ export const PropTypeId = PropTypes.string;
 // other
 export const makeUser = (id, name, email, projects) => ({ type: USER, id, name, email, projects, activeProject: 0 });
 export const makeProject = (id, title, author, scenes, variables) => ({ type: PROJECT, id, title, author, scenes, variables });
-export const makeScene = (name, nodes) => ({ type: SCENE, id: getID(), name, nodes });
+export const makeScene = (name, nodes, variables) => ({ type: SCENE, id: getID(), name, nodes, variables });
 
 // symbols
 export const makeTitle = (text) => ({ type: TITLE, id: getID(), text });

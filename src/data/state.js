@@ -144,22 +144,24 @@ export const initialState = {
                 makeCondition([makeIf('true', makeNodeLink('3'))])),
                 id: '4',
               },
-            ]),
+            ], []),
             id: 'startup',
           },
           {
-            ...makeScene('scene2', getNodesWithoutLoops()),
+            ...makeScene('scene2', getNodesWithoutLoops(), []),
             id: 'scene2',
           },
           {
-            ...makeScene('scene3', getNodesWithLoops()),
+            ...makeScene('scene3', getNodesWithLoops(), []),
             id: 'scene3',
           },
         ],
           [
             { ...makeCreate('str', '50'), id: 'var_str' },
             { ...makeCreate('dex', '23'), id: 'var_dex' },
-          ]),
+          ]
+        ),
+        makeProject('2', 'Test', 'nobody', [makeScene('startup', [makeNode('intro', [], makeLink(FINISH, ''))], [])], []),
       ]),
   },
 };
