@@ -31,25 +31,25 @@ const UnknownComponent = () => (
   </Card>
 );
 
-const renderItem = (item, reorder) => {
+const renderItem = (item, sorting) => {
   switch (item.type) {
     case TEXT:
-      return <Text item={item} reorder={reorder} />;
+      return <Text item={item} sorting={sorting} />;
 
     case SET:
-      return <SetAction item={item} reorder={reorder} />;
+      return <SetAction item={item} sorting={sorting} />;
 
     default:
       return <UnknownComponent />;
   }
 };
 
-const Component = ({ item, reorder, classes, onDeleteClicked }) => (
+const Component = ({ item, sorting, classes, onDeleteClicked }) => (
   <div>
     <Card className={classes.component}>
       <CardContent>
         <ItemMenu itemId={item.id} handleDelete={onDeleteClicked}>
-          {renderItem(item, reorder)}
+          {renderItem(item, sorting)}
         </ItemMenu>
       </CardContent>
     </Card>
@@ -58,7 +58,7 @@ const Component = ({ item, reorder, classes, onDeleteClicked }) => (
 
 Component.propTypes = {
   item: PropTypes.object.isRequired,
-  reorder: PropTypes.bool.isRequired,
+  sorting: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   onDeleteClicked: PropTypes.func.isRequired,
 };

@@ -17,10 +17,11 @@ Reorder.propTypes = {
 };
 
 
-const Text = ({ item, reorder, onChange }) => {
-  if (reorder)
+const Text = ({ item, sorting, onChange }) => {
+  if (sorting)
     return <Reorder item={item} />;
-  // TODO render line break and double line break before or after radio and checkbox options
+
+  // TODO render radio and checkbox options for line break and double line break before or after
   return (
     <AceEditor
       onChange={(text) => {
@@ -39,7 +40,7 @@ const Text = ({ item, reorder, onChange }) => {
 
 Text.propTypes = {
   item: PropTypes.object.isRequired,
-  reorder: PropTypes.bool.isRequired,
+  sorting: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

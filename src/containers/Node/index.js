@@ -17,7 +17,8 @@ import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reduc
 import { makeSelectNode } from './selectors';
 import Link from '../../components/Link';
 import ChooseComponentDialog from '../../components/ChooseComponentDialog';
-import ComponentManager from '../../components/ComponentManager/index';
+import ItemList from '../../components/ItemList';
+import Component from '../../components/Component';
 import { setNodeReordering, setShowChooseComponentDialog } from '../../reducers/uiReducer';
 import messages from './messages';
 
@@ -42,34 +43,24 @@ const Node = ({ classes, ui, data, onSortEnd, onAddClick, onReorderClick, onLabe
   return (
     <div>
       <Paper className={classes.root}>
-        <div style={{ marginBottom: '18px' }}>
-          <Align container>
-            <Align left>
+        <div>
+          <ItemList
+            id={node.id}
+            titleBar={(
               <TextField
                 onChange={onLabelChange(node.id)}
                 placeholder={`Page ${node.id}`}
                 value={node.label}
                 error={!validateLabel(state, node.label)}
                 label="Label"
-              />
-            </Align>
-            <Align right>
-              <Tooltip title={<FormattedMessage {...messages.reorder} />}>
-                <IconButton onClick={() => onReorderClick(ui.reordering)}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
-              </Tooltip>
-              <Tooltip title={<FormattedMessage {...messages.addComponent} />}>
-                <IconButton onClick={onAddClick}><AddIcon /></IconButton>
-              </Tooltip>
-            </Align>
-          </Align>
-        </div>
-        <div>
-          <ComponentManager
-            parentId={node.id}
-            components={node.components}
-            reordering={ui.reordering}
-            onSortEnd={onSortEnd(node.id)}
-          />
+              />)}
+            handleAdd={onAddClick}
+            handleSortEnd={onSortEnd(node.id)}
+          >
+            {node.components.map((component) => (
+              <Component key={component.id} item={component} />
+            ))}
+          </ItemList>
         </div>
         <div style={{ marginTop: '18px' }}>
           <Card>

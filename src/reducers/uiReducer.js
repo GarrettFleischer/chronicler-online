@@ -40,6 +40,9 @@ export const setTabViewValue = (id, value) => ({ type: SET_TAB_VIEW_VALUE, id, v
 export const SET_ACTIVE_PROJECT = 'SET_ACTIVE_PROJECT';
 export const setActiveProject = (projectId) => ({ type: SET_ACTIVE_PROJECT, projectId });
 
+export const SET_ITEM_LIST_SORTING = 'SET_ITEM_LIST_SORTING';
+export const setItemListSorting = (id, sorting) => ({ type: SET_ITEM_LIST_SORTING, id, sorting });
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
@@ -59,6 +62,7 @@ export default function uiReducer(state = initialState, action) {
         condition: conditionReducer(state.condition, action),
         flowchart: flowchartReducer(state.flowchart, action),
         tabView: tabViewReducer(state.tabView, action),
+        itemList: itemListReducer(state.itemList, action),
       };
   }
 }
@@ -93,6 +97,9 @@ export const initialState = {
   },
   tabView: {
     value: {},
+  },
+  itemList: {
+    sorting: {},
   },
 };
 
@@ -184,6 +191,16 @@ const tabViewReducer = (state, action) => {
   switch (action.type) {
     case SET_TAB_VIEW_VALUE:
       return { ...state, value: { ...state.value, [action.id]: action.value } };
+
+    default:
+      return state;
+  }
+};
+
+const itemListReducer = (state, action) => {
+  switch (action.type) {
+    case SET_ITEM_LIST_SORTING:
+      return { ...state, sorting: { [action.id]: action.sorting } };
 
     default:
       return state;

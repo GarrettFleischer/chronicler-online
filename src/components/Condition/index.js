@@ -75,10 +75,11 @@ const renderConditions = (item, sorting, onConditionTextChanged, onSortEnd, onDe
 
 // TODO use intl
 // TODO draw internal components
+// TODO switch to ItemList rendering
 const Condition = ({ item, ui, onConditionTextChanged, onSortEnd, onReorderClick, onAddChoiceClick, onDeleteClicked }) => (
   <div>
     <Align container>
-      <Align left><span>*choice</span></Align>
+      <Align left><span>*condition</span></Align>
       <Align right>
         <Tooltip title="reorder conditions">
           <IconButton onClick={() => onReorderClick(ui.sorting)}><SwapIcon style={{ fill: ui.sorting ? 'blue' : 'gray' }} /></IconButton>

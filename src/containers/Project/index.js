@@ -15,6 +15,7 @@ import { getProjects } from '../../data/state';
 import { peek } from '../../lib/stack';
 import Align from '../../components/Align';
 import { addVariable } from '../../components/Variable/reducers';
+import ItemList from '../../components/ItemList';
 
 const SceneGrid = withRouter(({ history, scenes }) => (
   <GridList cellHeight={160} cols={3}>
@@ -33,16 +34,17 @@ SceneGrid.propTypes = {
 };
 
 // TODO use intl
-const VariableList = ({ variables }) => (
-  <div style={{ margin: 10 }}>
+const VariableList = ({ variables, onAddVariable }) => (
+  <ItemList handleAdd={onAddVariable}>
     {variables.map((variable) => (
       <Variable key={variable.id} variable={variable} />
     ))}
-  </div>
+  </ItemList>
 );
 
 VariableList.propTypes = {
   variables: PropTypes.array.isRequired,
+  onAddVariable: PropTypes.func.isRequired,
 };
 
 
@@ -57,16 +59,12 @@ const Project = ({ project, onAddVariable }) => {
       tabs={[
         makeTab('Scenes', <SceneGrid scenes={project.scenes || []} />),
         makeTab('Variables', (
-          <div>
-            <Align container>
-              <Align right>
-                <Tooltip title={'Add variable'}>
-                  <IconButton onClick={onAddVariable(project.id)}><AddIcon /></IconButton>
-                </Tooltip>
-              </Align>
-            </Align>
-            <VariableList variables={project.variables} />
-          </div>)
+          <ItemList id={project.id} handleAdd={onAddVariable(project.id)}>
+            {project.variables.map((variable) => (
+              <Variable key={variable.id} variable={variable} />
+            ))}
+          </ItemList>
+          )
         ),
       ]}
     />

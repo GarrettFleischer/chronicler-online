@@ -13,16 +13,8 @@ import { choiceAddItem, choiceDeleteItem, choiceItemTextChanged, choiceSortEnd }
 import Link from '../Link';
 import { setChoiceReordering } from '../../reducers/uiReducer';
 import ItemMenu from '../ItemMenu';
+import ItemList from '../ItemList';
 
-const SortableItem = SortableElement(({ value }) => renderChoiceItem(value));
-
-const ChoiceList = SortableContainer(({ choices }) => (
-  <div>
-    {choices.map((choice, index) => (
-      <SortableItem key={choice.id} index={index} value={choice} />
-    ))}
-  </div>
-));
 
 // TODO use intl
 const renderChoiceText = (choice, onChoiceTextChanged) => {
@@ -36,13 +28,14 @@ const renderChoiceText = (choice, onChoiceTextChanged) => {
   />);
 };
 
-const renderChoiceItem = (choice, onChoiceTextChanged, onDeleteClicked) => (
-  <Card key={choice.id} style={{ marginTop: '5px' }}>
+
+const ChoiceItem = ({ choice, onChoiceTextChanged, onDeleteClicked, sorting }) => (
+  <Card style={{ marginTop: '5px' }}>
     <CardContent>
       <ItemMenu itemId={choice.id} handleDelete={onDeleteClicked}>
         <Align container>
           <Align left>
-            {renderChoiceText(choice, onChoiceTextChanged)}
+            {renderChoiceText(choice, !sorting && onChoiceTextChanged)}
           </Align>
           <Align right>
             <Link item={choice.link} />
@@ -51,41 +44,47 @@ const renderChoiceItem = (choice, onChoiceTextChanged, onDeleteClicked) => (
       </ItemMenu>
     </CardContent>
   </Card>
-  );
+);
 
-const renderChoices = (item, reordering, onChoiceTextChanged, onSortEnd, onDeleteClicked) => {
-  if (reordering)
-    return <ChoiceList choices={item.choices} onSortEnd={({ oldIndex, newIndex }) => onSortEnd(item.id, oldIndex, newIndex)} />;
-
-  return item.choices.map((choice) => renderChoiceItem(choice, onChoiceTextChanged, onDeleteClicked));
+ChoiceItem.propTypes = {
+  choice: PropTypes.object.isRequired,
+  onChoiceTextChanged: PropTypes.func.isRequired,
+  onDeleteClicked: PropTypes.func.isRequired,
+  sorting: PropTypes.bool,
 };
+
+ChoiceItem.defaultProps = {
+  sorting: false,
+};
+
 
 // TODO use intl
 // TODO draw internal components
-const Choice = ({ item, ui, onChoiceTextChanged, onSortEnd, onReorderClick, onAddChoiceClick, onDeleteClicked }) => (
+const Choice = ({ item, onChoiceTextChanged, onSortEnd, onAddChoiceClick, onDeleteClicked }) => (
   <div>
-    <Align container>
-      <Align left><span>*choice</span></Align>
-      <Align right>
-        <Tooltip title="reorder choices">
-          <IconButton onClick={() => onReorderClick(ui.reordering)}><SwapIcon style={{ fill: ui.reordering ? 'blue' : 'gray' }} /></IconButton>
-        </Tooltip>
-        <Tooltip title="add choice">
-          <IconButton onClick={() => onAddChoiceClick(item.id)}><AddIcon /></IconButton>
-        </Tooltip>
-      </Align>
-    </Align>
-    {renderChoices(item, ui.reordering, onChoiceTextChanged, onSortEnd, onDeleteClicked)}
+    <ItemList
+      id={item.id}
+      titleBar={'*choice'}
+      handleAdd={onAddChoiceClick(item.id)}
+      handleSortEnd={onSortEnd(item.id)}
+    >
+      {item.choices.map((choice) => (
+        <ChoiceItem
+          key={choice.id}
+          choice={choice}
+          onChoiceTextChanged={onChoiceTextChanged}
+          onDeleteClicked={onDeleteClicked}
+        />)
+      )}
+    </ItemList>
   </div>
   );
 
 Choice.propTypes = {
   item: PropTypes.object.isRequired,
-  ui: PropTypes.object.isRequired,
   onChoiceTextChanged: PropTypes.func.isRequired,
   onAddChoiceClick: PropTypes.func.isRequired,
   onSortEnd: PropTypes.func.isRequired,
-  onReorderClick: PropTypes.func.isRequired,
   onDeleteClicked: PropTypes.func.isRequired,
 };
 
@@ -97,14 +96,11 @@ const mapDispatchToProps = (dispatch) => ({
   onChoiceTextChanged: (id, text) => {
     dispatch(choiceItemTextChanged(id, text));
   },
-  onAddChoiceClick: (id) => {
+  onAddChoiceClick: (id) => () => {
     dispatch(choiceAddItem(id));
   },
-  onSortEnd: (id, oldIndex, newIndex) => {
+  onSortEnd: (id) => ({ oldIndex, newIndex }) => {
     dispatch(choiceSortEnd(id, oldIndex, newIndex));
-  },
-  onReorderClick: (reordering) => {
-    dispatch(setChoiceReordering(!reordering));
   },
   onDeleteClicked: (id) => {
     dispatch(choiceDeleteItem(id));

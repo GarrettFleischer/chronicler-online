@@ -4,7 +4,7 @@ import Component from '../Component';
 
 
 const SortableItem = SortableElement(({ value }) =>
-  <Component item={value} parentId={''} reorder />,
+  <Component item={value} reorder />,
 );
 
 const ComponentList = SortableContainer(({ components }) => (

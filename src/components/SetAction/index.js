@@ -73,8 +73,8 @@ ValueField.propTypes = {
   onValueChange: PropTypes.func.isRequired,
 };
 
-const SetAction = ({ item, reorder, variables, onVariableChange, onOpChange, onValueChange, onIsVariableChange }) => {
-  if (reorder)
+const SetAction = ({ item, sorting, variables, onVariableChange, onOpChange, onValueChange, onIsVariableChange }) => {
+  if (sorting)
     return <Reorder item={item} />;
   // TODO make labels based on intl
   return (
@@ -122,7 +122,7 @@ const SetAction = ({ item, reorder, variables, onVariableChange, onOpChange, onV
 
 SetAction.propTypes = {
   item: PropTypes.object.isRequired,
-  reorder: PropTypes.bool.isRequired,
+  sorting: PropTypes.bool.isRequired,
   variables: PropTypes.array.isRequired,
   onVariableChange: PropTypes.func.isRequired,
   onOpChange: PropTypes.func.isRequired,
