@@ -114,8 +114,8 @@ export const getActiveProject = (state) => (getProjects(state)).find((project) =
 // TODO define node templates for creating new nodes. Taking care of boilerplate generation of standard features
 export const initialState = {
   ui: {
-    activeProject: '1',
     ...initialUiState,
+    activeProject: '1',
   },
   chronicler: {
     past: [],

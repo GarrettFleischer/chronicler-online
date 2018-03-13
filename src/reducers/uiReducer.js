@@ -37,10 +37,16 @@ export const setFlowchartMouse = (mouse) => ({ type: SET_FLOWCHART_MOUSE, mouse 
 export const SET_TAB_VIEW_VALUE = 'SET_TAB_VIEW_VALUE';
 export const setTabViewValue = (id, value) => ({ type: SET_TAB_VIEW_VALUE, id, value });
 
+export const SET_ACTIVE_PROJECT = 'SET_ACTIVE_PROJECT';
+export const setActiveProject = (projectId) => ({ type: SET_ACTIVE_PROJECT, projectId });
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
       return initialState;
+
+    case SET_ACTIVE_PROJECT:
+      return { ...state, activeProject: action.projectId };
 
     default:
       return {
@@ -58,6 +64,7 @@ export default function uiReducer(state = initialState, action) {
 }
 
 export const initialState = {
+  activeProject: undefined,
   node: {
     reordering: false,
   },
