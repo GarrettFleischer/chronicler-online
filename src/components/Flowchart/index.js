@@ -37,7 +37,7 @@ const handleMouseMove = (ui, setOffset) => (event) => {
 const stylesheet = () => ({
   chart: {
     userSelect: 'none',
-    position: 'absolute',
+    position: 'relative',
     left: 0,
   },
 });
@@ -49,7 +49,7 @@ const Flowchart = ({ classes, project, ui, setDragging, setOffset, scene, onNode
     <svg
       className={classes.chart}
       width="100%"
-      height="85%"
+      height="75vh"
       onMouseDown={setDragging(ui, true)}
       onMouseUp={setDragging(ui, false)}
       onMouseLeave={setDragging(ui, false)}

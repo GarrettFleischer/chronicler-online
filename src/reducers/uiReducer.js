@@ -34,6 +34,9 @@ export const setFlowchartDragging = (dragging) => ({ type: SET_FLOWCHART_DRAGGIN
 export const SET_FLOWCHART_MOUSE = 'SET_FLOWCHART_MOUSE';
 export const setFlowchartMouse = (mouse) => ({ type: SET_FLOWCHART_MOUSE, mouse });
 
+export const SET_SCENE_VALUE = 'SET_SCENE_VALUE';
+export const setSceneValue = (value) => ({ type: SET_SCENE_VALUE, value });
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
@@ -49,6 +52,7 @@ export default function uiReducer(state = initialState, action) {
         chooseComponentDialog: chooseComponentDialogReducer(state.chooseComponentDialog, action),
         condition: conditionReducer(state.condition, action),
         flowchart: flowchartReducer(state.flowchart, action),
+        scene: sceneReducer(state.scene, action),
       };
   }
 }
@@ -79,6 +83,9 @@ export const initialState = {
     offset: { x: 100, y: 0 },
     mouse: { x: 0, y: 0, offx: 0, offy: 0 },
     dragging: false,
+  },
+  scene: {
+    value: 0,
   },
 };
 
@@ -160,6 +167,16 @@ const flowchartReducer = (state, action) => {
 
     case SET_FLOWCHART_MOUSE:
       return { ...state, mouse: action.mouse };
+
+    default:
+      return state;
+  }
+};
+
+const sceneReducer = (state, action) => {
+  switch (action.type) {
+    case SET_SCENE_VALUE:
+      return { ...state, value: action.value };
 
     default:
       return state;
