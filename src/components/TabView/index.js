@@ -30,11 +30,18 @@ TabView.propTypes = {
   setValue: PropTypes.func.isRequired,
   id: PropTypeId.isRequired,
   tabs: PropTypes.array.isRequired,
+// used in componentWillMount
+// eslint-disable-next-line react/no-unused-prop-types
+  defaultTab: PropTypes.number,
+};
+
+TabView.defaultProps = {
+  defaultTab: 0,
 };
 
 const methods = {
-  componentWillMount: ({ id, setValue }) => {
-    setValue(id)(null, 0);
+  componentWillMount: ({ id, defaultTab, setValue }) => {
+    setValue(id)(null, defaultTab);
   },
 };
 
