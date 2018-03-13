@@ -36,10 +36,10 @@ const renderChoiceText = (choice, onChoiceTextChanged) => {
   />);
 };
 
-const renderChoiceItem = (choice, parentId, onChoiceTextChanged, onDeleteClicked) => (
+const renderChoiceItem = (choice, onChoiceTextChanged, onDeleteClicked) => (
   <Card key={choice.id} style={{ marginTop: '5px' }}>
     <CardContent>
-      <ItemMenu parentId={parentId} itemId={choice.id} handleDelete={onDeleteClicked}>
+      <ItemMenu itemId={choice.id} handleDelete={onDeleteClicked}>
         <Align container>
           <Align left>
             {renderChoiceText(choice, onChoiceTextChanged)}
@@ -57,7 +57,7 @@ const renderChoices = (item, reordering, onChoiceTextChanged, onSortEnd, onDelet
   if (reordering)
     return <ChoiceList choices={item.choices} onSortEnd={({ oldIndex, newIndex }) => onSortEnd(item.id, oldIndex, newIndex)} />;
 
-  return item.choices.map((choice) => renderChoiceItem(choice, item.id, onChoiceTextChanged, onDeleteClicked));
+  return item.choices.map((choice) => renderChoiceItem(choice, onChoiceTextChanged, onDeleteClicked));
 };
 
 // TODO use intl
@@ -106,8 +106,8 @@ const mapDispatchToProps = (dispatch) => ({
   onReorderClick: (reordering) => {
     dispatch(setChoiceReordering(!reordering));
   },
-  onDeleteClicked: (parentId, id) => {
-    dispatch(choiceDeleteItem(parentId, id));
+  onDeleteClicked: (id) => {
+    dispatch(choiceDeleteItem(id));
   },
 });
 

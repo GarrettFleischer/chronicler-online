@@ -21,7 +21,7 @@ const styles = (/* theme */) => ({
 });
 
 const Reorder = ({ item }) => (
-  <div>{`*set ${item.variable.name} ${item.variable.op} ${item.variable2.name}`}</div>
+  <div>{`*set ${item.variable.name} ${item.op} ${item.value.name}`}</div>
 );
 
 Reorder.propTypes = {

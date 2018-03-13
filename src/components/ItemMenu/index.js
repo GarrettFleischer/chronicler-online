@@ -11,7 +11,7 @@ import { setItemMenu } from '../../reducers/uiReducer';
 import messages from './messages';
 
 // parentId: id of container, id: id of item, handleDelete(parentId, id)
-const ItemMenu = ({ parentId, itemId, handleDelete, children, ui, onShowMenu, onMenuItemClicked }) => {
+const ItemMenu = ({ itemId, handleDelete, children, ui, onShowMenu, onMenuItemClicked }) => {
   const options = [
     { icon: <DeleteIcon />, text: <FormattedMessage {...messages.delete} />, func: handleDelete },
   ];
@@ -39,7 +39,7 @@ const ItemMenu = ({ parentId, itemId, handleDelete, children, ui, onShowMenu, on
             key={option.text}
             onClick={() => {
               onMenuItemClicked();
-              option.func(parentId, itemId);
+              option.func(itemId);
             }}
           >
             {option.text}
@@ -52,15 +52,18 @@ const ItemMenu = ({ parentId, itemId, handleDelete, children, ui, onShowMenu, on
 };
 
 ItemMenu.propTypes = {
-  parentId: PropTypeId.isRequired,
   itemId: PropTypeId.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func,
   children: PropTypes.node.isRequired,
   ui: PropTypes.object.isRequired,
   onShowMenu: PropTypes.func.isRequired,
   onMenuItemClicked: PropTypes.func.isRequired,
 };
 
+// noinspection JSUnusedGlobalSymbols
+ItemMenu.defaultProps = {
+  handleDelete: () => {},
+};
 
 const mapStateToProps = (state) => ({
   ui: state.ui.itemMenu,

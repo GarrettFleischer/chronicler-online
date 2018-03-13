@@ -10,7 +10,7 @@ export const NODE_COMPONENT_ADD = 'Node/NODE_COMPONENT_ADD';
 export const NODE_LABEL_CHANGE = 'Node/NODE_LABEL_CHANGE';
 export const NODE_DELETE_COMPONENT = 'NODE_DELETE_COMPONENT';
 
-export const nodeDeleteComponent = (id, componentId) => ({ type: NODE_DELETE_COMPONENT, id, componentId });
+export const nodeDeleteComponent = (id) => ({ type: NODE_DELETE_COMPONENT, id });
 
 export const nodeComponentsSorted = (id, oldIndex, newIndex) => ({ type: NODE_COMPONENTS_SORTED, id, oldIndex, newIndex });
 
@@ -21,28 +21,27 @@ export const nodeLabelChange = (id, label) => ({ type: NODE_LABEL_CHANGE, id, la
 
 export function nodeReducer(state, action) {
   // ignore action if it is not meant for this node
-  if (state.id !== action.id) {
-    return {
-      ...state,
-      components: mapReducer(state.components, action, componentReducer),
-      link: linkReducer(state.link, action) };
-  }
+  const newState = {
+    ...state,
+    components: mapReducer(state.components, action, componentReducer),
+    link: linkReducer(state.link, action),
+  };
 
   switch (action.type) {
     case NODE_DELETE_COMPONENT:
-      return { ...state, components: state.components.filter((component) => component.id !== action.componentId) };
+      return { ...newState, components: newState.components.filter((component) => component.id !== action.id) };
 
     case NODE_COMPONENTS_SORTED:
-      return { ...state, components: arrayMove(state.components, action.oldIndex, action.newIndex) };
+      return { ...newState, components: arrayMove(newState.components, action.oldIndex, action.newIndex) };
 
     case NODE_COMPONENT_ADD:
-      return { ...state, components: [...state.components, makeComponentForValue(action.value)] };
+      return { ...newState, components: [...newState.components, makeComponentForValue(action.value)] };
 
     case NODE_LABEL_CHANGE:
-      return { ...state, label: action.label };
+      return { ...newState, label: action.label };
 
     default:
-      return state;
+      return newState;
   }
 }
 

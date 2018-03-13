@@ -4,6 +4,9 @@ export const setVariableName = (id, name) => ({ type: SET_VARIABLE_NAME, id, nam
 export const SET_VARIABLE_VALUE = 'SET_VARIABLE_VALUE';
 export const setVariableValue = (id, value) => ({ type: SET_VARIABLE_VALUE, id, value });
 
+export const DELETE_VARIABLE = 'DELETE_VARIABLE';
+export const deleteVariable = (id) => ({ type: DELETE_VARIABLE, id });
+
 export const variableReducer = (state, action) => {
   if (state.id !== action.id) return state;
 
