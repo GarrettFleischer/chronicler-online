@@ -178,7 +178,7 @@ const mapBy = (func) => (curr) => {
   }
 };
 
-export const getNodeCoords = (state, colWidth, rowHeight) => {
+export const getNodeCoords = (state, colWidth, rowHeight, offx = 0, offy = 0) => {
   // const data = {};
   // let offset = 0;
   // state.scenes.forEach((scene) => {
@@ -226,8 +226,8 @@ export const getNodeCoords = (state, colWidth, rowHeight) => {
     rows.forEach((row, y) => {
       const offset = row.length === width ? 0 : ((width - row.length) / 2);
       row.forEach((id, x) => {
-        data[id].x = ((x + offset) * colWidth);
-        data[id].y = (y * rowHeight);
+        data[id].x = offx + ((x + offset) * colWidth);
+        data[id].y = offy + (y * rowHeight);
       });
     });
   });

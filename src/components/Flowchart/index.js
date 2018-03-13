@@ -1,64 +1,89 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import { PathLine } from 'react-svg-pathline';
+import { generate as getID } from 'shortid';
 import { getLinks, getNodeCoords } from '../../data/core';
 import { getActiveProject } from '../../data/state';
+import { setFlowchartDragging, setFlowchartMouse, setFlowchartOffset } from '../../reducers/uiReducer';
+import { PropTypeId } from '../../data/datatypes';
 
-// import { DiagramEngine, DiagramModel, DefaultNodeModel, DiagramWidget } from 'storm-react-diagrams';
+const getPoints = (layout, rect, from, to) => {
+  const x1 = layout[from].x;
+  const y1 = layout[from].y;
+  const x2 = layout[to].x;
+  const y2 = layout[to].y;
 
+  const points = [{ x: x1 + (rect.width / 2), y: 0 }, { x: x2 + (rect.width / 2), y: y2 }];
 
-// export default () => {
-//   // 1) setup the diagram engine
-//   const engine = new DiagramEngine();
-//   engine.installDefaultFactories();
-//
-//   // 2) setup the diagram model
-//   const model = new DiagramModel();
-//
-//   // 3-A) create a default node
-//   const node1 = new DefaultNodeModel('Node 1', 'rgb(0,192,255)');
-//   const port1 = node1.addOutPort('Out');
-//   node1.setPosition(100, 100);
-//
-//   // 3-B) create another default node
-//   const node2 = new DefaultNodeModel('Node 2', 'rgb(192,255,0)');
-//   const port2 = node2.addInPort('In');
-//   node2.setPosition(400, 100);
-//
-//   // link the ports
-//   const link1 = port1.link(port2);
-//   link1.addLabel('Hello World!');
-//
-//   // 4) add the models to the root graph
-//   model.addAll(node1, node2, link1);
-//
-//   // 5) load model into engine
-//   engine.setDiagramModel(model);
-//
-//   // 6) render the diagram!
-//   return <DiagramWidget className="srd-demo-canvas" diagramEngine={engine} />;
-// };
+  if (y1 < y2)
+    points[0].y = y1 + rect.height;
+  else
+    points[0].y = y1;
 
-const Flowchart = ({ project, scene, onNodeClicked }) => {
-  const layout = getNodeCoords(project, 100, 100);
+  return points;
+};
+
+const handleMouseMove = (ui, setOffset) => (event) => {
+  if (ui.dragging) {
+    setOffset({
+      x: ui.mouse.offx + ((event.clientX - ui.mouse.x)),
+      y: ui.mouse.offy + ((event.clientY - ui.mouse.y)),
+    });
+  }
+};
+
+const stylesheet = () => ({
+  chart: {
+    userSelect: 'none',
+    position: 'absolute',
+    left: 0,
+  },
+});
+
+const Flowchart = ({ classes, project, ui, setDragging, setOffset, scene, onNodeClicked, highlightNode }) => {
+  const rect = { width: 75, height: 50 };
+  const layout = getNodeCoords(project, rect.width * 1.5, rect.height * 2.5, ui.offset.x, ui.offset.y);
   return (
-    <svg width="100%" height={'100%'}>
+    <svg
+      className={classes.chart}
+      width="100%"
+      height="85%"
+      onMouseDown={setDragging(ui, true)}
+      onMouseUp={setDragging(ui, false)}
+      onMouseLeave={setDragging(ui, false)}
+      onMouseMove={handleMouseMove(ui, setOffset)}
+    >
       {scene.nodes.map((node) => {
         const children = getLinks(node.link);
         return ([
           children.map((id) => (
             <PathLine
-              key={`${node.id}_${id}`}
-              points={getPoints(layout, node.id, id)}
+              key={getID()}
+              points={getPoints(layout, rect, node.id, id)}
               stroke="red"
               strokeWidth="1"
               fill="none"
               r={0}
             />
             )),
-          <rect x={layout[node.id].x} y={layout[node.id].y} width={50} height={50} onClick={() => onNodeClicked(node.id)} />,
-          <text key={node.id} x={layout[node.id].x + (25 - (node.label.length * 2.5))} y={layout[node.id].y + 25} stroke="white">{node.label}</text>,
+          <rect
+            x={layout[node.id].x}
+            y={layout[node.id].y}
+            width={rect.width}
+            height={rect.height}
+            fill={(node.id === highlightNode ? 'red' : 'black')}
+            onClick={() => onNodeClicked(node.id)}
+          />,
+          <text
+            key={node.id}
+            x={layout[node.id].x + 5}
+            y={layout[node.id].y + 15}
+            stroke="white"
+            fill="white"
+            onClick={() => onNodeClicked(node.id)}
+          >{node.label}</text>,
         ]);
       })}
     </svg>
@@ -66,30 +91,37 @@ const Flowchart = ({ project, scene, onNodeClicked }) => {
 };
 
 Flowchart.propTypes = {
+  classes: PropTypes.object.isRequired,
   project: PropTypes.object.isRequired,
+  ui: PropTypes.object.isRequired,
+  setDragging: PropTypes.func.isRequired,
+  setOffset: PropTypes.func.isRequired,
+
   scene: PropTypes.object.isRequired,
   onNodeClicked: PropTypes.func.isRequired,
+  highlightNode: PropTypeId,
+};
+
+Flowchart.defaultProps = {
+  highlightNode: undefined,
 };
 
 const mapStateToProps = (state) => ({
   project: getActiveProject(state),
+  ui: state.ui.flowchart,
 });
 
-export default connect(mapStateToProps)(Flowchart);
+const mapDispatchToProps = (dispatch) => ({
+  setDragging: (ui, dragging) => (event) => {
+    if (ui.dragging !== dragging) {
+      dispatch(setFlowchartDragging(dragging));
+      dispatch(setFlowchartMouse({ x: event.clientX, y: event.clientY, offx: ui.offset.x, offy: ui.offset.y }));
+    }
+  },
+  setOffset: (offset) => {
+    dispatch(setFlowchartOffset(offset));
+  },
+});
 
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(stylesheet)(Flowchart));
 
-const getPoints = (layout, from, to) => {
-  const x1 = layout[from].x;
-  const y1 = layout[from].y;
-  const x2 = layout[to].x;
-  const y2 = layout[to].y;
-
-  const points = [{ x: x1 + 25, y: 0 }, { x: x2 + 25, y: y2 }];
-
-  if (y1 < y2)
-    points[0].y = y1 + 50;
-  else
-    points[0].y = y1;
-
-  return points;
-};

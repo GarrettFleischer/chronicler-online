@@ -17,6 +17,7 @@ import HistoryShortcuts from '../HistoryShortcuts';
 const styleSheet = createMuiTheme({
   root: {
     width: '100%',
+    userSelect: 'none',
   },
   fullWidth: {
     flex: 1,

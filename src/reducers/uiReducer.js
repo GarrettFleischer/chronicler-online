@@ -25,6 +25,15 @@ export const setChooseComponentDialogValue = (value) => ({ type: SET_CHOOSE_COMP
 export const SET_COMPONENT_SORTING = 'SET_COMPONENT_SORTING';
 export const setConditionSorting = (sorting) => ({ type: SET_COMPONENT_SORTING, sorting });
 
+export const SET_FLOWCHART_OFFSET = 'SET_FLOWCHART_OFFSET';
+export const setFlowchartOffset = (offset) => ({ type: SET_FLOWCHART_OFFSET, offset });
+
+export const SET_FLOWCHART_DRAGGING = 'SET_FLOWCHART_DRAGGING';
+export const setFlowchartDragging = (dragging) => ({ type: SET_FLOWCHART_DRAGGING, dragging });
+
+export const SET_FLOWCHART_MOUSE = 'SET_FLOWCHART_MOUSE';
+export const setFlowchartMouse = (mouse) => ({ type: SET_FLOWCHART_MOUSE, mouse });
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
@@ -39,6 +48,7 @@ export default function uiReducer(state = initialState, action) {
         itemMenu: itemMenuReducer(state.itemMenu, action),
         chooseComponentDialog: chooseComponentDialogReducer(state.chooseComponentDialog, action),
         condition: conditionReducer(state.condition, action),
+        flowchart: flowchartReducer(state.flowchart, action),
       };
   }
 }
@@ -64,6 +74,11 @@ export const initialState = {
   },
   condition: {
     sorting: false,
+  },
+  flowchart: {
+    offset: { x: 100, y: 0 },
+    mouse: { x: 0, y: 0, offx: 0, offy: 0 },
+    dragging: false,
   },
 };
 
@@ -129,6 +144,22 @@ const conditionReducer = (state, action) => {
   switch (action.type) {
     case SET_COMPONENT_SORTING:
       return { ...state, sorting: action.sorting };
+
+    default:
+      return state;
+  }
+};
+
+const flowchartReducer = (state, action) => {
+  switch (action.type) {
+    case SET_FLOWCHART_OFFSET:
+      return { ...state, offset: action.offset };
+
+    case SET_FLOWCHART_DRAGGING:
+      return { ...state, dragging: action.dragging };
+
+    case SET_FLOWCHART_MOUSE:
+      return { ...state, mouse: action.mouse };
 
     default:
       return state;

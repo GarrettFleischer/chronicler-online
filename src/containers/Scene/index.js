@@ -14,7 +14,7 @@ const Scene = ({ scene, history }) => {
   if (scene === null)
     return <Redirect to="/404" />;
 
-  return (<div style={{ height: '75vh' }}><Flowchart scene={scene} onNodeClicked={onNodeClicked(history)} /></div>);
+  return (<Flowchart scene={scene} onNodeClicked={onNodeClicked(history)} highlightNode={'D'} />);
 };
 
 Scene.propTypes = {
