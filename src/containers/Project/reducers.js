@@ -1,6 +1,7 @@
 import { sceneReducer } from '../Scene/reducers';
 import { mapReducer } from '../../data/utilities';
-import { DELETE_VARIABLE, variableReducer } from '../../components/Variable/reducers';
+import { ADD_VARIABLE, DELETE_VARIABLE, variableReducer } from '../../components/Variable/reducers';
+import { makeCreate } from '../../data/datatypes';
 
 export const projectReducer = (state, action) => {
   const newState = ({
@@ -12,6 +13,9 @@ export const projectReducer = (state, action) => {
   switch (action.type) {
     case DELETE_VARIABLE:
       return { ...newState, variables: newState.variables.filter((variable) => variable.id !== action.id) };
+
+    case ADD_VARIABLE:
+      return { ...newState, variables: (action.id === newState.id ? [...newState.variables, makeCreate('', '')] : newState.variables) };
 
     default:
       return newState;

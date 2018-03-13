@@ -7,6 +7,9 @@ export const setVariableValue = (id, value) => ({ type: SET_VARIABLE_VALUE, id, 
 export const DELETE_VARIABLE = 'DELETE_VARIABLE';
 export const deleteVariable = (id) => ({ type: DELETE_VARIABLE, id });
 
+export const ADD_VARIABLE = 'ADD_VARIABLE';
+export const addVariable = (id) => ({ type: ADD_VARIABLE, id });
+
 export const variableReducer = (state, action) => {
   if (state.id !== action.id) return state;
 

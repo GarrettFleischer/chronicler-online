@@ -8,19 +8,17 @@ import { deleteVariable, setVariableName, setVariableValue } from './reducers';
 
 // TODO use intl and stylesheet
 const Variable = ({ variable, onNameChange, onValueChange, onDeleteVariable }) => (
-  <Card>
+  <Card style={{ marginBottom: 10 }}>
     <CardContent>
       <ItemMenu itemId={variable.id} handleDelete={onDeleteVariable}>
         <TextField
           style={{ marginRight: 10 }}
           onChange={onNameChange(variable.id)}
-          placeholder={'name'}
           value={variable.name}
           label={'Name'}
         />
         <TextField
           onChange={onValueChange(variable.id)}
-          placeholder={'value'}
           value={variable.value}
           label={'Value'}
         />
