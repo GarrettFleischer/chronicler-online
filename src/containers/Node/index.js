@@ -1,6 +1,3 @@
-import AddIcon from 'material-ui-icons/Add';
-import SwapIcon from 'material-ui-icons/SwapVert';
-import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import Card, { CardContent } from 'material-ui/Card';
@@ -9,9 +6,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Tooltip from 'material-ui/Tooltip';
-import { FormattedMessage } from 'react-intl';
-import Align from '../../components/Align';
 import { validateLabel } from '../../data/core';
 import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reducers';
 import { makeSelectNode } from './selectors';
@@ -19,8 +13,7 @@ import Link from '../../components/Link';
 import ChooseComponentDialog from '../../components/ChooseComponentDialog';
 import ItemList from '../../components/ItemList';
 import Component from '../../components/Component';
-import { setNodeReordering, setShowChooseComponentDialog } from '../../reducers/uiReducer';
-import messages from './messages';
+import { setShowChooseComponentDialog } from '../../reducers/uiReducer';
 
 
 const styleSheet = (theme) => ({
@@ -34,7 +27,7 @@ const styleSheet = (theme) => ({
 });
 
 
-const Node = ({ classes, ui, data, onSortEnd, onAddClick, onReorderClick, onLabelChange, onComponentAdded }) => {
+const Node = ({ classes, data, onSortEnd, onAddClick, onLabelChange, onComponentAdded }) => {
   const { node, state } = data;
 
   if (node === null)
@@ -81,11 +74,9 @@ Node.propTypes = {
   data: PropTypes.object.isRequired,
   onSortEnd: PropTypes.func.isRequired,
   onAddClick: PropTypes.func.isRequired,
-  onReorderClick: PropTypes.func.isRequired,
   onLabelChange: PropTypes.func.isRequired,
   onComponentAdded: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  ui: PropTypes.object.isRequired,
 };
 
 
@@ -105,9 +96,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLabelChange: (id) => (event) => {
     dispatch(nodeLabelChange(id, event.target.value));
-  },
-  onReorderClick: (reordering) => {
-    dispatch(setNodeReordering(!reordering));
   },
   onComponentAdded: (id) => (value) => {
     dispatch(nodeComponentAdd(id, value));

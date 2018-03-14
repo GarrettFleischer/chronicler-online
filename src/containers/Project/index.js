@@ -5,20 +5,18 @@ import lifecycle from 'react-pure-lifecycle';
 import { Redirect, withRouter } from 'react-router-dom';
 import Card, { CardContent } from 'material-ui/Card';
 import GridList, { GridListTile } from 'material-ui/GridList';
-import AddIcon from 'material-ui-icons/Add';
-import IconButton from 'material-ui/IconButton';
-import Tooltip from 'material-ui/Tooltip';
+import TextField from 'material-ui/TextField';
 import TabView, { makeTab } from '../../components/TabView';
 import Variable from '../../components/Variable';
 import { setActiveProject } from '../../reducers/uiReducer';
 import { getProjects } from '../../data/state';
 import { peek } from '../../lib/stack';
-import Align from '../../components/Align';
 import { addVariable } from '../../components/Variable/reducers';
 import ItemList from '../../components/ItemList';
+import { setProjectAuthor, setProjectTitle } from './reducers';
 
 const SceneGrid = withRouter(({ history, scenes }) => (
-  <GridList cellHeight={160} cols={3}>
+  <GridList cellHeight={75} cols={2}>
     {scenes.map((scene) => (
       <GridListTile key={scene.id} cols={1}>
         <Card style={{ margin: 5 }} onClick={() => history.push(`/scene/${scene.id}`)}>
@@ -49,7 +47,7 @@ VariableList.propTypes = {
 
 
 // TODO use intl
-const Project = ({ project, onAddVariable }) => {
+const Project = ({ project, onAddVariable, onTitleChange, onAuthorChange }) => {
   if (project === undefined)
     return <Redirect to="/404" />;
 
@@ -64,8 +62,27 @@ const Project = ({ project, onAddVariable }) => {
               <Variable key={variable.id} variable={variable} />
             ))}
           </ItemList>
-          )
-        ),
+          )),
+        makeTab('Settings', (
+          <div style={{ margin: 20 }}>
+            <div style={{ marginBottom: 18 }}>
+              <TextField
+                onChange={onTitleChange(project.id)}
+                value={project.title}
+                error={!project.title.length}
+                label="Title"
+              />
+            </div>
+            <div>
+              <TextField
+                onChange={onAuthorChange(project.id)}
+                value={project.author}
+                error={!project.author.length}
+                label="Author"
+              />
+            </div>
+          </div>
+        )),
       ]}
     />
   );
@@ -77,6 +94,8 @@ Project.propTypes = {
 // eslint-disable-next-line react/no-unused-prop-types
   activateProject: PropTypes.func.isRequired,
   onAddVariable: PropTypes.func.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
+  onAuthorChange: PropTypes.func.isRequired,
 };
 
 Project.defaultProps = {
@@ -94,6 +113,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onAddVariable: (id) => () => {
     dispatch(addVariable(id));
+  },
+  onTitleChange: (id) => (event) => {
+    dispatch(setProjectTitle(id, event.target.value));
+  },
+  onAuthorChange: (id) => (event) => {
+    dispatch(setProjectAuthor(id, event.target.value));
   },
 });
 

@@ -3,6 +3,12 @@ import { mapReducer } from '../../data/utilities';
 import { ADD_VARIABLE, DELETE_VARIABLE, variableReducer } from '../../components/Variable/reducers';
 import { makeCreate } from '../../data/datatypes';
 
+export const SET_PROJECT_TITLE = 'SET_PROJECT_TITLE';
+export const setProjectTitle = (id, title) => ({ type: SET_PROJECT_TITLE, id, title });
+
+export const SET_PROJECT_AUTHOR = 'SET_PROJECT_AUTHOR';
+export const setProjectAuthor = (id, author) => ({ type: SET_PROJECT_AUTHOR, id, author });
+
 export const projectReducer = (state, action) => {
   const newState = ({
     ...state,
@@ -16,6 +22,12 @@ export const projectReducer = (state, action) => {
 
     case ADD_VARIABLE:
       return { ...newState, variables: (action.id === newState.id ? [...newState.variables, makeCreate('', '')] : newState.variables) };
+
+    case SET_PROJECT_TITLE:
+      return { ...state, title: action.title };
+
+    case SET_PROJECT_AUTHOR:
+      return { ...state, author: action.author };
 
     default:
       return newState;

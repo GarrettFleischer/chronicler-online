@@ -9,7 +9,7 @@ import TabView, { makeTab } from '../../components/TabView';
 
 
 const ProjectGrid = withRouter(({ history, projects }) => (
-  <GridList cellHeight={160} cols={3}>
+  <GridList cellHeight={75} cols={3}>
     {projects.map((project) => (
       <GridListTile key={project.id} cols={1}>
         <Card style={{ margin: 5 }} onClick={() => history.push(`/project/${project.id}`)}>
