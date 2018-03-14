@@ -6,13 +6,16 @@ import Flowchart from '../../components/Flowchart';
 import { findById } from '../../data/core';
 import { getActiveProject } from '../../data/state';
 import TabView, { makeTab } from '../../components/TabView';
+import ItemList from '../../components/ItemList';
+import { addVariable } from '../../components/Variable/reducers';
+import Variable from '../../components/Variable';
 
 const onNodeClicked = (history) => (node) => {
   history.push(`/node/${node}`);
 };
 
 // TODO use intl
-const Scene = ({ scene, history }) => {
+const Scene = ({ scene, history, onAddVariable }) => {
   if (scene === null)
     return <Redirect to="/404" />;
 
@@ -21,7 +24,13 @@ const Scene = ({ scene, history }) => {
       id={scene.id}
       tabs={[
         makeTab('Scene', <Flowchart scene={scene} onNodeClicked={onNodeClicked(history)} highlightNode={'D'} />),
-        makeTab('Variables', <div />),
+        makeTab('Variables', (
+          <ItemList id={scene.id} handleAdd={onAddVariable(scene.id)}>
+            {scene.variables.map((variable) => (
+              <Variable key={variable.id} variable={variable} />
+            ))}
+          </ItemList>
+        )),
       ]}
     />
   );
@@ -30,12 +39,17 @@ const Scene = ({ scene, history }) => {
 Scene.propTypes = {
   scene: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  onAddVariable: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
   scene: findById(getActiveProject(state), props.match.params.id),
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+  onAddVariable: (id) => () => {
+    dispatch(addVariable(id));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Scene));
