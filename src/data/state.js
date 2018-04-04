@@ -118,6 +118,7 @@ export const initialState = {
     activeProject: '1',
   },
   chronicler: {
+    actionHistory: [],
     past: [],
     future: [],
     canUndo: false,
