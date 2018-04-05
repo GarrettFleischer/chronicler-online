@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import lifecycle from 'react-pure-lifecycle';
 import { Redirect, withRouter } from 'react-router-dom';
 import Card, { CardContent } from 'material-ui/Card';
-import GridList, { GridListTile } from 'material-ui/GridList';
+// import GridList, { GridListTile } from 'material-ui/GridList';
 import TextField from 'material-ui/TextField';
 import TabView, { makeTab } from '../../components/TabView';
 import Variable from '../../components/Variable';
@@ -13,21 +13,28 @@ import { getProjects } from '../../data/state';
 import { peek } from '../../lib/stack';
 import { addVariable } from '../../components/Variable/reducers';
 import ItemList from '../../components/ItemList';
-import { setProjectAuthor, setProjectTitle } from './reducers';
+import { addScene, setProjectAuthor, setProjectTitle, sortScenes } from './reducers';
+import { setSceneName } from '../Scene/reducers';
 
-const SceneGrid = withRouter(({ history, scenes }) => (
-  <GridList cellHeight={75} cols={2}>
+
+const SceneList = withRouter(({ history, scenes, onNameChange, onAdd, onSortEnd }) => (
+  <ItemList handleAdd={onAdd} handleSortEnd={onSortEnd}>
     {scenes.map((scene) => (
-      <GridListTile key={scene.id} cols={1}>
-        <Card style={{ margin: 5 }} onClick={() => history.push(`/scene/${scene.id}`)}>
-          <CardContent>{scene.name}</CardContent>
-        </Card>
-      </GridListTile>
+      <Card key={scene.id} style={{ margin: 5 }} onClick={() => history.push(`/scene/${scene.id}`)}>
+        <CardContent>
+          <TextField
+            onClick={(e) => e.stopPropagation()}
+            onChange={onNameChange(scene.id)}
+            value={scene.name}
+          />
+          <div />
+        </CardContent>
+      </Card>
     ))}
-  </GridList>
+  </ItemList>
 ));
 
-SceneGrid.propTypes = {
+SceneList.propTypes = {
   scenes: PropTypes.array.isRequired,
 };
 
@@ -47,7 +54,7 @@ VariableList.propTypes = {
 
 
 // TODO use intl
-const Project = ({ project, onAddVariable, onTitleChange, onAuthorChange }) => {
+const Project = ({ project, onAddVariable, onTitleChange, onAuthorChange, onSceneNameChange, onAddScene, onSortEnd }) => {
   if (project === undefined)
     return <Redirect to="/404" />;
 
@@ -55,14 +62,20 @@ const Project = ({ project, onAddVariable, onTitleChange, onAuthorChange }) => {
     <TabView
       id={'dashboard'}
       tabs={[
-        makeTab('Scenes', <SceneGrid scenes={project.scenes || []} />),
+        makeTab('Scenes',
+          <SceneList
+            scenes={project.scenes || []}
+            onNameChange={onSceneNameChange}
+            onAdd={onAddScene(project.id)}
+            onSortEnd={onSortEnd(project.id)}
+          />),
         makeTab('Variables', (
           <ItemList id={project.id} handleAdd={onAddVariable(project.id)}>
             {project.variables.map((variable) => (
               <Variable key={variable.id} variable={variable} />
             ))}
           </ItemList>
-          )),
+        )),
         makeTab('Settings', (
           <div style={{ margin: 20 }}>
             <div style={{ marginBottom: 18 }}>
@@ -96,6 +109,9 @@ Project.propTypes = {
   onAddVariable: PropTypes.func.isRequired,
   onTitleChange: PropTypes.func.isRequired,
   onAuthorChange: PropTypes.func.isRequired,
+  onSceneNameChange: PropTypes.func.isRequired,
+  onAddScene: PropTypes.func.isRequired,
+  onSortEnd: PropTypes.func.isRequired,
 };
 
 Project.defaultProps = {
@@ -119,6 +135,16 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onAuthorChange: (id) => (event) => {
     dispatch(setProjectAuthor(id, event.target.value));
+  },
+  onSceneNameChange: (id) => (event) => {
+    dispatch(setSceneName(id, event.target.value));
+  },
+  onAddScene: (id) => () => {
+    dispatch(addScene(id));
+  },
+  onSortEnd: (id) => ({ oldIndex, newIndex }) => {
+    if (oldIndex !== newIndex)
+      dispatch(sortScenes(id, oldIndex, newIndex));
   },
 });
 

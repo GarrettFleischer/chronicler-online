@@ -10,6 +10,7 @@ import ItemList from '../../components/ItemList';
 import { addVariable } from '../../components/Variable/reducers';
 import Variable from '../../components/Variable';
 
+
 const onNodeClicked = (history) => (node) => {
   history.push(`/node/${node}`);
 };
