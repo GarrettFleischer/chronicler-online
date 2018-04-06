@@ -50,7 +50,7 @@ export const projectReducer = (state, action) => {
     case SORT_SCENES:
       return {
         ...newState,
-        scenes: (action.oldIndex === 0 || action.id !== newState.id ? newState.scenes : arrayMove(newState.scenes, action.oldIndex, action.newIndex)) };
+        scenes: (action.id !== newState.id || action.oldIndex === 0 ? newState.scenes : arrayMove(newState.scenes, action.oldIndex, action.newIndex)) };
 
     default:
       return newState;
