@@ -28,7 +28,9 @@ export function findById(state, id, type = NO_FILTER) {
   return empty(found) ? null : peek(found);
 }
 
+
 export const findByType = (state, type) => reduceBy(matchType(type))([], state);
+
 
 export function findParents(state, id) {
   return reduceBy(matchParents(id))([], state);
@@ -53,12 +55,34 @@ export function findNumLabels(state, label) {
 }
 
 
-// const setIdAndType = (id, type, data) => (item) => {
-//   if (matchIdAndType(id, type)(item))
-//     return { ...item, ...data };
-//
-//   return item;
-// };
+export const pathToId = (state, id, path) => {
+  let found = null;
+
+  switch (state.type) {
+    case PROJECT:
+      state.scenes.forEach((scene) => {
+        found = pathToId(scene, id, [state, scene]);
+        return !found;
+      });
+      break;
+
+    case SCENE:
+      if (state.id === id)
+        found = path;
+      else {
+        state.nodes.forEach((node) => {
+          found = pathToId(node, id, [...path, node]);
+          return !found;
+        });
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return found;
+};
 
 
 // PRIVATE FUNCTIONS
@@ -336,6 +360,7 @@ export const getChildren = (state, nodeId) => {
   return links.map((id) => findById(state, id, NODE));
 };
 
+
 // Helper function for BuildRows
 function handleMultipleParents(state, rows) {
   const newRows = deepCopy(rows) || [];
@@ -357,7 +382,7 @@ function handleMultipleParents(state, rows) {
           visited.push(currentId);
 
           if (!containsLoop(state, currentId)) {
-          // calc max parent row + 1
+            // calc max parent row + 1
             const parents = findParents(state, currentId);
             let newY = y;
             parents.forEach((parent) => {
@@ -384,6 +409,7 @@ function handleMultipleParents(state, rows) {
   return newRows;
 }
 
+
 /**
  * @return {boolean}
  */
@@ -401,6 +427,7 @@ const isBelow = (rows, childId, parentId) => {
   return false;
 };
 
+
 // Helper function for BuildRows
 /**
  * @return {number}
@@ -417,6 +444,7 @@ function rowOf(rows, nodeId) {
   return -1;
 }
 
+
 // Helper function for BuildRows
 /**
  * @return {number}
@@ -429,6 +457,7 @@ function maxWidth(rows) {
 
   return width;
 }
+
 
 // Iteratively searches over the state starting at the given id.
 // Returns true if there is a path that loops back to the given id.
@@ -458,6 +487,7 @@ function containsLoop(state, nodeId) {
 
   return false;
 }
+
 
 // export const layoutNodes = ({ state, nodes, levelSeparation = 100, siblingSeparation = 100, subtreeSeparation = 200 }) => {
 //   const layout = [];

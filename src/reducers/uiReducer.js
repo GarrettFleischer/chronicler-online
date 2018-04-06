@@ -101,6 +101,9 @@ export const initialState = {
   itemList: {
     sorting: {},
   },
+  crumbTrail: {
+    id: null,
+  },
 };
 
 
