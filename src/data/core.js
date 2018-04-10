@@ -203,43 +203,11 @@ const mapBy = (func) => (curr) => {
 };
 
 export const getNodeCoords = (state, colWidth, rowHeight, offx = 0, offy = 0) => {
-  // const data = {};
-  // let offset = 0;
-  // state.scenes.forEach((scene) => {
-  //   scene.nodes.forEach((node) => {
-  //     data[node.id] = { x: 0, y: 0, width: 0, offset: 0 };
-  //   });
-  // });
-  //
-  // const rows = buildRows(state, scene.nodes[0].id);
-  // rows.forEach((row, y) => {
-  //   row.forEach((id) => {
-  //     data[id].y = (y * rowHeight);
-  //   });
-  // });
-  //
-  // state.scenes.forEach((scene) => {
-  //   // assume each scene has at least one node
-  //   postOrderTraversal(state, scene.nodes[0], (node) => {
-  //     const children = getChildren(state, node.id);
-  //     if (!children.length) {
-  //       data[node.id].width = colWidth;
-  //       // data[node.id].offset ;
-  //     } else {
-  //       children.forEach((child) => {
-  //         data[node.id].width += data[child.id].width;
-  //       });
-  //       offset += data[node.id].width / 2;
-  //     }
-  //     data[node.id].x = offset / 2;
-  //   });
-  // });
-
   const data = {};
   // let offset = 0;
   state.scenes.forEach((scene) => {
     scene.nodes.forEach((node) => {
-      data[node.id] = { x: 0, y: 0, width: 0, offset: 0 };
+      data[node.id] = { x: 0, y: 0, width: 1, height: 1 };
     });
   });
 
@@ -258,6 +226,104 @@ export const getNodeCoords = (state, colWidth, rowHeight, offx = 0, offy = 0) =>
 
   return data;
 };
+
+const getNodeSizeData = (state, data, node, processed = []) => {
+  let newData = data;
+
+  if (!processed.includes(node.id)) {
+    push(processed, node.id);
+
+    const children = getChildren(state, node.id);
+    for (let i = 0; i < children.length; ++i) {
+      newData = getNodeSizeData(state, data, children[i], processed);
+      const nodeData = newData[node.id];
+      const childData = newData[children[i].id];
+      nodeData.width += newData[children[i].id].width;
+      nodeData.height = Math.max(childData.height, nodeData.height);
+    }
+    newData[node.id].height += 1;
+  }
+
+  return newData;
+};
+
+const getNodePosData = (state, data, node, x, y, processed = []) => {
+  let newData = data;
+
+  if (!processed.includes(node.id)) {
+    push(processed, node.id);
+
+    const nodeData = newData[node.id];
+    nodeData.x = x;
+    nodeData.y = y;
+
+    let offset = nodeData.width / 2;
+    const children = getChildren(state, node.id);
+    for (let i = 0; i < children.length; ++i) {
+      newData = getNodePosData(state, newData, children[i], nodeData.x - offset, nodeData.y + 1, processed);
+      offset -= newData[children[i].id].width;
+    }
+  }
+
+  return newData;
+};
+
+// export const getNodeCoords = (state, colWidth, rowHeight, offx = 0, offy = 0) => {
+//   // const data = {};
+//   // let offset = 0;
+//   // state.scenes.forEach((scene) => {
+//   //   scene.nodes.forEach((node) => {
+//   //     data[node.id] = { x: 0, y: 0, width: 0, offset: 0 };
+//   //   });
+//   // });
+//   //
+//   // const rows = buildRows(state, scene.nodes[0].id);
+//   // rows.forEach((row, y) => {
+//   //   row.forEach((id) => {
+//   //     data[id].y = (y * rowHeight);
+//   //   });
+//   // });
+//   //
+//   // state.scenes.forEach((scene) => {
+//   //   // assume each scene has at least one node
+//   //   postOrderTraversal(state, scene.nodes[0], (node) => {
+//   //     const children = getChildren(state, node.id);
+//   //     if (!children.length) {
+//   //       data[node.id].width = colWidth;
+//   //       // data[node.id].offset ;
+//   //     } else {
+//   //       children.forEach((child) => {
+//   //         data[node.id].width += data[child.id].width;
+//   //       });
+//   //       offset += data[node.id].width / 2;
+//   //     }
+//   //     data[node.id].x = offset / 2;
+//   //   });
+//   // });
+//
+//   const data = {};
+//   // let offset = 0;
+//   state.scenes.forEach((scene) => {
+//     scene.nodes.forEach((node) => {
+//       data[node.id] = { x: 0, y: 0, width: 0, offset: 0 };
+//     });
+//   });
+//
+//   state.scenes.forEach((scene) => {
+//     const rows = buildRows(state, scene.nodes[0].id);
+//     const width = maxWidth(rows);
+//
+//     rows.forEach((row, y) => {
+//       const offset = row.length === width ? 0 : ((width - row.length) / 2);
+//       row.forEach((id, x) => {
+//         data[id].x = offx + ((x + offset) * colWidth);
+//         data[id].y = offy + (y * rowHeight);
+//       });
+//     });
+//   });
+//
+//   return data;
+// };
 
 const lowestParent = (state, rows, nodeId) => {
   const parents = findParents(state, nodeId);
