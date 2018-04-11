@@ -9,7 +9,7 @@ import { initialState } from './data/state';
 import configureStore from './data/store';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import MainRoute from './routes/Main';
+import MainRoute from './routes/MainRoute';
 import { chroniclerTheme } from './theme';
 
 

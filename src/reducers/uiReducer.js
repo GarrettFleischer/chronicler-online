@@ -43,6 +43,21 @@ export const setActiveProject = (projectId) => ({ type: SET_ACTIVE_PROJECT, proj
 export const SET_ITEM_LIST_SORTING = 'SET_ITEM_LIST_SORTING';
 export const setItemListSorting = (id, sorting) => ({ type: SET_ITEM_LIST_SORTING, id, sorting });
 
+export const RESET_LOGIN = 'RESET_LOGIN';
+export const resetLogin = () => ({ type: RESET_LOGIN });
+
+export const SET_REGISTER = 'SET_REGISTER';
+export const setRegister = (register) => ({ type: SET_REGISTER, register });
+
+export const SET_USERNAME = 'SET_USERNAME';
+export const setUsername = (username) => ({ type: SET_USERNAME, username });
+
+export const SET_PASSWORD = 'SET_PASSWORD';
+export const setPassword = (password) => ({ type: SET_PASSWORD, password });
+
+export const SET_EMAIL = 'SET_EMAIL';
+export const setEmail = (email) => ({ type: SET_EMAIL, email });
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
@@ -63,6 +78,7 @@ export default function uiReducer(state = initialState, action) {
         flowchart: flowchartReducer(state.flowchart, action),
         tabView: tabViewReducer(state.tabView, action),
         itemList: itemListReducer(state.itemList, action),
+        login: loginReducer(state.login, action),
       };
   }
 }
@@ -103,6 +119,12 @@ export const initialState = {
   },
   crumbTrail: {
     id: null,
+  },
+  login: {
+    register: false,
+    username: '',
+    password: '',
+    email: '',
   },
 };
 
@@ -204,6 +226,29 @@ const itemListReducer = (state, action) => {
   switch (action.type) {
     case SET_ITEM_LIST_SORTING:
       return { ...state, sorting: { [action.id]: action.sorting } };
+
+    default:
+      return state;
+  }
+};
+
+
+const loginReducer = (state, action) => {
+  switch (action.type) {
+    case RESET_LOGIN:
+      return { ...state, ...initialState.login };
+
+    case SET_REGISTER:
+      return { ...state, register: action.register };
+
+    case SET_USERNAME:
+      return { ...state, username: action.username };
+
+    case SET_PASSWORD:
+      return { ...state, password: action.password };
+
+    case SET_EMAIL:
+      return { ...state, email: action.email };
 
     default:
       return state;

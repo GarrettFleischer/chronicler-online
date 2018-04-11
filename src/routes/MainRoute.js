@@ -6,12 +6,14 @@ import Node from '../containers/Node';
 import Scene from '../containers/Scene';
 import Dashboard from '../containers/Dashboard';
 import Project from '../containers/Project';
+import Login from '../components/Login';
 
 // TODO make Project component
-const Main = () => (
+const MainRoute = () => (
   <main>
     <Switch>
       <Route exact path="/" component={Dashboard} /> {/* HomePage */}
+      <Route path="/login" component={Login} />
       <Route path="/project/:id" component={Project} />
       <Route path="/scene/:id" component={Scene} />
       <Route path="/node/:id" component={Node} />
@@ -21,4 +23,4 @@ const Main = () => (
   </main>
 );
 
-export default Main;
+export default MainRoute;

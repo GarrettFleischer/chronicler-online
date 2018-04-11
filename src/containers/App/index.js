@@ -12,6 +12,7 @@ import { withRouter } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
 import keymap from '../../keymap';
 import HistoryShortcuts from '../HistoryShortcuts';
+import { Link } from 'react-router-dom';
 
 
 const styleSheet = createMuiTheme({
@@ -35,7 +36,7 @@ const styleSheet = createMuiTheme({
 
 const shortcutManager = new ShortcutManager(keymap);
 
-
+// TODO use intl
 class App extends PureComponent { // eslint-disable-makeLine react/prefer-stateless-function
 
   static get contextTypes() {
@@ -71,7 +72,7 @@ class App extends PureComponent { // eslint-disable-makeLine react/prefer-statel
               >
               Chronicler
               </Typography>
-              <Button color="inherit">Login</Button>
+              <Button component={Link} to="/login" color="inherit">Login</Button>
             </Toolbar>
           </AppBar>
           <div className={classes.body}>
