@@ -11,6 +11,7 @@
     "lodash": "^4.17.5",
     "material-ui": "^1.0.0-beta.40",
     "material-ui-icons": "^1.0.0-beta.36",
+    "node-fetch": "^2.1.2",
     "prop-types": "^15.6.1",
     "react": "^15.6.2",
     "react-ace": "^5.10.0",
@@ -55,6 +56,7 @@
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.7.0",
-    "eslint-plugin-redux-saga": "^0.4.0"
+    "eslint-plugin-redux-saga": "^0.4.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }
