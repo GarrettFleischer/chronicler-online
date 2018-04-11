@@ -6,7 +6,7 @@ import Node from '../containers/Node';
 import Scene from '../containers/Scene';
 import Dashboard from '../containers/Dashboard';
 import Project from '../containers/Project';
-import Login from '../components/Login';
+import Login from '../containers/Login';
 
 // TODO make Project component
 const MainRoute = () => (

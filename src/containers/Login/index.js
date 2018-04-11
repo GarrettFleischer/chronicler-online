@@ -5,10 +5,10 @@ import lifecycle from 'react-pure-lifecycle';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { resetLogin, setEmail, setPassword, setRegister, setUsername } from '../../reducers/uiReducer';
-import Align from '../Align';
+import Align from '../../components/Align';
 
 // TODO use intl
-const Login = ({ ui, onRegisterChange, onUsernameChange, onPasswordChange, onEmailChange }) => (
+const Login = ({ ui, onRegisterChange, onUsernameChange, onPasswordChange, onEmailChange, onLogin, onRegister }) => (
   <Align container>
     <Align center>
       <div style={{ marginBottom: '15px' }}>
@@ -35,7 +35,7 @@ const Login = ({ ui, onRegisterChange, onUsernameChange, onPasswordChange, onEma
         />
       </div>
       <Button onClick={onRegisterChange(!ui.register)}>{ui.register ? 'Login' : 'Register'}</Button>
-      <Button onClick={() => console.log('login')}>{ui.register ? 'Register' : 'Login'}</Button>
+      <Button onClick={() => ui.register ? onRegister(ui) : onLogin(ui)}>{ui.register ? 'Register' : 'Login'}</Button>
     </Align>
   </Align>
   );
@@ -48,6 +48,8 @@ Login.propTypes = {
   onUsernameChange: PropTypes.func.isRequired,
   onPasswordChange: PropTypes.func.isRequired,
   onEmailChange: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -69,6 +71,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onEmailChange: (event) => {
     dispatch(setEmail(event.target.value));
+  },
+  onLogin: ({ username, password }) => {
+  },
+  onRegister: ({ email, username, password }) => {
   },
 });
 
