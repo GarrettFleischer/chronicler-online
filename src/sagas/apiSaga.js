@@ -31,7 +31,6 @@ function* login({ name, password }) {
   try {
     const response = yield call(fetch, 'http://localhost:3001/users/login', postJSON({ name, password }));
     const data = yield response.json();
-    console.log('data: ', data);
     if (data.auth) {
       window.sessionStorage.setItem('token', data.token);
       yield put(loginSuccess(data.user));

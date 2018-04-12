@@ -12,7 +12,7 @@ import Login from '../containers/Login';
 const MainRoute = () => (
   <main>
     <Switch>
-      <Route exact path="/" component={Dashboard} /> {/* HomePage */}
+      <Route exact path="/" component={HomePage} />
       <Route path="/login" component={Login} />
       <Route path="/project/:id" component={Project} />
       <Route path="/scene/:id" component={Scene} />

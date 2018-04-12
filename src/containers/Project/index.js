@@ -15,10 +15,12 @@ import { addVariable } from '../../components/Variable/reducers';
 import ItemList from '../../components/ItemList';
 import { addScene, setProjectAuthor, setProjectTitle, sortScenes } from './reducers';
 import { setSceneName } from '../Scene/reducers';
+import RequireAuth from '../../components/RequireAuth';
+import { PropTypeId } from '../../data/datatypes';
 
 
-const SceneList = withRouter(({ history, scenes, onNameChange, onAdd, onSortEnd }) => (
-  <ItemList handleAdd={onAdd} handleSortEnd={onSortEnd}>
+const SceneList = withRouter(({ history, id, scenes, onNameChange, onAdd, onSortEnd }) => (
+  <ItemList id={id} handleAdd={onAdd} handleSortEnd={onSortEnd}>
     {scenes.map((scene) => (
       <Card key={scene.id} style={{ margin: 5 }} onClick={() => history.push(`/scene/${scene.id}`)}>
         <CardContent>
@@ -35,6 +37,7 @@ const SceneList = withRouter(({ history, scenes, onNameChange, onAdd, onSortEnd 
 ));
 
 SceneList.propTypes = {
+  id: PropTypeId.isRequired,
   scenes: PropTypes.array.isRequired,
 };
 
@@ -59,45 +62,48 @@ const Project = ({ project, onAddVariable, onTitleChange, onAuthorChange, onScen
     return <Redirect to="/404" />;
 
   return (
-    <TabView
-      id={'dashboard'}
-      tabs={[
-        makeTab('Scenes',
-          <SceneList
-            scenes={project.scenes || []}
-            onNameChange={onSceneNameChange}
-            onAdd={onAddScene(project.id)}
-            onSortEnd={onSortEnd(project.id)}
-          />),
-        makeTab('Variables', (
-          <ItemList id={project.id} handleAdd={onAddVariable(project.id)}>
-            {project.variables.map((variable) => (
-              <Variable key={variable.id} variable={variable} />
+    <RequireAuth>
+      <TabView
+        id={'dashboard'}
+        tabs={[
+          makeTab('Scenes',
+            <SceneList
+              id={project.id}
+              scenes={project.scenes || []}
+              onNameChange={onSceneNameChange}
+              onAdd={onAddScene(project.id)}
+              onSortEnd={onSortEnd(project.id)}
+            />),
+          makeTab('Variables', (
+            <ItemList id={project.id} handleAdd={onAddVariable(project.id)}>
+              {project.variables.map((variable) => (
+                <Variable key={variable.id} variable={variable} />
             ))}
-          </ItemList>
+            </ItemList>
         )),
-        makeTab('Settings', (
-          <div style={{ margin: 20 }}>
-            <div style={{ marginBottom: 18 }}>
-              <TextField
-                onChange={onTitleChange(project.id)}
-                value={project.title}
-                error={!project.title.length}
-                label="Title"
-              />
+          makeTab('Settings', (
+            <div style={{ margin: 20 }}>
+              <div style={{ marginBottom: 18 }}>
+                <TextField
+                  onChange={onTitleChange(project.id)}
+                  value={project.title}
+                  error={!project.title.length}
+                  label="Title"
+                />
+              </div>
+              <div>
+                <TextField
+                  onChange={onAuthorChange(project.id)}
+                  value={project.author}
+                  error={!project.author.length}
+                  label="Author"
+                />
+              </div>
             </div>
-            <div>
-              <TextField
-                onChange={onAuthorChange(project.id)}
-                value={project.author}
-                error={!project.author.length}
-                label="Author"
-              />
-            </div>
-          </div>
         )),
-      ]}
-    />
+        ]}
+      />
+    </RequireAuth>
   );
 };
 

@@ -9,6 +9,7 @@ import TabView, { makeTab } from '../../components/TabView';
 import ItemList from '../../components/ItemList';
 import { addVariable } from '../../components/Variable/reducers';
 import Variable from '../../components/Variable';
+import RequireAuth from '../../components/RequireAuth';
 
 
 const onNodeClicked = (history) => (node) => {
@@ -21,19 +22,21 @@ const Scene = ({ scene, history, onAddVariable }) => {
     return <Redirect to="/404" />;
 
   return (
-    <TabView
-      id={scene.id}
-      tabs={[
-        makeTab('Scene', <Flowchart scene={scene} onNodeClicked={onNodeClicked(history)} highlightNode={'D'} />),
-        makeTab('Variables', (
-          <ItemList id={scene.id} handleAdd={onAddVariable(scene.id)}>
-            {scene.variables.map((variable) => (
-              <Variable key={variable.id} variable={variable} />
+    <RequireAuth>
+      <TabView
+        id={scene.id}
+        tabs={[
+          makeTab('Scene', <Flowchart scene={scene} onNodeClicked={onNodeClicked(history)} highlightNode={'D'} />),
+          makeTab('Variables', (
+            <ItemList id={scene.id} handleAdd={onAddVariable(scene.id)}>
+              {scene.variables.map((variable) => (
+                <Variable key={variable.id} variable={variable} />
             ))}
-          </ItemList>
+            </ItemList>
         )),
-      ]}
-    />
+        ]}
+      />
+    </RequireAuth>
   );
 };
 

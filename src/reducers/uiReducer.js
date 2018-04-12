@@ -122,9 +122,9 @@ export const initialState = {
   },
   login: {
     register: false,
-    name: 'Joe Schmoe',
-    password: 'thisismypassword',
-    email: '',
+    name: 'BenSeawalker',
+    password: 'password',
+    email: 'benseawalker@yahoo.com',
   },
 };
 

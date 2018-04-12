@@ -6,6 +6,7 @@ import Card, { CardContent } from 'material-ui/Card';
 import GridList, { GridListTile } from 'material-ui/GridList';
 import { getProjects } from '../../data/state';
 import TabView, { makeTab } from '../../components/TabView';
+import RequireAuth from '../../components/RequireAuth';
 
 
 const ProjectGrid = withRouter(({ history, projects }) => (
@@ -26,13 +27,15 @@ ProjectGrid.propTypes = {
 
 // TODO use intl
 const Dashboard = ({ projects }) => (
-  <TabView
-    id={'dashboard'}
-    tabs={[
-      makeTab('Projects', <ProjectGrid projects={projects} />),
-      makeTab('Settings', <div />),
-    ]}
-  />
+  <RequireAuth>
+    <TabView
+      id={'dashboard'}
+      tabs={[
+        makeTab('Projects', <ProjectGrid projects={projects} />),
+        makeTab('Settings', <div />),
+      ]}
+    />
+  </RequireAuth>
   );
 
 Dashboard.propTypes = {

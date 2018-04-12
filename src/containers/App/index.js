@@ -8,11 +8,11 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
 import keymap from '../../keymap';
 import HistoryShortcuts from '../HistoryShortcuts';
-import { Link } from 'react-router-dom';
+import UserProfile from '../../components/UserProfile';
 
 
 const styleSheet = createMuiTheme({
@@ -72,7 +72,7 @@ class App extends PureComponent { // eslint-disable-makeLine react/prefer-statel
               >
               Chronicler
               </Typography>
-              <Button component={Link} to="/login" color="inherit">Login</Button>
+              <UserProfile />
             </Toolbar>
           </AppBar>
           <div className={classes.body}>

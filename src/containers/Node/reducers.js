@@ -27,6 +27,8 @@ export function nodeReducer(state, action) {
     link: linkReducer(state.link, action),
   };
 
+  if (action.id !== state.id) return newState;
+
   switch (action.type) {
     case NODE_DELETE_COMPONENT:
       return { ...newState, components: newState.components.filter((component) => component.id !== action.id) };

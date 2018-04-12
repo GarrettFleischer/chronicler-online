@@ -14,6 +14,7 @@ import ChooseComponentDialog from '../../components/ChooseComponentDialog';
 import ItemList from '../../components/ItemList';
 import Component from '../../components/Component';
 import { setShowChooseComponentDialog } from '../../reducers/uiReducer';
+import RequireAuth from '../../components/RequireAuth';
 
 
 const styleSheet = (theme) => ({
@@ -34,37 +35,39 @@ const Node = ({ classes, data, onSortEnd, onAddClick, onLabelChange, onComponent
     return <Redirect to="/404" />;
 
   return (
-    <div>
-      <Paper className={classes.root}>
-        <div>
-          <ItemList
-            id={node.id}
-            titleBar={(
-              <TextField
-                onChange={onLabelChange(node.id)}
-                placeholder={`Page ${node.id}`}
-                value={node.label}
-                error={!validateLabel(state, node.label)}
-                label="Label"
-              />)}
-            handleAdd={onAddClick}
-            handleSortEnd={onSortEnd(node.id)}
-          >
-            {node.components.map((component) => (
-              <Component key={component.id} item={component} />
+    <RequireAuth>
+      <div>
+        <Paper className={classes.root}>
+          <div>
+            <ItemList
+              id={node.id}
+              titleBar={(
+                <TextField
+                  onChange={onLabelChange(node.id)}
+                  placeholder={`Page ${node.id}`}
+                  value={node.label}
+                  error={!validateLabel(state, node.label)}
+                  label="Label"
+                />)}
+              handleAdd={onAddClick}
+              handleSortEnd={onSortEnd(node.id)}
+            >
+              {node.components.map((component) => (
+                <Component key={component.id} item={component} />
             ))}
-          </ItemList>
-        </div>
-        <div style={{ marginTop: '18px' }}>
-          <Card>
-            <CardContent>
-              <Link item={node.link} />
-            </CardContent>
-          </Card>
-        </div>
-      </Paper>
-      <ChooseComponentDialog handleClose={onComponentAdded(node.id)} />
-    </div>
+            </ItemList>
+          </div>
+          <div style={{ marginTop: '18px' }}>
+            <Card>
+              <CardContent>
+                <Link item={node.link} />
+              </CardContent>
+            </Card>
+          </div>
+        </Paper>
+        <ChooseComponentDialog handleClose={onComponentAdded(node.id)} />
+      </div>
+    </RequireAuth>
   );
 };
 

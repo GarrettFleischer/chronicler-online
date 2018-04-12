@@ -3,6 +3,7 @@ import {
   makeCreate, makeSetAction, makeChoice, makeChoiceItem, makeIf, makeCondition, makeLink, FINISH,
 } from './datatypes';
 import { initialState as initialUiState } from '../reducers/uiReducer';
+import { initialState as initialApiState } from '../reducers/apiReducer';
 
 const getNodesWithoutLoops = () => {
   const nodeL = { ...makeNode('L', [], makeLink(FINISH, '')), id: 'L' };
@@ -116,6 +117,9 @@ export const initialState = {
   ui: {
     ...initialUiState,
     activeProject: '1',
+  },
+  api: {
+    ...initialApiState,
   },
   chronicler: {
     actionHistory: [],

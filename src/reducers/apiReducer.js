@@ -16,3 +16,24 @@ export const requestProjectsSuccess = (projects) => ({ type: REQUEST_PROJECTS_SU
 
 export const REQUEST_PROJECTS_FAILURE = 'REQUEST_PROJECTS_FAILURE';
 export const requestProjectsFailure = (msg) => ({ type: REQUEST_PROJECTS_FAILURE, msg });
+
+
+export const apiReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
+      return { ...state, user: action.user };
+
+    case LOGIN_FAILURE:
+    case REGISTER_FAILURE:
+      return { ...state, user: null };
+
+    default:
+      return state;
+  }
+};
+
+
+export const initialState = {
+  user: null,
+};
