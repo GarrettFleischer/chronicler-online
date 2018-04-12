@@ -50,7 +50,7 @@ export const SET_REGISTER = 'SET_REGISTER';
 export const setRegister = (register) => ({ type: SET_REGISTER, register });
 
 export const SET_USERNAME = 'SET_USERNAME';
-export const setUsername = (username) => ({ type: SET_USERNAME, username });
+export const setUsername = (name) => ({ type: SET_USERNAME, name });
 
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const setPassword = (password) => ({ type: SET_PASSWORD, password });
@@ -122,8 +122,8 @@ export const initialState = {
   },
   login: {
     register: false,
-    username: '',
-    password: '',
+    name: 'Joe Schmoe',
+    password: 'thisismypassword',
     email: '',
   },
 };
@@ -242,7 +242,7 @@ const loginReducer = (state, action) => {
       return { ...state, register: action.register };
 
     case SET_USERNAME:
-      return { ...state, username: action.username };
+      return { ...state, name: action.name };
 
     case SET_PASSWORD:
       return { ...state, password: action.password };

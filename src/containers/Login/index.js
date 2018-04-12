@@ -6,26 +6,26 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import { resetLogin, setEmail, setPassword, setRegister, setUsername } from '../../reducers/uiReducer';
 import Align from '../../components/Align';
-import { loginAsync } from '../../sagas/api';
+import { loginAsync } from '../../sagas/apiSaga';
 
 // TODO use intl
 const Login = ({ ui, onRegisterChange, onUsernameChange, onPasswordChange, onEmailChange, onLogin, onRegister }) => (
   <Align container>
     <Align center>
       <div style={{ marginBottom: '15px' }}>
+        {ui.register &&
         <TextField
           onChange={onEmailChange}
           label={'Email'}
           value={ui.email}
-        />
+        />}
       </div>
       <div style={{ marginBottom: '15px' }}>
-        {ui.register &&
         <TextField
           onChange={onUsernameChange}
           label={'Username'}
-          value={ui.username}
-        />}
+          value={ui.name}
+        />
       </div>
       <div style={{ marginBottom: '15px' }}>
         <TextField
@@ -73,8 +73,8 @@ const mapDispatchToProps = (dispatch) => ({
   onEmailChange: (event) => {
     dispatch(setEmail(event.target.value));
   },
-  onLogin: ({ email, password }) => {
-    dispatch(loginAsync(email, password));
+  onLogin: ({ name, password }) => {
+    dispatch(loginAsync(name, password));
   },
   onRegister: ({ email, username, password }) => {
   },
