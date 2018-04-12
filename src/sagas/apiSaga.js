@@ -48,7 +48,7 @@ function* onRegisterAsync() {
 function* register({ email, name, password }) {
   try {
     const response = yield call(fetch, 'http://localhost:3001/users/register', postJSON({ email, name, password }));
-    const data = yield call(response.json);
+    const data = yield response.json();
     if (data.auth) {
       window.sessionStorage.setItem('token', data.token);
       yield put(registerSuccess(data.user));

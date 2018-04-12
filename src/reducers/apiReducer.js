@@ -22,11 +22,11 @@ export const apiReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      return { ...state, user: action.user };
+      return { ...state, user: action.user, error: null };
 
     case LOGIN_FAILURE:
     case REGISTER_FAILURE:
-      return { ...state, user: null };
+      return { ...state, user: null, error: action.type };
 
     default:
       return state;
@@ -36,4 +36,5 @@ export const apiReducer = (state = initialState, action) => {
 
 export const initialState = {
   user: null,
+  error: null,
 };

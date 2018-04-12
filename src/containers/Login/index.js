@@ -8,11 +8,12 @@ import Paper from 'material-ui/Paper';
 import { Redirect } from 'react-router-dom';
 import { resetLogin, setEmail, setPassword, setRegister, setUsername } from '../../reducers/uiReducer';
 import Align from '../../components/Align';
-import { loginAsync } from '../../sagas/apiSaga';
+import { loginAsync, registerAsync } from '../../sagas/apiSaga';
+import { LOGIN_FAILURE, REGISTER_FAILURE } from '../../reducers/apiReducer';
 
 // TODO use intl
 const Login = ({ api, ui, onRegisterChange, onUsernameChange, onPasswordChange, onEmailChange, onLogin, onRegister }) => {
-  if (api.user)
+  if (window.sessionStorage.getItem('token') && api.user)
     return <Redirect to="/dashboard" />;
 
   return (
@@ -42,8 +43,14 @@ const Login = ({ api, ui, onRegisterChange, onUsernameChange, onPasswordChange, 
               value={ui.password}
             />
           </div>
-          <Button onClick={onRegisterChange(!ui.register)}>{ui.register ? 'Login' : 'Register'}</Button>
-          <Button onClick={() => ui.register ? onRegister(ui) : onLogin(ui)}>{ui.register ? 'Register' : 'Login'}</Button>
+          <div style={{ marginBottom: '15px' }}>
+            <Button onClick={onRegisterChange(!ui.register)}>{ui.register ? 'Login' : 'Register'}</Button>
+            <Button onClick={() => ui.register ? onRegister(ui) : onLogin(ui)}>{ui.register ? 'Register' : 'Login'}</Button>
+          </div>
+          <div>
+            {api.error === LOGIN_FAILURE && 'Unable to login, ensure your username and password are correct'}
+            {api.error === REGISTER_FAILURE && 'Unable to register, user already exists'}
+          </div>
         </Align>
       </Align>
     </Paper>
@@ -87,7 +94,8 @@ const mapDispatchToProps = (dispatch) => ({
   onLogin: ({ name, password }) => {
     dispatch(loginAsync(name, password));
   },
-  onRegister: ({ email, username, password }) => {
+  onRegister: ({ email, name, password }) => {
+    dispatch(registerAsync(email, name, password));
   },
 });
 
