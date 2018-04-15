@@ -20,8 +20,4 @@ const mapStateToProps = (state) => ({
   api: state.api,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(RequireAuth);
+export default connect(mapStateToProps)(RequireAuth);

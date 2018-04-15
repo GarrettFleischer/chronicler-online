@@ -9,11 +9,11 @@ import { PropTypeId } from '../../data/datatypes';
 
 export const makeTab = (label, component) => ({ label, component });
 
-const TabView = ({ ui, setValue, id, tabs }) => (
-  <Paper style={{ height: '85vh' }}>
+const TabView = ({ onTabChange, ui, setValue, id, tabs }) => (
+  <Paper style={{ padding: '10px' }}>
     <Tabs
       value={ui.value[id] || 0}
-      onChange={setValue(id)}
+      onChange={setValue(id, onTabChange)}
       indicatorColor="primary"
       centered
     >
@@ -33,10 +33,12 @@ TabView.propTypes = {
 // used in componentWillMount
 // eslint-disable-next-line react/no-unused-prop-types
   defaultTab: PropTypes.number,
+  onTabChange: PropTypes.func,
 };
 
 TabView.defaultProps = {
   defaultTab: 0,
+  onTabChange: undefined,
 };
 
 const methods = {
@@ -50,8 +52,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setValue: (id) => (event, value) => {
+  setValue: (id, onTabChange) => (event, value) => {
     dispatch(setTabViewValue(id, value));
+    if (onTabChange) onTabChange(value);
   },
 });
 

@@ -58,6 +58,22 @@ export const setPassword = (password) => ({ type: SET_PASSWORD, password });
 export const SET_EMAIL = 'SET_EMAIL';
 export const setEmail = (email) => ({ type: SET_EMAIL, email });
 
+export const SET_SHOW_CREATE_PROJECT = 'SET_SHOW_CREATE_PROJECT';
+export const setShowCreateProject = (show) => ({ type: SET_SHOW_CREATE_PROJECT, show });
+
+export const SET_NAME_CREATE_PROJECT = 'SET_NAME_CREATE_PROJECT';
+export const setNameCreateProject = (name) => ({ type: SET_NAME_CREATE_PROJECT, name });
+
+export const CREATE_PROJECT_FILE_LOADED = 'CREATE_PROJECT_FILE_LOADED';
+export const createProjectFileLoaded = (file) => ({ type: CREATE_PROJECT_FILE_LOADED, file });
+
+export const VALUE_NEW_PROJECT = 'VALUE_NEW_PROJECT';
+export const VALUE_IMPORT_PROJECT = 'VALUE_IMPORT_PROJECT';
+const createProjectTab = [VALUE_NEW_PROJECT, VALUE_IMPORT_PROJECT];
+export const SET_TAB_CREATE_PROJECT = 'SET_TAB_CREATE_PROJECT';
+export const setTabCreateProject = (tab) => ({ type: SET_TAB_CREATE_PROJECT, tab });
+
+
 export default function uiReducer(state = initialState, action) {
   switch (action.type) {
     case RESTORE_DEFAULT_UI:
@@ -79,6 +95,7 @@ export default function uiReducer(state = initialState, action) {
         tabView: tabViewReducer(state.tabView, action),
         itemList: itemListReducer(state.itemList, action),
         login: loginReducer(state.login, action),
+        createProjectDialog: createProjectReducer(state.createProjectDialog, action),
       };
   }
 }
@@ -125,6 +142,10 @@ export const initialState = {
     name: 'BenSeawalker',
     password: 'password',
     email: 'benseawalker@yahoo.com',
+  },
+  createProjectDialog: {
+    show: false,
+    value: { name: '', scenes: [] },
   },
 };
 
@@ -250,6 +271,25 @@ const loginReducer = (state, action) => {
     case SET_EMAIL:
       return { ...state, email: action.email };
 
+    default:
+      return state;
+  }
+};
+
+
+const createProjectReducer = (state, action) => {
+  switch (action.type) {
+    case SET_SHOW_CREATE_PROJECT:
+      return { ...state, show: action.show };
+
+    case SET_NAME_CREATE_PROJECT:
+      return { ...state, value: { ...state.value, name: action.name } };
+
+    case CREATE_PROJECT_FILE_LOADED:
+      return { ...state, value: { ...state.value, scenes: [...state.value.scenes, action.file] } };
+
+    case SET_TAB_CREATE_PROJECT:
+      return { ...state, value: { ...state.value, type: createProjectTab[action.tab] } };
     default:
       return state;
   }
