@@ -151,6 +151,11 @@ function flattenLink(item, scenes) {
   let link = item;
   let nodes = [];
 
+  if (Array.isArray(link)) {
+    nodes = flattenNodes(link, scenes);
+    link = makeNodeLink(nodes[0]);
+  }
+
   switch (link.type) {
     case GOTO:
       link = { type: NODE_LINK, node: findIdForLabel(link.text)(scenes) };
@@ -163,7 +168,7 @@ function flattenLink(item, scenes) {
       break;
 
     case CHOICE:
-      link.block = link.block.map((choiceItem) => {
+      link.choices = link.choices.map((choiceItem) => {
         const result = flattenLink(choiceItem.link, scenes);
         nodes = [...nodes, ...result.nodes];
         return { ...choiceItem, link: result.link };
@@ -501,7 +506,7 @@ function Choice(parseResult) {
 
 
 function ChoiceItem(parseResult) {
-  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), NodeBlock))(parseResult);
+  const result = sameDent(inOrder(ChoiceItemReuse, ChoiceItemCondition, match(CHOICE_ITEM), choose(Block(Link), NodeBlock)))(parseResult);
   if (!result.success) return result;
 
   return {

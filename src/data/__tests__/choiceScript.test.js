@@ -69,7 +69,7 @@ describe('ChoiceScript parser', () => {
   });
 
   it('handles nested choices', () => {
-    const cs = '*create happy false\n\nHello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you\'re cheerful\n    *choice\n      #I am!\n        *goto cheerful\n      #I am not!\n        *goto hate\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish';
+    const cs = '*create happy false\n\nHello World!\n\n*choice\n  *hide_reuse #And all who inhabit it!\n    My, you\'re cheerful\n    *choice\n      #I am!\n        *goto cheerful\n      #I am not!\n        *goto hate\n      #Maybe...\n        *goto neutral\n    *label neutral\n    A typical human then...\n    *finish\n\n  *disable_reuse *if (true) #I hate Mondays...\n    Indeed\n    *label hate\n    *set happy false\n    *finish\n\n*label cheerful\n*set happy true\n*finish';
     const expected = {
       object: [
         {
