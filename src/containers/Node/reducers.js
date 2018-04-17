@@ -20,15 +20,23 @@ export const nodeLabelChange = (id, label) => ({ type: NODE_LABEL_CHANGE, id, la
 
 
 export function nodeReducer(state, action) {
-  // ignore action if it is not meant for this node
+  // pass action to children
   const newState = {
     ...state,
     components: mapReducer(state.components, action, componentReducer),
     link: linkReducer(state.link, action),
   };
 
-  if (action.id !== state.id) return newState;
+  // handle delete actions
+  switch (action.type) {
+    case NODE_DELETE_COMPONENT:
+      return { ...newState, components: newState.components.filter((component) => component.id !== action.id) };
+    default:
+      break;
+  }
 
+  // handle actions meant for this node
+  if (action.id !== state.id) return newState;
   switch (action.type) {
     case NODE_DELETE_COMPONENT:
       return { ...newState, components: newState.components.filter((component) => component.id !== action.id) };
