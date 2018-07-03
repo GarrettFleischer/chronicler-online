@@ -1,8 +1,8 @@
 import { arrayMove } from 'react-sortable-hoc';
-import { sceneReducer } from '../Scene/reducers';
-import { mapReducer } from '../../data/utilities';
 import { ADD_VARIABLE, DELETE_VARIABLE, variableReducer } from '../../components/Variable/reducers';
 import { FINISH, makeCreate, makeLink, makeNode, makeScene } from '../../data/datatypes';
+import { mapReducer } from '../../data/utilities';
+import { sceneReducer } from '../Scene/reducers';
 
 
 export const SET_PROJECT_TITLE = 'SET_PROJECT_TITLE';

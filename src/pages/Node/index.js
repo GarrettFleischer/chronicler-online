@@ -1,20 +1,20 @@
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
 import Card, { CardContent } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import ChooseComponentDialog from '../../components/ChooseComponentDialog';
+import Component from '../../components/Component';
+import ItemList from '../../components/ItemList';
+import Link from '../../components/Link';
+import RequireAuth from '../../components/RequireAuth';
 import { validateLabel } from '../../data/core';
+import { setShowChooseComponentDialog } from '../../reducers/uiReducer';
 import { nodeComponentAdd, nodeComponentsSorted, nodeLabelChange } from './reducers';
 import { makeSelectNode } from './selectors';
-import Link from '../../components/Link';
-import ChooseComponentDialog from '../../components/ChooseComponentDialog';
-import ItemList from '../../components/ItemList';
-import Component from '../../components/Component';
-import { setShowChooseComponentDialog } from '../../reducers/uiReducer';
-import RequireAuth from '../../components/RequireAuth';
 
 
 const styleSheet = (theme) => ({

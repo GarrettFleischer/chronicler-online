@@ -1,7 +1,7 @@
-import { nodeReducer } from '../Node/reducers';
-import { mapReducer } from '../../data/utilities';
 import { ADD_VARIABLE, DELETE_VARIABLE, variableReducer } from '../../components/Variable/reducers';
 import { makeTemp } from '../../data/datatypes';
+import { mapReducer } from '../../data/utilities';
+import { nodeReducer } from '../Node/reducers';
 
 
 export const SCENE_ADD_NODE = 'SCENE_ADD_NODE';

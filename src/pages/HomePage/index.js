@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 // HomePage page Component. This serves as the welcome page with link to the library
 const HomePage = () => (

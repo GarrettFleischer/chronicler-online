@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Shortcuts } from 'react-shortcuts';
-import { undo, redo } from '../../lib/history';
+import { redo, undo } from '../../lib/history';
 
 
 class HistoryShortcuts extends Component {

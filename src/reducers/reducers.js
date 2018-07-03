@@ -1,10 +1,9 @@
 import { intlReducer } from 'react-intl-redux';
-import history from '../lib/history';
-import uiReducer from './uiReducer';
-import { projectReducer } from '../containers/Project/reducers';
 import { mapReducer } from '../data/utilities';
-import actionHistoryReducer from '../lib/actionHistory';
+import history from '../lib/history';
+import { projectReducer } from '../pages/Project/reducers';
 import { apiReducer } from './apiReducer';
+import uiReducer from './uiReducer';
 
 // TODO check if the project has _id to determine whether a post or update is necessary
 // TODO possibly namespace all actions

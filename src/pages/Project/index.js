@@ -1,22 +1,22 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
-import lifecycle from 'react-pure-lifecycle';
-import { Redirect, withRouter } from 'react-router-dom';
 import Card, { CardContent } from 'material-ui/Card';
 // import GridList, { GridListTile } from 'material-ui/GridList';
 import TextField from 'material-ui/TextField';
+import PropTypes from 'prop-types';
+import React from 'react';
+import lifecycle from 'react-pure-lifecycle';
+import { connect } from 'react-redux';
+import { Redirect, withRouter } from 'react-router-dom';
+import ItemList from '../../components/ItemList';
+import RequireAuth from '../../components/RequireAuth';
 import TabView, { makeTab } from '../../components/TabView';
 import Variable from '../../components/Variable';
-import { setActiveProject } from '../../reducers/uiReducer';
+import { addVariable } from '../../components/Variable/reducers';
+import { PropTypeId } from '../../data/datatypes';
 import { getProjects } from '../../data/state';
 import { peek } from '../../lib/stack';
-import { addVariable } from '../../components/Variable/reducers';
-import ItemList from '../../components/ItemList';
-import { addScene, setProjectAuthor, setProjectTitle, sortScenes } from './reducers';
+import { setActiveProject } from '../../reducers/uiReducer';
 import { setSceneName } from '../Scene/reducers';
-import RequireAuth from '../../components/RequireAuth';
-import { PropTypeId } from '../../data/datatypes';
+import { addScene, setProjectAuthor, setProjectTitle, sortScenes } from './reducers';
 
 
 const SceneList = withRouter(({ history, id, scenes, onNameChange, onAdd, onSortEnd }) => (

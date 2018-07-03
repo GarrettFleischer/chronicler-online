@@ -1,16 +1,16 @@
+import AddIcon from 'material-ui-icons/Add';
+import Card, { CardContent } from 'material-ui/Card';
+import GridList, { GridListTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Card, { CardContent } from 'material-ui/Card';
-import GridList, { GridListTile } from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import AddIcon from 'material-ui-icons/Add';
-import { getProjects } from '../../data/state';
-import TabView, { makeTab } from '../../components/TabView';
-import RequireAuth from '../../components/RequireAuth';
 import Align from '../../components/Align';
-import CreateProjectDialog, { VALUE_IMPORT_PROJECT, VALUE_NEW_PROJECT } from '../../components/CreateProjectDialog';
+import CreateProjectDialog from '../../components/CreateProjectDialog';
+import RequireAuth from '../../components/RequireAuth';
+import TabView, { makeTab } from '../../components/TabView';
+import { getProjects } from '../../data/state';
 import { setShowCreateProject } from '../../reducers/uiReducer';
 
 

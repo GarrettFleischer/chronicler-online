@@ -1,22 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import AddIcon from 'material-ui-icons/Add';
-import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemText } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from 'material-ui/Dialog';
+import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { getNodeName } from '../../data/core';
+import { FINISH, makeLink, makeNode } from '../../data/datatypes';
 // import { setShowChooseNodeDialog } from '../../reducers/uiReducer';
 import { getActiveProject } from '../../data/state';
+import { sceneAddNode } from '../../pages/Scene/reducers';
 import { setChooseNodeDialogValue, setShowChooseNodeDialog } from '../../reducers/uiReducer';
-import { sceneAddNode } from '../../containers/Scene/reducers';
-import { FINISH, makeLink, makeNode } from '../../data/datatypes';
-import { getNodeName } from '../../data/core';
+
 
 const nodeItem = (node, value, setValue) => (
   <ListItem
@@ -55,7 +52,7 @@ const ChooseNodeDialog = ({ open, scenes, value, setValue, onAddClick, onClose, 
     </DialogContent>
     <DialogActions>
       <Button onClick={onClose} color="primary">
-          Cancel
+        Cancel
       </Button>
       <Button
         onClick={() => {
@@ -64,11 +61,11 @@ const ChooseNodeDialog = ({ open, scenes, value, setValue, onAddClick, onClose, 
         }}
         color="primary"
       >
-          Select
+        Select
       </Button>
     </DialogActions>
   </Dialog>
-  );
+);
 
 ChooseNodeDialog.propTypes = {
   // PropTypeId is used in mapStateToProps

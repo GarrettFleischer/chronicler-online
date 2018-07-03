@@ -1,6 +1,7 @@
-import { takeLatest, all, put, call } from 'redux-saga/effects';
 import fetch from 'node-fetch';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { loginFailure, loginSuccess, registerFailure, registerSuccess } from '../reducers/apiReducer';
+
 
 export const LOGIN_ASYNC = 'LOGIN_ASYNC';
 export const loginAsync = (name, password) => ({ type: LOGIN_ASYNC, name, password });
@@ -64,7 +65,7 @@ function* onFetchProjects() {
 }
 
 function* fetchProjects() {
-  return null;
+  return yield null;
 }
 
 

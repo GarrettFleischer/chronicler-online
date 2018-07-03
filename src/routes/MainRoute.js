@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomePage from '../containers/HomePage';
 import NotFound from '../components/NotFound';
-import Node from '../containers/Node';
-import Scene from '../containers/Scene';
-import Dashboard from '../containers/Dashboard';
-import Project from '../containers/Project';
-import Login from '../containers/Login';
+import Dashboard from '../pages/Dashboard';
+import HomePage from '../pages/HomePage';
+import Login from '../pages/Login';
+import Node from '../pages/Node';
+import Project from '../pages/Project';
+import Scene from '../pages/Scene';
 
 // TODO make Project component
 const MainRoute = () => (

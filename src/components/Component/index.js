@@ -4,18 +4,19 @@
  *
  */
 
-import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
+import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-import Text from '../Text';
-import SetAction from '../SetAction';
-import { TEXT, SET } from '../../data/datatypes';
-import { nodeDeleteComponent } from '../../containers/Node/reducers';
+import { connect } from 'react-redux';
+import { SET, TEXT } from '../../data/datatypes';
+import { nodeDeleteComponent } from '../../pages/Node/reducers';
 import ItemMenu from '../ItemMenu';
+import SetAction from '../SetAction';
+import Text from '../Text';
+import messages from './messages';
+
 
 const styleSheet = (theme) => ({
   component: {

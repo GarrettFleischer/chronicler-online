@@ -1,6 +1,5 @@
 import MenuIcon from 'material-ui-icons/Menu';
 import AppBar from 'material-ui/AppBar';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import IconButton from 'material-ui/IconButton';
 import { createMuiTheme, withStyles } from 'material-ui/styles';
@@ -8,11 +7,11 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { ShortcutManager } from 'react-shortcuts';
-import keymap from '../../keymap';
-import HistoryShortcuts from '../HistoryShortcuts';
+import HistoryShortcuts from '../../components/HistoryShortcuts';
 import UserProfile from '../../components/UserProfile';
+import keymap from '../../keymap';
 
 
 const styleSheet = createMuiTheme({

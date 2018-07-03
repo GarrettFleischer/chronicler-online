@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
-import lifecycle from 'react-pure-lifecycle';
-import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import PropTypes from 'prop-types';
+import React from 'react';
+import lifecycle from 'react-pure-lifecycle';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { resetLogin, setEmail, setPassword, setRegister, setUsername } from '../../reducers/uiReducer';
 import Align from '../../components/Align';
-import { loginAsync, registerAsync } from '../../sagas/apiSaga';
 import { LOGIN_FAILURE, REGISTER_FAILURE } from '../../reducers/apiReducer';
+import { resetLogin, setEmail, setPassword, setRegister, setUsername } from '../../reducers/uiReducer';
+import { loginAsync, registerAsync } from '../../sagas/apiSaga';
 
 // TODO use intl
 const Login = ({ api, ui, onRegisterChange, onUsernameChange, onPasswordChange, onEmailChange, onLogin, onRegister }) => {

@@ -11,6 +11,7 @@
     "lodash": "^4.17.5",
     "material-ui": "^1.0.0-beta.40",
     "material-ui-icons": "^1.0.0-beta.36",
+    "minimongo": "^5.0.1",
     "node-fetch": "^2.1.2",
     "prop-types": "^15.6.1",
     "react": "^15.6.2",

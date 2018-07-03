@@ -1,5 +1,5 @@
-import { generate as getID } from 'shortid';
 import PropTypes from 'prop-types';
+import { generate as getID } from 'shortid';
 
 // TOKENS
 export const EOF = 'EOF';
@@ -68,6 +68,8 @@ export const PROJECT = 'PROJECT';
 export const CONDITION = 'CONDITION';
 
 export const PropTypeId = PropTypes.string;
+
+export const setId = (id, obj) => ({ ...obj, id });
 
 // TODO modify these to take an object instead of parameters
 // other

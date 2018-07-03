@@ -1,15 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Redirect, withRouter } from 'react-router-dom';
 import Flowchart from '../../components/Flowchart';
+import ItemList from '../../components/ItemList';
+import RequireAuth from '../../components/RequireAuth';
+import TabView, { makeTab } from '../../components/TabView';
+import Variable from '../../components/Variable';
+import { addVariable } from '../../components/Variable/reducers';
 import { findById } from '../../data/core';
 import { getActiveProject } from '../../data/state';
-import TabView, { makeTab } from '../../components/TabView';
-import ItemList from '../../components/ItemList';
-import { addVariable } from '../../components/Variable/reducers';
-import Variable from '../../components/Variable';
-import RequireAuth from '../../components/RequireAuth';
 
 
 const onNodeClicked = (history) => (node) => {

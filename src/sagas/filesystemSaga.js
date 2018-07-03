@@ -1,4 +1,4 @@
-import { takeEvery, all, put, call } from 'redux-saga/effects';
+import { all, call, put, takeEvery } from 'redux-saga/effects';
 
 
 export const READ_FILE_ASYNC = 'READ_FILE_ASYNC';
@@ -24,6 +24,7 @@ function* readFile({ file, action }) {
     const data = yield call(readFilePromise, file);
     yield put(action({ name: file.name, data }));
   } catch (e) {
+    // TODO put error action
     console.log('readFile error: ', e);
   }
 }
