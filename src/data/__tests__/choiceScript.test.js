@@ -1,6 +1,6 @@
-import { flattenScenes, parse } from '../choiceScript';
-import { removeKeys } from '../utilities';
+import { flattenScenes, parse } from '../choicescript/choiceScript';
 import { makeScene } from '../datatypes';
+import { removeKeys } from '../utilities';
 import { dragonCS } from './dragon';
 
 

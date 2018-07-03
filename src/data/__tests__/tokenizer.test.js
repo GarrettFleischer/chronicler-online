@@ -1,3 +1,4 @@
+import { makeLine, tokenize } from '../choicescript/tokenizer';
 import {
   ACHIEVE,
   ACHIEVEMENT,
@@ -6,11 +7,11 @@ import {
   BUG,
   CHECK_ACHIEVEMENTS,
   CHOICE,
-  CHOICE_ITEM, EOF,
+  CHOICE_ITEM,
+  EOF,
   FINISH,
   TEXT,
 } from '../datatypes';
-import { tokenize, makeLine } from '../tokenizer';
 
 
 describe('tokenizer', () => {

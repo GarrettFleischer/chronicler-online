@@ -1,4 +1,4 @@
-import { peek, pop, push } from '../lib/stack';
+import { peek, pop, push } from '../../lib/stack';
 import { done, getToken, isBlank, nextToken } from './tokenizer';
 
 

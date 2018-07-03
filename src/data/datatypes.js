@@ -71,7 +71,7 @@ export const PropTypeId = PropTypes.string;
 
 export const setId = (id, obj) => ({ ...obj, id });
 
-// TODO modify these to take an object instead of parameters
+// TODO maybe modify these to take an object instead of parameters
 // other
 export const makeUser = (id, name, email, projects) => ({ type: USER, id, name, email, projects, activeProject: 0 });
 export const makeProject = (id, title, author, scenes, variables) => ({ type: PROJECT, id, title, author, scenes, variables });
@@ -99,7 +99,7 @@ export const makePageBreakLink = (text, link) => ({ type: PAGE_BREAK_LINK, text,
 export const makeLink = (type, text) => ({ type, text });
 export const makeNodeLink = (node) => ({ type: NODE_LINK, id: getID(), node });
 
-export const makeNode = (label, components, link) => ({ type: NODE, id: getID(), label, components, link });
+export const makeNode = (label, components, link, x = 0, y = 0) => ({ type: NODE, id: getID(), label, components, link, x, y });
 
 export const makeChoice = (choices) => ({ type: CHOICE, id: getID(), choices });
 export const makeChoiceItem = (reuse, condition, text, link) => ({ type: CHOICE_ITEM, id: getID(), reuse, condition, text, link });

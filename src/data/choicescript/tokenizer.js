@@ -1,8 +1,6 @@
 /* eslint-disable no-nested-ternary */
 
 import {
-  EOF,
-  TEXT,
   ACHIEVE,
   ACHIEVEMENT,
   ALLOW_REUSE,
@@ -18,12 +16,14 @@ import {
   ELSE,
   ELSEIF,
   ENDING,
+  EOF,
   FAKE_CHOICE,
   FINISH,
   GOSUB,
   GOSUB_SCENE,
   GOTO,
   GOTO_RANDOM_SCENE,
+  GOTO_REF,
   GOTO_SCENE,
   HIDE_REUSE,
   IF,
@@ -34,23 +34,23 @@ import {
   LINE_BREAK,
   LINK,
   MORE_GAMES,
+  OPERATOR,
   PAGE_BREAK,
   PRINT,
   RAND,
-  GOTO_REF,
-  SET_REF,
   SCENE_LIST,
   SCRIPT,
   SELECTABLE_IF,
   SET,
+  SET_REF,
   SHARE,
   SHOW_PASSWORD,
   SOUND,
   STAT_CHART,
   TEMP,
-  TITLE, OPERATOR,
-} from './datatypes';
-import { indexOf } from './utilities';
+  TEXT,
+  TITLE,
+} from '../datatypes';
 
 // TODO add restore_game token as a Link
 
