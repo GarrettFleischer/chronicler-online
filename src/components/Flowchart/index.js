@@ -1,127 +1,94 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import { PathLine } from 'react-svg-pathline';
-import { generate as getID } from 'shortid';
-import { getLinks, getNodeCoords } from '../../data/core';
-import { getActiveProject } from '../../data/state';
-import { setFlowchartDragging, setFlowchartMouse, setFlowchartOffset } from '../../reducers/uiReducer';
-import { PropTypeId } from '../../data/datatypes';
+import WindowResizeHOC from '../WindowResizeHOC';
+import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
+import Label from './Label';
+import RadialMenu from '../RadialMenu';
+import { showRadialMenu, toggleRadialMenu } from '../RadialMenu/reducers';
+import { Add, Create, Delete, Help, Label as LabelIcon, List } from 'material-ui-icons';
+import { setFlowchartSelection } from './reducers';
+import lifecycle from 'react-pure-lifecycle';
 
-const getPoints = (layout, rect, from, to) => {
-  const x1 = layout[from].x;
-  const y1 = layout[from].y;
-  const x2 = layout[to].x;
-  const y2 = layout[to].y;
 
-  const points = [{ x: x1 + (rect.width / 2), y: 0 }, { x: x2 + (rect.width / 2), y: y2 }];
+const Flowchart = ({ ui, Window, showMenu, toggleMenu, closeMenu, setSelected }) => {
+  const menu1Items = [{ id: 'add', icon: Add, text: 'add' }, { id: 'edit', icon: Create, text: 'edit' }, { id: 'delete', icon: Delete, text: 'delete' }];
+  const menu2Items = [{ id: 'choice', icon: List, text: 'choice' }, { id: 'condition', icon: Help, text: 'condition' }, { id: 'label', icon: LabelIcon, text: 'label' }];
 
-  if (y1 < y2)
-    points[0].y = y1 + rect.height;
-  else
-    points[0].y = y1;
+  const closeMenus = () => {
+    closeMenu('menu1');
+    closeMenu('menu2');
+  };
 
-  return points;
-};
+  const menu1Clicked = ({ id, cx, cy }) => {
+    console.log('menu1 clicked: ', id);
+    if (id === 'add')
+      toggleMenu('menu2', cx, cy);
+  };
+  const menu2Clicked = ({ id }) => {
+    console.log('menu2 clicked: ', id);
+  };
+  const labelClicked = ({ id, left, top, width, height }) => {
+    const x = left + width;
+    const y = top + (height / 2);
+    if (ui.selected === id) {
+      console.log('toggle: ', id);
+      toggleMenu('menu1', x, y);
+    }
+    else {
+      console.log('show: ', id);
+      showMenu('menu1', x, y);
+      setSelected(id);
+    }
+    closeMenu('menu2');
+  };
 
-const handleMouseMove = (ui, setOffset) => (event) => {
-  if (ui.dragging) {
-    setOffset({
-      x: ui.mouse.offx + ((event.clientX - ui.mouse.x)),
-      y: ui.mouse.offy + ((event.clientY - ui.mouse.y)),
-    });
-  }
-};
+  // start with menus closed
+  if (ui.selected === null)
+    closeMenus();
 
-const stylesheet = () => ({
-  chart: {
-    userSelect: 'none',
-    position: 'relative',
-    left: 0,
-  },
-});
-
-const Flowchart = ({ classes, project, ui, setDragging, setOffset, scene, onNodeClicked, highlightNode }) => {
-  const rect = { width: 75, height: 50 };
-  const layout = getNodeCoords(project, rect.width * 1.5, rect.height * 2.5, ui.offset.x, ui.offset.y);
   return (
-    <svg
-      className={classes.chart}
-      width="100%"
-      height="75vh"
-      onMouseDown={setDragging(ui, true)}
-      onMouseUp={setDragging(ui, false)}
-      onMouseLeave={setDragging(ui, false)}
-      onMouseMove={handleMouseMove(ui, setOffset)}
-    >
-      {scene.nodes.map((node) => {
-        const children = getLinks(node.link);
-        return ([
-          children.map((id) => (
-            <PathLine
-              key={getID()}
-              points={getPoints(layout, rect, node.id, id)}
-              stroke="red"
-              strokeWidth="1"
-              fill="none"
-              r={0}
-            />
-            )),
-          <rect
-            x={layout[node.id].x}
-            y={layout[node.id].y}
-            width={rect.width}
-            height={rect.height}
-            fill={(node.id === highlightNode ? 'red' : 'black')}
-            onClick={() => onNodeClicked(node.id)}
-          />,
-          <text
-            key={node.id}
-            x={layout[node.id].x + 5}
-            y={layout[node.id].y + 15}
-            stroke="white"
-            fill="white"
-            onClick={() => onNodeClicked(node.id)}
-          >{node.label}</text>,
-        ]);
-      })}
-    </svg>
+    <div>
+      <ReactSVGPanZoom width={Window.width - 10} height={Window.height * 0.97} tool='auto' toolbarPosition='none' miniaturePosition='none'>
+        <svg viewBox={[0, 0, Window.width, Window.height]}>
+          <rect width={Window.width} height={Window.height} fillOpacity={0.1} onClick={closeMenus} />
+
+          <RadialMenu id='menu1' items={menu1Items} distance={50} radius={23} angle={65} offset={-90} itemClicked={menu1Clicked} />
+          <RadialMenu id='menu2' items={menu2Items} distance={70} radius={23} angle={45} offset={-45} itemClicked={menu2Clicked} />
+
+          <Label id='start' x={Window.width / 2} y={Window.height / 2} label='start' onClick={labelClicked} />
+          <Label id='mid' x={Window.width / 2} y={Window.height / 2 + 150} label='hello world' onClick={labelClicked} />
+          <Label id='end' x={Window.width / 2} y={Window.height / 2 + 300} label='hello world and all who inhabit it' onClick={labelClicked} />
+        </svg>
+      </ReactSVGPanZoom>
+    </div>
   );
 };
 
 Flowchart.propTypes = {
-  classes: PropTypes.object.isRequired,
-  project: PropTypes.object.isRequired,
   ui: PropTypes.object.isRequired,
-  setDragging: PropTypes.func.isRequired,
-  setOffset: PropTypes.func.isRequired,
-
-  scene: PropTypes.object.isRequired,
-  onNodeClicked: PropTypes.func.isRequired,
-  highlightNode: PropTypeId,
+  // scene: PropTypes.object.isRequired,
+  Window: PropTypes.shape({ width: PropTypes.number, height: PropTypes.number }).isRequired,
+  showMenu: PropTypes.func.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+  closeMenu: PropTypes.func.isRequired,
+  setSelected: PropTypes.func.isRequired,
 };
 
-Flowchart.defaultProps = {
-  highlightNode: undefined,
-};
 
 const mapStateToProps = (state) => ({
-  project: getActiveProject(state),
-  ui: state.ui.flowchart,
+  ui: state.ui.uiFlowchart
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setDragging: (ui, dragging) => (event) => {
-    if (ui.dragging !== dragging) {
-      dispatch(setFlowchartDragging(dragging));
-      dispatch(setFlowchartMouse({ x: event.clientX, y: event.clientY, offx: ui.offset.x, offy: ui.offset.y }));
-    }
-  },
-  setOffset: (offset) => {
-    dispatch(setFlowchartOffset(offset));
-  },
+  showMenu: (id, x, y) => dispatch(showRadialMenu(id, true, x, y)),
+  toggleMenu: (id, x, y) => dispatch(toggleRadialMenu(id, x, y)),
+  closeMenu: (id) => dispatch(showRadialMenu(id, false)),
+  setSelected: (id) => dispatch(setFlowchartSelection(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(stylesheet)(Flowchart));
+const methods = {
+  shouldComponentUpdate: (nextProps, nextState) => nextProps.ui.selected === null,
+};
 
+export default connect(mapStateToProps, mapDispatchToProps)(WindowResizeHOC(100)(lifecycle(methods)(Flowchart)));
