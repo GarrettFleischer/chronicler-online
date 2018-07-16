@@ -1,23 +1,26 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import Schema from 'simpl-schema';
 
 
-const insert = 'labels.insert';
-const remove = 'labels.remove';
+const insert = 'projects.insert';
+const remove = 'projects.remove';
 
-export const AddLabel = (text, link) => Meteor.call(insert, text, link);
-export const RemoveLabel = (labelId) => Meteor.call(remove, labelId);
+export const AddProject = (title) => Meteor.call(insert, title);
+export const RemoveProject = (projectId) => Meteor.call(remove, projectId);
 
-export const Labels = new Mongo.Collection('labels');
+export const LabelSchema = new Schema({
+  title: String,
+  owner: { type: String, regEx: Schema.RegEx.Id },
+  collaborators: { type: new Array({ type: String, regEx: Schema.RegEx.Id }), defaultValue: [] },
 
-if (Meteor.isServer) {
-  // This code only runs on the server
-  Meteor.publish('tasks', () => Labels.find({ owner: this.userId }));
-}
+});
+
+export const Labels = new Mongo.Collection('projects');
 
 Meteor.methods({
-  [insert]: (text, link) => {
+  [insert]: (title) => {
     check(text, String);
     check(link, Object);
 

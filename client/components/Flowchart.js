@@ -5,7 +5,7 @@ import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
 import withSizes from 'react-sizes';
 import { withTracker } from 'meteor/react-meteor-data';
 
-import { Labels } from '../../imports/api/labels';
+import { Labels } from '../../imports/api/projects/projects';
 
 const Flowchart = ({ window, labels }) => {
   // const { window, labels } = this.props;
