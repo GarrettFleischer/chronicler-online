@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { render } from 'react-dom';
-import App from './screens/App';
+// eslint-disable-next-line no-unused-vars
 import main from './main.html';
+import App from './screens/App';
+import '../imports/startup/accountsConfig';
+
 
 Meteor.startup(() => {
-  render(<App/>, document.getElementById('app'));
+  render(<App />, document.getElementById('app'));
 });

@@ -1,26 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import Flowchart from '../components/Flowchart';
-// import { connect } from 'react-redux';
+import AccountsUIWrapper from '../components/AccountsUIWrapper';
 
-const App = ({  }) => {
-  return (
-    <Flowchart/>
-  );
-};
 
-App.propTypes = {
-
-};
+const App = () => (
+  <div>
+    <AccountsUIWrapper />
+    <Flowchart />
+  </div>
+);
 
 export default App;
-
-// const mapStateToProps = (state) => ({
-//
-// });
-//
-// const mapDispatchToProps = (dispatch) => ({
-//
-// });
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
