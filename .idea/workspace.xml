@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="Added eslint.&#10;Added simple user login.&#10;Added security for labels collection.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.eslintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/BenSeawalker.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/components/AccountsUIWrapper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imports/startup/accountsConfig.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/chronicler.iml" afterPath="$PROJECT_DIR$/.idea/chronicler.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_npm.xml" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_npm.xml" />
+    <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/components/Flowchart.js" afterPath="$PROJECT_DIR$/client/components/Flowchart.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/main.js" afterPath="$PROJECT_DIR$/client/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/screens/App.js" afterPath="$PROJECT_DIR$/client/screens/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imports/api/labels.js" afterPath="$PROJECT_DIR$/imports/api/labels.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/components/AccountsUIWrapper.js" afterPath="$PROJECT_DIR$/client/components/AccountsUIWrapper.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,8 +65,8 @@
       <file leaf-file-name="AccountsUIWrapper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/components/AccountsUIWrapper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="493">
+              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -180,6 +164,7 @@
         <option value="$PROJECT_DIR$/imports/api/labels.js" />
         <option value="$PROJECT_DIR$/client/components/Flowchart.js" />
         <option value="$PROJECT_DIR$/client/main.js" />
+        <option value="$PROJECT_DIR$/client/components/AccountsUIWrapper.js" />
       </list>
     </option>
   </component>
@@ -363,12 +348,20 @@
       <workItem from="1531690435579" duration="1647000" />
       <workItem from="1531717298182" duration="477000" />
       <workItem from="1531717867623" duration="1896000" />
-      <workItem from="1531719912931" duration="5117000" />
+      <workItem from="1531719912931" duration="5969000" />
     </task>
+    <task id="LOCAL-00001" summary="Added eslint.&#10;Added simple user login.&#10;Added security for labels collection.">
+      <created>1531725310594</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531725310594</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13423000" />
+    <option name="totallyTimeSpent" value="14275000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -811,8 +804,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/components/AccountsUIWrapper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="493">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
