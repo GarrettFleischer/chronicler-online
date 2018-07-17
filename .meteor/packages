@@ -28,3 +28,4 @@ meteortesting:mocha
 aldeed:collection2@3.0.0
 dburles:collection-helpers
 matb33:collection-hooks
+kadira:flow-router
