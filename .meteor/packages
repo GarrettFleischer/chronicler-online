@@ -25,3 +25,6 @@ accounts-google
 google-config-ui
 ground:db
 meteortesting:mocha
+aldeed:collection2@3.0.0
+dburles:collection-helpers
+matb33:collection-hooks

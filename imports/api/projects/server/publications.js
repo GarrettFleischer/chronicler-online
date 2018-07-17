@@ -1,4 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Labels } from '../projects';
+import { Projects } from '../projects';
 
-Meteor.publish('tasks', () => Labels.find({ owner: this.userId }));
+Meteor.publish('projects', () => Projects.find({ owner: this.userId }));

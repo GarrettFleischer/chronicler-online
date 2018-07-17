@@ -8,5 +8,6 @@ import '../imports/startup/client/accountsConfig';
 
 
 Meteor.startup(() => {
+  // noinspection JSUnresolvedVariable, JSUnresolvedFunction
   render(<App />, document.getElementById('app'));
 });
