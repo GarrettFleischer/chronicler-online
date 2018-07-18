@@ -5,7 +5,7 @@ import { Projects, INSERT, REMOVE } from './projects';
 
 Projects.helpers({
   scenes() {
-    return Scenes.find({ projectId: this._id });
+    return Scenes.find({ projectId: this._id }).fetch();
   },
 });
 

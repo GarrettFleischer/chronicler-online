@@ -9,7 +9,7 @@ Scenes.helpers({
     return Projects.findOne(this.projectId);
   },
   labels() {
-    return Labels.find({ sceneId: this._id });
+    return Labels.find({ sceneId: this._id._str }).fetch();
   },
 });
 

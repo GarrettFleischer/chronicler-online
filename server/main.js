@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import '../imports/api/projects/projects';
+import '../imports/startup/server';
 
 
 Meteor.startup(() => {
