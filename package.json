@@ -11,6 +11,8 @@
     "@babel/runtime": "^7.0.0-beta.51",
     "bcrypt": "^3.0.0",
     "debounce": "^1.1.0",
+    "eslint-plugin-destructuring": "^2.1.0",
+    "measure-text": "0.0.4",
     "meteor-node-stubs": "^0.4.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

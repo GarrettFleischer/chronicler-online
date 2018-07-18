@@ -1,6 +1,6 @@
 {
 //  "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:destructuring/recommended"],
   "env": {
     "browser": true,
     "node": true,
@@ -12,7 +12,8 @@
     "mocha",
     "meteor",
     "react",
-    "jsx-a11y"
+    "jsx-a11y",
+    "destructuring"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
