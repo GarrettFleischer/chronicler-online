@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 import { Meteor } from 'meteor/meteor';
-import { Labels } from '../labels/labels';
+import { Nodes } from '../nodes/nodes';
 import { Projects } from '../projects/projects';
 import { Scenes } from '../scenes/scenes';
 
@@ -16,8 +16,8 @@ Meteor.publish('scenes', function () {
   return Scenes.find({ owner: this.userId });
 });
 
-Meteor.publish('labels', function () {
+Meteor.publish('nodes', function () {
   if (!this.userId) return this.ready();
 
-  return Labels.find({ owner: this.userId });
+  return Nodes.find({ owner: this.userId });
 });

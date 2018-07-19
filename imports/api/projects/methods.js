@@ -1,39 +1,47 @@
 import { Meteor } from 'meteor/meteor';
+import { IdToStr, selectKeyId, toId } from '../../logic/utils';
 import { Scenes } from '../scenes/scenes';
-import { Projects, INSERT, REMOVE } from './projects';
+import {
+  Projects, INSERT, REMOVE, UPDATE,
+} from './projects';
 
 
 Projects.helpers({
   scenes() {
-    return Scenes.find({ projectId: this._id }).fetch();
+    return Scenes.find(selectKeyId('projectId', this._id)).fetch();
+  },
+  startScene() {
+    return Scenes.findOne({ projectId: IdToStr(this._id), name: 'startup' });
   },
 });
 
 
 Meteor.methods({
-  [INSERT]: (name, author) => {
-    // Make sure the user is logged in before inserting a project
+  [INSERT](name, author) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
 
-    Projects.insert({
+    return Projects.insert({
       owner: this.userId,
       name,
       author,
     });
   },
-  [REMOVE]: (id) => {
-    // Make sure the user is logged in before removing a label
+
+  [UPDATE](id, { name, author }) {
+    return Projects.update(toId(id), { name, author });
+  },
+
+  [REMOVE](id) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
 
     Projects.remove(id);
   },
-  // 'labels.setChecked': (taskId, setChecked) => {
-  //   check(taskId, String);
-  //   check(setChecked, Boolean);
-  //
-  //   Tasks.update(taskId, { $set: { checked: setChecked } });
-  // },
 });
 
+Projects.after.insert((userId) => Scenes.insert({
+  owner: userId,
+  projectId: IdToStr(this._id),
+  name: 'startup',
+}));
 
-Projects.before.remove((userId, doc) => Scenes.remove({ projectId: doc._id }));
+Projects.before.remove((userId, doc) => Scenes.remove({ projectId: IdToStr(doc._id) }));

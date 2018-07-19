@@ -1,5 +1,5 @@
-export const Goto = 'Goto';
-export const makeGoto = (labelId) => ({ type: Goto, labelId });
+export const GOTO = 'GOTO';
+export const makeGoto = (labelId) => ({ type: GOTO, labelId });
 
-export const Choice = 'Choice';
-export const makeChoice = (choices) => ({ type: Choice, choices });
+export const CHOICE = 'CHOICE';
+export const makeChoice = (choices) => ({ type: CHOICE, choices });

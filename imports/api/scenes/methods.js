@@ -1,35 +1,61 @@
 import { Meteor } from 'meteor/meteor';
-import { Labels } from '../labels/labels';
+import { LABEL, Nodes } from '../nodes/nodes';
 import { Projects } from '../projects/projects';
-import { Scenes, INSERT, REMOVE } from './scenes';
+import {
+  Scenes, INSERT, REMOVE, UPDATE,
+} from './scenes';
+import {
+  findById, IdToStr, selectKeyId, toId,
+} from '../../logic/utils';
 
 
 Scenes.helpers({
   project() {
-    return Projects.findOne(this.projectId);
+    return Projects.findOne(toId(this.projectId));
   },
-  labels() {
-    return Labels.find({ sceneId: this._id._str }).fetch();
+  nodes() {
+    return Nodes.find(selectKeyId('sceneId', this._id)).fetch();
+  },
+  startNode() {
+    return Nodes.findOne({ sceneId: IdToStr(this._id), start: true });
   },
 });
 
 Meteor.methods({
-  [INSERT]: (name, projectId) => {
-    // Make sure the user is logged in before inserting a project
+  [INSERT](name, projectId) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
 
-    Scenes.insert({
-      owner: this.userId,
+    return Scenes.insert({
       name,
       projectId,
+      owner: this.userId,
     });
   },
-  [REMOVE]: (id) => {
-    // Make sure the user is logged in before removing a label
-    if (!this.userId) throw new Meteor.Error('not-authorized');
 
-    Scenes.remove(id);
+  [UPDATE](id, { name }) {
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const scene = findById(Scenes, id);
+    if (scene && scene.name === 'startup') throw new Meteor.Error('immutable-item');
+
+    return Scenes.update(toId(id), { $set: { name } });
+  },
+
+  [REMOVE](id) {
+    if (!this.userId) throw new Meteor.Error('not-authorized');
+    const scene = findById(Scenes, id);
+    if (scene && scene.name === 'startup') throw new Meteor.Error('indestructible-item');
+
+    return Scenes.remove(toId(id));
   },
 });
 
-Projects.before.remove((userId, doc) => Labels.remove({ sceneId: doc._id }));
+
+Scenes.after.insert((userId) => Nodes.insert({
+  type: LABEL,
+  owner: userId,
+  start: true,
+  sceneId: IdToStr(this._id),
+  link: null,
+}));
+
+Scenes.before.remove((userId, doc) => Nodes.remove({ sceneId: IdToStr(doc._id) }));
