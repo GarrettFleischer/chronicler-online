@@ -16,6 +16,7 @@ export const ProjectSchema = new Schema({
   owner: Id,
   name: String,
   author: String,
+  createdOn: Date,
 });
 
 export const Projects = new Mongo.Collection('projects');

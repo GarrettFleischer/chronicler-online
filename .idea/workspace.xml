@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/imports/logic/utils.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imports/ui/Choice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imports/ui/styles.js" afterDir="false" />
+    <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="Fixed schemas, helpers, and methods.">
+      <change afterPath="$PROJECT_DIR$/imports/api/components/components.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/api/components/methods.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/client/subscriptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/client/subscriptions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/customTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/customTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/labels/labels.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/nodes/nodes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/labels/methods.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/nodes/methods.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/api/nodes/methods.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/nodes/methods.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/api/nodes/nodes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/nodes/nodes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/api/projects/methods.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/projects/methods.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/api/projects/projects.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/projects/projects.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/api/scenes/methods.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/scenes/methods.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/api/scenes/scenes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/scenes/scenes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/server/publications.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/server/publications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/logic/links.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/logic/links.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/logic/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/logic/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/startup/client/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/startup/client/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/ui/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/Flowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/Label.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/Label.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/pages/Scene.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/pages/Scene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/ui/pages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/pages/Dashboard.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,27 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Flowchart.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/imports/ui/Flowchart.js">
+      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/components/methods.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="44" column="14" lean-forward="true" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#547#812#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="customTypes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/api/customTypes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-              <folding>
-                <element signature="e#0#34#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="39" selection-start-column="39" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -61,53 +40,8 @@
       <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/logic/utils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="projects.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/api/projects/projects.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="links.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/logic/links.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/api/nodes/methods.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/api/projects/methods.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="306">
+              <caret line="18" column="72" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -115,8 +49,50 @@
       <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/scenes/methods.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+            <state relative-caret-position="-212">
+              <caret line="16" column="53" lean-forward="true" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="projects.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/projects/projects.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/ui/pages/Dashboard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="41" lean-forward="true" selection-start-line="1" selection-start-column="41" selection-end-line="2" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/nodes/methods.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -127,8 +103,8 @@
       <file leaf-file-name="nodes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/nodes/nodes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+            <state relative-caret-position="255">
+              <caret line="15" column="58" lean-forward="true" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -136,11 +112,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="methods.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/api/projects/methods.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="43">
+              <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="scenes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/api/scenes/scenes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+            <state relative-caret-position="374">
+              <caret line="22" column="53" lean-forward="true" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -175,9 +160,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/api/projects/tests/methods.test.js" />
-        <option value="$PROJECT_DIR$/imports/api/projects/tests/projects.test.js" />
-        <option value="$PROJECT_DIR$/tests/projects.methods.test.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/client/components/Flowchart.js" />
         <option value="$PROJECT_DIR$/client/components/Layout.js" />
@@ -187,9 +169,7 @@
         <option value="$PROJECT_DIR$/imports/ui/AccountsUIWrapper.js" />
         <option value="$PROJECT_DIR$/imports/ui/AppLayout.js" />
         <option value="$PROJECT_DIR$/.eslintrc" />
-        <option value="$PROJECT_DIR$/imports/ui/pages/Dashboard.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/Login.js" />
-        <option value="$PROJECT_DIR$/imports/startup/client/routes.js" />
         <option value="$PROJECT_DIR$/imports/api/labels/server/index.js" />
         <option value="$PROJECT_DIR$/imports/api/projects/server/index.js" />
         <option value="$PROJECT_DIR$/imports/api/scenes/server/index.js" />
@@ -217,15 +197,20 @@
         <option value="$PROJECT_DIR$/imports/api/customTypes.js" />
         <option value="$PROJECT_DIR$/imports/api/labels/labels.js" />
         <option value="$PROJECT_DIR$/imports/api/labels/methods.js" />
-        <option value="$PROJECT_DIR$/imports/logic/utils.js" />
         <option value="$PROJECT_DIR$/imports/api/choices/choices.js" />
+        <option value="$PROJECT_DIR$/imports/ui/Flowchart.js" />
         <option value="$PROJECT_DIR$/imports/api/nodes/nodes.js" />
         <option value="$PROJECT_DIR$/imports/api/projects/projects.js" />
         <option value="$PROJECT_DIR$/imports/api/scenes/scenes.js" />
-        <option value="$PROJECT_DIR$/imports/api/nodes/methods.js" />
+        <option value="$PROJECT_DIR$/imports/api/components/components.js" />
+        <option value="$PROJECT_DIR$/imports/startup/client/accountsConfig.js" />
+        <option value="$PROJECT_DIR$/imports/startup/client/routes.js" />
         <option value="$PROJECT_DIR$/imports/api/projects/methods.js" />
+        <option value="$PROJECT_DIR$/imports/logic/utils.js" />
         <option value="$PROJECT_DIR$/imports/api/scenes/methods.js" />
-        <option value="$PROJECT_DIR$/imports/ui/Flowchart.js" />
+        <option value="$PROJECT_DIR$/imports/api/nodes/methods.js" />
+        <option value="$PROJECT_DIR$/imports/api/components/methods.js" />
+        <option value="$PROJECT_DIR$/imports/ui/pages/Dashboard.js" />
       </list>
     </option>
   </component>
@@ -289,6 +274,13 @@
               <item name="chronicler" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
               <item name="nodes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -317,6 +309,19 @@
               <item name="chronicler" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="logic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="startup" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="startup" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
@@ -419,7 +424,8 @@
       <workItem from="1531719912931" duration="12512000" />
       <workItem from="1531778636022" duration="1906000" />
       <workItem from="1531780598698" duration="8547000" />
-      <workItem from="1531867240805" duration="44332000" />
+      <workItem from="1531867240805" duration="44564000" />
+      <workItem from="1532019931548" duration="14871000" />
     </task>
     <task id="LOCAL-00001" summary="Added eslint.&#10;Added simple user login.&#10;Added security for labels collection.">
       <created>1531725310594</created>
@@ -470,22 +476,30 @@
       <option name="project" value="LOCAL" />
       <updated>1531954255356</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed schemas, helpers, and methods.">
+      <created>1531983960855</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1531983960855</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75603000" />
+    <option name="totallyTimeSpent" value="90706000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16385669" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Messages" order="7" visible="true" weight="0.32897604" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32897604" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2527233" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2527233" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32897604" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -496,24 +510,24 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32897604" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
       <window_info anchor="bottom" id="Run" order="5" />
-      <window_info anchor="bottom" id="Find" order="4" />
+      <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="2" visible="true" weight="0.32934782" />
       <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="1" />
-      <window_info anchor="bottom" id="Message" order="3" />
+      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="4" />
       <window_info id="Favorites" order="0" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -531,7 +545,8 @@
     <MESSAGE value="Refactored file structure.&#10;Removed &quot;export default&quot; in UI elements.&#10;Added Homepage and Scene routes." />
     <MESSAGE value="Added more routes." />
     <MESSAGE value="Fixed subscriptions.&#10;Added security.&#10;Added basic flowchart layout." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed subscriptions.&#10;Added security.&#10;Added basic flowchart layout." />
+    <MESSAGE value="Fixed schemas, helpers, and methods." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed schemas, helpers, and methods." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -539,14 +554,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/components/WindowSizeHOC.js" />
-    <entry file="file://$PROJECT_DIR$/client/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/projects/tests/methods.test.js" />
     <entry file="file://$PROJECT_DIR$/imports/api/projects/tests/projects.test.js" />
     <entry file="file://$PROJECT_DIR$/tests/projects.methods.test.js" />
@@ -564,16 +571,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/router.js" />
     <entry file="file://$PROJECT_DIR$/imports/ui/AccountsUIWrapper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -605,49 +603,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/pages/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/client/accountsConfig.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/labels/server/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/projects/server/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/labels/server/index.js" />
+    <entry file="file://$PROJECT_DIR$/imports/api/projects/server/index.js" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
@@ -655,26 +612,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/scenes/server/publications.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/labels/server/publications.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/scenes/server/publications.js" />
+    <entry file="file://$PROJECT_DIR$/imports/api/labels/server/publications.js" />
     <entry file="file://$PROJECT_DIR$/imports/api/client/subscriptions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -685,16 +624,7 @@
     <entry file="file://$PROJECT_DIR$/imports/startup/server/index.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/projects/server/publications.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="3" selection-end-column="97" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/projects/server/publications.js" />
     <entry file="file://$PROJECT_DIR$/imports/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -716,20 +646,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/client/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/client/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -737,9 +657,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -757,13 +674,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/logic/flowchartUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="2" lean-forward="true" selection-start-line="3" selection-start-column="2" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/logic/flowchartUtils.js" />
     <entry file="file://$PROJECT_DIR$/imports/api/server/security.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -786,9 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -810,9 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="2" lean-forward="true" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -826,29 +731,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/choices/methods.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/choices/methods.js" />
     <entry file="file://$PROJECT_DIR$/imports/api/customTypes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="153">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/choices/choices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/choices/choices.js" />
     <entry file="file://$PROJECT_DIR$/imports/logic/links.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -856,17 +750,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/Flowchart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/client/accountsConfig.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/client/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/components/components.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="15" lean-forward="true" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/logic/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="306">
+          <caret line="18" column="72" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/nodes/nodes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="17" lean-forward="true" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
+        <state relative-caret-position="255">
+          <caret line="15" column="58" lean-forward="true" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -875,18 +803,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/scenes/scenes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+        <state relative-caret-position="374">
+          <caret line="22" column="53" lean-forward="true" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/nodes/methods.js">
+    <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+        <state relative-caret-position="17">
+          <caret line="1" column="41" lean-forward="true" selection-start-line="1" selection-start-column="41" selection-end-line="2" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/scenes/methods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-212">
+          <caret line="16" column="53" lean-forward="true" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -895,18 +830,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/projects/projects.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/api/scenes/methods.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+        <state relative-caret-position="306">
+          <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -915,22 +840,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/projects/methods.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="43">
+          <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/api/nodes/methods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/Flowchart.js">
+    <entry file="file://$PROJECT_DIR$/imports/api/components/methods.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="44" column="14" lean-forward="true" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#547#812#0" />
-          </folding>
+        <state>
+          <caret column="39" selection-start-column="39" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/pages/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
         </state>
       </provider>
     </entry>

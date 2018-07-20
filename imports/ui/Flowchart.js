@@ -11,7 +11,7 @@ const SEP_HEIGHT = 150;
 
 const getLayout = (nodes, startNode, x, y) => {
   const layout = [];
-  if (nodes.length > 0) layoutNode(nodes, layout, startNode, x, y);
+  layoutNode(nodes, layout, startNode, x, y);
 
   return layout;
 };
@@ -80,6 +80,7 @@ FlowchartUI.propTypes = {
 
 FlowchartUI.defaultProps = {
   nodes: [],
+  startNode: null,
 };
 
 const mapSizesToProps = ({ width, height }) => ({ window: { width, height } });

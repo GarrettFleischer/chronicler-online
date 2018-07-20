@@ -5,19 +5,19 @@ import {
   Scenes, INSERT, REMOVE, UPDATE,
 } from './scenes';
 import {
-  findById, IdToStr, selectKeyId, toId,
+  findById,
 } from '../../logic/utils';
 
 
 Scenes.helpers({
   project() {
-    return Projects.findOne(toId(this.projectId));
+    return Projects.findOne(this.projectId);
   },
   nodes() {
-    return Nodes.find(selectKeyId('sceneId', this._id)).fetch();
+    return Nodes.find({ sceneId: this._id }).fetch();
   },
   startNode() {
-    return Nodes.findOne({ sceneId: IdToStr(this._id), start: true });
+    return Nodes.findOne({ sceneId: this._id, parentId: null });
   },
 });
 
@@ -29,6 +29,7 @@ Meteor.methods({
       name,
       projectId,
       owner: this.userId,
+      createdOn: Date.now(),
     });
   },
 
@@ -37,25 +38,23 @@ Meteor.methods({
     const scene = findById(Scenes, id);
     if (scene && scene.name === 'startup') throw new Meteor.Error('immutable-item');
 
-    return Scenes.update(toId(id), { $set: { name } });
+    return Scenes.update({ _id: id }, { $set: { name } });
   },
 
   [REMOVE](id) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
-    const scene = findById(Scenes, id);
-    if (scene && scene.name === 'startup') throw new Meteor.Error('indestructible-item');
 
-    return Scenes.remove(toId(id));
+    return Scenes.remove({ _id: id });
   },
 });
 
 
-Scenes.after.insert((userId) => Nodes.insert({
-  type: LABEL,
-  owner: userId,
-  start: true,
-  sceneId: IdToStr(this._id),
-  link: null,
-}));
+Scenes.after.insert((userId) => (
+  Nodes.insert({
+    type: LABEL,
+    owner: userId,
+    sceneId: this._id,
+    parentId: null,
+  })));
 
-Scenes.before.remove((userId, doc) => Nodes.remove({ sceneId: IdToStr(doc._id) }));
+Scenes.before.remove((userId, doc) => Nodes.remove({ sceneId: doc._id }));

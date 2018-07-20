@@ -57,3 +57,8 @@ auth.route('/scene/:id', {
     });
   },
 });
+
+
+// Meteor.logout(() => {
+//   FlowRouter.go('/');
+// });

@@ -16,7 +16,7 @@ export const toId = (id) => {
 
 export const matchId = (id) => (item) => IdToStr(item._id) === IdToStr(id);
 
-export const findById = (collection, id) => collection.findOne({ _id: toId(id) });
+export const findById = (collection, id) => collection.findOne({ _id: id });
 
 export const filterOne = (array, id) => array.filter(matchId(id))[0];
 

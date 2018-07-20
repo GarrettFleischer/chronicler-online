@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { IdToStr, selectKeyId, toId } from '../../logic/utils';
 import { Scenes } from '../scenes/scenes';
 import {
   Projects, INSERT, REMOVE, UPDATE,
@@ -8,11 +7,11 @@ import {
 
 Projects.helpers({
   scenes() {
-    return Scenes.find(selectKeyId('projectId', this._id)).fetch();
+    return Scenes.find({ projectId: this._id }).sort({ createdOn: 1 }).fetch();
   },
-  startScene() {
-    return Scenes.findOne({ projectId: IdToStr(this._id), name: 'startup' });
-  },
+  // startScene() {
+  //   return Scenes.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();
+  // },
 });
 
 
@@ -24,24 +23,25 @@ Meteor.methods({
       owner: this.userId,
       name,
       author,
+      createdOn: Date.now(),
     });
   },
 
   [UPDATE](id, { name, author }) {
-    return Projects.update(toId(id), { name, author });
+    return Projects.update({ _id: id }, { $set: { name, author } });
   },
 
   [REMOVE](id) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
 
-    Projects.remove(id);
+    Projects.remove({ _id: id });
   },
 });
 
-Projects.after.insert((userId) => Scenes.insert({
-  owner: userId,
-  projectId: IdToStr(this._id),
-  name: 'startup',
-}));
+// Projects.after.insert((userId) => Scenes.insert({
+//   owner: userId,
+//   projectId: IdToStr(this._id),
+//   name: 'startup',
+// }));
 
-Projects.before.remove((userId, doc) => Scenes.remove({ projectId: IdToStr(doc._id) }));
+Projects.before.remove((userId, doc) => Scenes.remove({ projectId: doc._id }));
