@@ -15,7 +15,7 @@ export const UpdateComponentData = (id, data) => Meteor.call(UPDATE, id, { data 
 export const RemoveComponent = (id) => Meteor.call(REMOVE, id);
 
 export const ComponentSchema = new Schema({
-  type: [TEXT, SET],
+  type: String,
   owner: Id,
   nodeId: Id,
   data: Object,

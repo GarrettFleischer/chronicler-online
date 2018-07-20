@@ -40,12 +40,16 @@ Meteor.methods({
 });
 
 
-Scenes.after.insert((userId) => (
-  Nodes.insert({
-    type: LABEL,
-    owner: userId,
-    sceneId: this._id,
-    parentId: null,
-  })));
+// eslint-disable-next-line func-names
+Scenes.after.insert(function (userId) {
+  (
+    Nodes.insert({
+      type: LABEL,
+      owner: userId,
+      text: 'start',
+      sceneId: this._id,
+      parentId: null,
+    }));
+});
 
 Scenes.before.remove((userId, doc) => Nodes.remove({ sceneId: doc._id }));

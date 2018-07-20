@@ -16,11 +16,11 @@ export const UpdateNodeText = (id, name) => Meteor.call(UPDATE, id, { name });
 export const RemoveNode = (id) => Meteor.call(REMOVE, id);
 
 export const NodeSchema = new Schema({
-  type: [LABEL, CHOICE, IF],
+  type: String,
   owner: Id,
   text: String,
   sceneId: Id,
-  parentId: Id,
+  parentId: { type: Id, optional: true },
 });
 
 export const Nodes = new Mongo.Collection('nodes');

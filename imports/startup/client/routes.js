@@ -8,6 +8,7 @@ import { AppLayout } from '../../ui/AppLayout';
 import { Dashboard } from '../../ui/pages/Dashboard';
 import { Homepage } from '../../ui/pages/Homepage';
 import { Login } from '../../ui/pages/Login';
+import { Project } from '../../ui/pages/Project';
 import { Scene } from '../../ui/pages/Scene';
 
 const exposed = FlowRouter.group({});
@@ -45,6 +46,15 @@ auth.route('/dashboard', {
   action() {
     mount(AppLayout, {
       content: <Dashboard />,
+    });
+  },
+});
+
+auth.route('/project/:id', {
+  name: 'project',
+  action() {
+    mount(AppLayout, {
+      content: <Project />,
     });
   },
 });

@@ -9,9 +9,9 @@ const measure = (text) => measureText({ text, ...fontStyle });
 
 // eslint-disable-next-line object-curly-newline
 export const Label = ({ label, x, y, onClick }) => {
-  let { name } = label;
-  if (name.length > 12) name = `${name.substring(0, 12)}...`;
-  const measurement = measure(name);
+  let { text } = label;
+  if (text.length > 12) text = `${text.substring(0, 12)}...`;
+  const measurement = measure(text);
   const width = measurement.width.value * 1.5;
   const height = Math.min(width, measurement.height.value * 3);
   const left = x - width / 2;
@@ -25,7 +25,7 @@ export const Label = ({ label, x, y, onClick }) => {
     <svg x={left} y={top} width={width} height={height}>
       <ellipse cx={width / 2} cy={height / 2} ry={height / 2} rx={width / 2} fill="#8e8d9b" onClick={handleClick} />
       <text x={width / 6} y={height / 1.65} fill="white" style={fontStyle}>
-        {name}
+        {text}
       </text>
     </svg>
   );
