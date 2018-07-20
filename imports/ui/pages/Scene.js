@@ -4,7 +4,6 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Scenes } from '../../api/scenes/scenes';
 import { Flowchart } from '../Flowchart';
-import { findById } from '../../logic/utils';
 
 
 const SceneUI = ({ scene }) => (
@@ -26,7 +25,7 @@ SceneUI.defaultProps = {
 };
 
 const mapTrackerToProps = () => ({
-  scene: findById(Scenes, FlowRouter.getParam('id')),
+  scene: Scenes.findOne({ _id: FlowRouter.getParam('id') }),
 });
 
 export const Scene = withTracker(mapTrackerToProps)(SceneUI);

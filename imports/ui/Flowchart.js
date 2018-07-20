@@ -3,8 +3,7 @@ import React from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
 import withSizes from 'react-sizes';
 import { withTracker } from 'meteor/react-meteor-data';
-import { GOTO } from '../logic/links';
-import { filterOne } from '../logic/utils';
+// import { filterOne } from '../logic/utils';
 import { Label } from './Label';
 
 const SEP_HEIGHT = 150;
@@ -16,38 +15,38 @@ const getLayout = (nodes, startNode, x, y) => {
   return layout;
 };
 
-const getWidth = (nodes, item) => {
-  let width = 0;
-
-  if (item.link) {
-    switch (item.link.type) {
-      case GOTO: {
-        const to = filterOne(nodes, item.link.to);
-        width += getWidth(nodes, to);
-      }
-        break;
-      default:
-        break;
-    }
-  }
-
-  return width;
-};
+// const getWidth = (nodes, item) => {
+//   let width = 0;
+//
+//   if (item.link) {
+//     switch (item.link.type) {
+//       case GOTO: {
+//         const to = filterOne(nodes, item.link.to);
+//         width += getWidth(nodes, to);
+//       }
+//         break;
+//       default:
+//         break;
+//     }
+//   }
+//
+//   return width;
+// };
 
 const layoutNode = (nodes, layout, item, x, y) => {
   if (!item) return;
-  if (item.link) {
-    switch (item.link.type) {
-      case GOTO: {
-        const to = filterOne(nodes, item.link.to);
-        layoutNode(nodes, layout, to, x, y + SEP_HEIGHT);
-      }
-        break;
-
-      default:
-        break;
-    }
-  }
+  // if (item.link) {
+  //   switch (item.link.type) {
+  //     case GOTO: {
+  //       const to = filterOne(nodes, item.link.to);
+  //       layoutNode(nodes, layout, to, x, y + SEP_HEIGHT);
+  //     }
+  //       break;
+  //
+  //     default:
+  //       break;
+  //   }
+  // }
 
   layout.push({ item, x, y });
 };
