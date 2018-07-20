@@ -10,6 +10,10 @@ const SEP_HEIGHT = 150;
 
 const findChildren = (nodes, parent) => nodes.filter((node) => node.parentId === parent._id);
 
+const buildChildren = (nodes) => {
+
+};
+
 const getLayout = (nodes, startNode, x, y) => {
   const layout = [];
   layoutNode(nodes, layout, startNode, x, y);
@@ -17,23 +21,13 @@ const getLayout = (nodes, startNode, x, y) => {
   return layout;
 };
 
-// const getWidth = (nodes, item) => {
-//   let width = 0;
-//
-//   if (item.link) {
-//     switch (item.link.type) {
-//       case GOTO: {
-//         const to = filterOne(nodes, item.link.to);
-//         width += getWidth(nodes, to);
-//       }
-//         break;
-//       default:
-//         break;
-//     }
-//   }
-//
-//   return width;
-// };
+const getWidth = (nodes, node) => {
+  const width = 0;
+
+  const children = findChildren();
+
+  return width;
+};
 
 const layoutNode = (nodes, layout, node, x, y) => {
   if (!node) return;
@@ -74,6 +68,7 @@ FlowchartUI.propTypes = {
 FlowchartUI.defaultProps = {
   nodes: [],
   startNode: null,
+  children: {},
 };
 
 const mapSizesToProps = ({ width, height }) => ({ window: { width, height } });

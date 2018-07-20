@@ -6,6 +6,7 @@ import { Id } from '../customTypes';
 export const LABEL = 'LABEL';
 export const CHOICE = 'CHOICE';
 export const IF = 'IF';
+export const GOTO = 'GOTO';
 
 export const INSERT = 'nodes.insert';
 export const UPDATE = 'nodes.update';
