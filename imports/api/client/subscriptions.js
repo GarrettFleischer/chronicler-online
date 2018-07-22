@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 
-Meteor.subscribe('scenes');
+Meteor.subscribe('projects');
 Meteor.subscribe('scenes');
 Meteor.subscribe('nodes');
+Meteor.subscribe('components');

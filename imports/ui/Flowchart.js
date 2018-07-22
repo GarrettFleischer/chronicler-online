@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
 import withSizes from 'react-sizes';
-import { withTracker } from 'meteor/react-meteor-data';
 import { AddNode, LABEL } from '../api/nodes/nodes';
 import { Connection } from './Connection';
 // import { filterOne } from '../logic/utils';
@@ -93,28 +92,21 @@ const getLayout = (nodes, startNode, startX, startY) => {
 
 // eslint-disable-next-line object-curly-newline
 const FlowchartUI = ({ window, scene, nodes, startNode }) => {
-  if (!(startNode && nodes)) {
-    return (
-      <div>
-        loading...
-      </div>
-    );
-  }
-
   const nodeClicked = (node) => () => AddNode(LABEL, 'new label', scene._id, node._id);
   const layouts = getLayout(nodes, startNode, window.width / 2, SEP_HEIGHT);
 
   return (
     <div>
       <ReactSVGPanZoom width={window.width - 18} height={window.height - 34} tool="auto" toolbarPosition="none" miniaturePosition="none">
-        <g>
+        {/* width and height to remove warning */}
+        <svg viewBox={[0, 0, window.width, window.height]} width={0} height={0}>
           {layouts.map((layout) => (
-            <g>
-              <Label key={layout.node._id} label={layout.node} x={layout.x} y={layout.y} onClick={nodeClicked(layout.node)} />
+            <g key={layout.node._id}>
+              <Label label={layout.node} x={layout.x} y={layout.y} onClick={nodeClicked(layout.node)} />
               {layout.connections.map((connection) => <Connection key={connection.id} from={connection.from} to={connection.to} height={connection.height} />)}
             </g>
           ))}
-        </g>
+        </svg>
       </ReactSVGPanZoom>
     </div>
   );
@@ -123,19 +115,11 @@ const FlowchartUI = ({ window, scene, nodes, startNode }) => {
 FlowchartUI.propTypes = {
   window: PropTypes.shape({ width: PropTypes.number, height: PropTypes.number }).isRequired,
   scene: PropTypes.object.isRequired,
-  nodes: PropTypes.array,
-  startNode: PropTypes.object,
+  nodes: PropTypes.array.isRequired,
+  startNode: PropTypes.object.isRequired,
 };
 
-FlowchartUI.defaultProps = {
-  nodes: null,
-  startNode: null,
-};
 
 const mapSizesToProps = ({ width, height }) => ({ window: { width, height } });
-const mapTrackerToProps = ({ scene }) => ({
-  nodes: scene.nodes(),
-  startNode: scene.startNode(),
-});
 
-export const Flowchart = withTracker(mapTrackerToProps)((withSizes(mapSizesToProps)(FlowchartUI)));
+export const Flowchart = (withSizes(mapSizesToProps)(FlowchartUI));

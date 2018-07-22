@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
-import { AddScene, Scenes } from '../../api/scenes/scenes';
+import { Projects } from '../../api/projects/projects';
+import { AddScene } from '../../api/scenes/scenes';
 
 
-const ProjectUI = ({ scenes }) => (
+const ProjectUI = ({ project, scenes }) => (
   <div>
     Dashboard
     <div>
-      <button type="submit" onClick={() => AddScene('Chapter 1', FlowRouter.getParam('id'))}>
+      <button type="submit" onClick={() => AddScene('Chapter 1', project._id)}>
         Create Scene
       </button>
     </div>
@@ -25,15 +26,21 @@ const ProjectUI = ({ scenes }) => (
 
 
 ProjectUI.propTypes = {
+  project: PropTypes.object,
   scenes: PropTypes.array,
 };
 
 ProjectUI.defaultProps = {
+  project: null,
   scenes: [],
 };
 
-const mapTrackerToProps = () => ({
-  scenes: Scenes.find().fetch(),
-});
+const mapTrackerToProps = () => {
+  const project = Projects.findOne({ _id: FlowRouter.getParam('id') });
+  return ({
+    project,
+    scenes: project ? project.scenes() : undefined,
+  });
+};
 
 export const Project = withTracker(mapTrackerToProps)(ProjectUI);
