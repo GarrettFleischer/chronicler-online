@@ -12,7 +12,7 @@ export const INSERT = 'nodes.insert';
 export const UPDATE = 'nodes.update';
 export const REMOVE = 'nodes.remove';
 
-export const AddNode = (text, sceneId, parentId) => Meteor.call(INSERT, text, sceneId, parentId);
+export const AddNode = (type, text, sceneId, parentId) => Meteor.call(INSERT, type, text, sceneId, parentId);
 export const UpdateNodeText = (id, name) => Meteor.call(UPDATE, id, { name });
 export const RemoveNode = (id) => Meteor.call(REMOVE, id);
 

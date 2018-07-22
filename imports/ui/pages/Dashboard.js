@@ -6,25 +6,28 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { AddProject, Projects } from '../../api/projects/projects';
 
 
-const DashboardUI = ({ user, projects }) => (
-  <div>
+const DashboardUI = ({ user, projects }) => {
+  console.log('projects: ', projects);
+  return (
+    <div>
     Dashboard
-    <div>
-      {user && (
-        <button type="submit" onClick={() => AddProject('New Project', user.profile.name)}>
+      <div>
+        {user && (
+          <button type="submit" onClick={() => AddProject('New Project', user.profile.name)}>
           Create Project
-        </button>
-      )}
+          </button>
+        )}
+      </div>
+      <div>
+        {projects.map((project) => (
+          <button key={project._id} type="submit" onClick={() => FlowRouter.go(`/project/${project._id}`)}>
+            {project.name}
+          </button>
+        ))}
+      </div>
     </div>
-    <div>
-      {projects.map((project) => (
-        <button key={project._id} type="submit" onClick={() => FlowRouter.go(`/project/${project._id}`)}>
-          {project.name}
-        </button>
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 
 DashboardUI.propTypes = {

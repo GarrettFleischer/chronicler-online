@@ -6,3 +6,6 @@ import './scenes/methods';
 
 import './nodes/nodes';
 import './nodes/methods';
+
+import './components/components';
+import './components/methods';

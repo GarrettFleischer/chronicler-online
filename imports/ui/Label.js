@@ -13,9 +13,9 @@ export const Label = ({ label, x, y, onClick }) => {
   if (text.length > 12) text = `${text.substring(0, 12)}...`;
   const measurement = measure(text);
   const width = measurement.width.value * 1.5;
-  const height = Math.min(width, measurement.height.value * 3);
+  const height = 65; // Math.min(width, measurement.height.value * 3);
   const left = x - width / 2;
-  const top = y - height / 2;
+  const top = y;
 
   const handleClick = () => onClick({
     id: label._id, left, top, width, height,

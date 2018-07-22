@@ -49,7 +49,8 @@ Scenes.after.insert(function (userId) {
       text: 'start',
       sceneId: this._id,
       parentId: null,
-    }));
+    })
+  );
 });
 
 Scenes.before.remove((userId, doc) => Nodes.remove({ sceneId: doc._id }));

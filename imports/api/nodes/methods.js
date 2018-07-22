@@ -20,10 +20,11 @@ Nodes.helpers({
 
 
 Meteor.methods({
-  [INSERT](text, sceneId, parentId) {
+  [INSERT](type, text, sceneId, parentId) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
     return Nodes.insert({
       owner: this.userId,
+      type,
       text,
       sceneId,
       parentId,
