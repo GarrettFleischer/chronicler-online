@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
 import withSizes from 'react-sizes';
-import { AddNode, CHOICE, LABEL } from '../api/nodes/nodes';
+import { AddNode, CHOICE, LABEL, UpdateNodeParentId } from '../api/nodes/nodes';
 import { Choice } from './Choice';
 import { Connection } from './Connection';
 import { Label } from './Label';
@@ -86,13 +86,16 @@ const getLayout = (nodes, startNode, startX, startY) => {
     let offset = children.length > 1 ? -(nodeWidth / 2) + ((nodeDimensions[children[0]._id]).width / 2) : 0;
     for (let i = 0; i < children.length; ++i) {
       child = children[i];
-      let left = x + offset;
+      const left = x + offset;
       const top = y + Math.max(SEP_HEIGHT, (nodeWidth / 8));
-      if (child.type === LABEL) {
-        const parents = findParents(nodes, child);
-        const parentLayouts = layout.filter((l) => parents.includes(l.node));
-        left = parentLayouts.reduce((total, l) => total + l.x, 0) / 2;
-      }
+      // if (child.type === LABEL) {
+      //   const parents = findParents(nodes, child);
+      //   console.log('parents: ', parents);
+      //   const parentLayouts = layout.filter((l) => parents.includes(l.node));
+      //   console.log('parentLayouts: ', parentLayouts);
+      //   left = parentLayouts.reduce((total, l) => total + l.x, 0) / parentLayouts.length;
+      //   console.log('left: ', left);
+      // }
       nextChild = children[i + 1];
       connections.push(makeConnection(child._id, top - y, x, y, left, top));
       layoutNode(child, left, top);
@@ -111,24 +114,20 @@ const getLayout = (nodes, startNode, startX, startY) => {
 class FlowchartUI extends Component {
   constructor() {
     super();
-    this.state = { mode: CHOICE };
+    this.state = { mode: CHOICE, selected: null };
   }
 
   render() {
     // eslint-disable-next-line object-curly-newline
     const { window, scene, nodes, startNode } = this.props;
-    const { mode } = this.state;
+    const { mode, selected } = this.state;
 
     const nodeClicked = (node) => () => {
       if (mode === LABEL) {
-        const siblings = findSiblings(nodes, node);
-        const siblingHasLabel = siblings.reduce((hasLabel, sibling) => {
-          if (hasLabel) return true;
-          const children = findChildren(nodes, sibling);
-          // return children.reduce((childLabel, child) => childLabel || , false)
-        }, false);
-        AddNode(LABEL, 'new', scene._id, [node._id]);
+        if (selected && selected.type !== LABEL && node.type === LABEL) UpdateNodeParentId(node._id, [...node.parentId, selected._id]);
+        else AddNode(LABEL, 'new', scene._id, [node._id]);
       } else AddNode(CHOICE, 'new', scene._id, node._id);
+      this.setState({ selected: node });
     };
     const layouts = getLayout(nodes, startNode, window.width / 2, SEP_HEIGHT);
 
