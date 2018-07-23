@@ -1,6 +1,9 @@
 {
-//  "parser": "babel-eslint",
-  "extends": ["airbnb", "plugin:destructuring/recommended"],
+  //  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:destructuring/recommended"
+  ],
   "env": {
     "browser": true,
     "node": true,
@@ -8,7 +11,7 @@
     "es6": true
   },
   "plugins": [
-//    "redux-saga",
+    //    "redux-saga",
     "mocha",
     "meteor",
     "react",
@@ -23,6 +26,21 @@
     }
   },
   "rules": {
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": {
+          "multiline": true
+        },
+        "ObjectPattern": {
+          "multiline": true
+        },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": {
+          "multiline": true,
+        }
+      }
+    ],
     "no-underscore-dangle": [
       "error",
       {
@@ -72,7 +90,7 @@
       }
     ],
     "jsx-a11y/aria-props": 2,
-//    "jsx-a11y/href-no-hash": 2,
+    //    "jsx-a11y/href-no-hash": 2,
     "jsx-a11y/heading-has-content": 0,
     "jsx-a11y/label-has-for": 2,
     "jsx-a11y/mouse-events-have-key-events": 2,
@@ -94,8 +112,8 @@
     "react/jsx-no-target-blank": 0,
     "react/require-extension": 0,
     "react/self-closing-comp": 0,
-//    "redux-saga/no-yield-in-race": 2,
-//    "redux-saga/yield-effects": 2,
+    //    "redux-saga/no-yield-in-race": 2,
+    //    "redux-saga/yield-effects": 2,
     "require-yield": 0,
     "import/no-webpack-loader-syntax": 0,
     "mocha/no-exclusive-tests": "error"

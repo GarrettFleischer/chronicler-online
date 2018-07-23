@@ -21,9 +21,9 @@ Meteor.methods({
 
     return Projects.insert({
       owner: this.userId,
+      createdOn: Date.now(),
       name,
       author,
-      createdOn: Date.now(),
     });
   },
 

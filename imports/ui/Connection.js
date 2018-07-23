@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-// eslint-disable-next-line object-curly-newline
 export const Connection = ({ from, to, height }) => {
   const control = height / 2;
   return (

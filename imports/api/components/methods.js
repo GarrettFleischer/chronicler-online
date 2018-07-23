@@ -13,13 +13,15 @@ Components.helpers({
 
 
 Meteor.methods({
-  [INSERT](data, nodeId, parentId) {
+  [INSERT](type, nodeId, order, data) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
     return Components.insert({
       owner: this.userId,
-      data,
+      createdOn: Date.now(),
+      type,
       nodeId,
-      parentId,
+      order,
+      data,
     });
   },
 

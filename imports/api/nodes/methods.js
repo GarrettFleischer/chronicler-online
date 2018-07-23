@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Components } from '../components/components';
 import { Scenes } from '../scenes/scenes';
 import {
-  Nodes, INSERT, REMOVE, UPDATE,
+  Nodes, INSERT, REMOVE, UPDATE, LABEL,
 } from './nodes';
 
 
@@ -24,6 +24,7 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('not-authorized');
     return Nodes.insert({
       owner: this.userId,
+      createdOn: Date.now(),
       type,
       text,
       sceneId,
@@ -31,9 +32,11 @@ Meteor.methods({
     });
   },
 
-  [UPDATE](id, { text }) {
+  [UPDATE](id, { text, parentId }) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
-    return Nodes.update({ _id: id }, { $set: { text } });
+    const node = Nodes.findOne({ _id: id });
+    if (parentId && node.type !== LABEL) throw new Meteor.Error('modify-parentId-of-non-label');
+    return Nodes.update({ _id: id }, { $set: { text, parentId } });
   },
 
   [REMOVE](id) {

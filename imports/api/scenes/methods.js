@@ -21,10 +21,10 @@ Meteor.methods({
   [INSERT](name, projectId) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
     return Scenes.insert({
-      name,
-      projectId,
       owner: this.userId,
       createdOn: Date.now(),
+      name,
+      projectId,
     });
   },
 
@@ -49,6 +49,7 @@ Scenes.after.insert(function (userId) {
       text: 'start',
       sceneId: this._id,
       parentId: null,
+      createdOn: Date.now(),
     })
   );
 });

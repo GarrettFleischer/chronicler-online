@@ -14,6 +14,7 @@ export const REMOVE = 'nodes.remove';
 
 export const AddNode = (type, text, sceneId, parentId) => Meteor.call(INSERT, type, text, sceneId, parentId);
 export const UpdateNodeText = (id, name) => Meteor.call(UPDATE, id, { name });
+export const UpdateNodeParentId = (id, parentId) => Meteor.call(UPDATE, id, { parentId });
 export const RemoveNode = (id) => Meteor.call(REMOVE, id);
 
 export const NodeSchema = new Schema({
@@ -21,7 +22,9 @@ export const NodeSchema = new Schema({
   owner: Id,
   text: String,
   sceneId: Id,
-  parentId: { type: Id, optional: true },
+  parentId: Schema.oneOf({ type: Id, optional: true }, { type: Array, optional: true }),
+  'parentId.$': Id,
+  createdOn: Date,
 });
 
 export const Nodes = new Mongo.Collection('nodes');
