@@ -14,11 +14,9 @@ export const Choice = ({ choice, x, y, onClick }) => {
   const width = measurement.width.value * 1.5;
   const height = 65;
   const left = x - width / 2;
-  const top = y;
+  const top = y - height / 2;
 
-  const handleClick = () => onClick({
-    id: choice._id, left, top, width, height,
-  });
+  const handleClick = () => onClick({ id: choice._id, left, top, width, height });
 
   return (
     <svg x={left} y={top} width={width} height={height}>

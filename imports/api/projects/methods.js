@@ -1,13 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Scenes } from '../scenes/scenes';
-import {
-  Projects, INSERT, REMOVE, UPDATE,
-} from './projects';
+import { Projects, INSERT, REMOVE, UPDATE } from './projects';
 
 
 Projects.helpers({
   scenes() {
-    return Scenes.find({ projectId: this._id }, { sort: { createdOn: 1 } }).fetch();
+    return Scenes.find({ projectId: this._id }).fetch();
   },
   // startScene() {
   //   return Scenes.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();

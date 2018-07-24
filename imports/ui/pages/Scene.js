@@ -6,12 +6,12 @@ import { Scenes } from '../../api/scenes/scenes';
 import { Flowchart } from '../Flowchart';
 
 
-const SceneUI = ({ scene, nodes, startNode }) => {
-  const dataLoaded = scene && nodes && startNode;
+const SceneUI = ({ scene, nodes }) => {
+  const dataLoaded = scene && nodes;
   return (
     <div>
       {dataLoaded
-      && <Flowchart scene={scene} nodes={nodes} startNode={startNode} />
+      && <Flowchart scene={scene} nodes={nodes} />
       }
       {!dataLoaded
       && 'loading scene...'
@@ -23,13 +23,13 @@ const SceneUI = ({ scene, nodes, startNode }) => {
 SceneUI.propTypes = {
   scene: PropTypes.object,
   nodes: PropTypes.array,
-  startNode: PropTypes.object,
+  // startNode: PropTypes.object,
 };
 
 SceneUI.defaultProps = {
   scene: null,
   nodes: null,
-  startNode: null,
+  // startNode: null,
 };
 
 const mapTrackerToProps = () => {
@@ -37,7 +37,7 @@ const mapTrackerToProps = () => {
   return ({
     scene,
     nodes: scene ? scene.nodes() : undefined,
-    startNode: scene ? scene.startNode() : undefined,
+    // startNode: scene ? scene.startNode() : undefined,
   });
 };
 
