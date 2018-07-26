@@ -3,6 +3,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Button } from '@material-ui/core';
 import { AddProject, Projects } from '../../../api/projects/projects';
 
 
@@ -11,16 +12,16 @@ const DashboardUI = ({ user, projects }) => (
     Dashboard
     <div>
       {user && (
-        <button type="submit" onClick={() => AddProject('New Project', user.profile.name)}>
+        <Button variant="contained" color="primary" onClick={() => AddProject('New Project', user.profile.name)}>
           Create Project
-        </button>
+        </Button>
       )}
     </div>
     <div>
       {projects.map((project) => (
-        <button key={project._id} type="submit" onClick={() => FlowRouter.go(`/project/${project._id}`)}>
+        <Button key={project._id} variant="contained" color="secondary" onClick={() => FlowRouter.go(`/project/${project._id}`)}>
           {project.name}
-        </button>
+        </Button>
       ))}
     </div>
   </div>

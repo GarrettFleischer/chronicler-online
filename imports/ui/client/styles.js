@@ -1,3 +1,7 @@
+import { createMuiTheme } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
+
+
 export const fontStyle = {
   fontFamily: 'Georgia',
   fontSize: '20px',
@@ -7,3 +11,5 @@ export const fontStyle = {
   userSelect: 'none',
   pointerEvents: 'none',
 };
+
+export const theme = createMuiTheme({ palette: { type: 'dark' } });

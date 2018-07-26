@@ -97,7 +97,7 @@ class FlowchartUI extends Component {
           style={{ backgroundColor: mode === CHOICE ? 'grey' : 'white' }}
           onClick={() => this.setState({ mode: CHOICE })}
         >
-          Choice 2
+          Choice
         </button>
         <ReactSVGPanZoom width={window.width - 18} height={window.height - 34} tool="auto" toolbarPosition="none" miniaturePosition="none" preventPanOutside={false}>
           {/* width and height to remove props warning */}
