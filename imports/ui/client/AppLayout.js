@@ -9,6 +9,4 @@ export const AppLayout = ({ content }) => (
   </div>
 );
 
-AppLayout.propTypes = {
-  content: PropTypes.node.isRequired,
-};
+AppLayout.propTypes = { content: PropTypes.node.isRequired };

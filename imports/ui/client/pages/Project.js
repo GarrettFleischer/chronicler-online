@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
-import { Projects } from '../../api/projects/projects';
-import { AddScene } from '../../api/scenes/scenes';
+import { Projects } from '../../../api/projects/projects';
+import { AddScene } from '../../../api/scenes/scenes';
 
 
 const ProjectUI = ({ project, scenes }) => (

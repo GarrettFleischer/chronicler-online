@@ -5,20 +5,22 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import React from 'react';
 import { mount } from 'react-mounter';
 
-import { AppLayout } from '../../ui/AppLayout';
-import { Dashboard } from '../../ui/pages/Dashboard';
-import { Homepage } from '../../ui/pages/Homepage';
-import { Login } from '../../ui/pages/Login';
-import { Project } from '../../ui/pages/Project';
-import { Scene } from '../../ui/pages/Scene';
+import { AppLayout } from '../../ui/client/AppLayout';
+import { Dashboard } from '../../ui/client/pages/Dashboard';
+import { Homepage } from '../../ui/client/pages/Homepage';
+import { Login } from '../../ui/client/pages/Login';
+import { Project } from '../../ui/client/pages/Project';
+import { Scene } from '../../ui/client/pages/Scene';
 
 const keyRedirectAfterLogin = 'redirectAfterLogin';
 
 Accounts.onLogin(() => {
   const path = Session.get(keyRedirectAfterLogin);
+  const { route } = FlowRouter.current();
   Session.set(keyRedirectAfterLogin, undefined);
+
   if (path) FlowRouter.go(path);
-  else FlowRouter.go('dashboard');
+  else if (route.name === 'login') FlowRouter.go('dashboard');
 });
 
 Accounts.onLogout(() => {
