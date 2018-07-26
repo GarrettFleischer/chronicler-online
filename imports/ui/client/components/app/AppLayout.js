@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { MuiThemeProvider } from '@material-ui/core';
 import { Header } from './Header';
-import { theme } from './styles';
+import { theme } from '../../styles';
 
 
 export const AppLayout = ({ content }) => (

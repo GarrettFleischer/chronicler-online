@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
 import withSizes from 'react-sizes';
 import { graphlib, layout as dagreLayout } from 'dagre';
-import { AddNode, CHOICE, LABEL, UpdateNodeParentId } from '../../api/nodes/nodes';
+import { AddNode, CHOICE, LABEL, UpdateNodeParentId } from '../../../../api/nodes/nodes';
 import { Choice } from './Choice';
 // import { Connection } from './Connection';
 import { Label } from './Label';

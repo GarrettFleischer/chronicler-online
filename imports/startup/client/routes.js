@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import React from 'react';
 import { mount } from 'react-mounter';
 
-import { AppLayout } from '../../ui/client/AppLayout';
+import { AppLayout } from '../../ui/client/components/app/AppLayout';
 import { Dashboard } from '../../ui/client/pages/Dashboard';
 import { Homepage } from '../../ui/client/pages/Homepage';
 import { Login } from '../../ui/client/pages/Login';
