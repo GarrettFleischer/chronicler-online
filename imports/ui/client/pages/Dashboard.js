@@ -14,7 +14,7 @@ const DashboardUI = ({ user, projects }) => {
     <div>
       <div style={{ margin: 16 }}>
         {user && (
-          <Button variant="contained" color="secondary" onClick={() => AddProject('New Project', user.profile.name)}>
+          <Button variant="contained" color="secondary" onClick={() => AddProject(`Project ${projects.length + 1}`, user.profile.name)}>
             Create Project
           </Button>
         )}

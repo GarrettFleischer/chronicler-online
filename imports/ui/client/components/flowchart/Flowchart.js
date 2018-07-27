@@ -5,7 +5,6 @@ import withSizes from 'react-sizes';
 import { graphlib, layout as dagreLayout } from 'dagre';
 import { AddNode, CHOICE, LABEL, UpdateNodeParentId } from '../../../../api/nodes/nodes';
 import { Choice } from './Choice';
-// import { Connection } from './Connection';
 import { Label } from './Label';
 import { StraightConnection } from './StraightConnection';
 
@@ -16,7 +15,7 @@ const NODE_WIDTH = 65;
 const NODE_HEIGHT = 65;
 
 const layoutNodes = (nodes) => {
-  // build arrays of children
+  // add children to each node
   const newNodes = [];
   const findChildren = (parent) => nodes.filter((node) => {
     if (node.type === LABEL && node.parentId) return node.parentId.includes(parent._id);
@@ -70,21 +69,22 @@ class FlowchartUI extends Component {
     const { window, scene, nodes } = this.props;
     const { mode, selected } = this.state;
 
+
     const nodeClicked = (node) => () => {
       if (mode === LABEL) {
-        if (selected && selected.type !== LABEL && node.type === LABEL) UpdateNodeParentId(node._id, [...node.parentId, selected._id]);
-        else if (selected === node) AddNode(LABEL, 'new', scene._id, [node._id]);
+        if (selected && selected.type !== LABEL && node.type === LABEL) UpdateNodeParentId(node._id, [...node.parentId, selected]);
+        else if (selected === node._id) AddNode(LABEL, 'new', scene._id, [node._id]);
       } else AddNode(CHOICE, 'new', scene._id, node._id);
 
 
-      this.setState({ selected: node });
+      this.setState({ selected: node._id });
     };
 
     const layout = layoutNodes(nodes);
 
 
     return (
-      <div>
+      <div style={{ overflow: 'hidden' }}>
         <button
           type="submit"
           style={{ backgroundColor: mode === LABEL ? 'grey' : 'white' }}
@@ -99,7 +99,7 @@ class FlowchartUI extends Component {
         >
           Choice
         </button>
-        <ReactSVGPanZoom width={window.width - 18} height={window.height - 34} tool="auto" toolbarPosition="none" miniaturePosition="none" preventPanOutside={false}>
+        <ReactSVGPanZoom width={window.width} height={window.height - 85} tool="auto" toolbarPosition="none" miniaturePosition="none" preventPanOutside={false}>
           {/* width and height to remove props warning */}
           <svg viewBox={[0, 0, window.width, window.height]} width={0} height={0}>
             {layout.nodes.map((node) => {
