@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
 import withSizes from 'react-sizes';
 import { graphlib, layout as dagreLayout } from 'dagre';
-import { AddNode, CHOICE, LABEL, UpdateNodeParentId } from '../../../../api/nodes/nodes';
+import { addNode, CHOICE, LABEL, updateNodeParentId } from '../../../../api/nodes/nodes';
 import { Choice } from './Choice';
 import { Label } from './Label';
 import { StraightConnection } from './StraightConnection';
@@ -58,11 +58,7 @@ const layoutNodes = (nodes) => {
 
 
 class FlowchartUI extends Component {
-  constructor() {
-    super();
-    this.state = { mode: CHOICE, selected: null };
-  }
-
+  state = { mode: CHOICE, selected: null };
 
   render() {
     // eslint-disable-next-line object-curly-newline
@@ -72,9 +68,9 @@ class FlowchartUI extends Component {
 
     const nodeClicked = (node) => () => {
       if (mode === LABEL) {
-        if (selected && selected.type !== LABEL && node.type === LABEL) UpdateNodeParentId(node._id, [...node.parentId, selected]);
-        else if (selected === node._id) AddNode(LABEL, 'new', scene._id, [node._id]);
-      } else AddNode(CHOICE, 'new', scene._id, node._id);
+        if (selected && selected.type !== LABEL && node.type === LABEL) updateNodeParentId(node._id, [...node.parentId, selected]);
+        else if (selected === node._id) addNode(LABEL, 'new', scene._id, [node._id]);
+      } else addNode(CHOICE, 'new', scene._id, node._id);
 
 
       this.setState({ selected: node._id });

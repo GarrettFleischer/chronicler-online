@@ -1,5 +1,5 @@
 {
-  //  "parser": "babel-eslint",
+    "parser": "babel-eslint",
   "extends": [
     "airbnb",
     "plugin:destructuring/recommended"
@@ -11,7 +11,7 @@
     "es6": true
   },
   "plugins": [
-    //    "redux-saga",
+    "babel",
     "mocha",
     "meteor",
     "react",
@@ -19,13 +19,16 @@
     "destructuring"
   ],
   "parserOptions": {
-    "ecmaVersion": 6,
     "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
   },
   "rules": {
+    "strict": 0,
+    "babel/new-cap": 1,
+    "babel/no-invalid-this": 1,
+    "babel/semi": 1,
+    "babel/no-unused-expressions": 1,
     "object-curly-newline": [
       "error",
       {
@@ -37,7 +40,7 @@
         },
         "ImportDeclaration": "never",
         "ExportDeclaration": {
-          "multiline": true,
+          "multiline": true
         }
       }
     ],

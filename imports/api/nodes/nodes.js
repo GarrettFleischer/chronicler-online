@@ -12,9 +12,9 @@ export const INSERT = 'nodes.insert';
 export const UPDATE = 'nodes.update';
 export const REMOVE = 'nodes.remove';
 
-export const AddNode = (type, text, sceneId, parentId) => Meteor.call(INSERT, type, text, sceneId, parentId);
+export const addNode = (type, text, sceneId, parentId) => Meteor.call(INSERT, type, text, sceneId, parentId);
 export const UpdateNodeText = (id, name) => Meteor.call(UPDATE, id, { name });
-export const UpdateNodeParentId = (id, parentId) => Meteor.call(UPDATE, id, { parentId });
+export const updateNodeParentId = (id, parentId) => Meteor.call(UPDATE, id, { parentId });
 export const RemoveNode = (id) => Meteor.call(REMOVE, id);
 
 export const NodeSchema = new Schema({
