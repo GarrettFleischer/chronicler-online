@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import withSizes from 'react-sizes';
 import { graphlib, layout as dagreLayout } from 'dagre';
 import { addNode, CHOICE, LABEL, updateNodeParentId } from '../../../../api/nodes/nodes';
@@ -57,8 +58,10 @@ const layoutNodes = (nodes) => {
 };
 
 
+const NONE = 'NONE';
+
 class FlowchartUI extends Component {
-  state = { mode: CHOICE, selected: null };
+  state = { mode: NONE, selected: null };
 
   render() {
     // eslint-disable-next-line object-curly-newline
@@ -70,7 +73,8 @@ class FlowchartUI extends Component {
       if (mode === LABEL) {
         if (selected && selected.type !== LABEL && node.type === LABEL) updateNodeParentId(node._id, [...node.parentId, selected]);
         else if (selected === node._id) addNode(LABEL, 'new', scene._id, [node._id]);
-      } else addNode(CHOICE, 'new', scene._id, node._id);
+      } else if (mode === CHOICE) addNode(CHOICE, 'new', scene._id, node._id);
+      else FlowRouter.go(`/node/${node._id}`);
 
 
       this.setState({ selected: node._id });
@@ -83,17 +87,24 @@ class FlowchartUI extends Component {
       <div style={{ overflow: 'hidden' }}>
         <button
           type="submit"
-          style={{ backgroundColor: mode === LABEL ? 'grey' : 'white' }}
+          style={{ backgroundColor: mode === LABEL ? 'white' : 'grey' }}
           onClick={() => this.setState({ mode: LABEL })}
         >
           Label
         </button>
         <button
           type="submit"
-          style={{ backgroundColor: mode === CHOICE ? 'grey' : 'white' }}
+          style={{ backgroundColor: mode === CHOICE ? 'white' : 'grey' }}
           onClick={() => this.setState({ mode: CHOICE })}
         >
           Choice
+        </button>
+        <button
+          type="submit"
+          style={{ backgroundColor: mode === NONE ? 'white' : 'grey' }}
+          onClick={() => this.setState({ mode: NONE })}
+        >
+          None
         </button>
         <ReactSVGPanZoom width={window.width} height={window.height - 85} tool="auto" toolbarPosition="none" miniaturePosition="none" preventPanOutside={false}>
           {/* width and height to remove props warning */}

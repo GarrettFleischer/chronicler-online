@@ -11,6 +11,7 @@ import { Homepage } from '../../ui/client/pages/Homepage';
 import { Login } from '../../ui/client/pages/Login';
 import { Project } from '../../ui/client/pages/Project';
 import { Scene } from '../../ui/client/pages/Scene';
+import { Node } from '../../ui/client/pages/Node';
 
 const keyRedirectAfterLogin = 'redirectAfterLogin';
 
@@ -71,5 +72,12 @@ auth.route('/scene/:id', {
   name: 'scene',
   action() {
     mount(AppLayout, { content: <Scene /> });
+  },
+});
+
+auth.route('/node/:id', {
+  name: 'node',
+  action() {
+    mount(AppLayout, { content: <Node /> });
   },
 });
