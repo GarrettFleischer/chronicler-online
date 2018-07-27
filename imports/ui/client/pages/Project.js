@@ -2,27 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Button } from '@material-ui/core';
 import { Projects } from '../../../api/projects/projects';
 import { AddScene } from '../../../api/scenes/scenes';
+import { ClickableCardGrid } from '../components/ClickableCardGrid';
 
 
-const ProjectUI = ({ project, scenes }) => (
-  <div>
-    Dashboard
+const ProjectUI = ({ project, scenes }) => {
+  const items = scenes.map((scene) => ({ id: scene._id, text: scene.name, onClick: () => FlowRouter.go(`/scene/${scene._id}`) }));
+  return (
     <div>
-      <button type="submit" onClick={() => AddScene('Chapter 1', project._id)}>
-        Create Scene
-      </button>
+      <div style={{ margin: 16 }}>
+        <Button variant="contained" color="secondary" onClick={() => AddScene(`Chapter ${scenes.length + 1}`, project._id)}>
+          Create Scene
+        </Button>
+      </div>
+      <ClickableCardGrid items={items} width={240} height={72} />
     </div>
-    <div>
-      {scenes.map((scene) => (
-        <button key={scene._id} type="submit" onClick={() => FlowRouter.go(`/scene/${scene._id}`)}>
-          {scene.name}
-        </button>
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 
 ProjectUI.propTypes = {
