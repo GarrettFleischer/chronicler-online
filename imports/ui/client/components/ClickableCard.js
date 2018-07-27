@@ -3,24 +3,16 @@ import React from 'react';
 import { ButtonBase, Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-
 const styles = {
-  buttonStyle: {
-    height: 'auto',
-    width: '100%',
-    margin: '0px',
-    padding: '0px',
-  },
-  cardStyle: {
-    width: '100%',
-    height: 'auto',
-    flex: '1',
+  root: {
+    margin: 0,
+    padding: 0,
   },
 };
 
-const ClickableCardUI = ({ classes, children, style }) => (
-  <ButtonBase className={classes.buttonStyle} style={style}>
-    <Card className={classes.cardStyle} style={style}>
+const ClickableCardUI = ({ classes, children, width, height, onClick }) => (
+  <ButtonBase className={classes.root} style={{ width, height }} onClick={() => setTimeout(onClick, 300)}>
+    <Card style={{ width, height }}>
       {children}
     </Card>
   </ButtonBase>
@@ -29,10 +21,9 @@ const ClickableCardUI = ({ classes, children, style }) => (
 ClickableCardUI.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  style: PropTypes.object,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
-
-ClickableCardUI.defaultProps = { style: {} };
-
 
 export const ClickableCard = withStyles(styles)(ClickableCardUI);

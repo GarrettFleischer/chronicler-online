@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/BenSeawalker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/BenSeawalker.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/startup/client/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/startup/client/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/AccountsUIWrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/app/AccountsUIWrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/Choice.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/flowchart/Choice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/Connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/flowchart/Connection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/Flowchart.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/flowchart/Flowchart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/app/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/Label.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/flowchart/Label.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/StraightConnection.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/flowchart/StraightConnection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/pages/Scene.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/pages/Scene.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,8 +26,8 @@
       <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+            <state relative-caret-position="527">
+              <caret line="31" column="2" lean-forward="true" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -44,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccountsUIWrapper.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/AccountsUIWrapper.js">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+            <state relative-caret-position="323">
+              <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -56,8 +47,20 @@
       <file leaf-file-name="ClickableCard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="16" column="14" lean-forward="true" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+            <state relative-caret-position="357">
+              <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClickableCardGrid.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="7" lean-forward="true" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -68,8 +71,8 @@
       <file leaf-file-name="AppLayout.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            <state relative-caret-position="238">
+              <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -77,20 +80,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/main.js">
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="35" selection-start-column="35" selection-end-column="35" />
+            <state relative-caret-position="765">
+              <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Label.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Label.js">
+      <file leaf-file-name="Connection.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Connection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+            <state relative-caret-position="238">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -98,11 +104,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/main.html">
+      <file leaf-file-name="Flowchart.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Flowchart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="1462">
+              <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,7 +119,7 @@
       <file leaf-file-name="Header.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/Header.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
+            <state relative-caret-position="340">
               <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="31" selection-end-column="21" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -119,25 +128,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StraightConnection.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/StraightConnection.js">
+      <file leaf-file-name="Choice.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Choice.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <state relative-caret-position="204">
+              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/styles.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#51#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -166,6 +163,7 @@
       <find>mobil</find>
       <find>layout</find>
       <find>ButtonAppBar</find>
+      <find>data</find>
     </findStrings>
     <replaceStrings>
       <replace>projects</replace>
@@ -175,6 +173,7 @@
       <replace>Choice</replace>
       <replace>choice</replace>
       <replace>HeaderUI</replace>
+      <replace>items</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -183,8 +182,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/api/server/security.js" />
-        <option value="$PROJECT_DIR$/imports/api/server/index.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/Choice.js" />
         <option value="$PROJECT_DIR$/imports/ui/styles.js" />
         <option value="$PROJECT_DIR$/imports/logic/links.js" />
@@ -219,7 +216,6 @@
         <option value="$PROJECT_DIR$/imports/ui/pages/Login.js" />
         <option value="$PROJECT_DIR$/imports/ui/StraightConnection.js" />
         <option value="$PROJECT_DIR$/imports/ui/Flowchart.js" />
-        <option value="$PROJECT_DIR$/imports/startup/client/routes.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Homepage.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Login.js" />
@@ -232,7 +228,10 @@
         <option value="$PROJECT_DIR$/imports/ui/client/AppLayout.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/components/app/index.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/styles.js" />
+        <option value="$PROJECT_DIR$/imports/startup/client/routes.js" />
+        <option value="$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" />
+        <option value="$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js" />
       </list>
     </option>
@@ -269,7 +268,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -343,15 +341,6 @@
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="flowchart" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -368,6 +357,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -391,18 +381,18 @@
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Development\Meteor\chronicler\imports\api\client" />
-      <recent name="C:\Development\Meteor\chronicler\imports\api\scenes\server" />
-      <recent name="C:\Development\Meteor\chronicler\imports\api\projects\server" />
-      <recent name="C:\Development\Meteor\chronicler\imports\api\labels\server" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Development\Meteor\chronicler\imports\ui\client\components\flowchart" />
       <recent name="C:\Development\Meteor\chronicler\imports\ui\client\components\App" />
       <recent name="C:\Development\Meteor\chronicler\imports\ui\client\components" />
       <recent name="C:\Development\Meteor\chronicler\client" />
       <recent name="C:\Development\Meteor\chronicler\imports\ui\client" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Development\Meteor\chronicler\imports\api\client" />
+      <recent name="C:\Development\Meteor\chronicler\imports\api\scenes\server" />
+      <recent name="C:\Development\Meteor\chronicler\imports\api\projects\server" />
+      <recent name="C:\Development\Meteor\chronicler\imports\api\labels\server" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -456,7 +446,9 @@
       <workItem from="1532458472342" duration="1205000" />
       <workItem from="1532468396347" duration="4453000" />
       <workItem from="1532547711156" duration="710000" />
-      <workItem from="1532566557151" duration="21658000" />
+      <workItem from="1532566557151" duration="21835000" />
+      <workItem from="1532631970495" duration="9235000" />
+      <workItem from="1532648393042" duration="1125000" />
     </task>
     <task id="LOCAL-00001" summary="Added eslint.&#10;Added simple user login.&#10;Added security for labels collection.">
       <created>1531725310594</created>
@@ -612,11 +604,18 @@
       <option name="project" value="LOCAL" />
       <updated>1532589040234</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Added ClickableCard.&#10;Added animations to Dashboard.">
+      <created>1532592681743</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1532592681743</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172328000" />
+    <option name="totallyTimeSpent" value="182865000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -624,7 +623,6 @@
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15753424" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32897604" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" weight="0.32897604" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32897604" />
@@ -638,6 +636,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.5163399" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32897604" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
@@ -668,7 +667,8 @@
     <MESSAGE value="Added SemanticUI," />
     <MESSAGE value="Moved ui to client.&#10;Fixed onLogin route handler." />
     <MESSAGE value="Switched to material-ui." />
-    <option name="LAST_COMMIT_MESSAGE" value="Switched to material-ui." />
+    <MESSAGE value="Added ClickableCard.&#10;Added animations to Dashboard." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ClickableCard.&#10;Added animations to Dashboard." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -676,13 +676,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/imports/api/server/security.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/server/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -809,9 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -819,9 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="11" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,55 +823,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Connection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Choice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/.custom.semantic.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/custom.semantic.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/semantic.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/theme.import.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/theme.config.import.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="81" column="34" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/.custom.semantic.json" />
+    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/custom.semantic.json" />
+    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/semantic.less" />
+    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/theme.import.less" />
+    <entry file="file://$PROJECT_DIR$/client/lib/semantic-ui/theme.config.import.less" />
     <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Homepage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -899,34 +845,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Flowchart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#376#408#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/startup/server/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -938,9 +856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -961,7 +876,7 @@
     <entry file="file://$PROJECT_DIR$/client/main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
@@ -975,30 +890,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/index.js" />
     <entry file="file://$PROJECT_DIR$/imports/ui/client/styles.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1009,9 +905,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/StraightConnection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/Header.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
+        <state relative-caret-position="340">
           <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="31" selection-end-column="21" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -1019,20 +929,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/StraightConnection.js">
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Connection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        <state relative-caret-position="238">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Flowchart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Choice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/startup/client/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="7" lean-forward="true" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="16" column="14" lean-forward="true" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+        <state relative-caret-position="357">
+          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="2" lean-forward="true" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -1041,8 +1001,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+        <state relative-caret-position="527">
+          <caret line="31" column="2" lean-forward="true" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
