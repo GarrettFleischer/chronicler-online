@@ -6,19 +6,20 @@ import { Button } from '@material-ui/core';
 import { Projects } from '../../../api/projects/projects';
 import { AddScene } from '../../../api/scenes/scenes';
 import { ClickableCardGrid } from '../components/ClickableCardGrid';
+import { Page } from './Page';
 
 
 const ProjectUI = ({ project, scenes }) => {
   const items = scenes.map((scene) => ({ id: scene._id, text: scene.name, onClick: () => FlowRouter.go(`/scene/${scene._id}`) }));
   return (
-    <div>
+    <Page>
       <div style={{ margin: 16 }}>
         <Button variant="contained" color="secondary" onClick={() => AddScene(`Chapter ${scenes.length + 1}`, project._id)}>
           Create Scene
         </Button>
       </div>
       <ClickableCardGrid items={items} width={240} height={72} />
-    </div>
+    </Page>
   );
 };
 

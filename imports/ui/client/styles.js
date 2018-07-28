@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
 
 
 export const fontStyle = {
@@ -12,4 +12,10 @@ export const fontStyle = {
   pointerEvents: 'none',
 };
 
-export const theme = createMuiTheme({ palette: { type: 'dark' } });
+export const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: indigo,
+    secondary: { main: '#2e7d32' },
+  },
+});

@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { MuiThemeProvider, Slide } from '@material-ui/core';
-import { Header } from './Header';
+import { MuiThemeProvider } from '@material-ui/core';
 import { theme } from '../../styles';
 
 
 export const AppLayout = ({ content }) => (
   <MuiThemeProvider theme={theme}>
-    <Header />
-    {/* provide a new key to force the animation to trigger */}
-    <Slide key={Date.now()} in direction="right" mountOnEnter unmountOnExit timeout={400}>
-      {content}
-    </Slide>
+    {content}
   </MuiThemeProvider>
 );
 
