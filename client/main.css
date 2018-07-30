@@ -3,4 +3,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: #616264;
+  height: 100%
+}
+
+html, #react-root {
+  height: 100%
 }

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
-import withSizes from 'react-sizes';
+// import withSizes from 'react-sizes';
+import ContainerDimensions from 'react-container-dimensions';
 import { graphlib, layout as dagreLayout } from 'dagre';
 import { LABEL } from '../../../../api/nodes/nodes';
 import { Choice } from './Choice';
@@ -79,25 +80,29 @@ class FlowchartUI extends Component {
 
   render() {
     // eslint-disable-next-line object-curly-newline
-    const { nodes, window } = this.props;
+    const { nodes } = this.props;
     const layout = this.layoutNodes(nodes);
 
     return (
-      <div style={{ overflow: 'hidden' }}>
-        <ReactSVGPanZoom width={window.width} height={window.height - 85} tool="auto" toolbarPosition="none" miniaturePosition="none" preventPanOutside={false}>
-          {/* width and height to remove props warning */}
-          <svg viewBox={[0, 0, window.width, window.height]} width={0} height={0}>
-            {layout.nodes.map((node) => {
-              switch (node.type) {
-                case LABEL:
-                  return <Label key={node._id} label={node} x={node.x} y={node.y} onClick={this.handleNodeClick(node)} />;
-                default:
-                  return <Choice key={node._id} choice={node} x={node.x} y={node.y} onClick={this.handleNodeClick(node)} />;
-              }
-            })}
-            {layout.connections.map((connection) => <StraightConnection key={connection.id} points={connection.points} />)}
-          </svg>
-        </ReactSVGPanZoom>
+      <div style={{ overflow: 'hidden', width: '100%', height: '100%' }}>
+        <ContainerDimensions>
+          {({ width, height }) => (
+            <ReactSVGPanZoom width={width} height={height} tool="auto" toolbarPosition="none" miniaturePosition="none" preventPanOutside={false}>
+              {/* width and height to remove required props warning */}
+              <svg viewBox={[0, 0, width, height]} width={0} height={0}>
+                {layout.nodes.map((node) => {
+                  switch (node.type) {
+                    case LABEL:
+                      return <Label key={node._id} label={node} x={node.x} y={node.y} onClick={this.handleNodeClick(node)} />;
+                    default:
+                      return <Choice key={node._id} choice={node} x={node.x} y={node.y} onClick={this.handleNodeClick(node)} />;
+                  }
+                })}
+                {layout.connections.map((connection) => <StraightConnection key={connection.id} points={connection.points} />)}
+              </svg>
+            </ReactSVGPanZoom>
+          )}
+        </ContainerDimensions>
       </div>
     );
   }
@@ -107,18 +112,18 @@ class FlowchartUI extends Component {
 FlowchartUI.propTypes = {
   nodes: PropTypes.array.isRequired,
   nodeClicked: PropTypes.func.isRequired,
-  window: PropTypes.shape({
-    width: PropTypes.number,
-    height: PropTypes.number,
-  }).isRequired,
+  // window: PropTypes.shape({
+  //   width: PropTypes.number,
+  //   height: PropTypes.number,
+  // }).isRequired,
 };
 
 
-const mapSizesToProps = ({ width, height }) => ({
-  window: {
-    width,
-    height,
-  },
-});
+// const mapSizesToProps = ({ width, height }) => ({
+//   window: {
+//     width,
+//     height,
+//   },
+// });
 
-export const Flowchart = (withSizes(mapSizesToProps)(FlowchartUI));
+export const Flowchart = FlowchartUI;
