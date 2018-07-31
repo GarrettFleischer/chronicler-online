@@ -5,7 +5,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Button } from '@material-ui/core';
 import { addProject, Projects } from '../../../api/projects/projects';
-import { ClickableCardGrid } from '../components/ClickableCardGrid';
+import { DelayedButtonGrid } from '../components/DelayedButtonGrid';
 import { PaperPage } from './PaperPage';
 
 
@@ -20,7 +20,7 @@ const DashboardUI = ({ user, projects }) => {
           </Button>
         )}
       </div>
-      <ClickableCardGrid items={items} width={240} height={72} />
+      <DelayedButtonGrid items={items} width={240} height={72} />
     </PaperPage>
   );
 };

@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-const ClickableCardUI = ({ classes, children, width, height, onClick }) => (
+const DelayedButtonUI = ({ classes, children, width, height, onClick }) => (
   <Button variant="outlined" color="primary" className={classes.root} style={{ width, height }} onClick={() => setTimeout(onClick, 300)}>
     {/* <Card style={{ width, height }}> */}
     {children}
@@ -18,7 +18,7 @@ const ClickableCardUI = ({ classes, children, width, height, onClick }) => (
   </Button>
 );
 
-ClickableCardUI.propTypes = {
+DelayedButtonUI.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   width: PropTypes.number.isRequired,
@@ -26,4 +26,4 @@ ClickableCardUI.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export const ClickableCard = withStyles(styles)(ClickableCardUI);
+export const DelayedButton = withStyles(styles)(DelayedButtonUI);

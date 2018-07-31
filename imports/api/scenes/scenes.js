@@ -8,7 +8,7 @@ export const INSERT = 'scenes.insert';
 export const UPDATE = 'scenes.update';
 export const REMOVE = 'scenes.remove';
 
-export const AddScene = (name, projectId) => Meteor.call(INSERT, name, projectId);
+export const addScene = (name, projectId) => Meteor.call(INSERT, name, projectId);
 export const UpdateSceneName = (id, name) => Meteor.call(UPDATE, id, { name });
 export const UpdateSceneStart = (id, name) => Meteor.call(UPDATE, id, { name });
 export const RemoveScene = (id) => Meteor.call(REMOVE, id);

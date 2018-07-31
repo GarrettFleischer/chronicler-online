@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/imports/ui/client/pages/PaperPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/api/projects/projects.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/projects/projects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/api/scenes/scenes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/api/scenes/scenes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/DelayedButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/components/DelayedButtonGrid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/ui/client/pages/Page.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/pages/Page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/ui/client/pages/Project.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/ui/client/pages/Project.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -58,21 +57,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Flowchart.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/flowchart/Flowchart.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="83" column="43" lean-forward="true" selection-start-line="83" selection-start-column="43" selection-end-line="83" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#172#232#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClickableCardGrid.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js">
+      <file leaf-file-name="DelayedButtonGrid.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/DelayedButtonGrid.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
               <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
@@ -80,11 +66,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClickableCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js">
+      <file leaf-file-name="Node.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Node.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+            <state relative-caret-position="17">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DelayedButton.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/components/DelayedButton.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -92,11 +90,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/@material-ui/core/index.js">
+      <file leaf-file-name="Project.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="104" column="31" selection-start-line="104" selection-start-column="31" selection-end-line="104" selection-end-column="31" />
+            <state relative-caret-position="408">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,7 +114,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaperPage.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PaperPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/PaperPage.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
@@ -184,7 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/imports/api/client/subscriptions.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/Project.js" />
         <option value="$PROJECT_DIR$/imports/ui/pages/Dashboard.js" />
         <option value="$PROJECT_DIR$/imports/api/scenes/methods.js" />
@@ -220,7 +220,6 @@
         <option value="$PROJECT_DIR$/imports/data/uiStore.js" />
         <option value="$PROJECT_DIR$/imports/data/Client/uiStore.js" />
         <option value="$PROJECT_DIR$/imports/data/Client/dndStore.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/pages/Project.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Scene.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Homepage.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Node.js" />
@@ -235,6 +234,8 @@
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Page.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/PaperPage.js" />
+        <option value="$PROJECT_DIR$/imports/ui/client/pages/Project.js" />
+        <option value="$PROJECT_DIR$/imports/ui/client/components/DelayedButton.js" />
       </list>
     </option>
   </component>
@@ -470,7 +471,7 @@
       <workItem from="1532663345372" duration="607000" />
       <workItem from="1532663970826" duration="2515000" />
       <workItem from="1532729744966" duration="19673000" />
-      <workItem from="1532905468703" duration="7411000" />
+      <workItem from="1532905468703" duration="8513000" />
     </task>
     <task id="LOCAL-00001" summary="Added eslint.&#10;Added simple user login.&#10;Added security for labels collection.">
       <created>1531725310594</created>
@@ -682,11 +683,18 @@
       <option name="project" value="LOCAL" />
       <updated>1532909298344</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Added PaperPage.&#10;Changed ClickableCard">
+      <created>1533002714164</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1533002714164</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220062000" />
+    <option name="totallyTimeSpent" value="221164000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,7 +737,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed refs in AccountsUIWrapper." />
     <MESSAGE value="Refactored file structure." />
     <MESSAGE value="Added Projects, Scenes, and Labels collections." />
     <MESSAGE value="Refactored file structure.&#10;Removed &quot;export default&quot; in UI elements.&#10;Added Homepage and Scene routes." />
@@ -754,7 +761,8 @@
     <MESSAGE value="Added Node page." />
     <MESSAGE value="Added Page Component (for react-beautiful-dnd).&#10;Started work on Node." />
     <MESSAGE value="Added ContainerDimensions lib." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ContainerDimensions lib." />
+    <MESSAGE value="Added PaperPage.&#10;Changed ClickableCard" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added PaperPage.&#10;Changed ClickableCard" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -976,13 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="2" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -997,16 +998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="54" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Node.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2150">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1045,30 +1036,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Homepage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/api/projects/projects.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1089,6 +1060,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/PaperPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="62" lean-forward="true" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Page.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1099,27 +1090,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js">
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Homepage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/ClickableCard.js">
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/DelayedButton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+        <state relative-caret-position="119">
+          <caret line="7" column="14" lean-forward="true" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/PaperPage.js">
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/components/DelayedButtonGrid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="62" lean-forward="true" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
+        <state relative-caret-position="51">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/ui/client/pages/Project.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
