@@ -5,7 +5,7 @@ import { ClickableCard } from './ClickableCard';
 
 
 export const ClickableCardGrid = ({ items, width, height }) => (
-  <Grid container spacing={8} style={{ flexGrow: 1 }}>
+  <Grid container spacing={8}>
     {items.map((item, i) => (
       <Zoom key={item.id} in mountOnEnter unmountOnExit style={{ transitionDelay: (i + 2) * 100 }}>
         <Grid item key={item.id}>

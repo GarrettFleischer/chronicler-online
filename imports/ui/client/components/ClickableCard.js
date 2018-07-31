@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ButtonBase, Card } from '@material-ui/core';
+import { ButtonBase, Button, Card } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
@@ -11,11 +11,11 @@ const styles = {
 };
 
 const ClickableCardUI = ({ classes, children, width, height, onClick }) => (
-  <ButtonBase className={classes.root} style={{ width, height }} onClick={() => setTimeout(onClick, 300)}>
-    <Card style={{ width, height }}>
-      {children}
-    </Card>
-  </ButtonBase>
+  <Button variant="outlined" color="primary" className={classes.root} style={{ width, height }} onClick={() => setTimeout(onClick, 300)}>
+    {/* <Card style={{ width, height }}> */}
+    {children}
+    {/* </Card> */}
+  </Button>
 );
 
 ClickableCardUI.propTypes = {

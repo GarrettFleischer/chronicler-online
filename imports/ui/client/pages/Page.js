@@ -6,7 +6,6 @@ import { Header } from '../components/app/Header';
 export const Page = ({ children }) => (
   <div style={{ height: '100%' }}>
     <Header key="header" />
-    {/* provide a new key to force the animation to trigger */}
     {children}
   </div>
 );
