@@ -53,8 +53,11 @@ lmieulet:meteor-coverage@1.1.4
 localstorage@1.2.0
 logging@1.1.20
 matb33:collection-hooks@0.8.4
+mdg:validated-method@1.1.0
 meteor@1.9.0
 meteor-base@1.4.0
+meteoreact:accounts@1.2.3
+meteoreact:accounts-unstyled@1.0.0
 meteorhacks:picker@1.0.3
 meteortesting:browser-tests@1.0.0
 meteortesting:mocha@1.0.0

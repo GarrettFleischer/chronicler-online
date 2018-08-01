@@ -7,16 +7,10 @@ import { Header } from '../components/app/Header';
 export const PaperPage = ({ children }) => (
   <div style={{ height: '100%' }}>
     <Header />
-    <Grid container style={{ height: '100%' }}>
+    <Grid container>
       <Grid item xs />
-      <Grid item xs={9} style={{ height: '100%' }}>
-        <Paper
-          style={{
-            padding: 16,
-            width: '100%',
-            height: '100%',
-          }}
-        >
+      <Grid item xs={9}>
+        <Paper style={{ padding: 16, paddingBottom: 36, width: '100%' }}>
           {children}
         </Paper>
       </Grid>

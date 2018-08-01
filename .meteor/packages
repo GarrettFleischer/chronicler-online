@@ -31,3 +31,5 @@ less
 ecmascript
 es5-shim
 standard-minifier-css
+meteoreact:accounts
+meteoreact:accounts-unstyled

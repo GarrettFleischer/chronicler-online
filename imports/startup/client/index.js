@@ -1,4 +1,4 @@
 import './routes';
-import './accountsConfig';
+import '../both/accountsConfig';
 import '../../api/client';
 import '../../logic/arrayUtils';

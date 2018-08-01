@@ -8,7 +8,7 @@ import { mount } from 'react-mounter';
 import { AppLayout } from '../../ui/client/components/app/AppLayout';
 import { Dashboard } from '../../ui/client/pages/Dashboard';
 import { Homepage } from '../../ui/client/pages/Homepage';
-import { Login } from '../../ui/client/pages/Login';
+import { Auth } from '../../ui/client/pages/Auth';
 import { Project } from '../../ui/client/pages/Project';
 import { Scene } from '../../ui/client/pages/Scene';
 import { Node } from '../../ui/client/pages/Node';
@@ -50,7 +50,37 @@ exposed.route('/', {
 exposed.route('/login', {
   name: 'login',
   action() {
-    mount(AppLayout, { content: <Login /> });
+    mount(AppLayout, { content: <Auth state="signIn" /> });
+  },
+});
+exposed.route('/register', {
+  name: 'register',
+  action() {
+    mount(AppLayout, { content: <Auth state="signUp" /> });
+  },
+});
+exposed.route('/forgot-password', {
+  name: 'forgot-password',
+  action() {
+    mount(AppLayout, { content: <Auth state="forgotPwd" /> });
+  },
+});
+exposed.route('/change-password', {
+  name: 'change-password',
+  action() {
+    mount(AppLayout, { content: <Auth state="changePwd" /> });
+  },
+});
+exposed.route('/reset-password', {
+  name: 'reset-password',
+  action() {
+    mount(AppLayout, { content: <Auth state="resetPwd" /> });
+  },
+});
+exposed.route('/resend-verification', {
+  name: 'resend-verification',
+  action() {
+    mount(AppLayout, { content: <Auth state="resendVerification" /> });
   },
 });
 

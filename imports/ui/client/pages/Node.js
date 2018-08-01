@@ -61,6 +61,8 @@ const getListStyle = (isDraggingOver) => ({
 
 
 class NodeUI extends Component {
+  state = { items: [], selected: [] };
+
   onDragEnd = (result) => {
     const { source, destination } = result;
 
