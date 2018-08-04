@@ -26,5 +26,5 @@ Meteor.publish('nodes', function () {
 Meteor.publish('components', function () {
   if (!this.userId) return this.ready();
 
-  return Components.find({ owner: this.userId }, { sort: { order: 1 } });
+  return Components.find({ owner: this.userId }, { sort: { order: -1 } });
 });

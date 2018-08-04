@@ -10,18 +10,23 @@ export const INSERT = 'components.insert';
 export const UPDATE = 'components.update';
 export const REMOVE = 'components.remove';
 
-export const AddComponent = (type, nodeId, order, data) => Meteor.call(INSERT, type, nodeId, order, data);
+export const addComponent = (type, nodeId, order, data) => Meteor.call(INSERT, type, nodeId, order, data);
+export const addTextComponent = (nodeId, order) => addComponent(TEXT, nodeId, order, { text: 'hello' });// Meteor.call(INSERT, TEXT, nodeId, order, { text: '' });
+export const updateComponentOrder = (id, order) => Meteor.call(UPDATE, id, { order });
 export const UpdateComponentData = (id, data) => Meteor.call(UPDATE, id, { data });
 export const RemoveComponent = (id) => Meteor.call(REMOVE, id);
 
+const dataSchema = new Schema({ text: { type: String, optional: true } });
+
 export const ComponentSchema = new Schema({
-  type: String,
   owner: Id,
+  createdOn: Date,
+  type: String,
   nodeId: Id,
   order: Number,
-  data: Object,
-  createdOn: Date,
+  data: dataSchema,
 });
+
 
 export const Components = new Mongo.Collection('components');
 Components.attachSchema(ComponentSchema);

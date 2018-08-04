@@ -23,9 +23,9 @@ Meteor.methods({
     });
   },
 
-  [UPDATE](id, { data }) {
+  [UPDATE](id, { data, order }) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
-    return Components.update({ _id: id }, { data });
+    return Components.update({ _id: id }, { $set: { data, order } });
   },
 
   [REMOVE](id) {

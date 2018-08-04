@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component as ReactComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import { FlowRouter } from 'meteor/kadira:flow-router';
@@ -6,38 +6,25 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Nodes } from '../../../both/api/nodes/nodes';
 import { Page } from './Page';
+import { Component } from '../Component';
+import { addTextComponent, TEXT, updateComponentOrder } from '../../../both/api/components/components';
+
+const COMPONENT_ZONE = 'COMPONENT_ZONE';
+const NODE_ZONE = 'NODE_ZONE';
+
 
 const componentList = [
-  { id: 0, content: 'Story' },
-  { id: 1, content: 'Set Variable' },
+  { id: 0, type: TEXT, data: { text: 'Story' } },
+  { id: 1, type: TEXT, data: { text: 'Set Variable' } }, // TODO change type to SET
 ];
 
 // a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  // const result = Array.from(list);
-  // const [removed] = result.splice(startIndex, 1);
-  // result.splice(endIndex, 0, removed);
-  //
-  // return result;
-};
+
 
 /**
  * Moves an item from one list to another list.
  */
-const move = (source, destination, droppableSource, droppableDestination) => {
 
-  // const sourceClone = Array.from(source);
-  // const destClone = Array.from(destination);
-  // // const [removed] = sourceClone.splice(droppableSource.index, 1);
-  //
-  // destClone.splice(droppableDestination.index, 0, sourceClone[droppableSource.index]);
-  //
-  // const result = {};
-  // result[droppableSource.droppableId] = sourceClone;
-  // result[droppableDestination.droppableId] = destClone;
-  //
-  // return result;
-};
 
 const grid = 8;
 
@@ -61,38 +48,63 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 
-class NodeUI extends Component {
-  state = { items: componentList, selected: [] };
-
+class NodeUI extends ReactComponent {
   onDragEnd = (result) => {
     const { source, destination } = result;
 
     // dropped outside the list
     if (!destination) return;
 
+    if (source.droppableId === NODE_ZONE && source.droppableId === destination.droppableId) this.reorder(source.index, destination.index);
+    else this.move(source, destination);
+  };
 
-    if (source.droppableId === 'droppable2' && source.droppableId === destination.droppableId) reorder([], source.index, destination.index);
-    else move([], [], source, destination);
+  reorder = (startIndex, endIndex) => {
+    const result = Array.from(this.props.components);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    result.forEach((component, index) => {
+      if (component.order !== index) updateComponentOrder(component._id, index);
+    });
+  };
+
+  move = (droppableSource, droppableDestination) => {
+    const { node, components } = this.props;
+    const sourceClone = Array.from(componentList);
+    const destClone = Array.from(components);
+    const item = sourceClone[droppableSource.index];
+
+    destClone.splice(droppableDestination.index, 0, item);
+
+    switch (item.type) {
+      case TEXT:
+        addTextComponent(node._id, droppableDestination.index);
+        destClone.forEach((component, index) => {
+          if (component._id && component.order !== index) updateComponentOrder(component._id, index);
+        });
+        break;
+      default:
+        break;
+    }
   };
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
-    const { items, selected } = this.state;
-
-
+    const { components } = this.props;
+    components.sort((a, b) => a.order - b.order);
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Page>
           <Grid container spacing={16}>
             <Grid item xs>
-              <Droppable droppableId="droppable">
+              <Droppable droppableId={COMPONENT_ZONE}>
                 {(dropProvided, dropSnapshot) => (
                   <div
                     ref={dropProvided.innerRef}
                     style={getListStyle(dropSnapshot.isDraggingOver)}
                   >
-                    {items.map((item, index) => (
+                    {componentList.map((item, index) => (
                       <Draggable key={item.id} draggableId={item.id} index={index}>
                         {(provided, snapshot) => (
                           <div
@@ -104,7 +116,7 @@ class NodeUI extends Component {
                               provided.draggableProps.style,
                             )}
                           >
-                            {item.content}
+                            <Component component={item} />
                           </div>
                         )}
                       </Draggable>
@@ -115,14 +127,14 @@ class NodeUI extends Component {
               </Droppable>
             </Grid>
             <Grid item xs={6}>
-              <Droppable droppableId="droppable2">
+              <Droppable droppableId={NODE_ZONE}>
                 {(dropProvided, dropSnapshot) => (
                   <div
                     ref={dropProvided.innerRef}
                     style={getListStyle(dropSnapshot.isDraggingOver)}
                   >
-                    {selected.map((item, index) => (
-                      <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {components.map((item, index) => (
+                      <Draggable key={item._id} draggableId={item._id} index={index}>
                         {(provided, snapshot) => (
                           <div
                             ref={provided.innerRef}
@@ -133,7 +145,7 @@ class NodeUI extends Component {
                               provided.draggableProps.style,
                             )}
                           >
-                            {item.content}
+                            <Component component={item} />
                           </div>
                         )}
                       </Draggable>
@@ -158,7 +170,7 @@ NodeUI.propTypes = {
 
 NodeUI.defaultProps = {
   node: null,
-  components: null,
+  components: [],
 };
 
 const mapTrackerToProps = () => {
