@@ -8,8 +8,8 @@ import { Nodes } from '../../../both/api/nodes/nodes';
 import { Page } from './Page';
 
 const componentList = [
-  'Story',
-  'Set Variable',
+  { id: 0, content: 'Story' },
+  { id: 1, content: 'Set Variable' },
 ];
 
 // a little function to help us with reordering the result
@@ -25,6 +25,7 @@ const reorder = (list, startIndex, endIndex) => {
  * Moves an item from one list to another list.
  */
 const move = (source, destination, droppableSource, droppableDestination) => {
+
   // const sourceClone = Array.from(source);
   // const destClone = Array.from(destination);
   // // const [removed] = sourceClone.splice(droppableSource.index, 1);
@@ -61,7 +62,7 @@ const getListStyle = (isDraggingOver) => ({
 
 
 class NodeUI extends Component {
-  state = { items: [], selected: [] };
+  state = { items: componentList, selected: [] };
 
   onDragEnd = (result) => {
     const { source, destination } = result;
@@ -70,11 +71,8 @@ class NodeUI extends Component {
     if (!destination) return;
 
 
-    if (source.droppableId === destination.droppableId) {
-      // reorder
-    } else {
-      // move
-    }
+    if (source.droppableId === 'droppable2' && source.droppableId === destination.droppableId) reorder([], source.index, destination.index);
+    else move([], [], source, destination);
   };
 
   // Normally you would want to split things out into separate components.
@@ -95,11 +93,7 @@ class NodeUI extends Component {
                     style={getListStyle(dropSnapshot.isDraggingOver)}
                   >
                     {items.map((item, index) => (
-                      <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}
-                      >
+                      <Draggable key={item.id} draggableId={item.id} index={index}>
                         {(provided, snapshot) => (
                           <div
                             ref={provided.innerRef}
@@ -128,11 +122,7 @@ class NodeUI extends Component {
                     style={getListStyle(dropSnapshot.isDraggingOver)}
                   >
                     {selected.map((item, index) => (
-                      <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}
-                      >
+                      <Draggable key={item.id} draggableId={item.id} index={index}>
                         {(provided, snapshot) => (
                           <div
                             ref={provided.innerRef}
