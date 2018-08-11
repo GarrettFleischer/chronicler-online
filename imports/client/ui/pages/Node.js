@@ -9,13 +9,22 @@ import { Page } from './Page';
 import { Component } from '../Component';
 import { addTextComponent, TEXT, updateComponentOrder } from '../../../both/api/components/components';
 
+
 const COMPONENT_ZONE = 'COMPONENT_ZONE';
 const NODE_ZONE = 'NODE_ZONE';
 
 
 const componentList = [
-  { id: 0, type: TEXT, data: { text: 'Story' } },
-  { id: 1, type: TEXT, data: { text: 'Set Variable' } }, // TODO change type to SET
+  {
+    id: 0,
+    type: TEXT,
+    data: { text: 'Story' },
+  },
+  {
+    id: 1,
+    type: TEXT,
+    data: { text: 'Set Variable' },
+  }, // TODO change type to SET
 ];
 
 // a little function to help us with reordering the result
@@ -35,14 +44,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  background: isDragging ? 'lightgreen' : undefined,
 
   // styles we need to apply on draggables
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: isDraggingOver ? 'lightblue' : undefined,
   padding: grid,
   width: '95%',
 });
@@ -116,7 +125,7 @@ class NodeUI extends ReactComponent {
                               provided.draggableProps.style,
                             )}
                           >
-                            <Component component={item} />
+                            {item.type}
                           </div>
                         )}
                       </Draggable>
@@ -139,13 +148,24 @@ class NodeUI extends ReactComponent {
                           <div
                             ref={provided.innerRef}
                             {...provided.draggableProps}
-                            {...provided.dragHandleProps}
                             style={getItemStyle(
                               snapshot.isDragging,
                               provided.draggableProps.style,
                             )}
                           >
-                            <Component component={item} />
+                            <Grid container spacing={16} alignItems="center">
+                              <Grid item>
+                                <div {...provided.dragHandleProps}>
+                                  D
+                                </div>
+                              </Grid>
+                              <Grid item xs>
+                                <Component component={item} onChange={() => {}} />
+                              </Grid>
+                              <Grid item>
+                                R
+                              </Grid>
+                            </Grid>
                           </div>
                         )}
                       </Draggable>
@@ -162,6 +182,7 @@ class NodeUI extends ReactComponent {
     );
   }
 }
+
 
 NodeUI.propTypes = {
   node: PropTypes.object,

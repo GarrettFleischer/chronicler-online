@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { TEXT } from '../../both/api/components/components';
+import { Text } from './component/Text';
 
 const textComponent = (component) => (
   <div>
@@ -8,11 +9,10 @@ const textComponent = (component) => (
   </div>
 );
 
-export const Component = ({ component }) => {
-  console.log('component: ', component);
+export const Component = ({ component, onChange }) => {
   switch (component.type) {
     case TEXT:
-      return textComponent(component);
+      return <Text component={component} onChange={onChange} />;
     default:
       return null;
   }
