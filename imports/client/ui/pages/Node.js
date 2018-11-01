@@ -44,14 +44,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : undefined,
+  background: isDragging ? 'lightgreen' : 'grey',
 
   // styles we need to apply on draggables
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : undefined,
+  background: isDraggingOver ? 'lightblue' : 'grey',
   padding: grid,
   width: '95%',
 });
@@ -64,8 +64,11 @@ class NodeUI extends ReactComponent {
     // dropped outside the list
     if (!destination) return;
 
-    if (source.droppableId === NODE_ZONE && source.droppableId === destination.droppableId) this.reorder(source.index, destination.index);
-    else this.move(source, destination);
+    if (source.droppableId === NODE_ZONE && source.droppableId === destination.droppableId) {
+      this.reorder(source.index, destination.index);
+    } else {
+      this.move(source, destination);
+    }
   };
 
   reorder = (startIndex, endIndex) => {
@@ -160,7 +163,11 @@ class NodeUI extends ReactComponent {
                                 </div>
                               </Grid>
                               <Grid item xs>
-                                <Component component={item} onChange={() => {}} />
+                                <Component
+                                  component={item}
+                                  onChange={() => {
+                                  }}
+                                />
                               </Grid>
                               <Grid item>
                                 R

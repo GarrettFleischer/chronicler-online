@@ -9,3 +9,6 @@ import './nodes/methods';
 
 import './components/components';
 import './components/methods';
+
+import './users/users';
+import './users/methods';

@@ -8,7 +8,7 @@ Projects.helpers({
     return Scenes.find({ projectId: this._id }).fetch();
   },
   // startScene() {
-  //   return Scenes.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();
+  //   return Users.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();
   // },
 });
 
@@ -26,7 +26,12 @@ Meteor.methods({
   },
 
   [UPDATE](id, { name, author }) {
-    return Projects.update({ _id: id }, { $set: { name, author } });
+    return Projects.update({ _id: id }, {
+      $set: {
+        name,
+        author,
+      },
+    });
   },
 
   [REMOVE](id) {
@@ -36,7 +41,7 @@ Meteor.methods({
   },
 });
 
-// Projects.after.insert((userId) => Scenes.insert({
+// Projects.after.insert((userId) => Users.insert({
 //   owner: userId,
 //   projectId: IdToStr(this._id),
 //   name: 'startup',

@@ -8,10 +8,11 @@ import { mount } from 'react-mounter';
 import { AppLayout } from '../ui/pages/AppLayout';
 import { Dashboard } from '../ui/pages/Dashboard';
 import { Homepage } from '../ui/pages/Homepage';
-import { Auth } from '../ui/pages/Auth';
+import { Auth } from '../ui/pages/Auth/Auth';
 import { Project } from '../ui/pages/Project';
 import { Scene } from '../ui/pages/Scene';
 import { Node } from '../ui/pages/Node';
+
 
 const keyRedirectAfterLogin = 'redirectAfterLogin';
 
@@ -20,8 +21,9 @@ Accounts.onLogin(() => {
   const { route } = FlowRouter.current();
   Session.set(keyRedirectAfterLogin, undefined);
 
-  if (path) FlowRouter.go(path);
-  else if (route.name === 'login') FlowRouter.go('dashboard');
+  if (path) {
+    FlowRouter.go(path);
+  } else if (route.name === 'login') FlowRouter.go('dashboard');
 });
 
 Accounts.onLogout(() => {
@@ -50,13 +52,13 @@ exposed.route('/', {
 exposed.route('/login', {
   name: 'login',
   action() {
-    mount(AppLayout, { content: <Auth state="signIn" /> });
+    mount(AppLayout, { content: <Auth login /> });
   },
 });
 exposed.route('/register', {
   name: 'register',
   action() {
-    mount(AppLayout, { content: <Auth state="signUp" /> });
+    mount(AppLayout, { content: <Auth register /> });
   },
 });
 exposed.route('/forgot-password', {

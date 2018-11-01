@@ -4,66 +4,102 @@
     <option name="ANALYZE_TEST_SOURCES" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/imports/client/ui/component/Text.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+    <list default="true" id="51a33fb9-944a-4e70-bdea-94eed973124f" name="Default" comment="Added logic for inserting and reordering components.">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Garrett.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/both/api/users/methods.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/both/api/users/users.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/client/ui/component/ActionSet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/client/ui/pages/Auth/Auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/client/ui/pages/Auth/Login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/imports/client/ui/pages/Auth/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/chronicler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/chronicler.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/both/api/components/components.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/both/api/components/components.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/both/api/customTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/both/api/customTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/both/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/both/api/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/both/api/projects/methods.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/both/api/projects/methods.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/both/api/projects/projects.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/both/api/projects/projects.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/both/api/scenes/scenes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/both/api/scenes/scenes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/client/startup/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/startup/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/client/ui/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/pages/AppLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imports/client/ui/Component.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/Component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/client/ui/component/Text.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/component/Text.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/client/ui/pages/Auth.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imports/client/ui/pages/Node.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/pages/Node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/client/ui/pages/Page.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/pages/Page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imports/client/ui/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/imports/client/ui/theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1458933075">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts">
+        <counts>
+          <entry key="ESLintLanguageService" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="js" value="32" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JavaScript" value="32" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="js" value="1493" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JavaScript" value="1493" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Auth.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="Dashboard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name=".babelrc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.babelrc">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="217">
+              <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+              <folding>
+                <element signature="e#0#59#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppLayout.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/AppLayout.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth/Auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Homepage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Homepage.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="Text.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/component/Text.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="374">
+              <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -71,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="theme.js" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/ui/theme.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+            <state relative-caret-position="357">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -83,16 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DelayedButton.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/DelayedButton.js">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="Component.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/imports/client/ui/Component.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+            <state relative-caret-position="442">
+              <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -100,11 +131,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Node.js" pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Node.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-527">
-              <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+            <state relative-caret-position="-1795">
+              <caret line="61" column="43" lean-forward="true" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth/Register.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Page.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/PaperPage.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Project.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Scene.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,6 +216,10 @@
       <find>./both/api</find>
       <find>'droppable'</find>
       <find>content</find>
+      <find>Text</find>
+      <find>AuthUI</find>
+      <find>padding</find>
+      <find>width</find>
     </findStrings>
     <replaceStrings>
       <replace>projects</replace>
@@ -155,6 +235,10 @@
       <replace>DelayedButton</replace>
       <replace>NODE_ZONE</replace>
       <replace>data</replace>
+      <replace>ActionSet</replace>
+      <replace>LoginUI</replace>
+      <replace>width</replace>
+      <replace>wrapper</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -163,19 +247,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/main.html" />
-        <option value="$PROJECT_DIR$/imports/ui/client/Header.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/AppLayout.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/components/app/index.js" />
-        <option value="$PROJECT_DIR$/.eslintrc" />
-        <option value="$PROJECT_DIR$/imports/data/uiStore.js" />
-        <option value="$PROJECT_DIR$/imports/data/Client/uiStore.js" />
-        <option value="$PROJECT_DIR$/imports/data/Client/dndStore.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/pages/Scene.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/pages/Homepage.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/components/app/Header.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/components/flowchart/Flowchart.js" />
-        <option value="$PROJECT_DIR$/imports/ui/client/components/app/AppLayout.js" />
         <option value="$PROJECT_DIR$/client/main.css" />
         <option value="$PROJECT_DIR$/imports/ui/client/components/ClickableCardGrid.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Dashboard.js" />
@@ -197,7 +268,6 @@
         <option value="$PROJECT_DIR$/imports/startup/both/ui/Input.js" />
         <option value="$PROJECT_DIR$/imports/startup/both/accountsConfig.js" />
         <option value="$PROJECT_DIR$/imports/ui/client/pages/Node.js" />
-        <option value="$PROJECT_DIR$/imports/both/api/index.js" />
         <option value="$PROJECT_DIR$/imports/server/api/index.js" />
         <option value="$PROJECT_DIR$/imports/client/api/index.js" />
         <option value="$PROJECT_DIR$/imports/both/startup/accountsConfig.js" />
@@ -212,8 +282,22 @@
         <option value="$PROJECT_DIR$/imports/client/ui/pages/AppLayout.js" />
         <option value="$PROJECT_DIR$/imports/client/ui/Component.js" />
         <option value="$PROJECT_DIR$/imports/client/ui/component/Text.js" />
-        <option value="$PROJECT_DIR$/imports/client/ui/theme.js" />
+        <option value="$PROJECT_DIR$/.eslintrc" />
         <option value="$PROJECT_DIR$/imports/client/ui/pages/Node.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/component/ActionSet.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js" />
+        <option value="$PROJECT_DIR$/imports/both/api/projects/methods.js" />
+        <option value="$PROJECT_DIR$/imports/both/api/users/methods.js" />
+        <option value="$PROJECT_DIR$/imports/both/api/users/users.js" />
+        <option value="$PROJECT_DIR$/imports/both/api/index.js" />
+        <option value="$PROJECT_DIR$/imports/both/api/projects/projects.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/pages/Auth.js" />
+        <option value="$PROJECT_DIR$/imports/client/startup/routes.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/theme.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/pages/Page.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/pages/Auth/Auth.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/pages/Auth/Register.js" />
+        <option value="$PROJECT_DIR$/imports/client/ui/pages/Auth/Login.js" />
       </list>
     </option>
   </component>
@@ -237,9 +321,10 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="960" />
-    <option name="height" value="1040" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="width" value="1364" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -253,91 +338,122 @@
         <subPane>
           <expand>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="both" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="both" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="both" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="both" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
               <item name="nodes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="both" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="projects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="both" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="scenes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="both" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
+              <item name="imports" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="startup" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="component" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
+              <item name="chronicler-online" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chronicler-online" type="462c0819:PsiDirectoryNode" />
               <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chronicler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chronicler" type="462c0819:PsiDirectoryNode" />
-              <item name="imports" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="startup" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="Auth" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -349,18 +465,19 @@
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.meteor.library.cached" value="$PROJECT_DIR$/.meteor" />
     <property name="js.meteor.library.was.enabled" value="true" />
     <property name="js.meteor.project" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/.meteor/meteor.bat" />
+    <property name="last_opened_file_path" value="E:/Development/Meteor/chronicler-online" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.path.for.package.eslint" value="C:/Program Files (x86)/nodejs/node" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.jscs" value="project" />
-    <property name="node.js.path.for.package.standard" value="C:/Program Files (x86)/nodejs/node" />
-    <property name="node.js.selected.package.eslint" value="C:\Development\Meteor\chronicler\node_modules\eslint" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="E:\Development\Meteor\chronicler-online\node_modules\eslint" />
     <property name="node.js.selected.package.jscs" value="" />
-    <property name="node.js.selected.package.standard" value="C:\Development\Meteor\chronicler\node_modules\eslint" />
+    <property name="node.js.selected.package.standard" value="E:\Development\Meteor\chronicler-online\node_modules\eslint" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -368,17 +485,18 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Development\Meteor\chronicler-online\imports\client\ui\pages\Auth" />
       <recent name="C:\Development\Meteor\chronicler\imports\client\ui\pages" />
       <recent name="C:\Development\Meteor\chronicler\imports\both" />
       <recent name="C:\Development\Meteor\chronicler\imports\client\ui" />
       <recent name="C:\Development\Meteor\chronicler\imports\client\ui\flowchart" />
-      <recent name="C:\Development\Meteor\chronicler\imports\server\startup" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Development\Meteor\chronicler-online\imports\client\ui\pages\Auth" />
+      <recent name="C:\Development\Meteor\chronicler-online\imports\both\api\users" />
+      <recent name="C:\Development\Meteor\chronicler-online\imports\client\ui\component" />
       <recent name="C:\Development\Meteor\chronicler\imports\api\client" />
       <recent name="C:\Development\Meteor\chronicler\imports\api\scenes\server" />
-      <recent name="C:\Development\Meteor\chronicler\imports\api\projects\server" />
-      <recent name="C:\Development\Meteor\chronicler\imports\api\labels\server" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -404,6 +522,7 @@
           <browser url="http://localhost:3000" />
         </startBrowserSettings>
       </meteor-runner-state>
+      <method v="2" />
     </configuration>
   </component>
   <component name="SvnConfiguration">
@@ -446,6 +565,12 @@
       <workItem from="1533517742207" duration="599000" />
       <workItem from="1533570230993" duration="1204000" />
       <workItem from="1534009225040" duration="4493000" />
+      <workItem from="1539036191761" duration="1850000" />
+      <workItem from="1540670860720" duration="299000" />
+      <workItem from="1540763994186" duration="315000" />
+      <workItem from="1540766225816" duration="971000" />
+      <workItem from="1540767379995" duration="6283000" />
+      <workItem from="1540936340351" duration="7982000" />
     </task>
     <task id="LOCAL-00001" summary="Added eslint.&#10;Added simple user login.&#10;Added security for labels collection.">
       <created>1531725310594</created>
@@ -703,7 +828,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="255285000" />
+    <option name="totallyTimeSpent" value="272985000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -715,27 +840,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="0" width="1364" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18914647" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.36199096" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49960598" weight="0.329718" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4972419" visible="true" weight="0.17305586" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32934782" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32897604" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49960598" weight="0.33077765" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5027581" side_tool="true" weight="0.28416485" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32934782" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32934782" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -772,48 +897,7 @@
     <MESSAGE value="Added logic for inserting and reordering components." />
     <option name="LAST_COMMIT_MESSAGE" value="Added logic for inserting and reordering components." />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="7" />
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/AccountsUIWrapper.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/data/uiStore.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Scene.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/Header.js" />
-    <entry file="file://$PROJECT_DIR$/node_modules/dagre/dist/dagre.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="3879" selection-start-line="3879" selection-end-line="3879" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/@material-ui/core/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="104" column="31" selection-start-line="104" selection-start-column="31" selection-end-line="104" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Page.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/DelayedButtonGrid.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Project.js" />
-    <entry file="file://$PROJECT_DIR$/.meteor/local/build/programs/server/boot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="177" column="29" selection-start-line="177" selection-start-column="29" selection-end-line="177" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/startup/routes.js" />
     <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/accounts-base/1.4.2/web.browser/accounts_server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
@@ -821,18 +905,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/PaperPage.js" />
     <entry file="file://$PROJECT_DIR$/imports/startup/both/ui/Submit.js" />
     <entry file="file://$PROJECT_DIR$/imports/startup/both/ui/Input.js" />
-    <entry file="file://$PROJECT_DIR$/imports/both/api/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/api/index.js" />
-    <entry file="file://$PROJECT_DIR$/imports/client/api/index.js" />
     <entry file="file://$PROJECT_DIR$/server/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -848,13 +923,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/server/startup/index.js" />
-    <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/ecmascript/0.11.1/plugin.compile-ecmascript.os/npm/node_modules/meteor/babel-compiler/node_modules/@babel/traverse/lib/context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="143" column="18" selection-start-line="143" selection-start-column="18" selection-end-line="143" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/imports/both/logic/arrayUtils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -862,26 +930,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/startup/index.js" />
     <entry file="file://$PROJECT_DIR$/imports/client/data/dndStore.js" />
     <entry file="file://$PROJECT_DIR$/imports/both/api/scenes/methods.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/both/api/scenes/scenes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/both/api/projects/projects.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -891,23 +944,6 @@
           <caret line="1927" column="8" selection-start-line="1927" selection-start-column="8" selection-end-line="1927" selection-end-column="8" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="104" column="20" selection-start-line="104" selection-start-column="20" selection-end-line="104" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/both/api/nodes/nodes.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/both/api/components/methods.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -934,29 +970,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/Flowchart.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/ecmascript/0.11.1/plugin.compile-ecmascript.os/npm/node_modules/meteor/babel-compiler/node_modules/@babel/traverse/lib/visitors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.babelrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
@@ -967,18 +987,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/babel-plugin-transform-object-rest-spread/lib/index.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/babel-plugin-transform-object-rest-spread/lib/index.js" />
+    <entry file="file://$PROJECT_DIR$/.babelrc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="233" column="20" selection-start-line="233" selection-start-column="20" selection-end-line="233" selection-end-column="20" />
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/Component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.eslintignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/DelayedButton.js">
+    <entry file="file://$PROJECT_DIR$/.eslintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/component/Text.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/component/ActionSet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/api/subscriptions.js">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/customTypes.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/scenes/scenes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/users/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/users/methods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/projects/methods.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/both/api/projects/projects.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/AppLayout.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -987,23 +1106,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Homepage.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/Component.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/AccountsUIWrapper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        <state>
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/imports/client/ui/component/Text.js">
+    <entry file="file://$PROJECT_DIR$/imports/client/startup/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/startup/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="544">
+          <caret line="66" column="62" lean-forward="true" selection-start-line="66" selection-start-column="62" selection-end-line="66" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/ecmascript/0.11.1/plugin.compile-ecmascript.os/npm/node_modules/meteor/babel-compiler/node_modules/@babel/traverse/lib/context.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1349">
+          <caret line="131" column="24" lean-forward="true" selection-start-line="131" selection-start-column="24" selection-end-line="131" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Homepage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/PaperPage.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Project.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Scene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/accounts-password/1.5.1/web.browser/password_client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -1012,18 +1175,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/ui/theme.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        <state relative-caret-position="357">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Page.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-527">
-          <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+        <state relative-caret-position="-1795">
+          <caret line="61" column="43" lean-forward="true" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth/Auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth/Register.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/imports/client/ui/pages/Auth/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

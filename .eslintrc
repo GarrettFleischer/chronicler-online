@@ -1,5 +1,5 @@
 {
-    "parser": "babel-eslint",
+  "parser": "babel-eslint",
   "extends": [
     "airbnb",
     "plugin:destructuring/recommended"
@@ -53,8 +53,8 @@
       }
     ],
     "curly": [
-      "error",
-      "multi-or-nest"
+      "error"
+      //      "multi-or-nest"
     ],
     "arrow-parens": [
       "error",

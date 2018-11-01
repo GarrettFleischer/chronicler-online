@@ -18,7 +18,6 @@ const styles = {
   },
 };
 
-
 const HeaderUI = ({ classes }) => (
   <div className={classes.root}>
     <AppBar position="static">
@@ -27,7 +26,7 @@ const HeaderUI = ({ classes }) => (
           <MenuIcon />
         </IconButton>
         <Typography variant="title" color="inherit" className={classes.flex}>
-            Chronicler
+          Chronicler
         </Typography>
         <AccountsUIWrapper />
       </Toolbar>
