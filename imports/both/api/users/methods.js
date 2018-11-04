@@ -1,10 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { UPDATE } from './users';
+import { Accounts } from 'meteor/accounts-base';
+import { UPDATE_USERNAME } from './users';
 
 
 Meteor.methods({
-  [UPDATE](id, { name }) {
-    if (!this.userId) throw new Meteor.Error('not-authorized');
-    return Meteor.users.update({ _id: id }, { $set: { profile: { $set: { name } } } });
+  [UPDATE_USERNAME](id, { name }) {
+    Accounts.setUsername(id, name);
   },
 });

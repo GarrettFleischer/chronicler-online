@@ -8,7 +8,7 @@ Projects.helpers({
     return Scenes.find({ projectId: this._id }).fetch();
   },
   // startScene() {
-  //   return Users.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();
+  //   return users.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();
   // },
 });
 
@@ -41,7 +41,7 @@ Meteor.methods({
   },
 });
 
-// Projects.after.insert((userId) => Users.insert({
+// Projects.after.insert((userId) => users.insert({
 //   owner: userId,
 //   projectId: IdToStr(this._id),
 //   name: 'startup',

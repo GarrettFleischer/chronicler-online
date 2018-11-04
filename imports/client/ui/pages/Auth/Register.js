@@ -1,47 +1,99 @@
-import React from 'react';
-import { Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
-import { Face, Fingerprint } from '@material-ui/icons';
+import React, { Component as ReactComponent } from 'react';
+import { Button, IconButton, TextField, InputAdornment } from '@material-ui/core';
+import { Accounts } from 'meteor/accounts-base';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
+import MaterialUIForm from 'material-ui-form';
+import PropTypes from 'prop-types';
 
 
-export const Register = () => (
-  <React.Fragment>
-    <Grid container spacing={8} alignItems="flex-end">
-      <Grid item>
-        <Face />
-      </Grid>
-      <Grid item md sm xs>
-        <TextField id="username" label="Username" type="email" fullWidth autoFocus required />
-      </Grid>
-    </Grid>
-    <Grid container spacing={8} alignItems="flex-end">
-      <Grid item>
-        <Fingerprint style={{ color: 'white' }} />
-      </Grid>
-      <Grid item md sm xs>
-        <TextField id="username" label="Password" type="password" fullWidth required />
-      </Grid>
-    </Grid>
-    <Grid container alignItems="center" justify="space-between">
-      <Grid item>
-        <FormControlLabel
-          control={(
-            <Checkbox
-              color="primary"
-            />
-          )}
-          label="Remember me"
+const styles = (theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  margin: { margin: theme.spacing.unit },
+});
+
+
+class RegisterUI extends ReactComponent {
+  state = { showPassword: false };
+
+  toggleShowPassword = () => {
+    const { showPassword } = this.state;
+    this.setState({ showPassword: !showPassword });
+  };
+
+  submit = (values) => {
+    Accounts.createUser(values);
+  };
+
+
+  render() {
+    const { showPassword } = this.state;
+    const { classes } = this.props;
+
+    return (
+      <MaterialUIForm className={classes.root} onSubmit={this.submit}>
+        <TextField
+          className={classes.margin}
+          type="text"
+          autoComplete="username"
+          autoFocus
+          label="Username"
+          name="username"
+          value=""
+          data-validators="isAlphanumeric"
+          fullWidth
+          required
         />
-      </Grid>
-      <Grid item>
-        <Button disableFocusRipple disableRipple style={{ textTransform: 'none' }} variant="text" color="primary">
-          Forgot password ?
+        <TextField
+          className={classes.margin}
+          type="text"
+          autoComplete="email"
+          label="Email"
+          name="email"
+          value=""
+          data-validators="isEmail"
+          fullWidth
+          required
+        />
+        <TextField
+          className={classes.margin}
+          type={showPassword ? 'text' : 'password'}
+          autoComplete="current-password"
+          label="Password"
+          name="password"
+          value=""
+          data-validators={[{
+            isLength: {
+              min: 8,
+              max: 25,
+            },
+          }]}
+          fullWidth
+          required
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={this.toggleShowPassword}>
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Button className={classes.margin} type="submit" variant="outlined">
+          Register
         </Button>
-      </Grid>
-    </Grid>
-    <Grid container justify="center" style={{ marginTop: '10px' }}>
-      <Button variant="outlined" color="primary" style={{ textTransform: 'none' }}>
-        Login
-      </Button>
-    </Grid>
-  </React.Fragment>
-);
+      </MaterialUIForm>
+    );
+  }
+}
+
+
+RegisterUI.propTypes = { classes: PropTypes.object.isRequired };
+
+export const Register = withStyles(styles)(RegisterUI);

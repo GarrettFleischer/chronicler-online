@@ -36,7 +36,7 @@ const auth = FlowRouter.group({
   triggersEnter: [() => {
     if (!(Meteor.loggingIn() || Meteor.userId())) {
       const route = FlowRouter.current();
-      if (route.route.name !== 'login') Session.set(keyRedirectAfterLogin, route.path);
+      if (route.route.name !== 'login' || route.route.name !== 'register') Session.set(keyRedirectAfterLogin, route.path);
       FlowRouter.go('login');
     }
   }],

@@ -1609,7 +1609,7 @@ need to view your updated production deployment, performing a shift-refresh
 will temporarily disable the service worker and retrieve all assets from the
 network.
 
-1. Users aren't always familiar with offline-first web apps. It can be useful to
+1. users aren't always familiar with offline-first web apps. It can be useful to
 [let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption)
 when the service worker has finished populating your caches (showing a "This web
 app works offline!" message) and also let them know when the service worker has
@@ -1760,7 +1760,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+It will get copied to the `build` folder when you run `npm run build`.
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
