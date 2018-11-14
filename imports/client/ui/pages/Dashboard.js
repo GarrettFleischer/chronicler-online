@@ -10,17 +10,21 @@ import { PaperPage } from './PaperPage';
 
 
 const DashboardUI = ({ user, projects }) => {
-  console.log('user: ', JSON.stringify(user));
   const items = projects.map((project) => ({
     id: project._id,
     text: project.name,
     onClick: () => FlowRouter.go(`/project/${project._id}`),
   }));
+
+  const createProject = () => {
+    addProject(`Project ${projects.length + 1}`, user.username || 'Anonymous');
+  };
+
   return (
     <PaperPage>
       <div style={{ margin: 16 }}>
         {user && (
-          <Button variant="contained" color="secondary" onClick={() => addProject(`Project ${projects.length + 1}`, user.profile.name || 'Anonymous')}>
+          <Button variant="contained" color="secondary" onClick={createProject}>
             Create Project
           </Button>
         )}

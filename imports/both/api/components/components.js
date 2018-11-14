@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import Schema from 'simpl-schema';
 import { Id } from '../customTypes';
 
+
 export const TEXT = 'TEXT';
 export const SET = 'SET';
 
@@ -11,12 +12,33 @@ export const UPDATE = 'components.update';
 export const REMOVE = 'components.remove';
 
 const addComponent = (type, nodeId, order, data) => Meteor.call(INSERT, type, nodeId, order, data);
-export const addTextComponent = (nodeId, order) => addComponent(TEXT, nodeId, order, { text: 'hello' });// Meteor.call(INSERT, TEXT, nodeId, order, { text: '' });
+export const addTextComponent = (nodeId, order) => addComponent(TEXT, nodeId, order, {});
+export const addSetActionComponent = (nodeId, order) => addComponent(SET, nodeId, order, {});
 export const updateComponentOrder = (id, order) => Meteor.call(UPDATE, id, { order });
-export const UpdateComponentData = (id, data) => Meteor.call(UPDATE, id, { data });
-export const RemoveComponent = (id) => Meteor.call(REMOVE, id);
+export const updateComponentData = (id, data) => Meteor.call(UPDATE, id, { data });
+export const removeComponent = (id) => Meteor.call(REMOVE, id);
 
-const dataSchema = new Schema({ text: { type: String, optional: true } });
+const dataSchema = new Schema({
+  // Text
+  text: {
+    type: String,
+    optional: true,
+  },
+
+  // Set Action
+  variableId: {
+    type: String,
+    optional: true,
+  },
+  value: {
+    type: String,
+    optional: true,
+  },
+  valueIsVariable: {
+    type: Boolean,
+    optional: true,
+  },
+});
 
 export const ComponentSchema = new Schema({
   owner: Id,

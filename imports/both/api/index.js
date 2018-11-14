@@ -12,3 +12,6 @@ import './components/methods';
 
 import './users/users';
 import './users/methods';
+
+import './variables/variables';
+import './variables/methods';

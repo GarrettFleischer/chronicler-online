@@ -6,8 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Nodes } from '../../../both/api/nodes/nodes';
 import { Page } from './Page';
-import { Component } from '../Component';
-import { addTextComponent, TEXT, updateComponentOrder } from '../../../both/api/components/components';
+import { Component } from '../component/Component';
+import { addSetActionComponent, addTextComponent, SET, TEXT, updateComponentOrder } from '../../../both/api/components/components';
 
 
 const COMPONENT_ZONE = 'COMPONENT_ZONE';
@@ -22,9 +22,13 @@ const componentList = [
   },
   {
     id: 1,
-    type: TEXT,
-    data: { text: 'Set Variable' },
-  }, // TODO change type to SET
+    type: SET,
+    data: {
+      varId: null,
+      isValueVar: false,
+      value: '',
+    },
+  },
 ];
 
 // a little function to help us with reordering the result
@@ -91,13 +95,18 @@ class NodeUI extends ReactComponent {
     switch (item.type) {
       case TEXT:
         addTextComponent(node._id, droppableDestination.index);
-        destClone.forEach((component, index) => {
-          if (component._id && component.order !== index) updateComponentOrder(component._id, index);
-        });
+        break;
+      case SET:
+        addSetActionComponent(node._id, droppableDestination.index);
         break;
       default:
         break;
     }
+
+
+    destClone.forEach((component, index) => {
+      if (component._id && component.order !== index) updateComponentOrder(component._id, index);
+    });
   };
 
   // Normally you would want to split things out into separate components.
@@ -163,11 +172,7 @@ class NodeUI extends ReactComponent {
                                 </div>
                               </Grid>
                               <Grid item xs>
-                                <Component
-                                  component={item}
-                                  onChange={() => {
-                                  }}
-                                />
+                                <Component component={item} />
                               </Grid>
                               <Grid item>
                                 R
