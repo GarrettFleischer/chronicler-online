@@ -8,7 +8,7 @@ export const INSERT = 'variables.insert';
 export const UPDATE = 'variables.update';
 export const REMOVE = 'variables.remove';
 
-export const addVariable = (sceneId, name, value) => Meteor.call(INSERT, sceneId, name, value);
+export const addVariable = (projectId, sceneId, name, value) => Meteor.call(INSERT, projectId, sceneId, name, value);
 export const updateVariableSceneId = (id, sceneId) => Meteor.call(UPDATE, id, { sceneId });
 export const updateVariableName = (id, name) => Meteor.call(UPDATE, id, { name });
 export const updateVariableValue = (id, value) => Meteor.call(UPDATE, id, { value });
@@ -16,6 +16,7 @@ export const removeVariable = (id) => Meteor.call(REMOVE, id);
 
 export const VariableSchema = new Schema({
   owner: Id,
+  projectId: Id,
   createdOn: Date,
   sceneId: {
     type: Id,

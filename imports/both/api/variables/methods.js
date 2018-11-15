@@ -1,21 +1,22 @@
 import { Meteor } from 'meteor/meteor';
-import { Nodes } from '../nodes/nodes';
+import { Projects } from '../projects/projects';
 import { Variables, INSERT, REMOVE, UPDATE } from './variables';
 
 
 Variables.helpers({
-  node() {
-    return Nodes.findOne({ _id: this.nodeId });
+  project() {
+    return Projects.findOne({ _id: this.projectId });
   },
 });
 
 
 Meteor.methods({
-  [INSERT](sceneId, name, value) {
+  [INSERT](projectId, sceneId, name, value) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
     return Variables.insert({
       owner: this.userId,
       createdOn: Date.now(),
+      projectId,
       sceneId,
       name,
       value,
