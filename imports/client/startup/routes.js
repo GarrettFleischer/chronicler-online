@@ -9,7 +9,7 @@ import { AppLayout } from '../ui/pages/AppLayout';
 import { Dashboard } from '../ui/pages/Dashboard';
 import { Homepage } from '../ui/pages/Homepage';
 import { Auth } from '../ui/pages/Auth/Auth';
-import { Project } from '../ui/pages/Project';
+import { Project } from '../ui/pages/Project/Project';
 import { Scene } from '../ui/pages/Scene';
 import { Node } from '../ui/pages/Node';
 

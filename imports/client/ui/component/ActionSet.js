@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TextField, Select, Input, MenuItem, FormControlLabel, Checkbox, withStyles } from '@material-ui/core';
+import { TextField, Select, MenuItem, FormControlLabel, Checkbox, withStyles } from '@material-ui/core';
 import { withTracker } from 'meteor/react-meteor-data';
 import { updateComponentData } from '../../../both/api/components/components';
 import { Variables } from '../../../both/api/variables/variables';

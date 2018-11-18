@@ -11,9 +11,6 @@ Projects.helpers({
   variables() {
     return Variables.find({ projectId: this._id }).fetch();
   },
-  // startScene() {
-  //   return users.find({ projectId: IdToStr(this._id) }).sort({ createdOn: 1 }).limit(1).fetch();
-  // },
 });
 
 
@@ -51,4 +48,7 @@ Meteor.methods({
 //   name: 'startup',
 // }));
 
-Projects.before.remove((userId, doc) => Scenes.remove({ projectId: doc._id }));
+Projects.before.remove((userId, doc) => {
+  Scenes.remove({ projectId: doc._id });
+  Variables.remove({ projectId: doc._id });
+});
