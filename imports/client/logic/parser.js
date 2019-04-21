@@ -152,6 +152,6 @@ export function endingIn(parser, endParser) {
     }
     const endResult = endParser(result);
     if (!temp.success && !endResult.success) return temp;
-    return { ...endResult, object: { end: endResult.object, objects } };
+    return { ...endResult, object: [...objects, endResult] };
   };
 }

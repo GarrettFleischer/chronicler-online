@@ -48,6 +48,7 @@ export const SOUND = 'SOUND';
 export const STAT_CHART = 'STAT_CHART';
 export const TEMP = 'TEMP';
 export const TITLE = 'TITLE';
+export const SCENE = 'SCENE';
 
 
 export const makeLine = (type, number, raw, indent, text) => ({ type, number, raw, indent, text });
@@ -75,7 +76,8 @@ export function tokenize(cs) {
     const leadingWS = raw.match(/^\s*/).toString().match(/\s/g);
     let indent = leadingWS ? leadingWS.length : 0;
     const text = raw.replace(/^\s+/, '');
-    if (text.length === 0) indent = lastLine.indent;
+    // eslint-disable-next-line prefer-destructuring
+    if (text.length === 0 && lastLine) indent = lastLine.indent;
 
     let type = TEXT;
     let parsed = text;

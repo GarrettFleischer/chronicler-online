@@ -1,7 +1,7 @@
 import { generate as getID } from 'shortid';
 
 import { anyNumberOf, atLeastOne, choose, dedent, endingIn, indent, inOrder, makeParseResult, match, maybe, optional, sameDent, test } from './parser';
-import { ACHIEVE,
+import { ACHIEVE, AUTHOR,
   BUG,
   CHECK_ACHIEVEMENTS, CHOICE, CHOICE_ITEM, COMMENT,
   DISABLE_REUSE,
@@ -13,14 +13,18 @@ import { ACHIEVE,
   LABEL, LINE_BREAK, LINK,
   MORE_GAMES,
   PRINT,
-  RAND,
+  RAND, SCENE,
   SCENE_LIST, SCRIPT, SELECTABLE_IF, SET, SET_REF, SHARE, SHOW_PASSWORD, SOUND,
-  TEXT,
+  TEXT, TITLE,
   tokenize } from './tokenizer';
 
 
 export const NODE = 'NODE';
 
+const makeScene = (title, author, sceneList, startNode) => ({ type: SCENE, id: getID(), title, author, sceneList, startNode });
+const makeTitle = (text) => ({ type: TITLE, id: getID(), text });
+const makeAuthor = (text) => ({ type: AUTHOR, id: getID(), text });
+const makeSceneList = (scenes) => ({ type: SCENE_LIST, id: getID(), scenes });
 const makeText = (text) => ({ type: TEXT, id: getID(), text });
 const makeAction = (line) => ({ type: line.type, id: getID(), text: line.text });
 const makeLink = (line) => ({ type: line.type, text: line.text });
@@ -34,22 +38,56 @@ const makeElse = (block) => ({ type: ELSE, id: getID(), block });
 
 export function parse(cs) {
   const tokens = tokenize(cs);
-  const result = endingIn(Node, match(EOF))(makeParseResult(tokens));
+  const result = Scene(makeParseResult(tokens));
   if (!result.success) return { ...result, object: `line: ${result.error.line + 1} - expected ${result.error.expected}, but found ${result.error.found}` };
-
 
   return { ...result, object: result.object.objects };
 }
 
+function Scene(parseResult) {
+  const result = endingIn(inOrder(anyNumberOf(Title, Author, SceneList), Node), match(EOF))(parseResult);
+  if (!result.success) return result;
+
+  const header = result.object.objects[0];
+  const title = header.find((i) => i.type === TITLE, null);
+  const author = header.find((i) => i.type === AUTHOR, null);
+  const sceneList = header.find((i) => i.type === SCENE_LIST, null);
+
+  return { ...result, object: makeScene(title, author, sceneList, result.object[1]) };
+}
+
+function Title(parseResult) {
+  const result = sameDent(match(TITLE))(parseResult);
+  if (!result.success) return result;
+  return { ...result, object: makeTitle(result.object[0]) };
+}
+
+function Author(parseResult) {
+  const result = sameDent(match(AUTHOR))(parseResult);
+  if (!result.success) return result;
+  return { ...result, object: makeAuthor(result.object[0]) };
+}
+
+function SceneList(parseResult) {
+  const result = sameDent(inOrder(match(SCENE_LIST), Block(SceneNames)))(parseResult);
+  if (!result.success) return result;
+  return { ...result, object: makeSceneList(result.object[1]) };
+}
+
+function SceneNames(parseResult) {
+  const result = sameDent(atLeastOne(match(TEXT)))(parseResult);
+  if (!result.success) return result;
+  return { ...result, object: makeText(result.object[0]) };
+}
+
 
 function Node(parseResult) {
-  const result = sameDent(inOrder(optional(match(LABEL)), anyNumberOf(Text, Action), Link))(parseResult);
+  const result = sameDent(inOrder(optional(choose(match(LABEL), Link)), anyNumberOf(Text, Action), Link))(parseResult);
   if (!result.success) return result;
 
   const label = result.object[0] === null ? '' : result.object[0].text;
   return { ...result, object: makeNode(label, result.object[1], result.object[2]) };
 }
-
 
 function Text(parseResult) {
   const result = atLeastOne(sameDent(match(TEXT)))(parseResult);

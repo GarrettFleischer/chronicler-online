@@ -41,6 +41,21 @@ const ActionSetUI = ({ classes, component, variables }) => {
           </MenuItem>
         ))}
       </Select>
+      {component.data.valueIsVariable
+      && (
+        <Select
+          value={component.data.value || ''}
+          onChange={updateValue}
+          displayEmpty
+          className={classes.item}
+        >
+          {variables.map((v) => (
+            <MenuItem value={v._id}>
+              {v.name}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
       {!component.data.valueIsVariable
       && (
         <TextField

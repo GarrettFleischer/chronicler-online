@@ -1,6 +1,8 @@
+import { DragHandle } from '@material-ui/icons';
 import React, { Component as ReactComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { withTracker } from 'meteor/react-meteor-data';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -168,7 +170,7 @@ class NodeUI extends ReactComponent {
                             <Grid container spacing={16} alignItems="center">
                               <Grid item>
                                 <div {...provided.dragHandleProps}>
-                                  D
+                                  <DragHandle />
                                 </div>
                               </Grid>
                               <Grid item xs>

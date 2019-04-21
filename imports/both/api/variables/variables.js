@@ -23,7 +23,8 @@ export const VariableSchema = new Schema({
   sceneId: String,
   name: { type: String, defaultValue: '' },
   value: { type: String, defaultValue: '' },
-});
+},
+{ clean: { removeEmptyStrings: false } });
 
 
 export const Variables = new Mongo.Collection('variables');

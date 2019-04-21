@@ -25,7 +25,9 @@ Meteor.methods({
 
   [UPDATE](id, { data, order }) {
     if (!this.userId) throw new Meteor.Error('not-authorized');
-    return Components.update({ _id: id }, { $set: { data, order } });
+    const component = Components.findOne({ _id: id });
+    const updatedData = { ...(component ? component.data : {}), ...data };
+    return Components.update({ _id: id }, { $set: { data: updatedData, order } });
   },
 
   [REMOVE](id) {
